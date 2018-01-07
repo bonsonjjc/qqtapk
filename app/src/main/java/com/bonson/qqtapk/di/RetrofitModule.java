@@ -9,6 +9,7 @@ import com.bonson.qqtapk.model.data.lesson.LessonServer;
 import com.bonson.qqtapk.model.data.limit.LimitServer;
 import com.bonson.qqtapk.model.data.member.MemberServer;
 import com.bonson.qqtapk.model.data.mode.ModeServer;
+import com.bonson.qqtapk.model.data.ring.RingServer;
 import com.bonson.qqtapk.model.data.route.RouteServer;
 import com.bonson.qqtapk.model.data.user.UserServer;
 import com.google.gson.Gson;
@@ -93,6 +94,12 @@ public abstract class RetrofitModule {
     @ActivityScope
     static FlowerServer flowerServer(Retrofit retrofit) {
         return retrofit.create(FlowerServer.class);
+    }
+
+    @Provides
+    @ActivityScope
+    static RingServer ringServer(Retrofit retrofit) {
+        return retrofit.create(RingServer.class);
     }
 
 }

@@ -26,6 +26,8 @@ import com.bonson.qqtapk.view.ui.mode.ModeActivity;
 import com.bonson.qqtapk.view.ui.mode.ModeModule;
 import com.bonson.qqtapk.view.ui.register.RegisterActivity;
 import com.bonson.qqtapk.view.ui.register.RegisterModule;
+import com.bonson.qqtapk.view.ui.ring.RingActivity;
+import com.bonson.qqtapk.view.ui.ring.RingModule;
 import com.bonson.qqtapk.view.ui.route.RouteActivity;
 import com.bonson.qqtapk.view.ui.route.RouteModule;
 import com.bonson.qqtapk.view.ui.setting.SettingActivity;
@@ -161,5 +163,10 @@ abstract class ActivityModule {
     @ActivityScope
     @ContributesAndroidInjector(modules = {InfoModule.class, RetrofitModule.class})
     abstract InfoActivity infoActivity();
+
+
+    @ActivityScope
+    @ContributesAndroidInjector(modules = {RingModule.class, RetrofitModule.class})
+    abstract RingActivity ringActivity();
 
 }

@@ -26,6 +26,7 @@ public class VoiceActivity extends BaseDaggerActivity {
         binding.toolbar.getTvLeft().setOnClickListener(v -> {
             finish();
         });
+        viewModel.setView(this);
     }
 
     @Override

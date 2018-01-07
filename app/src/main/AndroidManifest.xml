@@ -64,13 +64,14 @@
         <activity android:name=".view.ui.route.RouteActivity" />
         <activity android:name=".view.ui.limit.LimitActivity" />
         <activity android:name=".view.ui.voice.VoiceActivity" />
+        <activity android:name=".view.ui.info.InfoActivity" />
+        <activity android:name=".view.ui.ring.RingActivity" />
 
         <activity android:name=".view.ui.setting.SettingActivity" />
         <activity android:name=".view.ui.setting.notify.NotifyActivity" />
         <activity android:name=".view.ui.setting.password.PasswordActivity" />
         <activity android:name=".view.ui.setting.about.AboutActivity" />
         <activity android:name=".view.ui.setting.map.MapActivity" />
-        <activity android:name=".view.ui.info.InfoActivity" />
     </application>
 
 </manifest>
