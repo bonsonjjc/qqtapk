@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.bonson.qqtapk.view.ui.limit.LimitViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.bonson.resource.view.MToolbar
+            android:id="@+id/toolbar"
+            style="@style/Toolbar">
+
+            <include layout="@layout/toolbar" />
+        </com.bonson.resource.view.MToolbar>
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:text="@string/limit_detail"
+            android:textColor="#717171"
+            android:textSize="14sp" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_height"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|start"
+                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
+                android:text="呼入限制" />
+
+            <com.bonson.resource.view.SwitchButton
+                style="@style/SwitchButton"
+                android:layout_gravity="center_vertical|end"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:checked="@={viewModel.open}" />
+        </FrameLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="20dp"
+            android:limits="@{viewModel.limits}"
+            app:layoutManager="LinearLayoutManager" />
+    </LinearLayout>
+</layout>

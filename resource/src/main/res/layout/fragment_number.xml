@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:clickable="true"
+    android:orientation="vertical"
+    >
+  <com.bonson.comm.view.MyToolbar
+      android:id="@id/toolbar"
+      style="@style/Toolbar"
+      />
+  <View
+      android:layout_marginTop="20dp"
+      style="@style/Line"
+      />
+
+  <EditText
+      android:id="@+id/edt_mobile"
+      android:hint="@string/hint_mobile"
+      style="@style/EditText.Phone"
+      />
+
+  <View style="@style/Line"/>
+
+  <EditText
+      android:id="@+id/edt_name"
+      android:hint="@string/hint_name"
+      android:inputType="text"
+      style="@style/EditText"
+      />
+
+  <View style="@style/Line"/>
+
+</LinearLayout>

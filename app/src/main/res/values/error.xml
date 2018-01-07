@@ -1,0 +1,24 @@
+<resources>
+  <string name="result_error_1">账号或密码错误</string>
+  <string name="result_error_2">服务器无响应</string>
+  <string name="result_error_3">验证码错误</string>
+  <string name="result_error_4">验证码已失效</string>
+  <string name="result_error_5">验证码发送次数超过限制</string>
+  <string name="result_error_6">旧密码错误</string>
+  <string name="result_error_7">数据异常,请重试</string>
+  <string name="result_error_8">已经绑定过了，请不要重复扫描</string>
+  <string name="result_error_9">手机号码已存在</string>
+  <string name="result_error_10">用户已被禁用</string>
+  <string name="result_error_11">手机号码尚未注册</string>
+  <string name="result_error_12">定位失败</string>
+  <string name="result_error_13">通讯录设置最多为50个</string>
+  <string name="result_error_14">终端未同步，请保持终端通讯正常后再试!</string>
+  <string name="result_error_15">@string/result_error_14</string>
+  <string name="result_error_16">您没有绑定权限，请联系终端的管理员邀请您为家庭成员</string>
+  <string name="result_error_17">您没有绑定权限，请联系终端的管理员邀请您为家庭成员</string>
+  <string name="result_error_18">家庭成员人数已达到上限</string>
+  <string name="result_error_19">该设备已被其他用户绑定</string>
+  <string name="result_error_20">超过呼入限制联系人上限人数</string>
+  <string name="result_error_21">串号不存在</string>
+  <string name="result_error_22">宝贝手机已被绑定</string>
+</resources>

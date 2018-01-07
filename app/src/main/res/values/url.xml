@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="url_forget">com.bonson.qqtapk.view.forget.ForgetActivity</string>
+  <string name="url_register">com.bonson.qqtapk.view.register.RegisterActivity</string>
+  <string name="url_main">com.bonson.qqtapk.view.index.IndexActivity</string>
+</resources>

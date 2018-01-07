@@ -1,0 +1,197 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "22ba11942726d26176b3eaf429d65f3a",
+    "entities": [
+      {
+        "tableName": "babys",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`fid` TEXT NOT NULL, `fname` TEXT, `fimg` TEXT, `faccount` TEXT, `fpasswd` TEXT, `fuser` TEXT, `fimei` TEXT, `frelative` TEXT, `fsex` TEXT, `fbirth` TEXT, `fheight` TEXT, `fweight` TEXT, `fisadmin` TEXT, `fbtname` TEXT, `ftmobile` TEXT, `fprovince` TEXT, `fcity` TEXT, `farea` TEXT, `fareaname` TEXT, `fmenus` TEXT, `ftag` TEXT, `furl` TEXT, PRIMARY KEY(`fid`))",
+        "fields": [
+          {
+            "fieldPath": "fid",
+            "columnName": "fid",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "fname",
+            "columnName": "fname",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "fimg",
+            "columnName": "fimg",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "faccount",
+            "columnName": "faccount",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "fpasswd",
+            "columnName": "fpasswd",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "fuser",
+            "columnName": "fuser",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "fimei",
+            "columnName": "fimei",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "frelative",
+            "columnName": "frelative",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "fsex",
+            "columnName": "fsex",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "fbirth",
+            "columnName": "fbirth",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "fheight",
+            "columnName": "fheight",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "fweight",
+            "columnName": "fweight",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "fisadmin",
+            "columnName": "fisadmin",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "fbtname",
+            "columnName": "fbtname",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "ftmobile",
+            "columnName": "ftmobile",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "fprovince",
+            "columnName": "fprovince",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "fcity",
+            "columnName": "fcity",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "farea",
+            "columnName": "farea",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "fareaname",
+            "columnName": "fareaname",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "fmenus",
+            "columnName": "fmenus",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "ftag",
+            "columnName": "ftag",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "furl",
+            "columnName": "furl",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "fid"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "users",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`userId` TEXT NOT NULL, `mobile` TEXT, `password` TEXT, `auto` INTEGER, PRIMARY KEY(`userId`))",
+        "fields": [
+          {
+            "fieldPath": "userId",
+            "columnName": "userId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mobile",
+            "columnName": "mobile",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "password",
+            "columnName": "password",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "auto",
+            "columnName": "auto",
+            "affinity": "INTEGER",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "userId"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"22ba11942726d26176b3eaf429d65f3a\")"
+    ]
+  }
+}

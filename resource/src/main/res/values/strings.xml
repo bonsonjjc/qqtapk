@@ -1,0 +1,7 @@
+<resources>
+  <string name="app_name">comm</string>
+  <string name="hint_mobile">输入家长号码</string>
+  <string name="hint_name">输入名称</string>
+  <string name="error_name_empty">请输入名称</string>
+  <string name="error_mobile_empty">请输入手机号码</string>
+</resources>

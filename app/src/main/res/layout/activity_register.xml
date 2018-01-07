@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.bonson.qqtapk.view.ui.register.RegisterViewModel" />
+
+        <variable
+            name="verifyViewModel"
+            type="com.bonson.qqtapk.view.ui.register.VerifyViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.bonson.resource.view.MToolbar
+            android:id="@+id/toolbar"
+            style="@style/Toolbar">
+
+            <include layout="@layout/toolbar" />
+        </com.bonson.resource.view.MToolbar>
+
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <ImageView
+                    style="@style/LogoImage"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="40dp"
+                    android:layout_marginTop="40dp"
+                    android:src="@drawable/logo" />
+
+                <View style="@style/Line" />
+
+                <EditText
+                    android:id="@+id/edt_mobile"
+                    style="@style/EditText.Phone"
+                    android:hint="@string/hint_mobile"
+                    android:text="@={viewModel.mobile}" />
+
+                <View style="@style/Line" />
+
+                <View
+                    style="@style/Line"
+                    android:layout_marginTop="20dp" />
+
+                <EditText
+                    android:id="@+id/edt_password"
+                    style="@style/EditText.Password"
+                    android:hint="@string/hint_password"
+                    android:text="@={viewModel.password}" />
+
+                <View style="@style/Line" />
+
+                <View
+                    style="@style/Line"
+                    android:layout_marginTop="20dp" />
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/edt_verify_code"
+                        style="@style/EditText.Phone"
+                        android:hint="@string/hint_verify_code"
+                        android:maxLength="6"
+                        android:text="@={viewModel.verify}" />
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginRight="10dp"
+                        android:background="@drawable/btn_verify"
+                        android:enabled="@{verifyViewModel.verifyEnable}"
+                        android:onClick="@{()->verifyViewModel.verify(viewModel.mobile,1)}"
+                        android:paddingBottom="5dp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:paddingTop="5dp"
+                        android:text="@={verifyViewModel.verifyText}"
+                        android:textColor="@color/white" />
+                </RelativeLayout>
+
+                <View style="@style/Line" />
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginTop="20dp">
+
+                    <CheckBox
+                        android:id="@+id/ck_protocol"
+                        style="@style/CheckBox"
+                        android:checked="@={viewModel.agree}"
+                        android:text="@string/read_and_agree" />
+
+                    <TextView
+                        android:id="@+id/tv_user_protocol"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/user_protocol"
+                        android:textColor="@color/theme"
+                        android:textSize="15sp" />
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/btn_register"
+                    style="@style/BtnLogin"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:onClick="@{()->viewModel.register()}"
+                    android:text="@string/register" />
+            </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
+    </LinearLayout>
+</layout>

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.bonson.qqtapk.view.ui.setting.notify.NotifyViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.bonson.resource.view.MToolbar
+            android:id="@+id/toolbar"
+            style="@style/Toolbar">
+
+            <include layout="@layout/toolbar" />
+        </com.bonson.resource.view.MToolbar>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_height"
+            android:layout_marginTop="20dp"
+            android:background="@color/white"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|start"
+                android:text="接收通知" />
+
+            <com.bonson.resource.view.SwitchButton
+                style="@style/SwitchButton"
+                android:layout_gravity="center_vertical|end"
+                android:checked="@{viewModel.notify}" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_height"
+            android:background="@color/white"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|start"
+                android:text="声音" />
+
+            <com.bonson.resource.view.SwitchButton
+                style="@style/SwitchButton"
+                android:layout_gravity="center_vertical|end"
+                android:checked="@{viewModel.voice}" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_height"
+            android:background="@color/white"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|start"
+                android:text="振动" />
+
+            <com.bonson.resource.view.SwitchButton
+                style="@style/SwitchButton"
+                android:layout_gravity="center_vertical|end"
+                android:checked="@{viewModel.vibrate}" />
+        </FrameLayout>
+
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_height"
+            android:layout_marginBottom="0.5dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/item_selector"
+            android:onClick="@{()->viewModel.sleepTime()}">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:maxLines="1"
+                android:text="休眠时间" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|end"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:drawableEnd="@drawable/ico_arrow_right"
+                android:drawablePadding="4dp"
+                android:drawableRight="@drawable/ico_arrow_right"
+                android:maxLines="1"
+                android:text="@{viewModel.sleepTime}"
+                android:textColor="#919191"
+                android:textSize="14.5sp"
+                tools:text="13598452121" />
+        </FrameLayout>
+    </LinearLayout>
+</layout>
