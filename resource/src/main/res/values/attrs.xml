@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <declare-styleable name="SwitchButton">
+    <attr format="reference|color" name="tintColor"/>
+    <attr format="reference|dimension" name="outerStrokeWidth"/>
+    <attr format="reference|dimension" name="shadowSpace"/>
+  </declare-styleable>
+</resources>

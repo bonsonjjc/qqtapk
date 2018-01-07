@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/tv_name"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/item_height"
+    android:layout_marginLeft="8dp"
+    android:layout_marginRight="8dp"
+    android:background="@drawable/btn_login"
+    android:clickable="true"
+    android:gravity="center"
+    android:textColor="@color/white"
+    tools:text="退出"
+    />

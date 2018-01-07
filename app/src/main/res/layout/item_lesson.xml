@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="com.bonson.qqtapk.utils.TimeUtils" />
+
+        <variable
+            name="lesson"
+            type="com.bonson.qqtapk.model.bean.Lesson" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_height"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|start"
+            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
+            android:text="@{TimeUtils.mapTime(lesson.fbegin,lesson.fend)}"
+            tools:text="18:45 ~ 20:39" />
+
+        <com.bonson.resource.view.SwitchButton
+            style="@style/SwitchButton"
+            android:layout_gravity="center_vertical|end"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:checked="@{lesson.open}" />
+    </FrameLayout>
+</layout>

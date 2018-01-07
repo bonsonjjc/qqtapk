@@ -1,0 +1,54 @@
+<resources>
+    <string name="app_name">qqtapk</string>
+
+
+    <!-- 登录-->
+
+    <string name="login">登录</string>
+
+    <string name="hint_mobile">输入家长号码</string>
+    <string name="hint_password">输入密码</string>
+    <string name="remember_password">记住密码</string>
+    <string name="forget_password">忘记密码</string>
+    <string name="now_register">没有账号,立即注册</string>
+
+    <string name="error_mobile_empty">请输入手机号码</string>
+    <string name="error_password_empty">请输入密码</string>
+    <string name="error_account_or_password">账号或密码错误</string>
+    <string name="error_no_baby">您还没有宝贝</string>
+    <!---->
+
+    <!--注册-->
+    <string name="register">注册</string>
+
+    <string name="hint_verify_code">输入验证码</string>
+    <string name="verify">获取</string>
+    <string name="read_and_agree">已阅读并同意</string>
+    <string name="user_protocol">用户协议</string>
+    <string name="send_verify_success">验证码已送过,请注意查收</string>
+
+    <string name="error_password_length">密码长度小于6位</string>
+    <string name="error_mobile_format">您输入的手机号码格式错误</string>
+    <string name="error_verify_code_empty">请输入验证码</string>
+    <string name="error_no_read_and_agree_user_protocol">您没有同意用户协议</string>
+    <string name="second">秒</string>
+    <!---->
+
+    <!--找回密码-->
+    <string name="find_password">找回密码</string>
+    <string name="commit_application">提交申请</string>
+    <string name="reset_password">重置密码</string>
+
+    <string name="hint_old_password">输入旧密码</string>
+    <string name="hint_new_password">输入新密码</string>
+    <string name="hint_again_password">再次输入密码</string>
+
+    <string name="error_old_password_empty">请输入旧密码</string>
+    <string name="error_new_password_empty">请输入新密码</string>
+    <string name="error_again_password_empty">请再次输入密码</string>
+    <string name="error_password_not_equal">二次密码不一致</string>
+    <string name="error_old_and_new_equal">新密码不能与旧密码相同</string>
+    <!---->
+
+    <string name="limit_detail">呼入限制功能可拦截陌生来电，以及允许您所设置的呼入号码,在对应的时间段内与您的孩子进行通话。注：亲情号码不受限制。</string>
+</resources>
