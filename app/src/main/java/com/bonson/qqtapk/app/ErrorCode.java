@@ -160,8 +160,10 @@ public class ErrorCode {
                 return App.context.getString(R.string.result_error_19);
             case IMEI_NOT_EXIST:
                 return App.context.getString(R.string.result_error_20);
+            case BABY_PHONE_ALREADY_BINDING:
+                return App.context.getString(R.string.result_error_22);
             default:
-                return App.context.getString(R.string.result_error_21);
+                return App.context.getString(R.string.result_error_7);
         }
     }
 }

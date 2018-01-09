@@ -21,7 +21,6 @@ import javax.inject.Inject;
 @ActivityScope
 public class PhoneFragment extends BaseFragment {
     PhoneViewModel viewModel;
-
     FragmentPhoneBinding binding;
 
     @Inject
@@ -39,7 +38,7 @@ public class PhoneFragment extends BaseFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         binding.setViewModel(viewModel);
-        binding.toolbar.getTvLeft().setOnClickListener(v -> getActivity().onBackPressed());
+        binding.toolbar.getTvLeft().setOnClickListener(v -> back());
     }
 
     public PhoneViewModel getViewModel() {

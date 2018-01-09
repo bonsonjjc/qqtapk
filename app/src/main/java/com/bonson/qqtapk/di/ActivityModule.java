@@ -16,8 +16,8 @@ import com.bonson.qqtapk.view.ui.info.InfoActivity;
 import com.bonson.qqtapk.view.ui.info.InfoModule;
 import com.bonson.qqtapk.view.ui.lesson.LessonActivity;
 import com.bonson.qqtapk.view.ui.lesson.LessonModule;
-import com.bonson.qqtapk.view.ui.limit.LimitActivity;
-import com.bonson.qqtapk.view.ui.limit.LimitModule;
+import com.bonson.qqtapk.view.ui.limits.LimitsActivity;
+import com.bonson.qqtapk.view.ui.limits.LimitsModule;
 import com.bonson.qqtapk.view.ui.login.LoginActivity;
 import com.bonson.qqtapk.view.ui.login.LoginModule;
 import com.bonson.qqtapk.view.ui.member.MemberActivity;
@@ -100,8 +100,8 @@ abstract class ActivityModule {
     abstract RouteActivity routeActivity();
 
     @ActivityScope
-    @ContributesAndroidInjector(modules = {LimitModule.class, RetrofitModule.class})
-    abstract LimitActivity limitActivity();
+    @ContributesAndroidInjector(modules = {LimitsModule.class, RetrofitModule.class})
+    abstract LimitsActivity limitActivity();
 
     @ActivityScope
     @ContributesAndroidInjector(modules = {VoiceModule.class, RetrofitModule.class})

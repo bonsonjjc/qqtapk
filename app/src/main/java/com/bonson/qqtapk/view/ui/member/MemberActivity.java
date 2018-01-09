@@ -23,9 +23,6 @@ public class MemberActivity extends BaseDaggerActivity {
     MemberViewModel viewModel;
 
     @Inject
-    PhoneViewModel inputViewModel;
-
-    @Inject
     PhoneFragment inputFragment;
 
     @Inject
@@ -38,7 +35,6 @@ public class MemberActivity extends BaseDaggerActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ActivityMemberBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_member);
-        binding.setViewModel(viewModel);
         binding.toolbar.setTitle("家庭成员");
         binding.toolbar.getTvLeft().setOnClickListener(v -> finish());
         binding.toolbar.setRightText("邀请");
@@ -47,26 +43,18 @@ public class MemberActivity extends BaseDaggerActivity {
         });
         binding.recMember.setAdapter(memberAdapter);
         binding.recMember.addItemDecoration(itemDecoration);
-        memberAdapter.setOnItemClickListener(position -> {
-            if (!viewModel.isAdmin(position)) {
+        memberAdapter.setOnItemClickListener(p -> {
+            if (!viewModel.isAdmin(p)) {
                 toast("有权限");
-            } else if (!viewModel.isSelf(position)) {
+            } else if (!viewModel.isSelf(p)) {
                 toast("只能修改");
             }
-            Member member = viewModel.members.get(position);
-            inputFragment.setViewModel(inputViewModel);
+            inputFragment.setViewModel(viewModel.modify(p));
             getSupportFragmentManager()
                     .beginTransaction()
                     .add(android.R.id.content, inputFragment)
                     .addToBackStack("member")
                     .commit();
-            inputViewModel.title.set("编辑家庭成员");
-            inputViewModel.right.set("保存");
-            inputViewModel.mobileEnable.set(false);
-            inputViewModel.mobileHint.set("输入手机号码");
-            inputViewModel.mobile.set(member.getFmobile());
-            inputViewModel.nameHint.set("输入名称");
-            inputViewModel.name.set(member.getFname());
         });
         binding.setViewModel(viewModel);
         viewModel.setView(this);

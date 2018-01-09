@@ -42,5 +42,6 @@ public class ContactAdapter extends BaseAdapter<Contact, ItemContactBinding> {
                 onItemClickListener.itemClick(position);
             }
         });
+        holder.itemView.setOnLongClickListener(v -> null != onItemLongClickListener && onItemLongClickListener.itemLongClick(position));
     }
 }

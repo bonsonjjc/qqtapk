@@ -1,6 +1,7 @@
 package com.bonson.qqtapk.view.ui.contacts;
 
 import android.app.Application;
+import android.databinding.ObservableArrayList;
 import android.text.TextUtils;
 
 import com.bonson.qqtapk.di.ActivityScope;
@@ -11,7 +12,6 @@ import com.bonson.qqtapk.view.ui.contacts.phone.PhoneViewModel;
 import com.bonson.resource.activity.BaseView;
 import com.bonson.resource.viewmodel.AndroidViewModel;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -27,28 +27,19 @@ public class ContactsViewModel extends AndroidViewModel {
     private ContactsModel contactsModel;
     private BaseView view;
 
-    private List<Contact> contacts = new ArrayList<>();
+    public List<Contact> contacts = new ObservableArrayList<>();
 
-    private PhoneViewModel phoneViewModel;
+    private PhoneViewModel viewModel;
 
     @Inject
     ContactsViewModel(Application application, ContactsModel contactsModel, PhoneViewModel phoneViewModel) {
         super(application);
-        this.phoneViewModel = phoneViewModel;
+        this.viewModel = phoneViewModel;
         this.contactsModel = contactsModel;
     }
 
     public void setView(BaseView view) {
         this.view = view;
-    }
-
-    public List<Contact> getContacts() {
-        return contacts;
-    }
-
-    public void setContacts(List<Contact> contacts) {
-        this.contacts.addAll(contacts);
-        notifyChange();
     }
 
     public void contacts() {
@@ -61,7 +52,8 @@ public class ContactsViewModel extends AndroidViewModel {
                 .subscribe(it -> {
                     view.toast(it.getMsg());
                     if (it.getCode().equals("0")) {
-                        setContacts(it.getBody());
+                        contacts.addAll(it.getBody());
+                        notifyChange();
                     }
                 }, e -> {
                     view.toast("出错了");
@@ -70,38 +62,55 @@ public class ContactsViewModel extends AndroidViewModel {
     }
 
     public PhoneViewModel initFragment() {
-        phoneViewModel.mobileHint.set("输入号码");
-        phoneViewModel.nameHint.set("输入名称");
-        phoneViewModel.mobile.set("");
-        phoneViewModel.name.set("");
+        viewModel.mobileHint.set("输入号码");
+        viewModel.nameHint.set("输入名称");
+        viewModel.mobile.set("");
+        viewModel.name.set("");
 
-        phoneViewModel.title.set("添加联系人");
-        phoneViewModel.right.set("保存");
-        phoneViewModel.setOnPhoneListener(() -> {
-            if (TextUtils.isEmpty(phoneViewModel.name.get())) {
-
+        viewModel.title.set("添加联系人");
+        viewModel.right.set("保存");
+        viewModel.setOnPhoneListener(() -> {
+            if (TextUtils.isEmpty(viewModel.name.get())) {
+                view.toast("请输入名称");
+                return;
+            }
+            if (TextUtils.isEmpty(viewModel.mobile.get())) {
+                view.toast("请输入号码");
+                return;
             }
             Contact contact = new Contact();
             contact.setBid(Baby.baby.getFid());
-            contact.setFmobile(phoneViewModel.mobile.get());
-            contact.setFname(phoneViewModel.name.get());
+            contact.setFmobile(viewModel.mobile.get());
+            contact.setFname(viewModel.name.get());
             add(contact);
         });
-        return phoneViewModel;
+        return viewModel;
     }
 
     public PhoneViewModel initFragment(int position) {
-        phoneViewModel.mobileHint.set("输入号码");
-        phoneViewModel.nameHint.set("输入名称");
-        phoneViewModel.title.set("修改联系人");
-        phoneViewModel.right.set("保存");
+        viewModel.mobileHint.set("输入号码");
+        viewModel.nameHint.set("输入名称");
+        viewModel.title.set("修改联系人");
+        viewModel.right.set("保存");
         Contact contact = this.contacts.get(position);
         contact.setBid(Baby.baby.getFid());
-        phoneViewModel.mobile.set(contact.getFmobile());
-        phoneViewModel.name.set(contact.getFname());
-        phoneViewModel.what = position;
-        phoneViewModel.setOnPhoneListener(() -> update(position, contact));
-        return phoneViewModel;
+        viewModel.mobile.set(contact.getFmobile());
+        viewModel.name.set(contact.getFname());
+        viewModel.what = position;
+        viewModel.setOnPhoneListener(() -> {
+            if (TextUtils.isEmpty(viewModel.name.get())) {
+                view.toast("请输入名称");
+                return;
+            }
+            if (TextUtils.isEmpty(viewModel.mobile.get())) {
+                view.toast("请输入号码");
+                return;
+            }
+            contact.setFname(viewModel.name.get());
+            contact.setFmobile(viewModel.mobile.get());
+            update(position, contact);
+        });
+        return viewModel;
     }
 
     public void add(Contact contact) {
@@ -115,6 +124,8 @@ public class ContactsViewModel extends AndroidViewModel {
                     if (it.getCode().equals("0")) {
                         view.toast("添加" + it.getMsg());
                         contacts.add(it.getBody());
+                        notifyChange();
+                        view.back();
                     } else {
                         view.toast(it.getMsg());
                     }
@@ -129,12 +140,15 @@ public class ContactsViewModel extends AndroidViewModel {
             view.toast("网络不可用");
             return;
         }
-        Disposable disposable = contactsModel.delete(contacts.get(position))
+        Contact contact = contacts.get(position);
+        contact.setBid(Baby.baby.getFid());
+        Disposable disposable = contactsModel.delete(contact)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(it -> {
                     if (it.getCode().equals("0")) {
                         view.toast("删除" + it.getMsg());
                         contacts.remove(position);
+                        notifyChange();
                     } else {
                         view.toast(it.getMsg());
                     }
@@ -155,6 +169,8 @@ public class ContactsViewModel extends AndroidViewModel {
                     if (it.getCode().equals("0")) {
                         view.toast("修改" + it.getMsg());
                         contacts.set(position, contact);
+                        notifyChange();
+                        view.back();
                     } else {
                         view.toast(it.getMsg());
                     }

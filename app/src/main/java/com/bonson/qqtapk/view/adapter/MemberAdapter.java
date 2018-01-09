@@ -41,5 +41,6 @@ public class MemberAdapter extends BaseAdapter<Member, ItemMemberBinding> {
                 onItemClickListener.itemClick(position);
             }
         });
+        holder.itemView.setOnLongClickListener(v -> null != onItemLongClickListener && onItemLongClickListener.itemLongClick(position));
     }
 }

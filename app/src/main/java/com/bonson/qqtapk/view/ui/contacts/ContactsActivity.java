@@ -21,7 +21,7 @@ public class ContactsActivity extends BaseDaggerActivity {
     ContactsViewModel viewModel;
 
     @Inject
-    PhoneFragment inputFragment;
+    PhoneFragment phoneFragment;
 
     @Inject
     ContactAdapter adapter;
@@ -37,24 +37,28 @@ public class ContactsActivity extends BaseDaggerActivity {
         binding.toolbar.getTvLeft().setOnClickListener(v -> finish());
         binding.toolbar.setRightText("添加");
         binding.toolbar.getTvRight().setOnClickListener(v -> {
-            inputFragment.setViewModel(viewModel.initFragment());
+            phoneFragment.setViewModel(viewModel.initFragment());
             getSupportFragmentManager()
                     .beginTransaction()
-                    .add(android.R.id.content, inputFragment)
+                    .add(android.R.id.content, phoneFragment)
                     .addToBackStack("contacts")
                     .commit();
         });
         binding.recContacts.setAdapter(adapter);
         binding.recContacts.addItemDecoration(itemDecoration);
         adapter.setOnItemClickListener(v -> {
-                    inputFragment.setViewModel(viewModel.initFragment(v));
+                    phoneFragment.setViewModel(viewModel.initFragment(v));
                     getSupportFragmentManager()
                             .beginTransaction()
-                            .add(android.R.id.content, inputFragment)
+                            .add(android.R.id.content, phoneFragment)
                             .addToBackStack("contacts")
                             .commit();
                 }
         );
+        adapter.setOnItemLongClickListener(v -> {
+            viewModel.delete(v);
+            return true;
+        });
         binding.setViewModel(viewModel);
         viewModel.setView(this);
         viewModel.contacts();

@@ -19,7 +19,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
  */
 
 public class LimitModel {
-    LimitServer server;
+    private LimitServer server;
 
     @Inject
     public LimitModel(LimitServer limitServer) {
@@ -43,7 +43,7 @@ public class LimitModel {
                         result.setBody(limits);
                         result.setMsg("获取成功");
                     }
-                    return null;
+                    return result;
                 });
     }
 
@@ -67,7 +67,7 @@ public class LimitModel {
                         result.setCode("-1");
                         result.setMsg(ErrorCode.message(inLimit.getFresult()));
                     }
-                    return null;
+                    return result;
                 });
     }
 
@@ -98,7 +98,7 @@ public class LimitModel {
                         result.setCode("-1");
                         result.setMsg(ErrorCode.message(inLimit.getFresult()));
                     }
-                    return null;
+                    return result;
                 });
     }
 
@@ -123,7 +123,7 @@ public class LimitModel {
                         result.setCode("-1");
                         result.setMsg(ErrorCode.message(inLimit.getFresult()));
                     }
-                    return null;
+                    return result;
                 });
     }
 
@@ -137,7 +137,7 @@ public class LimitModel {
         map.put("ffbegin", limit.getFfbegin());
         map.put("ffend", limit.getFfend());
         map.put("fcstate", limit.getFcstate());
-        map.put("foptype", "3");
+        map.put("foptype", "1");
         Object args = QQtBuilder.build("48", map);
         return server.limits(args)
                 .subscribeOn(io.reactivex.schedulers.Schedulers.io())
@@ -153,7 +153,7 @@ public class LimitModel {
                         result.setCode("-1");
                         result.setMsg(ErrorCode.message(inLimit.getFresult()));
                     }
-                    return null;
+                    return result;
                 });
     }
 }

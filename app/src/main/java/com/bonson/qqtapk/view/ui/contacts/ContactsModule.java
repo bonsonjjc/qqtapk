@@ -34,7 +34,7 @@ public abstract class ContactsModule {
     @ActivityScope
     @Provides
     static ContactAdapter providesAdapter(Context context, ContactsViewModel viewModel) {
-        return new ContactAdapter(context, viewModel.getContacts());
+        return new ContactAdapter(context, viewModel.contacts);
     }
 
 }

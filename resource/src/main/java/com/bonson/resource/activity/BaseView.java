@@ -5,9 +5,11 @@ package com.bonson.resource.activity;
  */
 
 public interface BaseView {
-  void start(String url);
+    void start(String url);
 
-  void load();
+    void load();
 
-  void toast(String msg);
+    void back();
+
+    void toast(String msg);
 }

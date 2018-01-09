@@ -57,6 +57,11 @@ public abstract class BaseDaggerActivity extends DaggerAppCompatActivity impleme
         }
     }
 
+    @Override
+    public void back() {
+        onBackPressed();
+    }
+
     public int color(@ColorRes int resId) {
         return ActivityCompat.getColor(this, resId);
     }

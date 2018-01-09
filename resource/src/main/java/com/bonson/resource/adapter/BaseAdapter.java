@@ -36,6 +36,7 @@ public abstract class BaseAdapter<Bean, Binding extends ViewDataBinding> extends
     }
 
     protected OnItemClickListener onItemClickListener;
+    protected OnItemLongClickListener onItemLongClickListener;
 
     public OnItemClickListener getOnItemClickListener() {
         return onItemClickListener;
@@ -43,5 +44,13 @@ public abstract class BaseAdapter<Bean, Binding extends ViewDataBinding> extends
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
         this.onItemClickListener = onItemClickListener;
+    }
+
+    public OnItemLongClickListener getOnItemLongClickListener() {
+        return onItemLongClickListener;
+    }
+
+    public void setOnItemLongClickListener(OnItemLongClickListener onItemLongClickListener) {
+        this.onItemLongClickListener = onItemLongClickListener;
     }
 }

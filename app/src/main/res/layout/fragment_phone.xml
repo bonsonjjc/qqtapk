@@ -38,7 +38,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:drawablePadding="10dp"
-                    android:text="@={viewModel.title}"
+                    android:text="@{viewModel.title}"
                     android:textColor="@color/white"
                     android:textSize="20sp"
                     tools:text="缤纷运动" />
@@ -50,7 +50,7 @@
                     android:layout_gravity="end|center_vertical"
                     android:gravity="center_vertical"
                     android:onClick="@{(v)->viewModel.onSave()}"
-                    android:text="@={viewModel.right}"
+                    android:text="@{viewModel.right}"
                     android:textColor="@color/back_text"
                     tools:text="保存" />
             </FrameLayout>
@@ -67,7 +67,7 @@
             android:id="@+id/edt_name"
             style="@style/EditText.Phone"
             android:layout_marginTop="1dp"
-            android:enabled="@{viewModel.mobileEnable}"
+            android:focusable="@{viewModel.mobileEnable}"
             android:hint="@{viewModel.mobileHint}"
             android:text="@={viewModel.mobile}" />
 

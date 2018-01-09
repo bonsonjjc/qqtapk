@@ -3,8 +3,8 @@ package com.bonson.qqtapk.view.ui.contacts.phone;
 import android.app.Application;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
-import android.text.TextUtils;
 
+import com.bonson.resource.fragment.OnSaveListener;
 import com.bonson.resource.viewmodel.AndroidViewModel;
 
 import javax.inject.Inject;
@@ -40,13 +40,9 @@ public class PhoneViewModel extends AndroidViewModel {
         }
     }
 
-    private OnPhoneListener onPhoneListener;
+    private OnSaveListener onPhoneListener;
 
-    public void setOnPhoneListener(OnPhoneListener onPhoneListener) {
+    public void setOnPhoneListener(OnSaveListener onPhoneListener) {
         this.onPhoneListener = onPhoneListener;
-    }
-
-    public interface OnPhoneListener {
-        void onSave();
     }
 }
