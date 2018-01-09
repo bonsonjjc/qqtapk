@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="com.bonson.qqtapk.utils.TimeUtils" />
+
+        <import type="android.view.View" />
+
+        <import type="android.text.TextUtils" />
+
+        <variable
+            name="viewModel"
+            type="com.bonson.qqtapk.view.ui.limits.add.LimitViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background"
+        android:clickable="true"
+        android:orientation="vertical">
+
+        <com.bonson.resource.view.MToolbar
+            android:id="@+id/toolbar"
+            style="@style/Toolbar">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@id/bar_left_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start|center_vertical"
+                    android:drawableLeft="@drawable/back_selector"
+                    android:gravity="center_vertical"
+                    android:text="返回"
+                    android:textColor="@color/back_text" />
+
+                <TextView
+                    android:id="@id/bar_title_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:drawablePadding="10dp"
+                    android:text="@{viewModel.title}"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    tools:text="缤纷运动" />
+
+                <TextView
+                    android:id="@id/bar_right_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end|center_vertical"
+                    android:gravity="center_vertical"
+                    android:onClick="@{(v)->viewModel.onSave()}"
+                    android:text="保存"
+                    android:textColor="@color/back_text"
+                    tools:text="保存" />
+            </FrameLayout>
+        </com.bonson.resource.view.MToolbar>
+
+        <EditText
+            android:id="@+id/edt_mobile"
+            style="@style/EditText.Name"
+            android:layout_marginTop="20dp"
+            android:hint="@string/hint_name"
+            android:text="@={viewModel.limit.fname}" />
+
+        <EditText
+            android:id="@+id/edt_name"
+            style="@style/EditText.Phone"
+            android:layout_marginTop="1dp"
+            android:hint="@string/hint_mobile"
+            android:text="@={viewModel.limit.fmobile}" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:clickable="true"
+            android:text="设置该号码只有在以下时间段才能呼入"
+            android:textColor="#919191"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/tv_time_one"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_height"
+            android:layout_marginBottom="0.1dp"
+            android:background="@drawable/item_selector"
+            android:clickable="true"
+            android:drawableRight="@drawable/ico_arrow_right"
+            android:gravity="center_vertical"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:text="@{TimeUtils.mapTime(viewModel.limit.fbegin,viewModel.limit.fend)}" />
+
+        <TextView
+            android:id="@+id/tv_time_two"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_height"
+            android:background="@drawable/item_selector"
+            android:clickable="true"
+            android:drawableRight="@drawable/ico_arrow_right"
+            android:gravity="center_vertical"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:text="@{TimeUtils.mapTime(viewModel.limit.ffbegin,viewModel.limit.ffend)}" />
+
+        <TextView
+            android:id="@+id/tv_delete"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_height"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/item_selector"
+            android:clickable="true"
+            android:gravity="center"
+            android:onClick="@{()->viewModel.delete()}"
+            android:text="删除号码"
+            android:textColor="@color/red"
+            android:visibility='@{TextUtils.isEmpty(viewModel.limit.fid) ? View.GONE :View.VISIBLE}' />
+    </LinearLayout>
+
+</layout>
