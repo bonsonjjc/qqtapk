@@ -3,7 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
         <variable
             name="viewModel"
             type="com.bonson.qqtapk.view.ui.contacts.ContactsViewModel" />
@@ -22,6 +21,7 @@
         </com.bonson.resource.view.MToolbar>
 
         <android.support.v7.widget.RecyclerView
+            android:id="@+id/rec_contacts"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:contacts="@{viewModel.contacts}"

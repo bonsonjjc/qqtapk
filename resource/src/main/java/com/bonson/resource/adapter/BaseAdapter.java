@@ -1,36 +1,47 @@
 package com.bonson.resource.adapter;
 
+import android.content.Context;
+import android.databinding.ViewDataBinding;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 
+import com.bonson.resource.adapter.OnItemClickListener;
+import com.bonson.resource.fragment.ViewHolder;
+
+import java.util.List;
+
 /**
- * Created by zjw on 2017/11/15.
+ * Created by jiangjiancheng on 18/1/7.
  */
 
-public abstract class BaseAdapter<VH extends RecyclerView.ViewHolder>
-    extends RecyclerView.Adapter<VH> {
-  private LayoutInflater inflater;
+public abstract class BaseAdapter<Bean, Binding extends ViewDataBinding> extends RecyclerView.Adapter<ViewHolder<Binding>> {
+    protected List<Bean> beans;
+    protected LayoutInflater inflater;
 
-  protected BaseAdapter(LayoutInflater inflater) {
-    this.inflater = inflater;
-  }
+    public BaseAdapter(Context context, List<Bean> contacts) {
+        this.beans = contacts;
+        inflater = LayoutInflater.from(context);
 
-  private OnItemClickListener mOnItemClickListener;
-  private OnItemLongClickListener mOnItemLongClickListener;
+    }
 
-  public void setOnItemClickListener(OnItemClickListener mOnItemClickListener) {
-    this.mOnItemClickListener = mOnItemClickListener;
-  }
+    public void setBeans(List<Bean> beans) {
+        this.beans = beans;
+        notifyDataSetChanged();
+    }
 
-  public void setOnItemLongClickListener(OnItemLongClickListener onItemLongClickListener) {
-    this.mOnItemLongClickListener = onItemLongClickListener;
-  }
+    @Override
+    public int getItemCount() {
+        if (beans == null) return 0;
+        return beans.size();
+    }
 
-  public interface OnItemClickListener {
-    void onItemClick(int position, RecyclerView.ViewHolder holder);
-  }
+    protected OnItemClickListener onItemClickListener;
 
-  public interface OnItemLongClickListener {
-    boolean onItemLongClick(int position, RecyclerView.ViewHolder holder);
-  }
+    public OnItemClickListener getOnItemClickListener() {
+        return onItemClickListener;
+    }
+
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
+    }
 }

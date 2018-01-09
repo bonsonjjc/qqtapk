@@ -2,6 +2,9 @@ package com.bonson.qqtapk.view.binding;
 
 import android.content.res.Resources;
 import android.databinding.BindingAdapter;
+import android.graphics.drawable.Drawable;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.widget.ImageView;
 

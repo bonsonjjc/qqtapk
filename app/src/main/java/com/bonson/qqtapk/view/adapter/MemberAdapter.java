@@ -2,23 +2,26 @@ package com.bonson.qqtapk.view.adapter;
 
 import android.content.Context;
 import android.databinding.DataBindingUtil;
+import android.view.View;
 import android.view.ViewGroup;
 
 import com.bonson.qqtapk.R;
-import com.bonson.qqtapk.databinding.ItemFlowerBinding;
 import com.bonson.qqtapk.databinding.ItemMemberBinding;
 import com.bonson.qqtapk.model.bean.Member;
-import com.bonson.resource.fragment.BaseAdapter;
+import com.bonson.resource.adapter.BaseAdapter;
 import com.bonson.resource.fragment.ViewHolder;
 
 import java.util.List;
+
+import javax.inject.Inject;
 
 /**
  * Created by zjw on 2018/1/4.
  */
 
 public class MemberAdapter extends BaseAdapter<Member, ItemMemberBinding> {
-    public MemberAdapter(Context context, List<Member> contacts) {
+    @Inject
+   public MemberAdapter(Context context, List<Member> contacts) {
         super(context, contacts);
     }
 
@@ -33,5 +36,10 @@ public class MemberAdapter extends BaseAdapter<Member, ItemMemberBinding> {
         Member member = beans.get(position);
         holder.getBinding().setMember(member);
         holder.getBinding().executePendingBindings();
+        holder.itemView.setOnClickListener((View v) -> {
+            if (null != onItemClickListener) {
+                onItemClickListener.itemClick(position);
+            }
+        });
     }
 }

@@ -1,17 +1,10 @@
 package com.bonson.qqtapk.model.bean;
 
-import java.io.Serializable;
-
 /**
- * @类名: Member
- * @描述: 家庭成员列表实体类
- * @作者: Su
- * @日期: 2015年5月29日
+ * Created by jiangjiancheng on 17/12/31.
  */
-
 public class Member extends Base {
     private String fid;
-    private String fuser;
     private String fmobile;
     private String admin;
     private String fbid;
@@ -47,13 +40,6 @@ public class Member extends Base {
         return fbid;
     }
 
-    public String getFuser() {
-        return fuser;
-    }
-
-    public void setFuser(String fuser) {
-        this.fuser = fuser;
-    }
 
     public void setFbid(String fbid) {
         this.fbid = fbid;
@@ -87,7 +73,6 @@ public class Member extends Base {
     public String toString() {
         return "Member{" +
                 "fid='" + fid + '\'' +
-                ", fuser='" + fuser + '\'' +
                 ", fmobile='" + fmobile + '\'' +
                 ", admin='" + admin + '\'' +
                 ", fbid='" + fbid + '\'' +

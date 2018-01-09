@@ -6,8 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.bonson.qqtapk.R;
-import com.bonson.qqtapk.databinding.ItemLessonBinding;
-import com.bonson.qqtapk.model.bean.Lesson;
+import com.bonson.qqtapk.databinding.ItemContactBinding;
+import com.bonson.qqtapk.model.bean.Contact;
 import com.bonson.resource.adapter.BaseAdapter;
 import com.bonson.resource.fragment.ViewHolder;
 
@@ -19,22 +19,23 @@ import javax.inject.Inject;
  * Created by zjw on 2018/1/4.
  */
 
-public class LessonAdapter extends BaseAdapter<Lesson, ItemLessonBinding> {
+public class ContactAdapter extends BaseAdapter<Contact, ItemContactBinding> {
+
     @Inject
-   public LessonAdapter(Context context, List<Lesson> contacts) {
+    public ContactAdapter(Context context, List<Contact> contacts) {
         super(context, contacts);
     }
 
     @Override
-    public ViewHolder<ItemLessonBinding> onCreateViewHolder(ViewGroup parent, int viewType) {
-        ItemLessonBinding binding = DataBindingUtil.inflate(inflater, R.layout.item_lesson, parent, false);
+    public ViewHolder<ItemContactBinding> onCreateViewHolder(ViewGroup parent, int viewType) {
+        ItemContactBinding binding = DataBindingUtil.inflate(inflater, R.layout.item_contact, parent, false);
         return new ViewHolder<>(binding);
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder<ItemLessonBinding> holder, int position) {
-        Lesson lesson = beans.get(position);
-        holder.getBinding().setLesson(lesson);
+    public void onBindViewHolder(ViewHolder<ItemContactBinding> holder, int position) {
+        Contact contact = beans.get(position);
+        holder.getBinding().setContact(contact);
         holder.getBinding().executePendingBindings();
         holder.itemView.setOnClickListener((View v) -> {
             if (null != onItemClickListener) {

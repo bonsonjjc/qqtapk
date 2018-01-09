@@ -2,21 +2,25 @@ package com.bonson.qqtapk.view.adapter;
 
 import android.content.Context;
 import android.databinding.DataBindingUtil;
+import android.view.View;
 import android.view.ViewGroup;
 
 import com.bonson.qqtapk.R;
 import com.bonson.qqtapk.databinding.ItemFamilyBinding;
 import com.bonson.qqtapk.model.bean.Family;
-import com.bonson.resource.fragment.BaseAdapter;
+import com.bonson.resource.adapter.BaseAdapter;
 import com.bonson.resource.fragment.ViewHolder;
 
 import java.util.List;
+
+import javax.inject.Inject;
 
 /**
  * Created by jiangjiancheng on 18/1/7.
  */
 
 public class FamilyAdapter extends BaseAdapter<Family, ItemFamilyBinding> {
+    @Inject
     public FamilyAdapter(Context context, List<Family> contacts) {
         super(context, contacts);
     }
@@ -32,5 +36,10 @@ public class FamilyAdapter extends BaseAdapter<Family, ItemFamilyBinding> {
         Family family = beans.get(position);
         holder.getBinding().setFamily(family);
         holder.getBinding().executePendingBindings();
+        holder.itemView.setOnClickListener((View v) -> {
+            if (null != onItemClickListener) {
+                onItemClickListener.itemClick(position);
+            }
+        });
     }
 }

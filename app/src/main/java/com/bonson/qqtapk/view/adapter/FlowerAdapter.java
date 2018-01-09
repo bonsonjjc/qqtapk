@@ -5,13 +5,14 @@ import android.databinding.DataBindingUtil;
 import android.view.ViewGroup;
 
 import com.bonson.qqtapk.R;
-import com.bonson.qqtapk.databinding.ItemContacsBinding;
 import com.bonson.qqtapk.databinding.ItemFlowerBinding;
 import com.bonson.qqtapk.model.bean.Flower;
-import com.bonson.resource.fragment.BaseAdapter;
+import com.bonson.resource.adapter.BaseAdapter;
 import com.bonson.resource.fragment.ViewHolder;
 
 import java.util.List;
+
+import javax.inject.Inject;
 
 /**
  * Created by zjw on 2018/1/4.
@@ -19,7 +20,8 @@ import java.util.List;
 
 public class FlowerAdapter extends BaseAdapter<Flower, ItemFlowerBinding> {
 
-    public FlowerAdapter(Context context, List<Flower> contacts) {
+    @Inject
+   public FlowerAdapter(Context context, List<Flower> contacts) {
         super(context, contacts);
     }
 

@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <import type="android.text.TextUtils"/>
+        <import type="android.view.View"/>
         <variable
             name="member"
             type="com.bonson.qqtapk.model.bean.Member" />
@@ -24,6 +25,7 @@
             android:layout_marginTop="6dp"
             android:text="@{member.fname}"
             android:textColor="@color/black"
+            android:textSize="16sp"
             tools:text="爸爸" />
 
         <TextView
@@ -44,6 +46,7 @@
             android:id="@+id/tv_role"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginBottom="8dp"
@@ -53,8 +56,9 @@
             android:drawableEnd="@drawable/ico_arrow_right"
             android:drawablePadding="8dp"
             android:drawableRight="@drawable/ico_arrow_right"
+            android:text="管理员"
             android:textColor="#818181"
             android:textSize="14sp"
-            tools:text="管理员" />
+            android:visibility="@{TextUtils.equals(member.admin,member.fuid) ? View.VISIBLE : View.GONE}" />
     </RelativeLayout>
 </layout>

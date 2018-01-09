@@ -1,7 +1,7 @@
 package com.bonson.qqtapk.model.data.contacts;
 
 import com.bonson.qqtapk.app.ErrorCode;
-import com.bonson.qqtapk.model.bean.Contacts;
+import com.bonson.qqtapk.model.bean.Contact;
 import com.bonson.qqtapk.model.bean.Result;
 import com.bonson.qqtapk.utils.QQtBuilder;
 
@@ -27,16 +27,16 @@ public class ContactsModel {
         this.contactsServer = contactsServer;
     }
 
-    public Observable<Result<List<Contacts>>> contacts(String bid, int start, int pageSize) {
+    public Observable<Result<List<Contact>>> contacts(String bid, int start, int pageSize) {
         Map<String, String> map = new LinkedHashMap<>();
-        map.put("fbid", bid);
+        map.put("fid", bid);
         map.put("start", start + "");
         map.put("end", pageSize + "");
         Object body = QQtBuilder.build("07", map);
         return contactsServer.contacts(body)
                 .subscribeOn(Schedulers.io())
                 .map(it -> {
-                    Result<List<Contacts>> result = new Result<>();
+                    Result<List<Contact>> result = new Result<>();
                     if (it.isEmpty()) {
                         result.setCode("-1");
                         if (start == 0) {
@@ -53,54 +53,54 @@ public class ContactsModel {
                 });
     }
 
-    private Observable<Result<Contacts>> set(String type, Contacts contacts) {
+    private Observable<Result<Contact>> set(String type, Contact contact) {
         Map<String, String> map = new LinkedHashMap<>();
-        map.put("fid", contacts.getFid());
-        map.put("fbid", contacts.getBid());
-        map.put("fmobile", contacts.getFmobile());
-        map.put("fname", contacts.getFname());
+        map.put("fid", contact.getFid());
+        map.put("fbid", contact.getBid());
+        map.put("fmobile", contact.getFmobile());
+        map.put("fname", contact.getFname());
         map.put("foptype", type);
         Object args = QQtBuilder.build("16", map);
         return contactsServer.opelear(args)
                 .subscribeOn(io.reactivex.schedulers.Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .map(contactsList -> {
-                    Result<Contacts> result = new Result<>();
-                    Contacts inLimit = contactsList.get(0);
-                    if ("0".equals(inLimit.getFresult())) {
+                .map(it -> {
+                    Result<Contact> result = new Result<>();
+                    Contact bean = it.get(0);
+                    if ("0".equals(bean.getFresult())) {
                         result.setCode("0");
-                        result.setBody(inLimit);
+                        result.setBody(contact);
                         result.setMsg("联系人成功");
                     } else {
                         result.setCode("-1");
-                        result.setMsg(ErrorCode.message(inLimit.getFresult()));
+                        result.setMsg(ErrorCode.message(contact.getFresult()));
                     }
-                    return null;
+                    return result;
                 });
     }
 
-    public Observable<Result<Contacts>> add(Contacts contacts) {
+    public Observable<Result<Contact>> add(Contact contacts) {
         return set("1", contacts);
     }
 
 
-    public Observable<Result<Contacts>> update(Contacts contacts) {
+    public Observable<Result<Contact>> update(Contact contacts) {
         return set("3", contacts);
     }
 
-    public Observable<Result<Contacts>> delete(Contacts contacts) {
+    public Observable<Result<Contact>> delete(Contact contacts) {
         return set("2", contacts);
     }
 
-    public Observable<Result<Contacts>> add(String bid, List<Contacts> contacts) {
+    public Observable<Result<Contact>> add(String bid, List<Contact> list) {
         StringBuilder builder = new StringBuilder();
-        for (Contacts contact : contacts) {
+        for (Contact contact : list) {
             String fname = contact.getFname();
             fname = fname.length() > 4 ? fname.substring(0, 4) : fname;
             String fmobile = contact.getFmobile();
             fmobile = fmobile.replaceAll("(\\+86)?-?", "");
             builder.append(fmobile);
-            if (contacts.indexOf(contact) != contacts.size() - 1) {
+            if (list.indexOf(contact) != list.size() - 1) {
                 builder.append("|");
             }
         }
@@ -111,20 +111,19 @@ public class ContactsModel {
         return contactsServer.imports(args)
                 .subscribeOn(io.reactivex.schedulers.Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .map(contactsList -> {
-                    Result<Contacts> result = new Result<>();
-                    Contacts inLimit = contactsList.get(0);
-                    if ("0".equals(inLimit.getFresult())) {
+                .map(contacts -> {
+                    Result<Contact> result = new Result<>();
+                    Contact contact = contacts.get(0);
+                    if ("0".equals(contact.getFresult())) {
                         result.setCode("0");
-                        result.setBody(inLimit);
+                        result.setBody(contact);
                         result.setMsg("导入联系人成功");
                     } else {
                         result.setCode("-1");
-                        result.setMsg(ErrorCode.message(inLimit.getFresult()));
+                        result.setMsg(ErrorCode.message(contact.getFresult()));
                     }
                     return null;
                 });
     }
-
 
 }

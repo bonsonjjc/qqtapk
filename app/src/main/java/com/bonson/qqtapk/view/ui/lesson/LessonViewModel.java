@@ -1,7 +1,8 @@
 package com.bonson.qqtapk.view.ui.lesson;
 
 import android.app.Application;
-import android.databinding.ObservableField;
+import android.databinding.ObservableArrayList;
+import android.databinding.ObservableList;
 
 import com.bonson.qqtapk.di.ActivityScope;
 import com.bonson.qqtapk.model.bean.Baby;
@@ -15,13 +16,14 @@ import java.util.List;
 import javax.inject.Inject;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
 
 /**
  * Created by jiangjiancheng on 17/12/31.
  */
 @ActivityScope
 public class LessonViewModel extends AndroidViewModel {
-    private List<Lesson> lessons;
+    public final ObservableList<Lesson> lessons = new ObservableArrayList<>();
 
     private LessonModel lessonModel;
 
@@ -37,11 +39,6 @@ public class LessonViewModel extends AndroidViewModel {
         return lessons;
     }
 
-    public void setLessons(List<Lesson> lessons) {
-        this.lessons = lessons;
-        notifyChange();
-    }
-
     public BaseView getView() {
         return view;
     }
@@ -55,16 +52,18 @@ public class LessonViewModel extends AndroidViewModel {
             view.toast("网络不可用");
             return;
         }
-        lessonModel.lessons(Baby.baby.getFid())
+        Disposable disposable = lessonModel.lessons(Baby.baby.getFid())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(it -> {
                     view.toast(it.getMsg());
                     if (it.getCode().equals("0")) {
-                        setLessons(it.getBody());
+                        lessons.addAll(it.getBody());
+                        notifyChange();
                     }
                 }, e -> {
                     view.toast("出错了");
                 });
+        compositeDisposable.add(disposable);
     }
 
     public void update() {

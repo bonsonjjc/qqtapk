@@ -2,6 +2,8 @@ package com.bonson.qqtapk.view.ui.main;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.databinding.ObservableArrayList;
+import android.databinding.ObservableList;
 
 import com.bonson.qqtapk.app.Route;
 import com.bonson.qqtapk.model.bean.Baby;

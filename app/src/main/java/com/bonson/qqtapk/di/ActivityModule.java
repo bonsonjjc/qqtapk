@@ -46,39 +46,6 @@ import com.bonson.qqtapk.view.ui.voice.VoiceModule;
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
 
-/*import com.bonson.qqtapk.view.area.SafeAreaActivity;
-import com.bonson.qqtapk.view.area.SafeAreaModule;
-import com.bonson.qqtapk.view.contacts.ContactsActivity;
-import com.bonson.qqtapk.view.contacts.ContactsModule;
-import com.bonson.qqtapk.view.family.FamilyActivity;
-import com.bonson.qqtapk.view.family.FamilyModule;
-import com.bonson.qqtapk.view.flower.FlowerActivity;
-import com.bonson.qqtapk.view.flower.FlowerModule;
-import com.bonson.qqtapk.view.info.InfoActivity;
-import com.bonson.qqtapk.view.info.InfoModule;
-import com.bonson.qqtapk.view.lesson.LessonActivity;
-import com.bonson.qqtapk.view.lesson.LessonModule;
-import com.bonson.qqtapk.view.limit.LimitActivity;
-import com.bonson.qqtapk.view.limit.LimitModule;
-import com.bonson.qqtapk.view.member.MemberActivity;
-import com.bonson.qqtapk.view.member.MemberModule;
-import com.bonson.qqtapk.view.message.MessageActivity;
-import com.bonson.qqtapk.view.message.MessageModule;
-import com.bonson.qqtapk.view.mode.ModeActivity;
-import com.bonson.qqtapk.view.mode.ModeModule;
-import com.bonson.qqtapk.view.ring.RingActivity;
-import com.bonson.qqtapk.view.ring.RingModule;
-import com.bonson.qqtapk.view.route.RouteActivity;
-import com.bonson.qqtapk.view.route.RouteModule;
-import com.bonson.qqtapk.view.setting.SettingActivity;
-import com.bonson.qqtapk.view.setting.SettingModule;
-import com.bonson.qqtapk.view.setting.notify.NotifyActivity;
-import com.bonson.qqtapk.view.setting.notify.NotifyModule;
-import com.bonson.qqtapk.view.setting.password.PasswordActivity;
-import com.bonson.qqtapk.view.setting.password.PasswordModule;
-import com.bonson.qqtapk.view.voice.VoiceActivity;
-import com.bonson.qqtapk.view.voice.VoiceModule;*/
-
 /**
  * Created by zjw on 2017/12/29.
  */
@@ -164,9 +131,7 @@ abstract class ActivityModule {
     @ContributesAndroidInjector(modules = {InfoModule.class, RetrofitModule.class})
     abstract InfoActivity infoActivity();
 
-
     @ActivityScope
     @ContributesAndroidInjector(modules = {RingModule.class, RetrofitModule.class})
     abstract RingActivity ringActivity();
-
 }

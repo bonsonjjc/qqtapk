@@ -1,6 +1,6 @@
 package com.bonson.qqtapk.model.data.contacts;
 
-import com.bonson.qqtapk.model.bean.Contacts;
+import com.bonson.qqtapk.model.bean.Contact;
 
 import java.util.List;
 
@@ -15,11 +15,11 @@ import retrofit2.http.POST;
 public interface ContactsServer {
 
     @POST("data.html")
-    Observable<List<Contacts>> contacts(@Body Object o);
+    Observable<List<Contact>> contacts(@Body Object o);
 
     @POST("data.html")
-    Observable<List<Contacts>> opelear(@Body Object o);
+    Observable<List<Contact>> opelear(@Body Object o);
 
     @POST("data.html")
-    Observable<List<Contacts>> imports(@Body Object o);
+    Observable<List<Contact>> imports(@Body Object o);
 }

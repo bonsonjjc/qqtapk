@@ -10,16 +10,16 @@
     </data>
 
     <LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <com.bonson.resource.view.MToolbar
-        android:id="@+id/toolbar"
-        style="@style/Toolbar">
+        <com.bonson.resource.view.MToolbar
+            android:id="@+id/toolbar"
+            style="@style/Toolbar">
 
-        <include layout="@layout/toolbar" />
-    </com.bonson.resource.view.MToolbar>
+            <include layout="@layout/toolbar" />
+        </com.bonson.resource.view.MToolbar>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rec_numbers"

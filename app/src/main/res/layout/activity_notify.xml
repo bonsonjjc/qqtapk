@@ -44,6 +44,7 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/item_height"
+            android:layout_marginTop="1dp"
             android:background="@color/white"
             android:paddingLeft="8dp"
             android:paddingRight="8dp">
@@ -63,6 +64,7 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/item_height"
+            android:layout_marginTop="1dp"
             android:background="@color/white"
             android:paddingLeft="8dp"
             android:paddingRight="8dp">

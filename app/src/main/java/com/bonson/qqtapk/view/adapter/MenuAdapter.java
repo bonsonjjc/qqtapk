@@ -2,16 +2,18 @@ package com.bonson.qqtapk.view.adapter;
 
 import android.content.Context;
 import android.databinding.DataBindingUtil;
+import android.view.View;
 import android.view.ViewGroup;
 
 import com.bonson.qqtapk.R;
-import com.bonson.qqtapk.databinding.ItemFlowerBinding;
 import com.bonson.qqtapk.databinding.ItemMenuBinding;
 import com.bonson.qqtapk.model.bean.Menu;
-import com.bonson.resource.fragment.BaseAdapter;
+import com.bonson.resource.adapter.BaseAdapter;
 import com.bonson.resource.fragment.ViewHolder;
 
 import java.util.List;
+
+import javax.inject.Inject;
 
 /**
  * Created by zjw on 2018/1/3.
@@ -19,6 +21,7 @@ import java.util.List;
 
 public class MenuAdapter extends BaseAdapter<Menu, ItemMenuBinding> {
 
+    @Inject
     public MenuAdapter(Context context, List<Menu> contacts) {
         super(context, contacts);
     }
@@ -33,5 +36,10 @@ public class MenuAdapter extends BaseAdapter<Menu, ItemMenuBinding> {
     public void onBindViewHolder(ViewHolder<ItemMenuBinding> holder, int position) {
         holder.getBinding().setMenu(beans.get(position));
         holder.getBinding().executePendingBindings();
+//        holder.itemView.setOnClickListener((View v) -> {
+//            if (null != onItemClickListener) {
+//                onItemClickListener.itemClick(position);
+//            }
+//        });
     }
 }

@@ -1,6 +1,9 @@
 package com.bonson.qqtapk.view.ui.main;
 
 import android.app.Application;
+import android.databinding.ObservableArrayList;
+import android.databinding.ObservableField;
+import android.databinding.ObservableList;
 
 import com.bonson.qqtapk.di.ActivityScope;
 import com.bonson.qqtapk.model.bean.Menu;
@@ -20,74 +23,16 @@ public class MainViewModel extends AndroidViewModel {
         super(application);
     }
 
-    private String type, battery, stepNumber, sleepTime, heart, address, time;
-    private List<Menu> menus;
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getBattery() {
-        return battery;
-    }
-
-    public void setBattery(String battery) {
-        this.battery = battery;
-    }
-
-    public String getStepNumber() {
-        return stepNumber;
-    }
-
-    public void setStepNumber(String stepNumber) {
-        this.stepNumber = stepNumber;
-    }
-
-    public String getSleepTime() {
-        return sleepTime;
-    }
-
-    public void setSleepTime(String sleepTime) {
-        this.sleepTime = sleepTime;
-    }
-
-    public String getHeart() {
-        return heart;
-    }
-
-    public void setHeart(String heart) {
-        this.heart = heart;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getTime() {
-        return time;
-    }
-
-    public void setTime(String time) {
-        this.time = time;
-    }
-
-    public List<Menu> getMenus() {
-        return menus;
-    }
-
-    public void setMenus(List<Menu> menus) {
-        this.menus = menus;
-    }
+    public final ObservableField<String> type = new ObservableField<>();
+    public final ObservableField<String> battery = new ObservableField<>();
+    public final ObservableField<String> stepNumber = new ObservableField<>();
+    public final ObservableField<String> sleepTime = new ObservableField<>();
+    public final ObservableField<String> heart = new ObservableField<>();
+    public final ObservableField<String> address = new ObservableField<>();
+    public final ObservableField<String> time = new ObservableField<>();
+    public final ObservableList<Menu> menus = new ObservableArrayList<>();
 
     public void initMenu() {
-        menus = MenuHelper.createMenu();
+        menus.addAll(MenuHelper.createMenu());
     }
 }

@@ -1,5 +1,9 @@
 package com.bonson.qqtapk.di;
 
+import android.content.Context;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.RecyclerView;
+
 import com.bonson.library.convert.qqtfactory.GsonConvertFactory;
 import com.bonson.qqtapk.model.data.area.SafeAreaServer;
 import com.bonson.qqtapk.model.data.contacts.ContactsServer;
@@ -12,6 +16,7 @@ import com.bonson.qqtapk.model.data.mode.ModeServer;
 import com.bonson.qqtapk.model.data.ring.RingServer;
 import com.bonson.qqtapk.model.data.route.RouteServer;
 import com.bonson.qqtapk.model.data.user.UserServer;
+import com.bonson.qqtapk.model.data.voice.VoiceServer;
 import com.google.gson.Gson;
 
 import dagger.Module;
@@ -101,5 +106,18 @@ public abstract class RetrofitModule {
     static RingServer ringServer(Retrofit retrofit) {
         return retrofit.create(RingServer.class);
     }
+
+    @Provides
+    @ActivityScope
+    static VoiceServer voiceServer(Retrofit retrofit) {
+        return retrofit.create(VoiceServer.class);
+    }
+
+    @Provides
+    @ActivityScope
+    static RecyclerView.ItemDecoration itemDecoration(Context context) {
+        return new DividerItemDecoration(context, DividerItemDecoration.VERTICAL);
+    }
+
 
 }
