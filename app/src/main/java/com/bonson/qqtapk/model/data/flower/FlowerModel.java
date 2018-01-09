@@ -61,7 +61,7 @@ public class FlowerModel {
         map.put("fdesc", flower.getFdesc());
         map.put("fctime", flower.getFctime());
         map.put("ftype", flower.getFtype());
-        Object body = QQtBuilder.build("10", map);
+        Object body = QQtBuilder.build("34", map);
         return flowerServer.flowers(body)
                 .subscribeOn(Schedulers.io())
                 .map(it -> {
