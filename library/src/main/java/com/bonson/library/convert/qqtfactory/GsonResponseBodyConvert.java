@@ -39,6 +39,9 @@ public class GsonResponseBodyConvert<T> implements Converter<ResponseBody, T> {
         try {
             JsonObject jsonObject = JsonUtils.fromJson(json, JsonObject.class);
             JsonArray body = jsonObject.getAsJsonArray("body");
+            if (body == null) {
+                return gson.fromJson(jsonObject, typeToken.getType());
+            }
             return gson.fromJson(body, typeToken.getType());
         } finally {
             value.close();

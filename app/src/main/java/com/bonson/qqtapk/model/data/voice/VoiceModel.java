@@ -1,5 +1,7 @@
 package com.bonson.qqtapk.model.data.voice;
 
+import com.bonson.qqtapk.model.data.ApiServer;
+
 import javax.inject.Inject;
 
 /**
@@ -7,10 +9,10 @@ import javax.inject.Inject;
  */
 
 public class VoiceModel {
-    private VoiceServer voiceServer;
+    private ApiServer voiceServer;
 
     @Inject
-    public VoiceModel(VoiceServer voiceServer) {
+    public VoiceModel(ApiServer voiceServer) {
         this.voiceServer = voiceServer;
     }
 

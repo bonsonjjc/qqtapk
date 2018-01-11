@@ -3,7 +3,9 @@ package com.bonson.qqtapk.view.ui.contacts.phone;
 import android.app.Application;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
+import android.text.TextUtils;
 
+import com.bonson.resource.activity.BaseView;
 import com.bonson.resource.fragment.OnSaveListener;
 import com.bonson.resource.viewmodel.AndroidViewModel;
 
@@ -22,19 +24,26 @@ public class PhoneViewModel extends AndroidViewModel {
     public final ObservableField<String> name = new ObservableField<>("");
     public final ObservableField<String> mobile = new ObservableField<>("");
 
-    public final ObservableField<String> nameHint = new ObservableField<>("");
-    public final ObservableField<String> mobileHint = new ObservableField<>("");
-
-    public int what;
-
-    public Object obj;
-
     @Inject
     PhoneViewModel(Application application) {
         super(application);
     }
 
+    private BaseView view;
+
+    public void setView(BaseView view) {
+        this.view = view;
+    }
+
     public void onSave() {
+        if (TextUtils.isEmpty(name.get())) {
+            view.toast("请输入名称");
+            return;
+        }
+        if (TextUtils.isEmpty(mobile.get())) {
+            view.toast("请输入号码");
+            return;
+        }
         if (onPhoneListener != null) {
             onPhoneListener.onSave();
         }

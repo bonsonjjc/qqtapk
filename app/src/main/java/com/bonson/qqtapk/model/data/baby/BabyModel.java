@@ -3,6 +3,7 @@ package com.bonson.qqtapk.model.data.baby;
 import com.bonson.qqtapk.app.ErrorCode;
 import com.bonson.qqtapk.model.bean.Baby;
 import com.bonson.qqtapk.model.bean.Result;
+import com.bonson.qqtapk.model.data.ApiServer;
 import com.bonson.qqtapk.model.db.BabyDao;
 import com.bonson.qqtapk.utils.QQtBuilder;
 
@@ -21,11 +22,11 @@ import io.reactivex.schedulers.Schedulers;
  */
 
 public class BabyModel {
-    private BabyServer babyServer;
+    private ApiServer babyServer;
     private BabyDao babyDao;
 
     @Inject
-    public BabyModel(BabyServer babyServer, BabyDao babyDao) {
+    public BabyModel(ApiServer babyServer, BabyDao babyDao) {
         this.babyServer = babyServer;
         this.babyDao = babyDao;
     }
@@ -35,7 +36,7 @@ public class BabyModel {
         map.put("fuser", uid);
         map.put("fimei", imei);
         Object body = QQtBuilder.build("13", map);
-        return babyServer.bind(body)
+        return babyServer.baby(body)
                 .subscribeOn(Schedulers.io())
                 .map(userBeans -> {
                     Baby baby = userBeans.get(0);
@@ -57,7 +58,7 @@ public class BabyModel {
         map.put("fid", uid);
         map.put("fuser", uid);
         Object body = QQtBuilder.build("28", map);
-        return babyServer.bind(body)
+        return babyServer.baby(body)
                 .subscribeOn(Schedulers.io())
                 .map(userBeans -> {
                     Baby baby = userBeans.get(0);
@@ -91,14 +92,14 @@ public class BabyModel {
         map.put("fheight", update.getFheight());
         map.put("fweight", update.getFweight());
         Object body = QQtBuilder.build("22", map);
-        return babyServer.bind(body)
+        return babyServer.baby(body)
                 .subscribeOn(Schedulers.io())
                 .map(userBeans -> {
                     Baby baby = userBeans.get(0);
                     Result<Baby> result = new Result<>();
                     if ("0".equals(baby.getFresult())) {
                         result.setCode("0");
-                        result.setMsg("绑定成功");
+                        result.setMsg("修改成功");
                         babyDao.update(baby);
                     } else {
                         result.setCode("-1");
@@ -113,6 +114,7 @@ public class BabyModel {
     }
 
     public Flowable<List<Baby>> list(String userId) {
-        return babyDao.getByUserId(userId);
+        return babyDao.getByUserId(userId)
+                .subscribeOn(Schedulers.io());
     }
 }

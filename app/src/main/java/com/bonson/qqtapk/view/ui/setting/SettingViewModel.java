@@ -1,17 +1,21 @@
 package com.bonson.qqtapk.view.ui.setting;
 
-import android.app.Activity;
 import android.app.Application;
-import android.content.Intent;
 import android.databinding.ObservableField;
 
 import com.bonson.qqtapk.app.Route;
 import com.bonson.qqtapk.di.ActivityScope;
 import com.bonson.qqtapk.model.bean.User;
-import com.bonson.resource.activity.BaseDaggerActivity;
+import com.bonson.qqtapk.model.data.user.UserModel;
+import com.bonson.resource.activity.ActivityUtils;
+import com.bonson.resource.activity.BaseView;
 import com.bonson.resource.viewmodel.AndroidViewModel;
 
 import javax.inject.Inject;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by jiangjiancheng on 17/12/31.
@@ -20,34 +24,31 @@ import javax.inject.Inject;
 public class SettingViewModel extends AndroidViewModel {
     public ObservableField<String> mobile = new ObservableField<>("");
 
+    private BaseView view;
+
+    private UserModel userModel;
+
     @Inject
-    public SettingViewModel(Application application) {
+    public SettingViewModel(Application application, UserModel userModel) {
         super(application);
+        this.userModel = userModel;
+        mobile.set(User.user.getMobile());
     }
 
-    public void onItem(int state) {
-        Activity activity = BaseDaggerActivity.activityTask.get(0);
-        Intent intent = new Intent();
-        switch (state) {
-            case 1:
-                intent.setClassName(activity, Route.password);
-                activity.startActivity(intent);
-                break;
-            case 2:
-                intent.setClassName(activity, Route.notify);
-                activity.startActivity(intent);
-                break;
-            case 3:
-                break;
-            case 4:
-                intent.setClassName(activity, Route.about);
-                activity.startActivity(intent);
-                break;
-            case 5:
-                break;
-            default:
-                intent.setClassName(activity, Route.map);
-                activity.startActivity(intent);
-        }
+    public void setView(BaseView view) {
+        this.view = view;
+    }
+
+    public void exit() {
+        Disposable disposable = userModel.exit(User.user)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(it -> {
+                    view.start(Route.login);
+                    ActivityUtils.clear();
+                }, e -> {
+                    view.toast("失败");
+                });
+        compositeDisposable.add(disposable);
     }
 }

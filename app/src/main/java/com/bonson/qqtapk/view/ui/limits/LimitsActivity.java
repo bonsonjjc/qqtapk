@@ -1,10 +1,13 @@
 package com.bonson.qqtapk.view.ui.limits;
 
 import android.databinding.DataBindingUtil;
+import android.databinding.Observable;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 
 import com.bonson.qqtapk.R;
 import com.bonson.qqtapk.databinding.ActivityLimitsBinding;
+import com.bonson.qqtapk.view.adapter.LimitAdapter;
 import com.bonson.qqtapk.view.ui.limits.add.LimitFragment;
 import com.bonson.resource.activity.BaseDaggerActivity;
 
@@ -21,6 +24,12 @@ public class LimitsActivity extends BaseDaggerActivity {
     @Inject
     LimitFragment fragment;
 
+    @Inject
+    LimitAdapter adapter;
+
+    @Inject
+    RecyclerView.ItemDecoration itemDecoration;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,7 +45,17 @@ public class LimitsActivity extends BaseDaggerActivity {
                     .addToBackStack("limit")
                     .commit();
         });
+        binding.recLimits.setAdapter(adapter);
+        binding.recLimits.addItemDecoration(itemDecoration);
         binding.setViewModel(viewModel);
+        adapter.setOnItemClickListener(position -> {
+            fragment.setViewModel(viewModel.updateViewModel(position));
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .add(android.R.id.content, fragment)
+                    .addToBackStack("limit")
+                    .commit();
+        });
         viewModel.setView(this);
         viewModel.limits();
     }

@@ -17,6 +17,7 @@
         <com.bonson.resource.view.MToolbar
             android:id="@+id/toolbar"
             style="@style/Toolbar">
+
             <include layout="@layout/toolbar" />
         </com.bonson.resource.view.MToolbar>
 
@@ -70,7 +71,8 @@
                     style="@style/BtnLogin"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:onClick="@{()->viewModel.login()}"
+                    android:clickable="@{viewModel.enable}"
+                    android:onClick="login"
                     android:text="@string/login" />
 
                 <FrameLayout
@@ -86,7 +88,7 @@
                         android:layout_gravity="start"
                         android:layout_marginLeft="10dp"
                         android:layout_marginStart="10dp"
-                        android:onClick='@{()->viewModel.action("forget")}'
+                        android:onClick="forget"
                         android:text="@string/forget_password"
                         android:textColor="#999999"
                         android:textSize="14sp" />
@@ -97,7 +99,7 @@
                         android:layout_gravity="end"
                         android:layout_marginEnd="10dp"
                         android:layout_marginRight="10dp"
-                        android:onClick='@{()->viewModel.action("register")}'
+                        android:onClick='register'
                         android:text="@string/now_register"
                         android:textColor="#999999"
                         android:textSize="14sp" />

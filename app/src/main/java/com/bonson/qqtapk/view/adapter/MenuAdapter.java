@@ -2,14 +2,13 @@ package com.bonson.qqtapk.view.adapter;
 
 import android.content.Context;
 import android.databinding.DataBindingUtil;
-import android.view.View;
 import android.view.ViewGroup;
 
 import com.bonson.qqtapk.R;
 import com.bonson.qqtapk.databinding.ItemMenuBinding;
 import com.bonson.qqtapk.model.bean.Menu;
 import com.bonson.resource.adapter.BaseAdapter;
-import com.bonson.resource.fragment.ViewHolder;
+import com.bonson.resource.adapter.ViewHolder;
 
 import java.util.List;
 

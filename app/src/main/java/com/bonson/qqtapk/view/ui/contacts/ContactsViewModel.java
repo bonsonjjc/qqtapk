@@ -9,6 +9,7 @@ import com.bonson.qqtapk.model.bean.Baby;
 import com.bonson.qqtapk.model.bean.Contact;
 import com.bonson.qqtapk.model.data.contacts.ContactsModel;
 import com.bonson.qqtapk.view.ui.contacts.phone.PhoneViewModel;
+import com.bonson.qqtapk.view.ui.info.select.SelectViewModel;
 import com.bonson.resource.activity.BaseView;
 import com.bonson.resource.viewmodel.AndroidViewModel;
 
@@ -29,12 +30,15 @@ public class ContactsViewModel extends AndroidViewModel {
 
     public List<Contact> contacts = new ObservableArrayList<>();
 
-    private PhoneViewModel viewModel;
+    @Inject
+    PhoneViewModel viewModel;
 
     @Inject
-    ContactsViewModel(Application application, ContactsModel contactsModel, PhoneViewModel phoneViewModel) {
+    SelectViewModel selectViewModel;
+
+    @Inject
+    ContactsViewModel(Application application, ContactsModel contactsModel) {
         super(application);
-        this.viewModel = phoneViewModel;
         this.contactsModel = contactsModel;
     }
 
@@ -61,23 +65,24 @@ public class ContactsViewModel extends AndroidViewModel {
         compositeDisposable.add(disposable);
     }
 
+
+    public SelectViewModel importViewModel() {
+        selectViewModel.setSingle(false);
+        selectViewModel.right.set("保存");
+        selectViewModel.setOnSaveListener(() -> {
+
+        });
+        selectViewModel.title.set("选择联系人");
+        return selectViewModel;
+    }
+
     public PhoneViewModel initFragment() {
-        viewModel.mobileHint.set("输入号码");
-        viewModel.nameHint.set("输入名称");
         viewModel.mobile.set("");
         viewModel.name.set("");
 
         viewModel.title.set("添加联系人");
         viewModel.right.set("保存");
         viewModel.setOnPhoneListener(() -> {
-            if (TextUtils.isEmpty(viewModel.name.get())) {
-                view.toast("请输入名称");
-                return;
-            }
-            if (TextUtils.isEmpty(viewModel.mobile.get())) {
-                view.toast("请输入号码");
-                return;
-            }
             Contact contact = new Contact();
             contact.setBid(Baby.baby.getFid());
             contact.setFmobile(viewModel.mobile.get());
@@ -88,15 +93,12 @@ public class ContactsViewModel extends AndroidViewModel {
     }
 
     public PhoneViewModel initFragment(int position) {
-        viewModel.mobileHint.set("输入号码");
-        viewModel.nameHint.set("输入名称");
         viewModel.title.set("修改联系人");
         viewModel.right.set("保存");
         Contact contact = this.contacts.get(position);
         contact.setBid(Baby.baby.getFid());
         viewModel.mobile.set(contact.getFmobile());
         viewModel.name.set(contact.getFname());
-        viewModel.what = position;
         viewModel.setOnPhoneListener(() -> {
             if (TextUtils.isEmpty(viewModel.name.get())) {
                 view.toast("请输入名称");

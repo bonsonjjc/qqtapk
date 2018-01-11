@@ -293,8 +293,9 @@ public class UserBean extends Base {
                 baby.setFid(bidlist[i]);
                 baby.setFname(bnamelist[i]);
                 baby.setFimg(bimglist[i]);
-                babies.add(baby);
+                baby.setFuser(fid);
             }
+            babies.add(baby);
         }
         return babies;
     }

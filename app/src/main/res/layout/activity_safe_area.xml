@@ -114,7 +114,7 @@
             android:layout_marginBottom="15dp"
             android:layout_marginLeft="15dp"
             android:layout_marginStart="15dp"
-            android:onClick="@{()->viewModel.location()}"
+            android:onClick="@{()->viewModel.viewModel.location()}"
             android:src="@drawable/ico_fb_dw"
             app:backgroundTint="@color/white"
             app:elevation="1dp"
@@ -156,7 +156,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:maxLines="1"
-                android:text='@{"中心点: "+viewModel.address}' />
+                android:text='@{"中心点: "+viewModel.viewModel.address}' />
 
             <RelativeLayout
                 android:layout_width="match_parent"

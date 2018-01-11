@@ -1,6 +1,7 @@
 package com.bonson.qqtapk.view.ui.limits;
 
 import android.app.Application;
+import android.databinding.Observable;
 import android.databinding.ObservableArrayList;
 import android.databinding.ObservableBoolean;
 
@@ -35,6 +36,12 @@ public class LimitsViewModel extends AndroidViewModel {
         super(application);
         this.viewModel = viewModel;
         this.limitModel = limitModel;
+        open.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
+            @Override
+            public void onPropertyChanged(Observable sender, int propertyId) {
+                updateState();
+            }
+        });
     }
 
     public void setView(BaseView view) {
@@ -148,6 +155,25 @@ public class LimitsViewModel extends AndroidViewModel {
                         view.back();
                     }
                 }, e -> {
+                    view.toast("出错了");
+                });
+        compositeDisposable.add(disposable);
+    }
+
+    public void updateState() {
+        if (!isNetWork()) {
+            view.toast("网络不可用");
+            return;
+        }
+        Disposable disposable = limitModel.updateState(Baby.baby.getFid(), Baby.baby.getFuser(), open.get() ? "0" : "1")
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(it -> {
+                    view.toast(it.getMsg());
+                    if (!it.getCode().equals("0")) {
+                        open.set(!open.get());
+                    }
+                }, e -> {
+                    open.set(!open.get());
                     view.toast("出错了");
                 });
         compositeDisposable.add(disposable);

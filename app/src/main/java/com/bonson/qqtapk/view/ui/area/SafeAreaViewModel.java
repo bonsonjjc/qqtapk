@@ -11,12 +11,14 @@ import com.bonson.qqtapk.model.bean.Baby;
 import com.bonson.qqtapk.model.bean.SafeArea;
 import com.bonson.qqtapk.model.data.area.SafeAreaModel;
 import com.bonson.qqtapk.utils.NumberUtils;
+import com.bonson.qqtapk.view.ui.index.main.LocationViewModel;
 import com.bonson.resource.activity.BaseView;
 import com.bonson.resource.viewmodel.AndroidViewModel;
 
 import javax.inject.Inject;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
 
 /**
  * Created by jiangjiancheng on 17/12/31.
@@ -28,8 +30,10 @@ public class SafeAreaViewModel extends AndroidViewModel {
     public ObservableBoolean state = new ObservableBoolean();
     ObservableField<LatLng> position = new ObservableField<>();
     private SafeAreaModel areaModel;
-
     private BaseView view;
+
+    @Inject
+    LocationViewModel viewModel;
 
     @Inject
     SafeAreaViewModel(Application application, SafeAreaModel areaModel) {
@@ -38,8 +42,17 @@ public class SafeAreaViewModel extends AndroidViewModel {
         position.set(new LatLng(0, 0));
     }
 
+    public LocationViewModel getViewModel() {
+        return viewModel;
+    }
+
+    public void setViewModel(LocationViewModel viewModel) {
+        this.viewModel = viewModel;
+    }
+
     public void setView(BaseView view) {
         this.view = view;
+        viewModel.setView(view);
     }
 
     void init() {
@@ -47,7 +60,7 @@ public class SafeAreaViewModel extends AndroidViewModel {
             view.toast("网络不可用");
             return;
         }
-        areaModel.safeArea(Baby.baby.getFid())
+        Disposable disposable = areaModel.safeArea(Baby.baby.getFid())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(it -> {
                     view.toast(it.getMsg());
@@ -61,6 +74,7 @@ public class SafeAreaViewModel extends AndroidViewModel {
                     view.toast("出错了");
                     e.printStackTrace();
                 });
+        compositeDisposable.add(disposable);
     }
 
     public void save() {
@@ -74,7 +88,7 @@ public class SafeAreaViewModel extends AndroidViewModel {
         safeArea.setFstate(state.get() ? "1" : "0");
         safeArea.setFy(position.get().latitude + "");
         safeArea.setFx(position.get().longitude + "");
-        areaModel.update(safeArea)
+        Disposable disposable = areaModel.update(safeArea)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(it -> {
                     view.toast(it.getMsg());
@@ -82,14 +96,11 @@ public class SafeAreaViewModel extends AndroidViewModel {
                     view.toast("出错了");
                     e.printStackTrace();
                 });
+        compositeDisposable.add(disposable);
     }
 
     public void map(LatLng latLng) {
         position.set(latLng);
-    }
-
-    public void location() {
-
     }
 
     public void change() {

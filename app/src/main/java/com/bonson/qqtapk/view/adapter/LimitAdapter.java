@@ -9,7 +9,7 @@ import com.bonson.qqtapk.R;
 import com.bonson.qqtapk.databinding.ItemLimitBinding;
 import com.bonson.qqtapk.model.bean.Limit;
 import com.bonson.resource.adapter.BaseAdapter;
-import com.bonson.resource.fragment.ViewHolder;
+import com.bonson.resource.adapter.ViewHolder;
 
 import java.util.List;
 
@@ -22,8 +22,8 @@ import javax.inject.Inject;
 public class LimitAdapter extends BaseAdapter<Limit, ItemLimitBinding> {
 
     @Inject
-   public LimitAdapter(Context context, List<Limit> contacts) {
-        super(context, contacts);
+   public LimitAdapter(Context context, List<Limit> limits) {
+        super(context, limits);
     }
 
     @Override

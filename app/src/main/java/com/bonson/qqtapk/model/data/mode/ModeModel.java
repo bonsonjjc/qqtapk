@@ -3,6 +3,7 @@ package com.bonson.qqtapk.model.data.mode;
 import com.bonson.qqtapk.app.ErrorCode;
 import com.bonson.qqtapk.model.bean.Mode;
 import com.bonson.qqtapk.model.bean.Result;
+import com.bonson.qqtapk.model.data.ApiServer;
 import com.bonson.qqtapk.utils.QQtBuilder;
 
 import java.util.LinkedHashMap;
@@ -18,10 +19,10 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
  */
 
 public class ModeModel {
-    ModeServer modeServer;
+    ApiServer modeServer;
 
     @Inject
-    public ModeModel(ModeServer modeServer) {
+    public ModeModel(ApiServer modeServer) {
         this.modeServer = modeServer;
     }
 
@@ -55,7 +56,7 @@ public class ModeModel {
         map.put("floctype", mode.getFloctype());
         map.put("flocation", mode.getFlocation());
         Object args = QQtBuilder.build("27", map);
-        return modeServer.update(args)
+        return modeServer.mode(args)
                 .subscribeOn(io.reactivex.schedulers.Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .map(callInLimits -> {

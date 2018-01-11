@@ -3,6 +3,7 @@ package com.bonson.qqtapk.model.data.limit;
 import com.bonson.qqtapk.app.ErrorCode;
 import com.bonson.qqtapk.model.bean.Limit;
 import com.bonson.qqtapk.model.bean.Result;
+import com.bonson.qqtapk.model.data.ApiServer;
 import com.bonson.qqtapk.utils.QQtBuilder;
 
 import java.util.LinkedHashMap;
@@ -19,10 +20,10 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
  */
 
 public class LimitModel {
-    private LimitServer server;
+    private ApiServer server;
 
     @Inject
-    public LimitModel(LimitServer limitServer) {
+    public LimitModel(ApiServer limitServer) {
         server = limitServer;
     }
 

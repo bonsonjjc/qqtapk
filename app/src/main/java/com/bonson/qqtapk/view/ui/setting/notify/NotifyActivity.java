@@ -23,9 +23,8 @@ public class NotifyActivity extends BaseDaggerActivity {
         ActivityNotifyBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_notify);
         binding.setViewModel(notifyViewModel);
         binding.toolbar.setTitle("通知设置");
-        binding.toolbar.getTvLeft().setOnClickListener(v -> {
-            finish();
-        });
+        binding.toolbar.getTvLeft().setOnClickListener(v -> finish());
         notifyViewModel.setView(this);
+        notifyViewModel.init();
     }
 }

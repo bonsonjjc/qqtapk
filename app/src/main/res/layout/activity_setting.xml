@@ -24,106 +24,135 @@
             <include layout="@layout/toolbar" />
         </com.bonson.resource.view.MToolbar>
 
-        <FrameLayout
+        <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/item_selector"
-            android:paddingEnd="8dp"
-            android:paddingStart="8dp">
+            android:layout_height="match_parent">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical|start"
-                android:text="当前账号" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical|end"
-                android:text="@{viewModel.mobile}"
-                android:textColor="#818181"
-                android:textSize="14sp" />
-        </FrameLayout>
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/item_selector"
+                    android:paddingEnd="8dp"
+                    android:paddingStart="8dp">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="1dp"
-            android:background="@drawable/item_selector"
-            android:drawableEnd="@drawable/ico_arrow_right"
-            android:drawableRight="@drawable/ico_arrow_right"
-            android:gravity="center_vertical"
-            android:onClick="@{()->viewModel.onItem(1)}"
-            android:paddingEnd="8dp"
-            android:paddingStart="8dp"
-            android:text="修改密码" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical|start"
+                        android:text="当前账号" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/item_selector"
-            android:drawableEnd="@drawable/ico_arrow_right"
-            android:drawableRight="@drawable/ico_arrow_right"
-            android:gravity="center_vertical"
-            android:onClick="@{()->viewModel.onItem(2)}"
-            android:paddingEnd="8dp"
-            android:paddingStart="8dp"
-            android:text="通知设置" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical|end"
+                        android:text="@{viewModel.mobile}"
+                        android:textColor="#818181"
+                        android:textSize="14sp" />
+                </FrameLayout>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="1dp"
-            android:background="@drawable/item_selector"
-            android:drawableEnd="@drawable/ico_arrow_right"
-            android:drawableRight="@drawable/ico_arrow_right"
-            android:gravity="center_vertical"
-            android:onClick="@{()->viewModel.onItem(3)}"
-            android:paddingEnd="8dp"
-            android:paddingStart="8dp"
-            android:text="在线客服" />
+                <TextView
+                    android:id="@+id/tv_modify_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="1dp"
+                    android:onClick="itemClick"
+                    android:background="@drawable/item_selector"
+                    android:drawableEnd="@drawable/ico_arrow_right"
+                    android:drawableRight="@drawable/ico_arrow_right"
+                    android:gravity="center_vertical"
+                    android:paddingEnd="8dp"
+                    android:paddingStart="8dp"
+                    android:text="修改密码" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="1dp"
-            android:background="@drawable/item_selector"
-            android:drawableEnd="@drawable/ico_arrow_right"
-            android:drawableRight="@drawable/ico_arrow_right"
-            android:gravity="center_vertical"
-            android:onClick="@{()->viewModel.onItem(4)}"
-            android:paddingEnd="8dp"
-            android:paddingStart="8dp"
-            android:text="关于我们" />
+                <TextView
+                    android:id="@+id/tv_notify_set"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/item_selector"
+                    android:drawableEnd="@drawable/ico_arrow_right"
+                    android:drawableRight="@drawable/ico_arrow_right"
+                    android:gravity="center_vertical"
+                    android:paddingEnd="8dp"
+                    android:paddingStart="8dp"
+                    android:onClick="itemClick"
+                    android:text="通知设置" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="1dp"
-            android:background="@drawable/item_selector"
-            android:drawableEnd="@drawable/ico_arrow_right"
-            android:drawableRight="@drawable/ico_arrow_right"
-            android:gravity="center_vertical"
-            android:onClick="@{()->viewModel.onItem(5)}"
-            android:paddingEnd="8dp"
-            android:paddingStart="8dp"
-            android:text="终端购买" />
+                <TextView
+                    android:id="@+id/tv_online_service"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="1dp"
+                    android:background="@drawable/item_selector"
+                    android:drawableEnd="@drawable/ico_arrow_right"
+                    android:drawableRight="@drawable/ico_arrow_right"
+                    android:gravity="center_vertical"
+                    android:paddingEnd="8dp"
+                    android:paddingStart="8dp"
+                    android:onClick="itemClick"
+                    android:text="在线客服" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="1dp"
-            android:background="@drawable/item_selector"
-            android:drawableEnd="@drawable/ico_arrow_right"
-            android:drawableRight="@drawable/ico_arrow_right"
-            android:gravity="center_vertical"
-            android:onClick="@{()->viewModel.onItem(6)}"
-            android:paddingEnd="8dp"
-            android:paddingStart="8dp"
-            android:text="离线地图" />
+                <TextView
+                    android:id="@+id/tv_about"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="1dp"
+                    android:background="@drawable/item_selector"
+                    android:drawableEnd="@drawable/ico_arrow_right"
+                    android:drawableRight="@drawable/ico_arrow_right"
+                    android:gravity="center_vertical"
+                    android:paddingEnd="8dp"
+                    android:onClick="itemClick"
+                    android:paddingStart="8dp"
+                    android:text="关于我们" />
+
+                <TextView
+                    android:id="@+id/tv_buy"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="1dp"
+                    android:onClick="itemClick"
+                    android:background="@drawable/item_selector"
+                    android:drawableEnd="@drawable/ico_arrow_right"
+                    android:drawableRight="@drawable/ico_arrow_right"
+                    android:gravity="center_vertical"
+                    android:paddingEnd="8dp"
+                    android:paddingStart="8dp"
+                    android:text="终端购买" />
+
+                <TextView
+                    android:id="@+id/tv_offline_map"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="1dp"
+                    android:onClick="itemClick"
+                    android:background="@drawable/item_selector"
+                    android:drawableEnd="@drawable/ico_arrow_right"
+                    android:drawableRight="@drawable/ico_arrow_right"
+                    android:gravity="center_vertical"
+                    android:paddingEnd="8dp"
+                    android:paddingStart="8dp"
+                    android:text="离线地图" />
+
+                <TextView
+                    android:id="@+id/tv_exit_login"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:onClick="itemClick"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/item_selector"
+                    android:gravity="center"
+                    android:text="退出登录"
+                    android:textColor="@color/red"
+                    android:textSize="16sp" />
+            </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
 
     </LinearLayout>
 </layout>

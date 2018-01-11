@@ -1,12 +1,18 @@
 package com.bonson.qqtapk.view.ui.setting;
 
+import android.app.Activity;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.view.View;
 
 import com.bonson.qqtapk.R;
+import com.bonson.qqtapk.app.Route;
 import com.bonson.qqtapk.databinding.ActivitySettingBinding;
 import com.bonson.qqtapk.model.bean.User;
+import com.bonson.resource.activity.ActivityUtils;
 import com.bonson.resource.activity.BaseDaggerActivity;
+
+import java.util.Stack;
 
 import javax.inject.Inject;
 
@@ -27,6 +33,28 @@ public class SettingActivity extends BaseDaggerActivity {
             finish();
         });
         binding.setViewModel(viewModel);
-        viewModel.mobile.set(User.user.getMobile());
+        viewModel.setView(this);
+    }
+
+    public void itemClick(View view) {
+        switch (view.getId()) {
+            case R.id.tv_modify_password:
+                start(Route.password);
+                break;
+            case R.id.tv_notify_set:
+                start(Route.notify);
+                break;
+            case R.id.tv_online_service:
+                break;
+            case R.id.tv_about:
+                start(Route.about);
+                break;
+            case R.id.tv_offline_map:
+                start(Route.map);
+                break;
+            case R.id.tv_exit_login:
+                viewModel.exit();
+                break;
+        }
     }
 }

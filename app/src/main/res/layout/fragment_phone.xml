@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.bonson.qqtapk.view.ui.contacts.phone.PhoneViewModel" />
@@ -29,8 +30,9 @@
                     android:layout_gravity="start|center_vertical"
                     android:drawableLeft="@drawable/back_selector"
                     android:gravity="center_vertical"
-                    android:text="返回"
-                    android:textColor="@color/back_text" />
+                    android:text="@string/back"
+                    android:textColor="@color/back_text"
+                    android:drawableStart="@drawable/back_selector" />
 
                 <TextView
                     android:id="@id/bar_title_text"
@@ -58,18 +60,18 @@
 
         <EditText
             android:id="@+id/edt_mobile"
-            style="@style/EditText.Name"
+            style="@style/EditText.Phone"
             android:layout_marginTop="20dp"
-            android:hint="@{viewModel.nameHint}"
-            android:text="@={viewModel.name}" />
+            android:focusable="@{viewModel.mobileEnable}"
+            android:hint="@string/hint_mobile"
+            android:text="@={viewModel.mobile}" />
 
         <EditText
             android:id="@+id/edt_name"
-            style="@style/EditText.Phone"
+            style="@style/EditText.Name"
             android:layout_marginTop="1dp"
-            android:focusable="@{viewModel.mobileEnable}"
-            android:hint="@{viewModel.mobileHint}"
-            android:text="@={viewModel.mobile}" />
+            android:hint="@string/hint_name"
+            android:text="@={viewModel.name}" />
 
     </LinearLayout>
 </layout>

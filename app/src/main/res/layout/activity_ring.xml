@@ -21,5 +21,103 @@
 
             <include layout="@layout/toolbar" />
         </com.bonson.resource.view.MToolbar>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center_vertical"
+            android:paddingLeft="8dp"
+            android:text="设置手表的音量"
+            android:textColor="#616161"
+            android:textSize="15sp" />
+
+        <View style="@style/Line" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="vertical"
+            android:padding="8dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="通话音量" />
+
+            <SeekBar
+                android:id="@+id/sb_speaker_volume"
+                android:layout_width="match_parent"
+                android:progress="@{viewModel.callVolume}"
+                android:layout_height="wrap_content"
+                android:max="14" />
+        </LinearLayout>
+
+        <View style="@style/Line" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:background="@color/white"
+            android:orientation="vertical"
+            android:padding="8dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="来电音量" />
+
+            <SeekBar
+                android:id="@+id/sb_ring_volume"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:max="15"
+                android:progress="@{viewModel.callerVolume}" />
+        </LinearLayout>
+
+        <View style="@style/Line" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center_vertical"
+            android:paddingLeft="8dp"
+            android:text="设置手表的铃声"
+            android:textColor="#616161"
+            android:textSize="15sp" />
+
+        <View style="@style/Line" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="1dp"
+            android:background="@drawable/item_selector"
+            android:onClick="selectRing"
+            android:orientation="vertical"
+            android:paddingEnd="8dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:paddingStart="8dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="铃声"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                tools:text="铃声" />
+
+            <TextView
+                android:id="@+id/tv_ring"
+                style="@style/DetailText"
+                android:text="@{viewModel.ringTitle}"
+                tools:text="15645645612" />
+        </FrameLayout>
+
+        <View style="@style/Line" />
     </LinearLayout>
+
 </layout>

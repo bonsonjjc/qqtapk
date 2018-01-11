@@ -5,18 +5,7 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.RecyclerView;
 
 import com.bonson.library.convert.qqtfactory.GsonConvertFactory;
-import com.bonson.qqtapk.model.data.area.SafeAreaServer;
-import com.bonson.qqtapk.model.data.contacts.ContactsServer;
-import com.bonson.qqtapk.model.data.family.FamilyServer;
-import com.bonson.qqtapk.model.data.flower.FlowerServer;
-import com.bonson.qqtapk.model.data.lesson.LessonServer;
-import com.bonson.qqtapk.model.data.limit.LimitServer;
-import com.bonson.qqtapk.model.data.member.MemberServer;
-import com.bonson.qqtapk.model.data.mode.ModeServer;
-import com.bonson.qqtapk.model.data.ring.RingServer;
-import com.bonson.qqtapk.model.data.route.RouteServer;
-import com.bonson.qqtapk.model.data.user.UserServer;
-import com.bonson.qqtapk.model.data.voice.VoiceServer;
+import com.bonson.qqtapk.model.data.ApiServer;
 import com.google.gson.Gson;
 
 import dagger.Module;
@@ -43,74 +32,8 @@ public abstract class RetrofitModule {
 
     @Provides
     @ActivityScope
-    static FamilyServer familyServer(Retrofit retrofit) {
-        return retrofit.create(FamilyServer.class);
-    }
-
-    @Provides
-    @ActivityScope
-    static SafeAreaServer areaServer(Retrofit retrofit) {
-        return retrofit.create(SafeAreaServer.class);
-    }
-
-    @Provides
-    @ActivityScope
-    static UserServer userServer(Retrofit retrofit) {
-        return retrofit.create(UserServer.class);
-    }
-
-    @Provides
-    @ActivityScope
-    static ContactsServer contactsServer(Retrofit retrofit) {
-        return retrofit.create(ContactsServer.class);
-    }
-
-    @Provides
-    @ActivityScope
-    static LessonServer lessonsServer(Retrofit retrofit) {
-        return retrofit.create(LessonServer.class);
-    }
-
-    @Provides
-    @ActivityScope
-    static LimitServer limitServer(Retrofit retrofit) {
-        return retrofit.create(LimitServer.class);
-    }
-
-    @Provides
-    @ActivityScope
-    static MemberServer memberServer(Retrofit retrofit) {
-        return retrofit.create(MemberServer.class);
-    }
-
-    @Provides
-    @ActivityScope
-    static ModeServer modeServer(Retrofit retrofit) {
-        return retrofit.create(ModeServer.class);
-    }
-
-    @Provides
-    @ActivityScope
-    static RouteServer routeServer(Retrofit retrofit) {
-        return retrofit.create(RouteServer.class);
-    }
-
-    @Provides
-    @ActivityScope
-    static FlowerServer flowerServer(Retrofit retrofit) {
-        return retrofit.create(FlowerServer.class);
-    }
-
-    @Provides
-    @ActivityScope
-    static RingServer ringServer(Retrofit retrofit) {
-        return retrofit.create(RingServer.class);
-    }
-
-    @Provides
-    @ActivityScope
-    static VoiceServer voiceServer(Retrofit retrofit) {
-        return retrofit.create(VoiceServer.class);
+    static ApiServer providesApiServer(Retrofit retrofit) {
+        return retrofit.create(ApiServer.class);
     }
 
     @Provides
@@ -118,6 +41,4 @@ public abstract class RetrofitModule {
     static RecyclerView.ItemDecoration itemDecoration(Context context) {
         return new DividerItemDecoration(context, DividerItemDecoration.VERTICAL);
     }
-
-
 }

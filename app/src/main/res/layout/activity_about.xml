@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -23,6 +24,105 @@
 
             <include layout="@layout/toolbar" />
         </com.bonson.resource.view.MToolbar>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="30dp"
+            android:layout_marginTop="50dp"
+            android:drawablePadding="10dp"
+            android:drawableTop="@drawable/app_logo"
+            android:text="@{viewModel.version}"
+            tools:text="移动亲情通v3.2.9" />
+
+        <FrameLayout
+            android:id="@+id/fl_web_url"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/item_selector"
+            android:onClick="itemClick"
+            android:paddingEnd="8dp"
+            android:paddingStart="8dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="官方网络" />
+
+            <TextView
+                android:id="@+id/tv_notify_set"
+                style="@style/DetailText"
+                android:text="@{viewModel.webUrl}"
+                tools:text="www.bfsafe.com" />
+        </FrameLayout>
+
+
+        <TextView
+            android:id="@+id/tv_update"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="1dp"
+            android:background="@drawable/item_selector"
+            android:drawableEnd="@drawable/ico_arrow_right"
+            android:drawableRight="@drawable/ico_arrow_right"
+            android:gravity="center_vertical"
+            android:onClick="itemClick"
+            android:paddingEnd="8dp"
+            android:paddingStart="8dp"
+            android:text="检查更新" />
+
+        <TextView
+            android:id="@+id/tv_protocol"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="1dp"
+            android:background="@drawable/item_selector"
+            android:drawableEnd="@drawable/ico_arrow_right"
+            android:drawableRight="@drawable/ico_arrow_right"
+            android:gravity="center_vertical"
+            android:onClick="itemClick"
+            android:paddingEnd="8dp"
+            android:paddingStart="8dp"
+            android:text="许可协议" />
+
+        <TextView
+            android:id="@+id/tv_declaration"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="1dp"
+            android:background="@drawable/item_selector"
+            android:drawableEnd="@drawable/ico_arrow_right"
+            android:drawableRight="@drawable/ico_arrow_right"
+            android:gravity="center_vertical"
+            android:onClick="itemClick"
+            android:paddingEnd="8dp"
+            android:paddingStart="8dp"
+            android:text="手机定位免责声明" />
+
+        <FrameLayout
+            android:id="@+id/fl_service_phone"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="1dp"
+            android:background="@drawable/item_selector"
+            android:onClick="itemClick"
+            android:paddingEnd="8dp"
+            android:paddingStart="8dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="客服电话" />
+
+            <TextView
+                android:id="@+id/tv_service_phone"
+                style="@style/DetailText"
+                android:text="@{viewModel.servicePhone}"
+                tools:text="5654784175" />
+        </FrameLayout>
 
     </LinearLayout>
 </layout>

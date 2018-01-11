@@ -3,6 +3,7 @@ package com.bonson.qqtapk.model.data.family;
 import com.bonson.qqtapk.app.ErrorCode;
 import com.bonson.qqtapk.model.bean.Family;
 import com.bonson.qqtapk.model.bean.Result;
+import com.bonson.qqtapk.model.data.ApiServer;
 import com.bonson.qqtapk.utils.QQtBuilder;
 
 import java.util.LinkedHashMap;
@@ -19,10 +20,10 @@ import io.reactivex.schedulers.Schedulers;
  */
 
 public class FamilyModel {
-    private FamilyServer familyServer;
+    private ApiServer familyServer;
 
     @Inject
-    public FamilyModel(FamilyServer familyServer) {
+    public FamilyModel(ApiServer familyServer) {
         this.familyServer = familyServer;
     }
 

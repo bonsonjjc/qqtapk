@@ -22,18 +22,17 @@ import dagger.android.support.DaggerAppCompatActivity;
  */
 
 public abstract class BaseDaggerActivity extends DaggerAppCompatActivity implements BaseView {
-    public static List<Activity> activityTask = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().findViewById(android.R.id.content).setBackgroundColor(color(R.color.background));
-        activityTask.add(this);
+        ActivityUtils.push(this);
     }
 
     @Override
     protected void onDestroy() {
-        activityTask.remove(this);
+        ActivityUtils.pop(this);
         super.onDestroy();
     }
 

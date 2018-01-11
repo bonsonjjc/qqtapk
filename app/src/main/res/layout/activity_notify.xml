@@ -38,7 +38,7 @@
             <com.bonson.resource.view.SwitchButton
                 style="@style/SwitchButton"
                 android:layout_gravity="center_vertical|end"
-                android:checked="@{viewModel.notify}" />
+                android:checked="@={viewModel.notify}" />
         </FrameLayout>
 
         <FrameLayout
@@ -58,7 +58,7 @@
             <com.bonson.resource.view.SwitchButton
                 style="@style/SwitchButton"
                 android:layout_gravity="center_vertical|end"
-                android:checked="@{viewModel.voice}" />
+                android:checked="@={viewModel.voice}" />
         </FrameLayout>
 
         <FrameLayout
@@ -78,7 +78,7 @@
             <com.bonson.resource.view.SwitchButton
                 style="@style/SwitchButton"
                 android:layout_gravity="center_vertical|end"
-                android:checked="@{viewModel.vibrate}" />
+                android:checked="@={viewModel.vibrate}" />
         </FrameLayout>
 
 

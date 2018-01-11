@@ -8,7 +8,7 @@ import com.bonson.qqtapk.R;
 import com.bonson.qqtapk.databinding.ItemFlowerBinding;
 import com.bonson.qqtapk.model.bean.Flower;
 import com.bonson.resource.adapter.BaseAdapter;
-import com.bonson.resource.fragment.ViewHolder;
+import com.bonson.resource.adapter.ViewHolder;
 
 import java.util.List;
 

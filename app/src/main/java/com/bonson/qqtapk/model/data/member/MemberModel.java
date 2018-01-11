@@ -1,8 +1,10 @@
 package com.bonson.qqtapk.model.data.member;
 
 import com.bonson.qqtapk.app.ErrorCode;
+import com.bonson.qqtapk.model.bean.Base;
 import com.bonson.qqtapk.model.bean.Member;
 import com.bonson.qqtapk.model.bean.Result;
+import com.bonson.qqtapk.model.data.ApiServer;
 import com.bonson.qqtapk.utils.QQtBuilder;
 
 import java.util.LinkedHashMap;
@@ -20,10 +22,10 @@ import io.reactivex.functions.Function;
  */
 
 public class MemberModel {
-    private MemberServer memberServer;
+    private ApiServer memberServer;
 
     @Inject
-    MemberModel(MemberServer memberServer) {
+    MemberModel(ApiServer memberServer) {
         this.memberServer = memberServer;
     }
 
@@ -57,15 +59,15 @@ public class MemberModel {
         map.put("fname", member.getFname());
         map.put("fbid", member.getFbid());
         Object args = QQtBuilder.build("36", map);
-        return memberServer.update(args)
+        return memberServer.base(args)
                 .subscribeOn(io.reactivex.schedulers.Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .map(members -> {
                     Result<Member> result = new Result<>();
-                    Member member1 = members.get(0);
+                    Base member1 = members.get(0);
                     if ("0".equals(member1.getFresult())) {
                         result.setCode("0");
-                        result.setBody(member1);
+                        result.setBody(member);
                         result.setMsg("修改家庭成员成功");
                     } else {
                         result.setCode("-1");
@@ -80,15 +82,15 @@ public class MemberModel {
         map.put("fuid", member.getFuid());
         map.put("fbid", member.getFbid());
         Object args = QQtBuilder.build("28", map);
-        return memberServer.delete(args)
+        return memberServer.base(args)
                 .subscribeOn(io.reactivex.schedulers.Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .map(members -> {
                     Result<Member> result = new Result<>();
-                    Member member1 = members.get(0);
+                    Base member1 = members.get(0);
                     if ("0".equals(member1.getFresult())) {
                         result.setCode("0");
-                        result.setBody(member1);
+                        result.setBody(member);
                         result.setMsg("删除家庭成员成功");
                     } else {
                         result.setCode("-1");
@@ -103,7 +105,7 @@ public class MemberModel {
         map.put("fbid", bid);
         map.put("fmobile", mobile);
         Object args = QQtBuilder.build("50", map);
-        return memberServer.add(args)
+        return memberServer.members(args)
                 .subscribeOn(io.reactivex.schedulers.Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .map(members -> {

@@ -2,6 +2,7 @@ package com.bonson.qqtapk.model.data.route;
 
 import com.bonson.qqtapk.model.bean.Result;
 import com.bonson.qqtapk.model.bean.Route;
+import com.bonson.qqtapk.model.data.ApiServer;
 import com.bonson.qqtapk.utils.QQtBuilder;
 
 import java.util.LinkedHashMap;
@@ -19,10 +20,10 @@ import io.reactivex.schedulers.Schedulers;
  */
 
 public class RouteModel {
-    RouteServer routeServer;
+    ApiServer routeServer;
 
     @Inject
-    public RouteModel(RouteServer routeServer) {
+    public RouteModel(ApiServer routeServer) {
         this.routeServer = routeServer;
     }
 

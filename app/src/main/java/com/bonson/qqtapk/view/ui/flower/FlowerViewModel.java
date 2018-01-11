@@ -1,10 +1,12 @@
 package com.bonson.qqtapk.view.ui.flower;
 
 import android.app.Application;
+import android.databinding.ObservableArrayList;
 import android.databinding.ObservableField;
 import android.databinding.ObservableInt;
 import android.text.TextUtils;
 
+import com.android.databinding.library.baseAdapters.BR;
 import com.bonson.qqtapk.di.ActivityScope;
 import com.bonson.qqtapk.model.bean.Baby;
 import com.bonson.qqtapk.model.bean.Flower;
@@ -25,7 +27,7 @@ import io.reactivex.disposables.Disposable;
  */
 @ActivityScope
 public class FlowerViewModel extends AndroidViewModel {
-    private List<Flower> flowers = new ArrayList<>();
+    public List<Flower> flowers = new ObservableArrayList<>();
 
     public ObservableInt flowerCount = new ObservableInt(0);
 
@@ -42,15 +44,6 @@ public class FlowerViewModel extends AndroidViewModel {
         this.flowerModel = flowerModel;
     }
 
-    public List<Flower> getFlowers() {
-        return flowers;
-    }
-
-    public void setFlowers(List<Flower> flowers) {
-        this.flowers = flowers;
-        notifyChange();
-    }
-
     public void setView(BaseView view) {
         this.view = view;
     }
@@ -65,7 +58,8 @@ public class FlowerViewModel extends AndroidViewModel {
                 .subscribe(it -> {
                     view.toast(it.getMsg());
                     if (it.getCode().equals("0")) {
-                        setFlowers(it.getBody());
+                        flowers.addAll(it.getBody());
+                        notifyChange();
                     }
                 }, e -> {
                     view.toast("出错了");

@@ -3,6 +3,7 @@ package com.bonson.qqtapk.model.data.lesson;
 import com.bonson.qqtapk.app.ErrorCode;
 import com.bonson.qqtapk.model.bean.Lesson;
 import com.bonson.qqtapk.model.bean.Result;
+import com.bonson.qqtapk.model.data.ApiServer;
 import com.bonson.qqtapk.utils.QQtBuilder;
 
 import java.util.LinkedHashMap;
@@ -20,10 +21,10 @@ import io.reactivex.schedulers.Schedulers;
  */
 
 public class LessonModel {
-    private LessonServer lessonServer;
+    private ApiServer lessonServer;
 
     @Inject
-    public LessonModel(LessonServer lessonServer) {
+    public LessonModel(ApiServer lessonServer) {
         this.lessonServer = lessonServer;
     }
 
@@ -62,7 +63,7 @@ public class LessonModel {
         map.put("fid", bid);
         map.put("silences", builder.toString());
         Object args = QQtBuilder.build("26", map);
-        return lessonServer.update(args)
+        return lessonServer.lessons(args)
                 .subscribeOn(io.reactivex.schedulers.Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .map(it -> {

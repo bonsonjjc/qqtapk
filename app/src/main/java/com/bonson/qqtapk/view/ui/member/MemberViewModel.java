@@ -99,15 +99,9 @@ public class MemberViewModel extends AndroidViewModel {
         viewModel.title.set("编辑家庭成员");
         viewModel.right.set("保存");
         viewModel.mobileEnable.set(false);
-        viewModel.mobileHint.set("输入手机号码");
         viewModel.mobile.set(member.getFmobile());
-        viewModel.nameHint.set("输入名称");
         viewModel.name.set(member.getFname());
         viewModel.setOnPhoneListener(() -> {
-            if (TextUtils.isEmpty(viewModel.name.get())) {
-                view.toast("请输入名称");
-                return;
-            }
             member.setFname(viewModel.name.get());
             member.setFbid(Baby.baby.getFid());
             update(position, member);

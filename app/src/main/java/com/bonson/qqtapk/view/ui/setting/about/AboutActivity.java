@@ -2,6 +2,7 @@ package com.bonson.qqtapk.view.ui.setting.about;
 
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.view.View;
 
 import com.bonson.qqtapk.R;
 import com.bonson.qqtapk.databinding.ActivityAboutBinding;
@@ -26,5 +27,19 @@ public class AboutActivity extends BaseDaggerActivity {
             finish();
         });
         binding.setViewModel(viewModel);
+        viewModel.setView(this);
+    }
+
+    public void itemClick(View view) {
+        switch (view.getId()) {
+            case R.id.fl_web_url:
+                break;
+            case R.id.fl_service_phone:
+                break;
+            case R.id.tv_protocol:
+                break;
+            case R.id.tv_declaration:
+                break;
+        }
     }
 }

@@ -13,6 +13,7 @@ import com.bonson.qqtapk.view.ui.login.LoginActivity;
 import com.bonson.qqtapk.view.ui.member.MemberActivity;
 import com.bonson.qqtapk.view.ui.mode.ModeActivity;
 import com.bonson.qqtapk.view.ui.register.RegisterActivity;
+import com.bonson.qqtapk.view.ui.ring.RingActivity;
 import com.bonson.qqtapk.view.ui.route.RouteActivity;
 import com.bonson.qqtapk.view.ui.setting.SettingActivity;
 import com.bonson.qqtapk.view.ui.setting.about.AboutActivity;
@@ -48,4 +49,5 @@ public final class Route {
     public static String about = AboutActivity.class.getName();
     public static String map = MapActivity.class.getName();
     public static String info = InfoActivity.class.getName();
+    public static String ring = RingActivity.class.getName();
 }

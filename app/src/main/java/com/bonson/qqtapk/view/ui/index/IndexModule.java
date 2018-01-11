@@ -4,9 +4,11 @@ import android.content.Context;
 
 import com.bonson.qqtapk.di.ActivityScope;
 import com.bonson.qqtapk.di.FragmentScope;
+import com.bonson.qqtapk.view.adapter.BabyAdapter;
 import com.bonson.qqtapk.view.adapter.MenuAdapter;
-import com.bonson.qqtapk.view.ui.main.MainFragment;
-import com.bonson.qqtapk.view.ui.main.MainViewModel;
+import com.bonson.qqtapk.view.ui.index.main.LocationViewModel;
+import com.bonson.qqtapk.view.ui.index.main.MainFragment;
+import com.bonson.qqtapk.view.ui.index.main.MainViewModel;
 import com.bonson.resource.viewmodel.AndroidViewModel;
 
 import dagger.Binds;
@@ -28,9 +30,19 @@ public abstract class IndexModule {
     @Binds
     abstract AndroidViewModel mainViewModel(MainViewModel viewModel);
 
+    @ActivityScope
+    @Binds
+    abstract AndroidViewModel locViewModel(LocationViewModel viewModel);
+
     @ContributesAndroidInjector
     @FragmentScope
     abstract MainFragment mainFragment();
+
+    @ActivityScope
+    @Provides
+    static BabyAdapter providesAdapter(Context context, IndexViewModel viewModel) {
+        return new BabyAdapter(context, viewModel.babies);
+    }
 
     @Provides
     @ActivityScope

@@ -1,7 +1,10 @@
 package com.bonson.resource.fragment;
 
 import android.app.Activity;
+import android.content.Context;
+import android.inputmethodservice.InputMethodService;
 import android.support.v4.app.FragmentActivity;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import com.bonson.resource.activity.BaseDaggerActivity;
@@ -44,5 +47,11 @@ public abstract class BaseFragment extends DaggerFragment implements BaseView {
         if (activity instanceof BaseDaggerActivity) {
             ((BaseDaggerActivity) activity).back();
         }
+    }
+
+    public void closeSoftKeyboard() {
+        InputMethodManager inputManager = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        //得到InputMethodManager的实例
+        inputManager.hideSoftInputFromWindow(getView().getWindowToken(), 0);
     }
 }

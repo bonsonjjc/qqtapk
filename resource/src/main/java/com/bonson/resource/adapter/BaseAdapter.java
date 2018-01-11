@@ -5,9 +5,6 @@ import android.databinding.ViewDataBinding;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 
-import com.bonson.resource.adapter.OnItemClickListener;
-import com.bonson.resource.fragment.ViewHolder;
-
 import java.util.List;
 
 /**
@@ -18,8 +15,8 @@ public abstract class BaseAdapter<Bean, Binding extends ViewDataBinding> extends
     protected List<Bean> beans;
     protected LayoutInflater inflater;
 
-    public BaseAdapter(Context context, List<Bean> contacts) {
-        this.beans = contacts;
+    public BaseAdapter(Context context, List<Bean> beans) {
+        this.beans = beans;
         inflater = LayoutInflater.from(context);
 
     }

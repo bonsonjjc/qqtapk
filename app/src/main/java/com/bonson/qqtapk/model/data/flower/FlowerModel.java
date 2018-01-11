@@ -3,6 +3,7 @@ package com.bonson.qqtapk.model.data.flower;
 import com.bonson.qqtapk.app.ErrorCode;
 import com.bonson.qqtapk.model.bean.Flower;
 import com.bonson.qqtapk.model.bean.Result;
+import com.bonson.qqtapk.model.data.ApiServer;
 import com.bonson.qqtapk.utils.QQtBuilder;
 
 import java.util.LinkedHashMap;
@@ -19,10 +20,10 @@ import io.reactivex.schedulers.Schedulers;
  */
 
 public class FlowerModel {
-    private FlowerServer flowerServer;
+    private ApiServer flowerServer;
 
     @Inject
-    public FlowerModel(FlowerServer flowerServer) {
+    public FlowerModel(ApiServer flowerServer) {
         this.flowerServer = flowerServer;
     }
 

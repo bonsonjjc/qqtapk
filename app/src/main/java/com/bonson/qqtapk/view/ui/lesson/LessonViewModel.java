@@ -67,6 +67,20 @@ public class LessonViewModel extends AndroidViewModel {
     }
 
     public void update() {
-
+        if (!isNetWork()) {
+            view.toast("网络不可用");
+            return;
+        }
+        Disposable disposable = lessonModel.update(Baby.baby.getFid(), lessons)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(it -> {
+                    view.toast(it.getMsg());
+                    if (it.getCode().equals("0")) {
+                        notifyChange();
+                    }
+                }, e -> {
+                    view.toast("出错了");
+                });
+        compositeDisposable.add(disposable);
     }
 }

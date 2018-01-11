@@ -33,8 +33,8 @@ public abstract class FamilyModule {
 
     @Provides
     @ActivityScope
-    static FamilyAdapter familyAdapter(FamilyViewModel familyViewModel, Context context) {
-        return new FamilyAdapter(context, familyViewModel.getFamilies());
+    static FamilyAdapter familyAdapter(FamilyViewModel viewModel, Context context) {
+        return new FamilyAdapter(context, viewModel.families);
     }
 }
 

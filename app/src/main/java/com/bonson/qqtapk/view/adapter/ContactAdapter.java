@@ -9,7 +9,7 @@ import com.bonson.qqtapk.R;
 import com.bonson.qqtapk.databinding.ItemContactBinding;
 import com.bonson.qqtapk.model.bean.Contact;
 import com.bonson.resource.adapter.BaseAdapter;
-import com.bonson.resource.fragment.ViewHolder;
+import com.bonson.resource.adapter.ViewHolder;
 
 import java.util.List;
 

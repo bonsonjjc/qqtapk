@@ -4,9 +4,8 @@ import android.app.Application;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.text.TextUtils;
-import android.util.Log;
-import android.widget.Toast;
 
+import com.bonson.qqtapk.app.Route;
 import com.bonson.qqtapk.di.ActivityScope;
 import com.bonson.qqtapk.model.data.user.UserModel;
 import com.bonson.qqtapk.utils.Md5Utils;
@@ -26,6 +25,7 @@ import io.reactivex.schedulers.Schedulers;
 public class LoginViewModel extends AndroidViewModel {
     public ObservableField<String> mobile = new ObservableField<>(), password = new ObservableField<>();
     private String token;
+    public ObservableBoolean enable = new ObservableBoolean(true);
     public ObservableBoolean auto = new ObservableBoolean();
     private BaseView view;
 
@@ -51,34 +51,35 @@ public class LoginViewModel extends AndroidViewModel {
 
     public void login() {
         if (TextUtils.isEmpty(mobile.get())) {
-            Toast.makeText(getApplication(), "请输入账号", Toast.LENGTH_SHORT).show();
+            view.toast("请输入账号");
+            return;
         } else if (TextUtils.isEmpty(password.get())) {
-            Toast.makeText(getApplication(), "请输入密码", Toast.LENGTH_SHORT).show();
-        } else {
-            if (!isNetWork()) {
-                view.toast("网络不可用");
-                return;
-            }
-            view.load();
-            String pwd = password.get().length() == 32 ? password.get() : Md5Utils.toMD5(password.get());
-            Disposable disposable = userModel.login(mobile.get(), pwd, token, auto.get())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(result -> {
-                        if ("0".equals(result.getCode())) {
-                            action("main");
-                        } else {
-                            view.toast(result.getMsg());
-                        }
-                    }, e -> {
-                        view.toast("出错了");
-                        e.printStackTrace();
-                    });
-            compositeDisposable.add(disposable);
+            view.toast("请输入密码");
+            return;
         }
-    }
-
-    public void action(String action) {
-        view.start(action);
+        if (!isNetWork()) {
+            view.toast("网络不可用");
+            return;
+        }
+        view.load();
+        enable.set(false);
+        String pwd = password.get().length() == 32 ? password.get() : Md5Utils.toMD5(password.get());
+        Disposable disposable = userModel.login(mobile.get(), pwd, token, auto.get())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(result -> {
+                    if ("0".equals(result.getCode())) {
+                        view.start(Route.index);
+                        view.back();
+                    } else {
+                        view.toast(result.getMsg());
+                    }
+                    enable.set(true);
+                }, e -> {
+                    enable.set(true);
+                    view.toast("出错了");
+                    e.printStackTrace();
+                });
+        compositeDisposable.add(disposable);
     }
 
     void init() {

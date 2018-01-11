@@ -8,6 +8,8 @@ import com.bonson.qqtapk.R;
 import com.bonson.qqtapk.databinding.ActivityContactsBinding;
 import com.bonson.qqtapk.view.adapter.ContactAdapter;
 import com.bonson.qqtapk.view.ui.contacts.phone.PhoneFragment;
+import com.bonson.qqtapk.view.ui.info.select.Select;
+import com.bonson.qqtapk.view.ui.info.select.SelectFragment;
 import com.bonson.resource.activity.BaseDaggerActivity;
 
 import javax.inject.Inject;
@@ -24,6 +26,9 @@ public class ContactsActivity extends BaseDaggerActivity {
     PhoneFragment phoneFragment;
 
     @Inject
+    SelectFragment selectFragment;
+
+    @Inject
     ContactAdapter adapter;
 
     @Inject
@@ -37,12 +42,14 @@ public class ContactsActivity extends BaseDaggerActivity {
         binding.toolbar.getTvLeft().setOnClickListener(v -> finish());
         binding.toolbar.setRightText("添加");
         binding.toolbar.getTvRight().setOnClickListener(v -> {
-            phoneFragment.setViewModel(viewModel.initFragment());
+            selectFragment.setViewModel(viewModel.importViewModel());
+//            phoneFragment.setViewModel(viewModel.initFragment());
             getSupportFragmentManager()
                     .beginTransaction()
-                    .add(android.R.id.content, phoneFragment)
-                    .addToBackStack("contacts")
+                    .add(android.R.id.content, selectFragment)
+                    .addToBackStack("import")
                     .commit();
+
         });
         binding.recContacts.setAdapter(adapter);
         binding.recContacts.addItemDecoration(itemDecoration);

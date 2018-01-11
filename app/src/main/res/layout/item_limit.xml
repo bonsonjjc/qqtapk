@@ -5,6 +5,8 @@
 
     <data>
 
+        <import type="com.bonson.qqtapk.utils.TimeUtils" />
+
         <variable
             name="limit"
             type="com.bonson.qqtapk.model.bean.Limit" />
@@ -23,6 +25,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:text="@{limit.fname}"
+            android:textColor="@color/black"
             android:textSize="14.6sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -37,6 +40,9 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="2dp"
             android:drawableLeft="@drawable/ico_hr_time"
+            android:drawablePadding="5dp"
+            android:drawableStart="@drawable/ico_hr_time"
+            android:text="@{TimeUtils.mapTime(limit.fbegin,limit.fend)}"
             android:textColor="#717171"
             android:textSize="13sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -53,6 +59,9 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="2dp"
             android:drawableLeft="@drawable/ico_hr_time"
+            android:drawablePadding="5dp"
+            android:drawableStart="@drawable/ico_hr_time"
+            android:text="@{TimeUtils.mapTime(limit.ffbegin,limit.ffend)}"
             android:textColor="#717171"
             android:textSize="13sp"
             app:layout_constraintBottom_toBottomOf="parent"

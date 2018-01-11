@@ -73,7 +73,7 @@
 
                     <TextView
                         style="@style/DetailText"
-                        android:text="@{viewModel.baby.frelative}" />
+                        android:text="@={viewModel.baby.frelative}" />
                 </FrameLayout>
 
                 <FrameLayout
@@ -89,7 +89,7 @@
 
                     <TextView
                         style="@style/DetailText"
-                        android:text="@{viewModel.baby.fname}" />
+                        android:text="@={viewModel.baby.fname}" />
                 </FrameLayout>
 
                 <FrameLayout
@@ -121,7 +121,7 @@
 
                     <TextView
                         style="@style/DetailText"
-                        android:text="@{viewModel.baby.fbirth}" />
+                        android:text="@={viewModel.baby.fbirth}" />
                 </FrameLayout>
 
                 <FrameLayout
@@ -137,7 +137,7 @@
 
                     <TextView
                         style="@style/DetailText"
-                        android:text="@{viewModel.baby.fareaname}" />
+                        android:text="@={viewModel.baby.fareaname}" />
                 </FrameLayout>
 
                 <FrameLayout
@@ -153,7 +153,7 @@
 
                     <TextView
                         style="@style/DetailText"
-                        android:text="@{viewModel.baby.ftmobile}" />
+                        android:text="@={viewModel.baby.ftmobile}" />
                 </FrameLayout>
 
                 <FrameLayout

@@ -3,6 +3,7 @@ package com.bonson.qqtapk.model.data.area;
 import com.bonson.qqtapk.app.ErrorCode;
 import com.bonson.qqtapk.model.bean.Result;
 import com.bonson.qqtapk.model.bean.SafeArea;
+import com.bonson.qqtapk.model.data.ApiServer;
 import com.bonson.qqtapk.utils.QQtBuilder;
 
 import java.util.LinkedHashMap;
@@ -18,10 +19,10 @@ import io.reactivex.schedulers.Schedulers;
  */
 
 public class SafeAreaModel {
-    private SafeAreaServer areaServer;
+    private ApiServer areaServer;
 
     @Inject
-    SafeAreaModel(SafeAreaServer areaServer) {
+    SafeAreaModel(ApiServer areaServer) {
         this.areaServer = areaServer;
     }
 

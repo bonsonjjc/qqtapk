@@ -3,9 +3,11 @@ package com.bonson.qqtapk.view.ui.login;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 
 import com.bonson.qqtapk.R;
+import com.bonson.qqtapk.app.Route;
 import com.bonson.qqtapk.databinding.ActivityLoginBinding;
 import com.bonson.qqtapk.view.ui.forget.ForgetActivity;
 import com.bonson.qqtapk.view.ui.index.IndexActivity;
@@ -27,33 +29,23 @@ public class LoginActivity extends BaseDaggerActivity {
         super.onCreate(savedInstanceState);
         ActivityLoginBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_login);
         binding.toolbar.setLeftText("返回");
-        binding.toolbar.getTvLeft().setOnClickListener(view -> {
-            Toast.makeText(this, "结果", Toast.LENGTH_SHORT).show();
-            finish();
-        });
+        binding.toolbar.getTvLeft().setOnClickListener(view -> finish());
         viewModel.setView(this);
         binding.toolbar.setTitle("登录");
         binding.setViewModel(viewModel);
         viewModel.init();
     }
 
-    @Override
-    public void start(String url) {
-        switch (url) {
-            case "main":
-                startActivity(new Intent(this, IndexActivity.class));
-                finish();
-                break;
-            case "forget":
-                startActivity(new Intent(this, ForgetActivity.class));
-                break;
-            case "register":
-                startActivity(new Intent(this, RegisterActivity.class));
-                break;
-            default: {
+    public void login(View view) {
+        viewModel.login();
+    }
 
-            }
-        }
+    public void forget(View view) {
+        start(Route.forget);
+    }
+
+    public void register(View view) {
+        start(Route.register);
     }
 
     @Override

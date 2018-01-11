@@ -1,8 +1,10 @@
 package com.bonson.qqtapk.model.data.contacts;
 
 import com.bonson.qqtapk.app.ErrorCode;
+import com.bonson.qqtapk.model.bean.Base;
 import com.bonson.qqtapk.model.bean.Contact;
 import com.bonson.qqtapk.model.bean.Result;
+import com.bonson.qqtapk.model.data.ApiServer;
 import com.bonson.qqtapk.utils.QQtBuilder;
 
 import java.util.LinkedHashMap;
@@ -20,10 +22,10 @@ import io.reactivex.schedulers.Schedulers;
  */
 
 public class ContactsModel {
-    private ContactsServer contactsServer;
+    private ApiServer contactsServer;
 
     @Inject
-    ContactsModel(ContactsServer contactsServer) {
+    ContactsModel(ApiServer contactsServer) {
         this.contactsServer = contactsServer;
     }
 
@@ -61,7 +63,7 @@ public class ContactsModel {
         map.put("fname", contact.getFname());
         map.put("foptype", type);
         Object args = QQtBuilder.build("16", map);
-        return contactsServer.opelear(args)
+        return contactsServer.contacts(args)
                 .subscribeOn(io.reactivex.schedulers.Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .map(it -> {
@@ -92,7 +94,7 @@ public class ContactsModel {
         return set("2", contacts);
     }
 
-    public Observable<Result<Contact>> add(String bid, List<Contact> list) {
+    public Observable<Result<Base>> add(String bid, List<Contact> list) {
         StringBuilder builder = new StringBuilder();
         for (Contact contact : list) {
             String fname = contact.getFname();
@@ -108,12 +110,12 @@ public class ContactsModel {
         map.put("fbid", bid);
         map.put("contacts", builder.toString());
         Object args = QQtBuilder.build("17", map);
-        return contactsServer.imports(args)
+        return contactsServer.base(args)
                 .subscribeOn(io.reactivex.schedulers.Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .map(contacts -> {
-                    Result<Contact> result = new Result<>();
-                    Contact contact = contacts.get(0);
+                    Result<Base> result = new Result<>();
+                    Base contact = contacts.get(0);
                     if ("0".equals(contact.getFresult())) {
                         result.setCode("0");
                         result.setBody(contact);

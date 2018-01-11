@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.bonson.qqtapk.view.ui.main.MainViewModel" />
+            type="com.bonson.qqtapk.view.ui.index.main.MainViewModel" />
     </data>
 
     <android.support.v4.widget.DrawerLayout
@@ -260,7 +260,7 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
                     android:gravity="start|center_vertical"
-                    android:text="@{viewModel.time}"
+                    android:text="@{viewModel.viewModel.time}"
                     android:textColor="#919191"
                     android:textSize="13.5sp"
                     app:layout_constraintEnd_toStartOf="@+id/img_navigation"
@@ -279,7 +279,7 @@
                     android:gravity="start|center_vertical"
                     android:paddingEnd="20dp"
                     android:paddingRight="20dp"
-                    android:text="@{viewModel.address}"
+                    android:text="@{viewModel.viewModel.address}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/img_navigation"
                     app:layout_constraintStart_toStartOf="parent"
