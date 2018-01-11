@@ -6,7 +6,6 @@ import android.databinding.ObservableField;
 import android.databinding.ObservableInt;
 import android.text.TextUtils;
 
-import com.android.databinding.library.baseAdapters.BR;
 import com.bonson.qqtapk.di.ActivityScope;
 import com.bonson.qqtapk.model.bean.Baby;
 import com.bonson.qqtapk.model.bean.Flower;
@@ -14,7 +13,6 @@ import com.bonson.qqtapk.model.data.flower.FlowerModel;
 import com.bonson.resource.activity.BaseView;
 import com.bonson.resource.viewmodel.AndroidViewModel;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -114,11 +112,11 @@ public class FlowerViewModel extends AndroidViewModel {
 
 
     public void onPunishment() {
-        if (!isNetWork()) {
-            view.toast("网络不可用");
+        if (validate()) {
             return;
         }
-        if (validate()) {
+        if (!isNetWork()) {
+            view.toast("网络不可用");
             return;
         }
         Flower flower = create("2");

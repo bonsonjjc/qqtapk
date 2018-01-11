@@ -1,7 +1,6 @@
-package com.bonson.qqtapk.utils;
+package com.bonson.library.utils;
 
 import android.content.Context;
-import android.content.res.AssetFileDescriptor;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 

@@ -11,6 +11,7 @@ import com.bonson.qqtapk.model.bean.Lesson;
 import com.bonson.qqtapk.model.bean.Limit;
 import com.bonson.qqtapk.model.bean.Member;
 import com.bonson.qqtapk.model.bean.Menu;
+import com.bonson.qqtapk.model.bean.Voice;
 import com.bonson.qqtapk.view.adapter.BabyAdapter;
 import com.bonson.qqtapk.view.adapter.ContactAdapter;
 import com.bonson.qqtapk.view.adapter.FamilyAdapter;
@@ -19,6 +20,7 @@ import com.bonson.qqtapk.view.adapter.LessonAdapter;
 import com.bonson.qqtapk.view.adapter.LimitAdapter;
 import com.bonson.qqtapk.view.adapter.MemberAdapter;
 import com.bonson.qqtapk.view.adapter.MenuAdapter;
+import com.bonson.qqtapk.view.adapter.VoiceAdapter;
 import com.bonson.qqtapk.view.ui.info.select.Select;
 import com.bonson.qqtapk.view.ui.info.select.SelectAdapter;
 
@@ -90,5 +92,12 @@ public class RecyclerViewBindingAdapter {
         BabyAdapter adapter = (BabyAdapter) recyclerView.getAdapter();
         recyclerView.setAdapter(adapter);
         adapter.setBeans(babies);
+    }
+
+    @BindingAdapter("android:voices")
+    public static void setVoices(RecyclerView recyclerView, List<Voice> voices) {
+        VoiceAdapter adapter = (VoiceAdapter) recyclerView.getAdapter();
+        recyclerView.setAdapter(adapter);
+        adapter.setBeans(voices);
     }
 }

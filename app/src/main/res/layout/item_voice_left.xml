@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="voice"
+            type="com.bonson.qqtapk.model.bean.Voice" />
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="8dp"
+        android:paddingTop="8dp">
+
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
+            android:text="@{voice.fctime}"
+            android:textColor="#919191"
+            android:textSize="12.5sp"
+            app:layout_constraintBottom_toTopOf="@+id/ll_lenght"
+            app:layout_constraintStart_toEndOf="@+id/tv_name" />
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
+            android:text="@{voice.fbabyname}"
+            app:layout_constraintBottom_toTopOf="@+id/ll_lenght"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <FrameLayout
+            android:id="@+id/ll_lenght"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/white_border_rectangle"
+            android:minWidth="100dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <ImageView
+                android:id="@+id/img_play"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left|center_vertical"
+                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
+                android:src="@drawable/l_yy3" />
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/tv_duration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
+            android:text="@{voice.ftime}"
+            android:textColor="#919191"
+            android:textSize="12.5sp"
+            app:layout_constraintBottom_toBottomOf="@+id/ll_lenght"
+            app:layout_constraintStart_toEndOf="@+id/ll_lenght"
+            app:layout_constraintTop_toTopOf="@+id/ll_lenght" />
+
+        <ImageView
+            android:id="@+id/img_re_send"
+            android:layout_width="8dp"
+            android:layout_height="8dp"
+            android:src="@drawable/read_bg"
+            app:layout_constraintBottom_toBottomOf="@+id/ll_lenght"
+            app:layout_constraintStart_toEndOf="@+id/tv_duration"
+            app:layout_constraintTop_toTopOf="@+id/ll_lenght" />
+    </android.support.constraint.ConstraintLayout>
+</layout>

@@ -6,7 +6,7 @@ import android.databinding.ObservableArrayList;
 import com.bonson.qqtapk.R;
 import com.bonson.qqtapk.di.ActivityScope;
 import com.bonson.qqtapk.di.FragmentScope;
-import com.bonson.qqtapk.utils.PlayerUtils;
+import com.bonson.library.utils.PlayerUtils;
 import com.bonson.qqtapk.view.ui.info.select.Select;
 import com.bonson.qqtapk.view.ui.info.select.SelectAdapter;
 import com.bonson.qqtapk.view.ui.info.select.SelectFragment;

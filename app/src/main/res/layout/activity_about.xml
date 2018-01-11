@@ -34,6 +34,7 @@
             android:drawablePadding="10dp"
             android:drawableTop="@drawable/app_logo"
             android:text="@{viewModel.version}"
+            android:gravity="center_horizontal"
             tools:text="移动亲情通v3.2.9" />
 
         <FrameLayout

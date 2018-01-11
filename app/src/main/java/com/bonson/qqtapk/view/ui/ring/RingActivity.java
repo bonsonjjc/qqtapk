@@ -6,7 +6,7 @@ import android.view.View;
 
 import com.bonson.qqtapk.R;
 import com.bonson.qqtapk.databinding.ActivityRingBinding;
-import com.bonson.qqtapk.utils.PlayerUtils;
+import com.bonson.library.utils.PlayerUtils;
 import com.bonson.qqtapk.view.ui.info.select.SelectFragment;
 import com.bonson.qqtapk.view.ui.info.select.SelectViewModel;
 import com.bonson.resource.activity.BaseDaggerActivity;

@@ -8,7 +8,7 @@ import com.bonson.qqtapk.di.ActivityScope;
 import com.bonson.qqtapk.model.bean.Baby;
 import com.bonson.qqtapk.model.bean.Mode;
 import com.bonson.qqtapk.model.data.mode.ModeModel;
-import com.bonson.qqtapk.utils.NumberUtils;
+import com.bonson.library.utils.NumberUtils;
 import com.bonson.resource.activity.BaseView;
 import com.bonson.resource.viewmodel.AndroidViewModel;
 

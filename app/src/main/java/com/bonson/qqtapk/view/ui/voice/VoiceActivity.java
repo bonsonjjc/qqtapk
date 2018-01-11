@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import com.bonson.qqtapk.R;
 import com.bonson.qqtapk.databinding.ActivityVoiceBinding;
+import com.bonson.qqtapk.view.adapter.VoiceAdapter;
 import com.bonson.resource.activity.BaseDaggerActivity;
 
 import javax.inject.Inject;
@@ -17,6 +18,9 @@ public class VoiceActivity extends BaseDaggerActivity {
     @Inject
     VoiceViewModel viewModel;
 
+    @Inject
+    VoiceAdapter adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,7 +30,9 @@ public class VoiceActivity extends BaseDaggerActivity {
         binding.toolbar.getTvLeft().setOnClickListener(v -> {
             finish();
         });
+        binding.recVoices.setAdapter(adapter);
         viewModel.setView(this);
+        viewModel.voices();
     }
 
     @Override

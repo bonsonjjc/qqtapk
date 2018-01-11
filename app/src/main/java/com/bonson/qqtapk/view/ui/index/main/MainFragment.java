@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.bonson.qqtapk.R;
+import com.bonson.qqtapk.app.Route;
 import com.bonson.qqtapk.databinding.FragmentMainBinding;
 import com.bonson.qqtapk.di.ActivityScope;
 import com.bonson.qqtapk.view.adapter.MenuAdapter;
@@ -41,15 +42,10 @@ public class MainFragment extends BaseFragment {
         binding.mapView.onCreate(getContext(), savedInstanceState);
         binding.setViewModel(viewModel);
         binding.recMenus.setAdapter(menuAdapter);
-        binding.fbLocation.setOnClickListener(v -> {
-            viewModel.viewModel.location();
-        });
-        binding.fbAction1.setOnClickListener(v -> {
-            viewModel.listener();
-        });
-        binding.fbAction2.setOnClickListener(v -> {
-            viewModel.lockMachine();
-        });
+        binding.fbLocation.setOnClickListener(v -> viewModel.viewModel.location());
+        binding.fbAction1.setOnClickListener(v -> viewModel.listener());
+        binding.fbAction2.setOnClickListener(v -> viewModel.lockMachine());
+        binding.fbAction3.setOnClickListener(v -> start(Route.voice));
         return binding.getRoot();
     }
 

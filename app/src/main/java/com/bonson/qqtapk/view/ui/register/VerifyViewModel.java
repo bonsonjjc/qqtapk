@@ -49,7 +49,7 @@ public class VerifyViewModel extends AndroidViewModel {
             view.toast("网络不可用");
             return;
         }
-        userModel.verify(mobile, type + "")
+        Disposable disposable = userModel.verify(mobile, type + "")
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(it -> {
                     view.toast(it.getMsg());
@@ -60,6 +60,7 @@ public class VerifyViewModel extends AndroidViewModel {
                     view.toast("出错了");
                     e.printStackTrace();
                 });
+        compositeDisposable.add(disposable);
     }
 
     private void shutdown(int totalSecond) {

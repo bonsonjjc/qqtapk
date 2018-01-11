@@ -26,6 +26,8 @@ public class Voice extends Base {
 
     private String ftime; // 语音时长
 
+    private String state;
+
     public String getFid() {
         return fid;
     }
@@ -120,5 +122,13 @@ public class Voice extends Base {
 
     public void setFtime(String ftime) {
         this.ftime = ftime;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
     }
 }

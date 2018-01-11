@@ -11,6 +11,7 @@ import com.bonson.resource.viewmodel.AndroidViewModel;
 import javax.inject.Inject;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
 
 /**
  * Created by zjw on 2018/1/3.
@@ -76,7 +77,7 @@ public class ResetViewModel extends AndroidViewModel {
             view.toast("网络不可用");
             return;
         }
-        userModel.resetPassword(mobile, password)
+        Disposable disposable = userModel.resetPassword(mobile, password)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(it -> {
                     view.toast(it.getMsg());
@@ -87,5 +88,6 @@ public class ResetViewModel extends AndroidViewModel {
                     view.toast("出错了");
                     e.printStackTrace();
                 });
+        compositeDisposable.add(disposable);
     }
 }
