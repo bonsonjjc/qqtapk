@@ -26,6 +26,14 @@ public abstract class BaseFragment extends DaggerFragment implements BaseView {
     }
 
     @Override
+    public void dismiss() {
+        Activity activity = getActivity();
+        if (activity instanceof BaseDaggerActivity) {
+            ((BaseDaggerActivity) activity).dismiss();
+        }
+    }
+
+    @Override
     public void toast(String msg) {
         Activity activity = getActivity();
         if (activity instanceof BaseDaggerActivity) {

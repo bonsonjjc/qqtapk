@@ -2,6 +2,7 @@ package com.bonson.qqtapk.view.adapter;
 
 import android.content.Context;
 import android.databinding.DataBindingUtil;
+import android.view.View;
 import android.view.ViewGroup;
 
 import com.bonson.qqtapk.R;
@@ -29,6 +30,12 @@ public class BabyAdapter extends BaseAdapter<Baby, ItemBabyBinding> {
         Baby baby = beans.get(position);
         ItemBabyBinding binding = holder.getBinding();
         binding.setBaby(baby);
+        binding.setIsCurrent(baby.getFid().equals(Baby.baby.getFid()));
         binding.executePendingBindings();
+        binding.getRoot().setOnClickListener((View v) -> {
+            if (onItemClickListener != null) {
+                onItemClickListener.itemClick(position);
+            }
+        });
     }
 }

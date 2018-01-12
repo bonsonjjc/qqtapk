@@ -79,19 +79,27 @@
             </RadioGroup>
         </com.bonson.resource.view.MToolbar>
 
-        <TextView
+        <FrameLayout
             android:id="@+id/ll_search"
             android:layout_width="match_parent"
             android:layout_height="@dimen/item_height"
-            android:drawableLeft="@drawable/ico_qygj_search"
-            android:drawablePadding="8dp"
-            android:drawableStart="@drawable/ico_qygj_search"
-            android:gravity="center_vertical"
-            android:hint="搜索"
-            android:singleLine="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+            app:layout_constraintTop_toBottomOf="@+id/toolbar">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:drawableLeft="@drawable/ico_qygj_search"
+                android:drawablePadding="8dp"
+                android:drawableStart="@drawable/ico_qygj_search"
+                android:hint="搜索"
+                android:textColor="#dddddd"
+                android:singleLine="true"
+                android:textSize="16sp" />
+        </FrameLayout>
+
 
         <com.baidu.mapapi.map.TextureMapView
             android:id="@+id/mapView"

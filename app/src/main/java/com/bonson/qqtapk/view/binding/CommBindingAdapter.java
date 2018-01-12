@@ -2,11 +2,16 @@ package com.bonson.qqtapk.view.binding;
 
 import android.content.res.Resources;
 import android.databinding.BindingAdapter;
+import android.databinding.BindingConversion;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.widget.ImageView;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by zjw on 2018/1/3.
@@ -22,4 +27,16 @@ public abstract class CommBindingAdapter {
         int resId = resources.getIdentifier(img, "drawable", imageView.getContext().getPackageName());
         imageView.setImageResource(resId);
     }
+
+    @BindingAdapter("android:border_color")
+    public static void setBorderColor(CircleImageView imageView, ColorDrawable color) {
+        imageView.setBorderColor(color.getColor());
+    }
+
+    @BindingConversion
+    public static ColorDrawable convertColorToDrawable(int color) {
+        return new ColorDrawable(color);
+    }
+
+
 }

@@ -1,6 +1,7 @@
 package com.bonson.qqtapk.model.data.lesson;
 
 import com.bonson.qqtapk.app.ErrorCode;
+import com.bonson.qqtapk.model.bean.Base;
 import com.bonson.qqtapk.model.bean.Lesson;
 import com.bonson.qqtapk.model.bean.Result;
 import com.bonson.qqtapk.model.data.ApiServer;
@@ -38,7 +39,7 @@ public class LessonModel {
                     Result<List<Lesson>> result = new Result<>();
                     if (it.isEmpty()) {
                         result.setCode("-1");
-                        result.setMsg("没有亲情号码");
+                        result.setMsg("没有设置上课静默");
                     } else {
                         result.setBody(it);
                         result.setCode("0");
@@ -48,36 +49,37 @@ public class LessonModel {
                 });
     }
 
-    public Observable<Result<Lesson>> update(String bid, List<Lesson> lessons) {
+    public Observable<Result<Base>> update(String bid, List<Lesson> lessons) {
         Map<String, String> map = new LinkedHashMap<>();
         StringBuilder builder = new StringBuilder();
         for (Lesson lesson : lessons) {
             builder.append(lesson.getFbegin());
             builder.append("-");
             builder.append(lesson.getFend());
+            builder.append("-");
             builder.append(lesson.getFstate());
             if (lessons.indexOf(lesson) != lessons.size() - 1) {
                 builder.append("|");
             }
         }
-        map.put("fid", bid);
+        map.put("fbid", bid);
         map.put("silences", builder.toString());
         Object args = QQtBuilder.build("26", map);
-        return lessonServer.lessons(args)
-                .subscribeOn(io.reactivex.schedulers.Schedulers.io())
+        return lessonServer.base(args)
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .map(it -> {
-                    Result<Lesson> result = new Result<>();
-                    Lesson inLimit = it.get(0);
-                    if ("0".equals(inLimit.getFresult())) {
+                    Result<Base> result = new Result<>();
+                    Base base = it.get(0);
+                    if ("0".equals(base.getFresult())) {
                         result.setCode("0");
-                        result.setBody(inLimit);
+                        result.setBody(base);
                         result.setMsg("修改成功");
                     } else {
                         result.setCode("-1");
-                        result.setMsg(ErrorCode.message(inLimit.getFresult()));
+                        result.setMsg(ErrorCode.message(base.getFresult()));
                     }
-                    return null;
+                    return result;
                 });
     }
 }

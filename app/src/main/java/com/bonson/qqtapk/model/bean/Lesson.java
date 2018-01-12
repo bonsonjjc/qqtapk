@@ -6,7 +6,6 @@ public class Lesson extends Base {
     private String fend;
     private String fstate;
 
-    private boolean open;
 
     public String getFid() {
         return fid;
@@ -47,16 +46,16 @@ public class Lesson extends Base {
     }
 
     public boolean isOpen() {
-        return open;
+        return "0".equals(fstate);
     }
 
     public void setOpen(boolean isOpened) {
-        this.open = isOpened;
+        fstate = isOpened ? "0" : "1";
     }
 
     @Override
     public String toString() {
-        return "Lesson [fid=" + fid + ", fbegin=" + fbegin + ", fend=" + fend + ", fstate=" + fstate + ", 是否开启=" + open + "]";
+        return "Lesson [fid=" + fid + ", fbegin=" + fbegin + ", fend=" + fend + ", fstate=" + fstate + "]";
     }
 
 }

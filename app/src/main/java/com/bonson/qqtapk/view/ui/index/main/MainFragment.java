@@ -12,6 +12,7 @@ import com.bonson.qqtapk.R;
 import com.bonson.qqtapk.app.Route;
 import com.bonson.qqtapk.databinding.FragmentMainBinding;
 import com.bonson.qqtapk.di.ActivityScope;
+import com.bonson.qqtapk.model.bean.Device;
 import com.bonson.qqtapk.view.adapter.MenuAdapter;
 import com.bonson.resource.fragment.BaseFragment;
 
@@ -45,7 +46,19 @@ public class MainFragment extends BaseFragment {
         binding.fbLocation.setOnClickListener(v -> viewModel.viewModel.location());
         binding.fbAction1.setOnClickListener(v -> viewModel.listener());
         binding.fbAction2.setOnClickListener(v -> viewModel.lockMachine());
-        binding.fbAction3.setOnClickListener(v -> start(Route.voice));
+        binding.fbAction3.setOnClickListener(v -> {
+            if (Device.device.getFtversion().equals("W001")) {
+                toast("当前手环型号不支持此功能");
+                return;
+            }
+            start(Route.voice);
+        });
+        binding.fbAction4.setOnClickListener(v -> {
+            if (Device.device.getFtversion().equals("W001")) {
+                toast("当前手环型号不支持此功能");
+                return;
+            }
+        });
         return binding.getRoot();
     }
 

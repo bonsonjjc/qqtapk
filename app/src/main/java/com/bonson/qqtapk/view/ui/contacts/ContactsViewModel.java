@@ -44,6 +44,7 @@ public class ContactsViewModel extends AndroidViewModel {
 
     public void setView(BaseView view) {
         this.view = view;
+        viewModel.setView(view);
     }
 
     public void contacts() {
@@ -51,9 +52,11 @@ public class ContactsViewModel extends AndroidViewModel {
             view.toast("网络不可用");
             return;
         }
+        view.load();
         Disposable disposable = contactsModel.contacts(Baby.baby.getFid(), 0, 10)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(it -> {
+                    view.dismiss();
                     view.toast(it.getMsg());
                     if (it.getCode().equals("0")) {
                         contacts.addAll(it.getBody());
@@ -79,7 +82,6 @@ public class ContactsViewModel extends AndroidViewModel {
     public PhoneViewModel initFragment() {
         viewModel.mobile.set("");
         viewModel.name.set("");
-
         viewModel.title.set("添加联系人");
         viewModel.right.set("保存");
         viewModel.setOnPhoneListener(() -> {
@@ -120,9 +122,11 @@ public class ContactsViewModel extends AndroidViewModel {
             view.toast("网络不可用");
             return;
         }
+        view.load();
         Disposable disposable = contactsModel.add(contact)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(it -> {
+                    view.dismiss();
                     if (it.getCode().equals("0")) {
                         view.toast("添加" + it.getMsg());
                         contacts.add(it.getBody());
@@ -132,6 +136,7 @@ public class ContactsViewModel extends AndroidViewModel {
                         view.toast(it.getMsg());
                     }
                 }, e -> {
+                    view.dismiss();
                     view.toast("出错了");
                 });
         compositeDisposable.add(disposable);
@@ -142,11 +147,13 @@ public class ContactsViewModel extends AndroidViewModel {
             view.toast("网络不可用");
             return;
         }
+        view.load();
         Contact contact = contacts.get(position);
         contact.setBid(Baby.baby.getFid());
         Disposable disposable = contactsModel.delete(contact)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(it -> {
+                    view.dismiss();
                     if (it.getCode().equals("0")) {
                         view.toast("删除" + it.getMsg());
                         contacts.remove(position);
@@ -155,6 +162,7 @@ public class ContactsViewModel extends AndroidViewModel {
                         view.toast(it.getMsg());
                     }
                 }, e -> {
+                    view.dismiss();
                     view.toast("出错了");
                 });
         compositeDisposable.add(disposable);
@@ -165,6 +173,7 @@ public class ContactsViewModel extends AndroidViewModel {
             view.toast("网络不可用");
             return;
         }
+        view.load();
         Disposable disposable = contactsModel.update(contact)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(it -> {
@@ -177,6 +186,7 @@ public class ContactsViewModel extends AndroidViewModel {
                         view.toast(it.getMsg());
                     }
                 }, e -> {
+                    view.dismiss();
                     view.toast("出错了");
                 });
         compositeDisposable.add(disposable);

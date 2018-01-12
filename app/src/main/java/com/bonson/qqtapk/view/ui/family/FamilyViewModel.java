@@ -39,6 +39,7 @@ public class FamilyViewModel extends AndroidViewModel {
 
     public void setView(BaseView view) {
         this.view = view;
+        viewModel.setView(view);
     }
 
 

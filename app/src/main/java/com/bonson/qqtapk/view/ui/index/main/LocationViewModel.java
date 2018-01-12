@@ -46,8 +46,11 @@ public class LocationViewModel extends AndroidViewModel {
                     view.toast(it.getMsg());
                     if (it.getCode().equals("0")) {
                         result(it.getBody(), 1);
+                    } else {
+                        view.dismiss();
                     }
                 }, e -> {
+                    view.dismiss();
                     view.toast("出错了");
                 });
         compositeDisposable.add(disposable);
@@ -75,10 +78,12 @@ public class LocationViewModel extends AndroidViewModel {
                                 result(seqid, count + 1);
                                 break;
                             default:
+                                view.dismiss();
                                 view.toast(result.getMsg());
                                 break;
                         }
                     }, e -> {
+                        view.dismiss();
                         view.toast("定位失败");
                     });
             compositeDisposable.add(disposable);

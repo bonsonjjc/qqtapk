@@ -82,16 +82,16 @@ public class VoiceModel {
                 .addFormDataPart("file2", "1.amr", requestBody)
                 .build();
         return uploadServer.voice(time, token, multipartBody)
-                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
                 .map(it -> {
                     Result<String> result = new Result<>();
                     if (TextUtils.isEmpty(it)) {
                         result.setCode("-1");
-                        result.setBody(it);
-                        result.setMsg("上传成功");
-                    } else {
-                        result.setCode("-1");
                         result.setMsg("上传失败");
+                    } else {
+                        result.setCode("0");
+                        result.setMsg("上传成功");
+                        result.setBody(it);
                     }
                     return result;
                 });
@@ -108,7 +108,7 @@ public class VoiceModel {
         body.put("ftime", voice.getFtime());
         Object obj = QQtBuilder.build("55", body);
         return voiceServer.voices(obj)
-                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
                 .map(it -> {
                     Result<String> result = new Result<>();
                     Voice v = it.get(0);

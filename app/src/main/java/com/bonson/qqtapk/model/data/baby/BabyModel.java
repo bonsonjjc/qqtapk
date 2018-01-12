@@ -3,6 +3,8 @@ package com.bonson.qqtapk.model.data.baby;
 import com.bonson.qqtapk.app.ErrorCode;
 import com.bonson.qqtapk.model.bean.Baby;
 import com.bonson.qqtapk.model.bean.Result;
+import com.bonson.qqtapk.model.bean.User;
+import com.bonson.qqtapk.model.bean.UserBean;
 import com.bonson.qqtapk.model.data.ApiServer;
 import com.bonson.qqtapk.model.db.BabyDao;
 import com.bonson.qqtapk.utils.QQtBuilder;
@@ -109,8 +111,34 @@ public class BabyModel {
                 });
     }
 
-    public Baby get(String bid) {
+    public Baby getLocal(String bid) {
         return babyDao.getById(bid);
+    }
+
+    public Observable<Result<Baby>> getBaby(String bid) {
+        Map<String, String> map = new LinkedHashMap<>();
+        map.put("fmobile", User.user.getMobile());
+        map.put("fpasswd", User.user.getPassword());
+        map.put("fbid", bid);
+        map.put("ftoken", User.user.getToken() + "");
+        Object body = QQtBuilder.build("01", map);
+        return babyServer.user(body)
+                .subscribeOn(Schedulers.io())
+                .map(babies -> {
+                    UserBean baby = babies.get(0);
+                    Result<Baby> result = new Result<>();
+                    if ("0".equals(baby.getFresult())) {
+                        result.setCode("0");
+                        result.setMsg("切换成功");
+                        Baby r=baby.baby();
+                        babyDao.update(r);
+                        result.setBody(r);
+                    } else {
+                        result.setCode("-1");
+                        result.setMsg(baby.getMsg());
+                    }
+                    return result;
+                });
     }
 
     public Flowable<List<Baby>> list(String userId) {

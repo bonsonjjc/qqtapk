@@ -43,6 +43,6 @@ public class VoiceAdapter extends BaseAdapter<Voice, ViewDataBinding> {
     @Override
     public int getItemViewType(int position) {
         Voice voice = beans.get(position);
-        return voice.getFtype().equals("1") ? 1 : 2;
+        return voice.getFtype().equals("1") ? 2 : 1;
     }
 }

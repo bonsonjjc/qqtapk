@@ -44,6 +44,7 @@ public class MemberViewModel extends AndroidViewModel {
 
     public void setView(BaseView view) {
         this.view = view;
+        viewModel.setView(view);
     }
 
     public void members() {

@@ -73,6 +73,7 @@ public class MainViewModel extends AndroidViewModel {
         Disposable disposable = indexModel.device(Baby.baby.getFid())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(it -> {
+                    view.dismiss();
                     view.toast(it.getMsg());
                     if (it.getCode().equals("0")) {
                         Device device = Device.device;
@@ -82,6 +83,7 @@ public class MainViewModel extends AndroidViewModel {
                         viewModel.time.set(location.getFctime());
                     }
                 }, e -> {
+                    view.dismiss();
                     view.toast("出错了");
                     e.printStackTrace();
                 });
@@ -94,14 +96,17 @@ public class MainViewModel extends AndroidViewModel {
             view.toast("网络不可用");
             return;
         }
+        view.load();
         Disposable disposable = indexModel.listener(Baby.baby.getFid(), Baby.baby.getFuser())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(it -> {
+                    view.dismiss();
                     view.toast(it.getMsg());
                     if (it.getCode().equals("0")) {
 
                     }
                 }, e -> {
+                    view.dismiss();
                     view.toast("出错了");
                     e.printStackTrace();
                 });
@@ -113,22 +118,20 @@ public class MainViewModel extends AndroidViewModel {
             view.toast("网络不可用");
             return;
         }
+        view.load();
         Disposable disposable = indexModel.lockMachine(Baby.baby.getFid(), Baby.baby.getFuser())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(it -> {
+                    view.dismiss();
                     view.toast(it.getMsg());
                     if (it.getCode().equals("0")) {
 
                     }
                 }, e -> {
+                    view.dismiss();
                     view.toast("出错了");
                     e.printStackTrace();
                 });
         compositeDisposable.add(disposable);
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
     }
 }

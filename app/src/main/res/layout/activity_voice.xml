@@ -37,52 +37,51 @@
             app:layout_constraintTop_toBottomOf="@+id/toolbar"
             app:reverseLayout="true" />
 
-        <!-- <LinearLayout
-             android:id="@+id/ll_voice_tip"
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:layout_marginBottom="15dp"
-             android:background="@drawable/grey_shape"
-             android:orientation="horizontal"
-             android:paddingBottom="6dp"
-             android:paddingLeft="13dp"
-             android:paddingRight="13dp"
-             android:paddingTop="6dp"
-             android:visibility="gone"
-             app:layout_constraintBottom_toTopOf="@+id/btn_send"
-             app:layout_constraintEnd_toEndOf="parent"
-             app:layout_constraintStart_toStartOf="parent">
+        <LinearLayout
+            android:id="@+id/ll_voice_tip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/grey_shape"
+            android:orientation="horizontal"
+            android:paddingBottom="6dp"
+            android:paddingLeft="13dp"
+            android:paddingRight="13dp"
+            android:paddingTop="6dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@+id/btn_send"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
 
-             <ImageView
-                 android:id="@+id/img_animation"
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:layout_gravity="center_vertical"
-                 android:src="@drawable/speaking" />
+            <ImageView
+                android:id="@+id/img_animation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/speaking" />
 
-             <TextView
-                 android:id="@+id/tv_voice_text"
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:layout_gravity="center_vertical"
-                 android:paddingLeft="6dp"
-                 android:text="@string/voice_cancel"
-                 android:textColor="@color/white"
-                 android:textSize="12sp" />
-         </LinearLayout>
+            <TextView
+                android:id="@+id/tv_voice_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:paddingLeft="6dp"
+                android:text="@string/voice_cancel"
+                android:textColor="@color/white"
+                android:textSize="12sp" />
+        </LinearLayout>
 
-         <com.bonson.comm.view.VoiceView
-             android:id="@+id/btn_send"
-             android:layout_width="match_parent"
-             android:layout_height="45dp"
-             android:layout_marginBottom="1dp"
-             android:background="@drawable/voice_btn_bg"
-             android:clickable="true"
-             android:gravity="center"
-             android:text="按住 说话"
-             android:textColor="@color/theme"
-             android:textStyle="bold"
-             app:layout_constraintBottom_toBottomOf="parent" />
-             -->
+        <com.bonson.qqtapk.view.widget.VoiceView
+            android:id="@+id/btn_send"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginBottom="1dp"
+            android:background="@drawable/voice_btn_bg"
+            android:clickable="true"
+            android:gravity="center"
+            android:text="按住 说话"
+            android:textColor="@color/theme"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent" />
     </android.support.constraint.ConstraintLayout>
 </layout>

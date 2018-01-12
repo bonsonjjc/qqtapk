@@ -12,4 +12,6 @@ public interface BaseView {
     void back();
 
     void toast(String msg);
+
+    void dismiss();
 }

@@ -53,4 +53,6 @@
     <string name="limit_detail">呼入限制功能可拦截陌生来电，以及允许您所设置的呼入号码,在对应的时间段内与您的孩子进行通话。注：亲情号码不受限制。</string>
     <string name="back">返回</string>
     <string name="save">保存</string>
+    <string name="voice_cancel">松开手指\n取消发送</string>
+    <string name="voice_send">上滑手指\n取消发送</string>
 </resources>

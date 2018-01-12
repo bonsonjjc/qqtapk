@@ -77,12 +77,12 @@ public class InfoViewModel extends AndroidViewModel {
             case InfoActivity.Type.height:
                 inputViewModel.digits.set("0123456789");
                 inputViewModel.value.set(baby.getFheight());
-                inputViewModel.length.set(2);
+                inputViewModel.length.set(3);
                 break;
             case InfoActivity.Type.weight:
                 inputViewModel.digits.set("0123456789");
                 inputViewModel.value.set(baby.getFweight());
-                inputViewModel.length.set(2);
+                inputViewModel.length.set(3);
                 break;
         }
         inputViewModel.setOnSaveListener(() -> {
@@ -90,7 +90,22 @@ public class InfoViewModel extends AndroidViewModel {
                 view.toast("请输入内容");
                 return;
             }
+            switch (type) {
+                case InfoActivity.Type.name:
+                    baby.setFname(inputViewModel.value.get());
+                    break;
+                case InfoActivity.Type.mobile:
+                    baby.setFtmobile(inputViewModel.value.get());
+                    break;
+                case InfoActivity.Type.height:
+                    baby.setFheight(inputViewModel.value.get());
+                    break;
+                case InfoActivity.Type.weight:
+                    baby.setFweight(inputViewModel.value.get());
+                    break;
+            }
             view.back();
+            notifyChange();
             update();
         });
         return inputViewModel;

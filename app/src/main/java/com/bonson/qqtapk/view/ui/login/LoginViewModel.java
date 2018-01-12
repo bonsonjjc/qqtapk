@@ -53,7 +53,8 @@ public class LoginViewModel extends AndroidViewModel {
         if (TextUtils.isEmpty(mobile.get())) {
             view.toast("请输入账号");
             return;
-        } else if (TextUtils.isEmpty(password.get())) {
+        }
+        if (TextUtils.isEmpty(password.get())) {
             view.toast("请输入密码");
             return;
         }
@@ -67,6 +68,7 @@ public class LoginViewModel extends AndroidViewModel {
         Disposable disposable = userModel.login(mobile.get(), pwd, token, auto.get())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(result -> {
+                    view.dismiss();
                     if ("0".equals(result.getCode())) {
                         view.start(Route.index);
                         view.back();
@@ -75,6 +77,7 @@ public class LoginViewModel extends AndroidViewModel {
                     }
                     enable.set(true);
                 }, e -> {
+                    view.dismiss();
                     enable.set(true);
                     view.toast("出错了");
                     e.printStackTrace();

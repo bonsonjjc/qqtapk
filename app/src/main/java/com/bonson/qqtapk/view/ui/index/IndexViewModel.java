@@ -7,6 +7,8 @@ import com.bonson.qqtapk.di.ActivityScope;
 import com.bonson.qqtapk.model.bean.Baby;
 import com.bonson.qqtapk.model.bean.User;
 import com.bonson.qqtapk.model.data.baby.BabyModel;
+import com.bonson.qqtapk.model.data.user.UserModel;
+import com.bonson.resource.activity.BaseView;
 import com.bonson.resource.viewmodel.AndroidViewModel;
 
 import java.util.List;
@@ -31,13 +33,41 @@ public class IndexViewModel extends AndroidViewModel {
         this.babyModel = babyModel;
     }
 
+    BaseView view;
+
     public void babies() {
         Disposable disposable = babyModel.list(User.user.getUserId())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(it -> {
+                    babies.clear();
                     babies.addAll(it);
                     notifyChange();
                 }, e -> {
+                    e.printStackTrace();
+                });
+        compositeDisposable.add(disposable);
+    }
+
+    public void setView(BaseView view) {
+        this.view = view;
+    }
+
+    public void change(int index) {
+        if (!isNetWork()) {
+            view.toast("网络不可用");
+            return;
+        }
+        view.load();
+        Disposable disposable = babyModel.getBaby(babies.get(index).getFid())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(it -> {
+                    view.dismiss();
+                    view.toast(it.getMsg());
+                    if (it.getCode().equals("0")) {
+                        Baby.baby = it.getBody();
+                    }
+                }, e -> {
+                    view.dismiss();
                     e.printStackTrace();
                 });
         compositeDisposable.add(disposable);

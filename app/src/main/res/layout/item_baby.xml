@@ -8,6 +8,11 @@
         <variable
             name="baby"
             type="com.bonson.qqtapk.model.bean.Baby" />
+
+        <variable
+            name="isCurrent"
+            type="Boolean" />
+        <import type="android.graphics.Color"/>
     </data>
 
     <LinearLayout
@@ -22,7 +27,7 @@
             android:layout_height="45dp"
             android:layout_marginTop="10dp"
             android:src="@drawable/ico_boy"
-            app:civ_border_color="@color/white"
+            android:border_color="@{isCurrent ? @color/theme : @color/transparent}"
             app:civ_border_overlay="false"
             app:civ_border_width="2dp" />
 

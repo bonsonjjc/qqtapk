@@ -40,6 +40,10 @@ public class IndexActivity extends BaseDaggerActivity {
         binding.setViewModel(viewModel);
         binding.recBabyList.setAdapter(babyAdapter);
         binding.recBabyList.addItemDecoration(itemDecoration);
+        viewModel.setView(this);
+        babyAdapter.setOnItemClickListener((v) -> {
+            viewModel.change(v);
+        });
         viewModel.babies();
     }
 }

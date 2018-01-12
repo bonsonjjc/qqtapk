@@ -8,8 +8,11 @@ import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.widget.ContentLoadingProgressBar;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.android.tu.loadingdialog.LoadingDialog;
 import com.bonson.resource.R;
 
 import java.util.ArrayList;
@@ -36,9 +39,24 @@ public abstract class BaseDaggerActivity extends DaggerAppCompatActivity impleme
         super.onDestroy();
     }
 
+    private LoadingDialog dialog;
+
     @Override
     public void load() {
-        toast("加载中..");
+        if (dialog == null) {
+            dialog = new LoadingDialog.Builder(this)
+                    .setMessage("请稍后..")
+                    .create();
+        }
+        if (!dialog.isShowing())
+            dialog.show();
+    }
+
+    @Override
+    public void dismiss() {
+        if (dialog != null && dialog.isShowing()) {
+            dialog.dismiss();
+        }
     }
 
     @Override

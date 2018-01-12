@@ -60,9 +60,11 @@ public class SafeAreaViewModel extends AndroidViewModel {
             view.toast("网络不可用");
             return;
         }
+        view.load();
         Disposable disposable = areaModel.safeArea(Baby.baby.getFid())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(it -> {
+                    view.dismiss();
                     view.toast(it.getMsg());
                     if ("0".equals(it.getCode())) {
                         SafeArea area = it.getBody();
@@ -71,6 +73,7 @@ public class SafeAreaViewModel extends AndroidViewModel {
                         state.set("1".equals(area.getFstate()));
                     }
                 }, e -> {
+                    view.dismiss();
                     view.toast("出错了");
                     e.printStackTrace();
                 });
@@ -82,6 +85,7 @@ public class SafeAreaViewModel extends AndroidViewModel {
             view.toast("网络不可用");
             return;
         }
+        view.load();
         SafeArea safeArea = new SafeArea();
         safeArea.setFbid(Baby.baby.getFid());
         safeArea.setFradius(radius.get() + 200 + "");
@@ -91,8 +95,10 @@ public class SafeAreaViewModel extends AndroidViewModel {
         Disposable disposable = areaModel.update(safeArea)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(it -> {
+                    view.dismiss();
                     view.toast(it.getMsg());
                 }, e -> {
+                    view.dismiss();
                     view.toast("出错了");
                     e.printStackTrace();
                 });

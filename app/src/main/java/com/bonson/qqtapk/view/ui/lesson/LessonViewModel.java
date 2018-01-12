@@ -23,7 +23,7 @@ import io.reactivex.disposables.Disposable;
  */
 @ActivityScope
 public class LessonViewModel extends AndroidViewModel {
-    public final ObservableList<Lesson> lessons = new ObservableArrayList<>();
+    private final List<Lesson> lessons = new ObservableArrayList<>();
 
     private LessonModel lessonModel;
 
@@ -39,6 +39,7 @@ public class LessonViewModel extends AndroidViewModel {
         return lessons;
     }
 
+
     public BaseView getView() {
         return view;
     }
@@ -47,20 +48,23 @@ public class LessonViewModel extends AndroidViewModel {
         this.view = view;
     }
 
-    void lessons() {
+    public void lessons() {
         if (!isNetWork()) {
             view.toast("网络不可用");
             return;
         }
+        view.load();
         Disposable disposable = lessonModel.lessons(Baby.baby.getFid())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(it -> {
+                    view.dismiss();
                     view.toast(it.getMsg());
                     if (it.getCode().equals("0")) {
                         lessons.addAll(it.getBody());
                         notifyChange();
                     }
                 }, e -> {
+                    view.dismiss();
                     view.toast("出错了");
                 });
         compositeDisposable.add(disposable);
@@ -71,14 +75,14 @@ public class LessonViewModel extends AndroidViewModel {
             view.toast("网络不可用");
             return;
         }
+        view.load();
         Disposable disposable = lessonModel.update(Baby.baby.getFid(), lessons)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(it -> {
                     view.toast(it.getMsg());
-                    if (it.getCode().equals("0")) {
-                        notifyChange();
-                    }
+                    view.dismiss();
                 }, e -> {
+                    view.dismiss();
                     view.toast("出错了");
                 });
         compositeDisposable.add(disposable);

@@ -2,6 +2,7 @@ package com.bonson.qqtapk.view.ui.info;
 
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.view.Gravity;
 
 import com.bonson.qqtapk.R;
 import com.bonson.qqtapk.databinding.ActivityInfoBinding;
@@ -10,6 +11,7 @@ import com.bonson.qqtapk.view.ui.info.input.InputFragment;
 import com.bonson.qqtapk.view.ui.info.select.Select;
 import com.bonson.qqtapk.view.ui.info.select.SelectFragment;
 import com.bonson.resource.activity.BaseDaggerActivity;
+import com.bonson.resource.dialog.DatePicker;
 
 import javax.inject.Inject;
 
@@ -53,6 +55,7 @@ public class InfoActivity extends BaseDaggerActivity {
                     break;
                 case Type.birth:
                     toast("显示生日对话框");
+                    showBirth();
                     break;
                 case Type.area:
                     toast("显示区域对话框");
@@ -89,6 +92,15 @@ public class InfoActivity extends BaseDaggerActivity {
             }
         });
         viewModel.setBaby(Baby.baby);
+    }
+
+    DatePicker datePicker;
+
+    private void showBirth() {
+        if (datePicker == null) {
+            datePicker = DatePicker.builder(this);
+        }
+        datePicker.show(getWindow().getDecorView(), Gravity.BOTTOM);
     }
 
     public interface OnItemClickListener {
