@@ -27,10 +27,27 @@ public class TimeUtils {
         return buffer.toString();
     }
 
+    public static String mapTime(String time) {
+        String[] times = time.split("-");
+        return mapTime(times[0], times[1]);
+    }
+
     public static String[] split(String time) {
         time = TextUtils.isEmpty(time) ? "0000" : time;
         String hour = time.substring(0, 2);
         String minute = time.substring(2, 4);
         return new String[]{hour, minute};
+    }
+
+    public static String[] split2(String time) {
+        String[] times = time.split("-");
+        String[] start = split(times[0]);
+        String[] end = split(times[1]);
+        String[] result = new String[4];
+        result[0] = start[0];
+        result[1] = start[1];
+        result[2] = end[0];
+        result[3] = end[1];
+        return result;
     }
 }

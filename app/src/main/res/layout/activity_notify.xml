@@ -4,6 +4,8 @@
 
     <data>
 
+        <import type="com.bonson.qqtapk.utils.TimeUtils" />
+
         <variable
             name="viewModel"
             type="com.bonson.qqtapk.view.ui.setting.notify.NotifyViewModel" />
@@ -83,12 +85,12 @@
 
 
         <FrameLayout
+            android:id="@+id/fl_sleep"
             android:layout_width="match_parent"
             android:layout_height="@dimen/item_height"
             android:layout_marginBottom="0.5dp"
             android:layout_marginTop="20dp"
-            android:background="@drawable/item_selector"
-            android:onClick="@{()->viewModel.sleepTime()}">
+            android:background="@drawable/item_selector">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -109,7 +111,7 @@
                 android:drawablePadding="4dp"
                 android:drawableRight="@drawable/ico_arrow_right"
                 android:maxLines="1"
-                android:text="@{viewModel.sleepTime}"
+                android:text="@{TimeUtils.mapTime(viewModel.sleepTime)}"
                 android:textColor="#919191"
                 android:textSize="14.5sp"
                 tools:text="13598452121" />

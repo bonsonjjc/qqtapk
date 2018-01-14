@@ -121,7 +121,6 @@
             android:background="@drawable/item_selector"
             android:clickable="true"
             android:gravity="center"
-            android:onClick="@{()->viewModel.delete()}"
             android:text="删除号码"
             android:textColor="@color/red"
             android:visibility='@{TextUtils.isEmpty(viewModel.limit.fid) ? View.GONE :View.VISIBLE}' />

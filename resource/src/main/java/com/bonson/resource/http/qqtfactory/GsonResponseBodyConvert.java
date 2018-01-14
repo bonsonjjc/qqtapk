@@ -1,6 +1,7 @@
 package com.bonson.resource.http.qqtfactory;
 
 import android.util.Base64;
+import android.util.Log;
 
 import com.bonson.library.utils.JsonUtils;
 import com.google.gson.Gson;
@@ -36,6 +37,7 @@ public class GsonResponseBodyConvert<T> implements Converter<ResponseBody, T> {
         } else {
             json = new String(value.bytes());
         }
+        Log.e("response", json);
         try {
             JsonObject jsonObject = JsonUtils.fromJson(json, JsonObject.class);
             JsonArray body = jsonObject.getAsJsonArray("body");

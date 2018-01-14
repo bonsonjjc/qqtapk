@@ -6,7 +6,6 @@ import android.databinding.ObservableArrayList;
 import com.bonson.library.utils.DateUtils;
 import com.bonson.qqtapk.di.ActivityScope;
 import com.bonson.qqtapk.model.bean.Baby;
-import com.bonson.qqtapk.model.bean.Result;
 import com.bonson.qqtapk.model.bean.Voice;
 import com.bonson.qqtapk.model.data.voice.VoiceModel;
 import com.bonson.resource.activity.BaseView;
@@ -18,10 +17,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by jiangjiancheng on 17/12/31.
@@ -63,7 +60,7 @@ public class VoiceViewModel extends AndroidViewModel {
                 .subscribe(it -> {
                     if (it.getCode().equals("0")) {
                         talk.setFpath(it.getBody());
-                        upfile(talk);
+                        upload(talk);
                     }
                 }, e -> {
                     view.toast("上传失败");
@@ -71,7 +68,7 @@ public class VoiceViewModel extends AndroidViewModel {
         compositeDisposable.add(disposable);
     }
 
-    private void upfile(Voice voice) {
+    private void upload(Voice voice) {
         if (!isNetWork()) {
             view.toast("网络不可用");
             return;

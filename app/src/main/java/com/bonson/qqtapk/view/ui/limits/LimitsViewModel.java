@@ -6,6 +6,7 @@ import android.databinding.ObservableArrayList;
 import android.databinding.ObservableBoolean;
 
 import com.bonson.qqtapk.model.bean.Baby;
+import com.bonson.qqtapk.model.bean.Device;
 import com.bonson.qqtapk.model.bean.Limit;
 import com.bonson.qqtapk.model.data.limit.LimitModel;
 import com.bonson.qqtapk.view.ui.limits.add.LimitViewModel;
@@ -36,16 +37,12 @@ public class LimitsViewModel extends AndroidViewModel {
         super(application);
         this.viewModel = viewModel;
         this.limitModel = limitModel;
-        open.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
-            @Override
-            public void onPropertyChanged(Observable sender, int propertyId) {
-                updateState();
-            }
-        });
+        open.set("0".equals(Device.device.getFcstate()));
     }
 
     public void setView(BaseView view) {
         this.view = view;
+        viewModel.setView(view);
     }
 
     public void limits() {
@@ -72,9 +69,11 @@ public class LimitsViewModel extends AndroidViewModel {
             view.toast("网络不可用");
             return;
         }
+        view.load();
         Disposable disposable = limitModel.add(limit)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(it -> {
+                    view.dismiss();
                     view.toast(it.getMsg());
                     if (it.getCode().equals("0")) {
                         limit.setFid(it.getBody().getFid());
@@ -83,6 +82,7 @@ public class LimitsViewModel extends AndroidViewModel {
                         view.back();
                     }
                 }, e -> {
+                    view.dismiss();
                     view.toast("出错了");
                 });
         compositeDisposable.add(disposable);
@@ -93,9 +93,11 @@ public class LimitsViewModel extends AndroidViewModel {
             view.toast("网络不可用");
             return;
         }
+        view.load();
         Disposable disposable = limitModel.update(limit)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(it -> {
+                    view.dismiss();
                     view.toast(it.getMsg());
                     if (it.getCode().equals("0")) {
                         limits.set(position, limit);
@@ -103,6 +105,7 @@ public class LimitsViewModel extends AndroidViewModel {
                         view.back();
                     }
                 }, e -> {
+                    view.dismiss();
                     view.toast("出错了");
                 });
         compositeDisposable.add(disposable);
@@ -111,12 +114,6 @@ public class LimitsViewModel extends AndroidViewModel {
     public LimitViewModel addViewModel() {
         viewModel.title.set("添加呼入限制");
         Limit limit = new Limit();
-        limit.setFname("1234");
-        limit.setFmobile("13774567814");
-        limit.setFbegin("0212");
-        limit.setFend("0812");
-        limit.setFfbegin("0012");
-        limit.setFfend("1212");
         limit.setFcstate("1");
         limit.setFbid(Baby.baby.getFid());
         viewModel.setLimit(limit);
@@ -145,9 +142,11 @@ public class LimitsViewModel extends AndroidViewModel {
             view.toast("网络不可用");
             return;
         }
+        view.load();
         Disposable disposable = limitModel.delete(limits.get(position))
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(it -> {
+                    view.dismiss();
                     view.toast(it.getMsg());
                     if (it.getCode().equals("0")) {
                         limits.remove(position);
@@ -155,6 +154,7 @@ public class LimitsViewModel extends AndroidViewModel {
                         view.back();
                     }
                 }, e -> {
+                    view.dismiss();
                     view.toast("出错了");
                 });
         compositeDisposable.add(disposable);
@@ -165,14 +165,18 @@ public class LimitsViewModel extends AndroidViewModel {
             view.toast("网络不可用");
             return;
         }
+        view.load();
         Disposable disposable = limitModel.updateState(Baby.baby.getFid(), Baby.baby.getFuser(), open.get() ? "0" : "1")
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(it -> {
+                    view.dismiss();
                     view.toast(it.getMsg());
                     if (!it.getCode().equals("0")) {
                         open.set(!open.get());
+                        Device.device.setFcstate(it.getBody());
                     }
                 }, e -> {
+                    view.dismiss();
                     open.set(!open.get());
                     view.toast("出错了");
                 });

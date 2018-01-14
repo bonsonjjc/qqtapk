@@ -5,13 +5,14 @@ import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
 
+import com.bonson.library.utils.NumberUtils;
 import com.bonson.qqtapk.R;
 import com.bonson.qqtapk.databinding.ActivityLessonBinding;
 import com.bonson.qqtapk.model.bean.Lesson;
 import com.bonson.qqtapk.utils.TimeUtils;
 import com.bonson.qqtapk.view.adapter.LessonAdapter;
 import com.bonson.resource.activity.BaseDaggerActivity;
-import com.bonson.resource.dialog.TimePicker;
+import com.bonson.resource.dialog.TimePickerDialog;
 
 import javax.inject.Inject;
 
@@ -29,7 +30,7 @@ public class LessonActivity extends BaseDaggerActivity {
     @Inject
     RecyclerView.ItemDecoration itemDecoration;
 
-    TimePicker picker;
+    TimePickerDialog picker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,19 +48,25 @@ public class LessonActivity extends BaseDaggerActivity {
         viewModel.setView(this);
         viewModel.lessons();
 
-        picker = TimePicker.builer(LessonActivity.this);
+        picker = TimePickerDialog.builder(LessonActivity.this);
         lessonAdapter.setOnItemClickListener(v -> {
             Lesson lesson = viewModel.getLessons().get(v);
             String[] startTime = TimeUtils.split(lesson.getFbegin());
             String[] endTime = TimeUtils.split(lesson.getFend());
             if (!picker.isShowing()) {
                 picker.show(getWindow().getDecorView(), Gravity.BOTTOM);
-                picker.scrollTo(startTime[0], startTime[1], endTime[0], endTime[1]);
+                picker.setValue(startTime[0], startTime[1], endTime[0], endTime[1]);
                 picker.setOnSaveListener((startHour, startMinute, endHour, endMinute) -> {
-                    lesson.setFbegin(startHour + startMinute);
-                    lesson.setFend(endHour + endMinute);
-                    picker.dismiss();
-                    viewModel.notifyChange();
+                    String start = startHour + startMinute;
+                    String end = endHour + endMinute;
+                    if (NumberUtils.parseInt(start) < NumberUtils.parseInt(end)) {
+                        lesson.setFbegin(start);
+                        lesson.setFend(end);
+                        viewModel.notifyChange();
+                        picker.dismiss();
+                    } else {
+                        toast("开始时间不能大于等于结束时间");
+                    }
                 });
             }
         });

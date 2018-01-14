@@ -66,11 +66,18 @@ public class RingViewModel extends AndroidViewModel {
     }
 
     public void setRing() {
+        if (!isNetWork()) {
+            view.toast("网络不可用");
+            return;
+        }
+        view.load();
         Disposable disposable = ringModel.ring(Baby.baby.getFid(), Baby.baby.getFuser(), ring.get(), callVolume.get() + "", callerVolume.get() + "")
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(it -> {
                     view.toast(it.getMsg());
+                    view.dismiss();
                 }, e -> {
+                    view.dismiss();
                     view.toast("出错了");
                 });
         compositeDisposable.add(disposable);

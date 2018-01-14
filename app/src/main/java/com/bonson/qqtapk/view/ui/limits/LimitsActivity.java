@@ -58,5 +58,11 @@ public class LimitsActivity extends BaseDaggerActivity {
         });
         viewModel.setView(this);
         viewModel.limits();
+        viewModel.open.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
+            @Override
+            public void onPropertyChanged(Observable sender, int propertyId) {
+                viewModel.updateState();
+            }
+        });
     }
 }

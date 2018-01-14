@@ -2,16 +2,22 @@ package com.bonson.qqtapk.view.ui.info;
 
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
+import android.view.View;
 
+import com.bonson.library.utils.DateUtils;
 import com.bonson.qqtapk.R;
 import com.bonson.qqtapk.databinding.ActivityInfoBinding;
 import com.bonson.qqtapk.model.bean.Baby;
 import com.bonson.qqtapk.view.ui.info.input.InputFragment;
-import com.bonson.qqtapk.view.ui.info.select.Select;
 import com.bonson.qqtapk.view.ui.info.select.SelectFragment;
 import com.bonson.resource.activity.BaseDaggerActivity;
-import com.bonson.resource.dialog.DatePicker;
+import com.bonson.resource.dialog.AlertDialog;
+import com.bonson.resource.dialog.CityPickerDialog;
+import com.bonson.resource.dialog.DatePickerDialog;
+import com.mylhyl.superdialog.SuperDialog;
+import com.mylhyl.superdialog.res.values.ColorRes;
 
 import javax.inject.Inject;
 
@@ -36,6 +42,15 @@ public class InfoActivity extends BaseDaggerActivity {
         binding.toolbar.setTitle("宝贝信息");
         binding.toolbar.getTvLeft().setOnClickListener(v -> finish());
         binding.setViewModel(viewModel);
+        AlertDialog alertDialog = new AlertDialog();
+        alertDialog.setTitle("警告");
+        alertDialog.setContent("是否删除该联系人?");
+        alertDialog.setSure("确定");
+        alertDialog.setCancel("取消");
+        alertDialog.setOnClickListener((view, witch) -> {
+
+        });
+        alertDialog.show(getSupportFragmentManager(), "sex");
         viewModel.setView(this);
         binding.setItemClick(type -> {
             switch (type) {
@@ -51,14 +66,13 @@ public class InfoActivity extends BaseDaggerActivity {
                             .commit();
                     break;
                 case Type.sex:
-                    toast("显示对话框");
+                    showSex();
                     break;
                 case Type.birth:
-                    toast("显示生日对话框");
                     showBirth();
                     break;
                 case Type.area:
-                    toast("显示区域对话框");
+                    showArea();
                     break;
                 case Type.mobile:
                     inputFragment.setViewModel(viewModel.inputFragment(type, "宝贝手机", "输入宝贝手机号码"));
@@ -94,13 +108,20 @@ public class InfoActivity extends BaseDaggerActivity {
         viewModel.setBaby(Baby.baby);
     }
 
-    DatePicker datePicker;
+    DatePickerDialog datePickerDialog;
 
     private void showBirth() {
-        if (datePicker == null) {
-            datePicker = DatePicker.builder(this);
+        if (datePickerDialog == null) {
+            datePickerDialog = DatePickerDialog.builder(this);
+            datePickerDialog.setOnDateListener((dateStr, date) -> {
+                viewModel.getBaby().setFbirth(dateStr);
+                viewModel.notifyChange();
+                viewModel.update();
+                datePickerDialog.dismiss();
+            });
         }
-        datePicker.show(getWindow().getDecorView(), Gravity.BOTTOM);
+        datePickerDialog.show(getWindow().getDecorView(), Gravity.BOTTOM);
+        datePickerDialog.setDate(DateUtils.parse(viewModel.getBaby().getFbirth(), "yyyy-MM-dd"));
     }
 
     public interface OnItemClickListener {
@@ -117,11 +138,63 @@ public class InfoActivity extends BaseDaggerActivity {
     }
 
     private void showSex() {
+        new SuperDialog.Builder(this)
+                //.setAlpha(0.5f)
+                //.setGravity(Gravity.CENTER)
+                .setTitle("性别", ColorRes.title)
+                .setCanceledOnTouchOutside(false)
+                .setItems(new String[]{"男", "女"}, position -> {
 
+                })
+                .setNegativeButton("取消", null)
+                .build();
     }
 
-    private void showArea() {
+    CityPickerDialog cityPickerDialog;
 
+    private void showArea() {
+        cityPickerDialog = CityPickerDialog.builder(this);
+        cityPickerDialog.setCityAdapter(new CityAdapter());
+        cityPickerDialog.show(getWindow().getDecorView(), Gravity.BOTTOM);
+    }
+
+    static String[] province = {"北京市", "天津市", "重庆市", "福建省"};
+    static String[] city = {"福州市", "宁德市", "三明市", "泉州市", "莆田市", "漳州市", "龙岩市"};
+    static String[] district = {"晋安区", "苍山区", "鼓楼区", "台江区", "马尾区", "闽侯", "长乐市"};
+
+    public class CityAdapter implements CityPickerDialog.CityAdapter {
+        @Override
+        public int provinceSize() {
+            return province.length;
+        }
+
+        @Override
+        public int citySize(int index) {
+            return city.length;
+        }
+
+        @Override
+        public int districtSize(int index) {
+            return district.length;
+        }
+
+        @Override
+        public String province(int index) {
+            if (index == 0) return "--";
+            return province[index - 1];
+        }
+
+        @Override
+        public String city(int index) {
+            if (index == 0) return "--";
+            return city[index - 1];
+        }
+
+        @Override
+        public String district(int index) {
+            if (index == 0) return "--";
+            return district[index - 1];
+        }
     }
 
     public static class Type {

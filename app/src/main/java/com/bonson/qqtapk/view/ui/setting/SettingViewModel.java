@@ -6,6 +6,7 @@ import android.databinding.ObservableField;
 import com.bonson.qqtapk.app.Route;
 import com.bonson.qqtapk.di.ActivityScope;
 import com.bonson.qqtapk.model.bean.User;
+import com.bonson.qqtapk.model.data.setting.SettingModel;
 import com.bonson.qqtapk.model.data.user.UserModel;
 import com.bonson.resource.activity.ActivityUtils;
 import com.bonson.resource.activity.BaseView;
@@ -29,6 +30,10 @@ public class SettingViewModel extends AndroidViewModel {
     private UserModel userModel;
 
     @Inject
+    SettingModel settingModel;
+
+
+    @Inject
     public SettingViewModel(Application application, UserModel userModel) {
         super(application);
         this.userModel = userModel;
@@ -37,6 +42,10 @@ public class SettingViewModel extends AndroidViewModel {
 
     public void setView(BaseView view) {
         this.view = view;
+    }
+
+    public void setSettingModel(SettingModel settingModel) {
+        this.settingModel = settingModel;
     }
 
     public void exit() {

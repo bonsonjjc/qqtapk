@@ -51,4 +51,5 @@ dependencies {
   provided 'org.glassfish:javax.annotation:10.0-b28'
   implementation project(':library')
   implementation project(':resource')
+  implementation 'com.mylhyl:superDialog:1.0.2'
 }

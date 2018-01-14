@@ -4,14 +4,22 @@ import android.app.Application;
 import android.databinding.Observable;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
+import android.text.TextUtils;
 
 import com.bonson.library.utils.PreferencesHelper;
 import com.bonson.qqtapk.app.Const;
 import com.bonson.qqtapk.di.ActivityScope;
+import com.bonson.qqtapk.model.bean.Baby;
+import com.bonson.qqtapk.model.bean.Device;
+import com.bonson.qqtapk.model.data.setting.SettingModel;
+import com.bonson.qqtapk.view.ui.setting.SettingModule;
 import com.bonson.resource.activity.BaseView;
 import com.bonson.resource.viewmodel.AndroidViewModel;
 
 import javax.inject.Inject;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
 
 /**
  * Created by jiangjiancheng on 17/12/31.
@@ -22,15 +30,20 @@ public class NotifyViewModel extends AndroidViewModel {
     public ObservableBoolean notify = new ObservableBoolean();
     public ObservableBoolean voice = new ObservableBoolean();
     public ObservableBoolean vibrate = new ObservableBoolean();
-    public ObservableField<String> sleepTime = new ObservableField<>("");
+    public ObservableField<String> sleepTime = new ObservableField<>("00:00 ~ 00:00");
 
     @Inject
     PreferencesHelper helper;
 
+    private SettingModel settingModel;
+
     @Inject
-    public NotifyViewModel(Application application) {
+    public NotifyViewModel(Application application, SettingModel settingModel) {
         super(application);
+        this.settingModel = settingModel;
+        sleepTime.set(Device.device.getFsleep());
     }
+
 
     public void init() {
         notify.set(helper.get(Const.NOTIFY_KEY, true));
@@ -60,7 +73,23 @@ public class NotifyViewModel extends AndroidViewModel {
     }
 
     public void sleepTime() {
-
+        if (!isNetWork()) {
+            view.toast("网络不可用");
+            return;
+        }
+        view.load();
+        Disposable disposable = settingModel.sleepTime(Baby.baby.getFuser(), Baby.baby.getFid(), sleepTime.get())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(it -> {
+                    view.toast(it.getMsg());
+                    if (it.getCode().equals("0")) {
+                        Device.device.setFsleep(it.getBody());
+                    }
+                    view.dismiss();
+                }, e -> {
+                    view.dismiss();
+                    view.toast("出错了");
+                });
+        compositeDisposable.add(disposable);
     }
-
 }

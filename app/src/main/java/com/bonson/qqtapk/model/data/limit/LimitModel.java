@@ -48,7 +48,7 @@ public class LimitModel {
                 });
     }
 
-    public Observable<Result<Limit>> updateState(String bid, String userId, String state) {
+    public Observable<Result<String>> updateState(String bid, String userId, String state) {
         Map<String, String> map = new LinkedHashMap<>();
         map.put("fid", bid);
         map.put("fuser", userId);
@@ -58,11 +58,11 @@ public class LimitModel {
                 .subscribeOn(io.reactivex.schedulers.Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .map(limits -> {
-                    Result<Limit> result = new Result<>();
+                    Result<String> result = new Result<>();
                     Limit inLimit = limits.get(0);
                     if ("0".equals(inLimit.getFresult())) {
                         result.setCode("0");
-                        result.setBody(inLimit);
+                        result.setBody(state);
                         result.setMsg("修改呼入限制状态成功");
                     } else {
                         result.setCode("-1");
