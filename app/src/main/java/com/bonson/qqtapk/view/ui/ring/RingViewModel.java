@@ -57,6 +57,7 @@ public class RingViewModel extends AndroidViewModel {
             if (ring.get().equals(select.getValue())) {
                 ringTitle.set(select.getName());
                 select.setChecked(true);
+                notifyChange();
             }
         }
     }
@@ -74,8 +75,11 @@ public class RingViewModel extends AndroidViewModel {
         Disposable disposable = ringModel.ring(Baby.baby.getFid(), Baby.baby.getFuser(), ring.get(), callVolume.get() + "", callerVolume.get() + "")
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(it -> {
-                    view.toast(it.getMsg());
                     view.dismiss();
+                    view.toast(it.getMsg());
+                    if (it.getCode().equals("0")) {
+                        Device.device.setFcaller(ring.get());
+                    }
                 }, e -> {
                     view.dismiss();
                     view.toast("出错了");
@@ -92,6 +96,7 @@ public class RingViewModel extends AndroidViewModel {
             Select select = selects.get(v);
             playerUtils.play(select.getWht());
             ringTitle.set(select.getName());
+            ring.set(select.getValue());
         });
         viewModel.setSelects(selects);
         return viewModel;
