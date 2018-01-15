@@ -31,9 +31,8 @@ public class NotifyActivity extends BaseDaggerActivity {
         binding.toolbar.setTitle("通知设置");
         binding.toolbar.getTvLeft().setOnClickListener(v -> finish());
         binding.flSleep.setOnClickListener(v -> {
-
             if (timePickerDialog == null) {
-                timePickerDialog = TimePickerDialog.builder(NotifyActivity.this);
+                timePickerDialog = new TimePickerDialog();
                 timePickerDialog.setOnSaveListener((startHour, startMinute, endHour, endMinute) -> {
                     String start = startHour + startMinute;
                     String end = endHour + endMinute;
@@ -44,8 +43,8 @@ public class NotifyActivity extends BaseDaggerActivity {
                 });
             }
             String[] array = TimeUtils.split2(notifyViewModel.sleepTime.get());
-            timePickerDialog.show(binding.getRoot(), Gravity.BOTTOM);
             timePickerDialog.setValue(array[0], array[1], array[2], array[3]);
+            timePickerDialog.show(getSupportFragmentManager(),"time");
         });
         notifyViewModel.setView(this);
         notifyViewModel.init();

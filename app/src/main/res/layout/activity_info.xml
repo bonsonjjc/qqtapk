@@ -1,233 +1,268 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <data>
+  <data>
 
-        <import type="android.text.TextUtils" />
+    <import type="android.text.TextUtils"/>
 
-        <import type="com.bonson.qqtapk.view.ui.info.InfoActivity.Type" />
+    <import type="com.bonson.qqtapk.view.ui.info.InfoActivity.Type"/>
 
-        <variable
-            name="itemClick"
-            type="com.bonson.qqtapk.view.ui.info.InfoActivity.OnItemClickListener" />
+    <variable
+        name="itemClick"
+        type="com.bonson.qqtapk.view.ui.info.InfoActivity.OnItemClickListener"
+        />
 
-        <variable
-            name="viewModel"
-            type="com.bonson.qqtapk.view.ui.info.InfoViewModel" />
+    <variable
+        name="viewModel"
+        type="com.bonson.qqtapk.view.ui.info.InfoViewModel"
+        />
 
-    </data>
+  </data>
 
-    <LinearLayout
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:orientation="vertical"
+      >
+
+    <com.bonson.resource.view.MToolbar
+        android:id="@+id/toolbar"
+        style="@style/Toolbar"
+        >
+
+      <include layout="@layout/toolbar"/>
+    </com.bonson.resource.view.MToolbar>
+
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        >
 
-        <com.bonson.resource.view.MToolbar
-            android:id="@+id/toolbar"
-            style="@style/Toolbar">
 
-            <include layout="@layout/toolbar" />
-        </com.bonson.resource.view.MToolbar>
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:orientation="vertical"
+          >
 
-        <android.support.v4.widget.NestedScrollView
+        <FrameLayout
+            android:layout_marginTop="20dp"
+            android:onClick="@{(v)->itemClick.onItemClick(Type.icon)}"
+            style="@style/BabyItem"
+            >
+
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_gravity="center_vertical"
+              android:text="头像"
+              />
+
+          <ImageView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_gravity="center_vertical|end"
+              android:src="@{viewModel.baby.fimg}"
+              />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_marginTop="20dp"
+            android:onClick="@{(v)->itemClick.onItemClick(Type.relative)}"
+            style="@style/BabyItem"
+            >
+
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_gravity="center_vertical"
+              android:text="我是宝贝的"
+              />
+
+          <TextView
+              android:text="@={viewModel.baby.frelative}"
+              style="@style/DetailText"
+              />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_marginTop="1dp"
+            android:onClick="@{(v)->itemClick.onItemClick(Type.name)}"
+            style="@style/BabyItem"
+            >
+
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_gravity="center_vertical"
+              android:text="昵称"
+              />
+
+          <TextView
+              android:text="@={viewModel.baby.fname}"
+              style="@style/DetailText"
+              />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_marginTop="1dp"
+            android:onClick="@{(v)->itemClick.onItemClick(Type.sex)}"
+            style="@style/BabyItem"
+            >
+
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_gravity="center_vertical"
+              android:text="性别"
+              />
+
+          <TextView
+              android:text='@{TextUtils.equals(viewModel.baby.fsex,"0")? "男": "女"}'
+              style="@style/DetailText"
+              />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_marginTop="1dp"
+            android:onClick="@{(v)->itemClick.onItemClick(Type.birth)}"
+            style="@style/BabyItem"
+            >
+
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_gravity="center_vertical"
+              android:text="生日"
+              />
+
+          <TextView
+              android:text="@={viewModel.baby.fbirth}"
+              style="@style/DetailText"
+              />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_marginTop="1dp"
+            android:onClick="@{(v)->itemClick.onItemClick(Type.area)}"
+            style="@style/BabyItem"
+            >
+
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_gravity="center_vertical"
+              android:text="所在地区"
+              />
+
+          <TextView
+              android:text="@={viewModel.baby.fareaname}"
+              style="@style/DetailText"
+              />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_marginTop="1dp"
+            android:onClick="@{(v)->itemClick.onItemClick(Type.mobile)}"
+            style="@style/BabyItem"
+            >
+
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_gravity="center_vertical"
+              android:text="宝贝手机"
+              />
+
+          <TextView
+              android:text="@={viewModel.baby.ftmobile}"
+              style="@style/DetailText"
+              />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_marginTop="1dp"
+            android:onClick="@{(v)->itemClick.onItemClick(Type.height)}"
+            style="@style/BabyItem"
+            >
+
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_gravity="center_vertical"
+              android:text="身高"
+              />
+
+          <TextView
+              android:text='@{viewModel.baby.fheight+"cm"}'
+              style="@style/DetailText"
+              />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_marginTop="1dp"
+            android:onClick="@{(v)->itemClick.onItemClick(Type.weight)}"
+            style="@style/BabyItem"
+            >
+
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_gravity="center_vertical"
+              android:text="体重"
+              />
+
+          <TextView
+              android:text='@{viewModel.baby.fweight+"kg"}'
+              style="@style/DetailText"
+              />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_marginTop="20dp"
+            style="@style/BabyItem"
+            >
+
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_gravity="center_vertical"
+              android:text="当前设备"
+              />
+
+          <TextView
+              android:drawableEnd="@null"
+              android:drawableRight="@null"
+              android:text="@{viewModel.baby.fimei}"
+              style="@style/DetailText"
+              />
+        </FrameLayout>
+
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/item_selector"
+            android:gravity="center"
+            android:onClick="@{(v)->itemClick.onItemClick(Type.change)}"
+            android:text="更换设备"
+            android:textColor="@color/red"
+            android:textSize="16sp"
+            />
 
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <!--  <FrameLayout
-                      android:layout_width="match_parent"
-                      android:layout_height="50dp"
-                      android:layout_marginTop="20dp"
-                      android:background="@drawable/item_selector"
-                      android:paddingLeft="8dp"
-                      android:paddingRight="8dp">
-
-                      <TextView
-                          android:layout_width="wrap_content"
-                          android:layout_height="wrap_content"
-                          android:layout_gravity="center_vertical"
-                          android:text="头像" />
-
-                      <ImageView
-                          android:layout_width="wrap_content"
-                          android:layout_height="wrap_content"
-                          android:layout_gravity="center_vertical|end"
-                          android:src="@{viewModel.baby.fimg}" />
-                  </FrameLayout>-->
-
-                <FrameLayout
-                    style="@style/BabyItem"
-                    android:layout_marginTop="20dp"
-                    android:onClick="@{(v)->itemClick.onItemClick(Type.relative)}">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:text="我是宝贝的" />
-
-                    <TextView
-                        style="@style/DetailText"
-                        android:text="@={viewModel.baby.frelative}" />
-                </FrameLayout>
-
-                <FrameLayout
-                    style="@style/BabyItem"
-                    android:layout_marginTop="1dp"
-                    android:onClick="@{(v)->itemClick.onItemClick(Type.name)}">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:text="昵称" />
-
-                    <TextView
-                        style="@style/DetailText"
-                        android:text="@={viewModel.baby.fname}" />
-                </FrameLayout>
-
-                <FrameLayout
-                    style="@style/BabyItem"
-                    android:layout_marginTop="1dp"
-                    android:onClick="@{(v)->itemClick.onItemClick(Type.sex)}">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:text="性别" />
-
-                    <TextView
-                        style="@style/DetailText"
-                        android:text='@{TextUtils.equals(viewModel.baby.fsex,"0")? "男": "女"}' />
-                </FrameLayout>
-
-                <FrameLayout
-                    style="@style/BabyItem"
-                    android:layout_marginTop="1dp"
-                    android:onClick="@{(v)->itemClick.onItemClick(Type.birth)}">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:text="生日" />
-
-                    <TextView
-                        style="@style/DetailText"
-                        android:text="@={viewModel.baby.fbirth}" />
-                </FrameLayout>
-
-                <FrameLayout
-                    style="@style/BabyItem"
-                    android:layout_marginTop="1dp"
-                    android:onClick="@{(v)->itemClick.onItemClick(Type.area)}">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:text="所在地区" />
-
-                    <TextView
-                        style="@style/DetailText"
-                        android:text="@={viewModel.baby.fareaname}" />
-                </FrameLayout>
-
-                <FrameLayout
-                    style="@style/BabyItem"
-                    android:layout_marginTop="1dp"
-                    android:onClick="@{(v)->itemClick.onItemClick(Type.mobile)}">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:text="宝贝手机" />
-
-                    <TextView
-                        style="@style/DetailText"
-                        android:text="@={viewModel.baby.ftmobile}" />
-                </FrameLayout>
-
-                <FrameLayout
-                    style="@style/BabyItem"
-                    android:layout_marginTop="1dp"
-                    android:onClick="@{(v)->itemClick.onItemClick(Type.height)}">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:text="身高" />
-
-                    <TextView
-                        style="@style/DetailText"
-                        android:text='@{viewModel.baby.fheight+"cm"}' />
-                </FrameLayout>
-
-                <FrameLayout
-                    style="@style/BabyItem"
-                    android:layout_marginTop="1dp"
-                    android:onClick="@{(v)->itemClick.onItemClick(Type.weight)}">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:text="体重" />
-
-                    <TextView
-                        style="@style/DetailText"
-                        android:text='@{viewModel.baby.fweight+"kg"}' />
-                </FrameLayout>
-
-                <FrameLayout
-                    style="@style/BabyItem"
-                    android:layout_marginTop="20dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:text="当前设备" />
-
-                    <TextView
-                        style="@style/DetailText"
-                        android:drawableEnd="@null"
-                        android:drawableRight="@null"
-                        android:text="@{viewModel.baby.fimei}" />
-                </FrameLayout>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_marginTop="20dp"
-                    android:background="@drawable/item_selector"
-                    android:gravity="center"
-                    android:onClick="@{()->viewModel.change()}"
-                    android:text="更换设备"
-                    android:textColor="@color/red"
-                    android:textSize="16sp" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_marginBottom="20dp"
-                    android:layout_marginTop="20dp"
-                    android:background="@drawable/item_selector"
-                    android:gravity="center"
-                    android:onClick="@{()->viewModel.unbind()}"
-                    android:text="取消绑定"
-                    android:textColor="@color/red"
-                    android:textSize="16sp" />
-            </LinearLayout>
-        </android.support.v4.widget.NestedScrollView>
-    </LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/item_selector"
+            android:gravity="center"
+            android:onClick="@{(v)->itemClick.onItemClick(Type.unbind)}"
+            android:text="取消绑定"
+            android:textColor="@color/red"
+            android:textSize="16sp"
+            />
+      </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+  </LinearLayout>
 </layout>

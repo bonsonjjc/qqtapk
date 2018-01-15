@@ -92,8 +92,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
+                    android:onClick="modeClick"
+                    android:id="@+id/cl_security_mode"
                     android:background="@drawable/item_selector"
-                    android:onClick="@{()->viewModel.locMode(String.valueOf(1))}"
                     android:orientation="vertical">
 
                     <ImageView
@@ -158,7 +159,8 @@
                     android:layout_marginBottom="0.5dp"
                     android:layout_marginTop="0.5dp"
                     android:background="@drawable/item_selector"
-                    android:onClick="@{()->viewModel.locMode(String.valueOf(2))}"
+                    android:onClick="modeClick"
+                    android:id="@+id/cl_save_mode"
                     android:orientation="vertical">
 
                     <ImageView
@@ -221,7 +223,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/item_selector"
-                    android:onClick="@{()->viewModel.locMode(String.valueOf(3))}"
+                    android:onClick="modeClick"
+                    android:id="@+id/cl_custom_mode"
                     android:orientation="vertical">
 
                     <ImageView
@@ -294,9 +297,9 @@
                     android:textSize="14sp" />
 
                 <RelativeLayout
-                    android:id="@+id/rl_minute"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/item_height"
+                    android:onClick="selectDuration"
                     android:background="@drawable/item_selector">
 
                     <TextView
@@ -346,7 +349,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/item_selector"
-                    android:onClick="@{()->viewModel.locType(String.valueOf(1))}"
+                    android:onClick="locModeClick"
+                    android:id="@+id/cl_blend_mode"
                     android:orientation="vertical">
 
                     <TextView
@@ -398,7 +402,8 @@
                     android:layout_marginBottom="0.5dp"
                     android:layout_marginTop="0.5dp"
                     android:background="@drawable/item_selector"
-                    android:onClick="@{()->viewModel.locType(String.valueOf(2))}"
+                    android:onClick="locModeClick"
+                    android:id="@+id/cl_normal_mode"
                     android:orientation="vertical">
 
                     <TextView
@@ -448,7 +453,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/item_selector"
-                    android:onClick="@{()->viewModel.locType(String.valueOf(3))}"
+                    android:onClick="locModeClick"
+                    android:id="@+id/cl_accurate_mode"
                     android:orientation="vertical">
 
                     <TextView

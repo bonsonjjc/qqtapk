@@ -1,17 +1,17 @@
 package com.bonson.qqtapk.view.ui.member;
 
 import android.databinding.DataBindingUtil;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 
 import com.bonson.qqtapk.R;
 import com.bonson.qqtapk.databinding.ActivityMemberBinding;
-import com.bonson.qqtapk.model.bean.Member;
 import com.bonson.qqtapk.view.adapter.MemberAdapter;
 import com.bonson.qqtapk.view.ui.contacts.phone.PhoneFragment;
-import com.bonson.qqtapk.view.ui.contacts.phone.PhoneViewModel;
 import com.bonson.resource.activity.BaseDaggerActivity;
 
+import com.bonson.resource.dialog.ActionSheetDialog;
 import javax.inject.Inject;
 
 /**
@@ -45,11 +45,13 @@ public class MemberActivity extends BaseDaggerActivity {
         binding.recMember.addItemDecoration(itemDecoration);
         memberAdapter.setOnItemClickListener(p -> {
             if (!viewModel.isAdmin(p)) {
-                toast("有权限");
+                toast("没有权限");
+                return;
             } else if (!viewModel.isSelf(p)) {
                 toast("只能修改");
+                return;
             }
-            inputFragment.setViewModel(viewModel.modify(p));
+            inputFragment.setViewModel(viewModel.modifyViewModel(p));
             getSupportFragmentManager()
                     .beginTransaction()
                     .add(android.R.id.content, inputFragment)
@@ -59,5 +61,20 @@ public class MemberActivity extends BaseDaggerActivity {
         binding.setViewModel(viewModel);
         viewModel.setView(this);
         viewModel.members();
+    }
+
+    public void delete(int p){
+        if (!viewModel.isAdmin(p)) {
+            toast("没有权限");
+            return;
+        } else if (!viewModel.isSelf(p)) {
+            toast("只能修改");
+            return;
+        }
+        new ActionSheetDialog()
+            .setTitle("是否要删除该呼入限制?")
+            .setActionSheet(new String[] {"删除"}, Color.RED)
+            .setOnItemClickListener(position -> viewModel.delete(p))
+            .show(getSupportFragmentManager(),"delete");
     }
 }

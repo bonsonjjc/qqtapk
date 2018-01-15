@@ -2,6 +2,8 @@ package com.bonson.qqtapk.di;
 
 import com.bonson.qqtapk.view.ui.area.SafeAreaActivity;
 import com.bonson.qqtapk.view.ui.area.SafeAreaModule;
+import com.bonson.qqtapk.view.ui.center.message.MessageActivity;
+import com.bonson.qqtapk.view.ui.center.message.MessageModule;
 import com.bonson.qqtapk.view.ui.contacts.ContactsActivity;
 import com.bonson.qqtapk.view.ui.contacts.ContactsModule;
 import com.bonson.qqtapk.view.ui.family.FamilyActivity;
@@ -22,6 +24,8 @@ import com.bonson.qqtapk.view.ui.login.LoginActivity;
 import com.bonson.qqtapk.view.ui.login.LoginModule;
 import com.bonson.qqtapk.view.ui.member.MemberActivity;
 import com.bonson.qqtapk.view.ui.member.MemberModule;
+import com.bonson.qqtapk.view.ui.center.CenterActivity;
+import com.bonson.qqtapk.view.ui.center.CenterModule;
 import com.bonson.qqtapk.view.ui.mode.ModeActivity;
 import com.bonson.qqtapk.view.ui.mode.ModeModule;
 import com.bonson.qqtapk.view.ui.register.RegisterActivity;
@@ -30,6 +34,8 @@ import com.bonson.qqtapk.view.ui.ring.RingActivity;
 import com.bonson.qqtapk.view.ui.ring.RingModule;
 import com.bonson.qqtapk.view.ui.route.RouteActivity;
 import com.bonson.qqtapk.view.ui.route.RouteModule;
+import com.bonson.qqtapk.view.ui.scan.ScanActivity;
+import com.bonson.qqtapk.view.ui.scan.ScanModule;
 import com.bonson.qqtapk.view.ui.setting.SettingActivity;
 import com.bonson.qqtapk.view.ui.setting.SettingModule;
 import com.bonson.qqtapk.view.ui.setting.about.AboutActivity;
@@ -62,6 +68,18 @@ abstract class ActivityModule {
     @ActivityScope
     @ContributesAndroidInjector(modules = {ForgetModule.class, RetrofitModule.class})
     abstract ForgetActivity forgetActivity();
+
+    @ActivityScope
+    @ContributesAndroidInjector(modules = {ScanModule.class, RetrofitModule.class})
+    abstract ScanActivity scanActivity();
+
+    @ActivityScope
+    @ContributesAndroidInjector(modules = {CenterModule.class, RetrofitModule.class})
+    abstract CenterActivity centerActivity();
+
+    @ActivityScope
+    @ContributesAndroidInjector(modules = {MessageModule.class, RetrofitModule.class})
+    abstract MessageActivity messageActivity();
 
     @ActivityScope
     @ContributesAndroidInjector(modules = {IndexModule.class, RetrofitModule.class})

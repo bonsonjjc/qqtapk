@@ -1,17 +1,16 @@
 package com.bonson.qqtapk.view.ui.contacts;
 
 import android.databinding.DataBindingUtil;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
-
 import com.bonson.qqtapk.R;
 import com.bonson.qqtapk.databinding.ActivityContactsBinding;
 import com.bonson.qqtapk.view.adapter.ContactAdapter;
 import com.bonson.qqtapk.view.ui.contacts.phone.PhoneFragment;
-import com.bonson.qqtapk.view.ui.info.select.Select;
 import com.bonson.qqtapk.view.ui.info.select.SelectFragment;
 import com.bonson.resource.activity.BaseDaggerActivity;
-
+import com.bonson.resource.dialog.ActionSheetDialog;
 import javax.inject.Inject;
 
 /**
@@ -19,55 +18,73 @@ import javax.inject.Inject;
  */
 
 public class ContactsActivity extends BaseDaggerActivity {
-    @Inject
-    ContactsViewModel viewModel;
+  @Inject ContactsViewModel viewModel;
 
-    @Inject
-    PhoneFragment phoneFragment;
+  @Inject PhoneFragment phoneFragment;
 
-    @Inject
-    SelectFragment selectFragment;
+  @Inject SelectFragment selectFragment;
 
-    @Inject
-    ContactAdapter adapter;
+  @Inject ContactAdapter adapter;
 
-    @Inject
-    RecyclerView.ItemDecoration itemDecoration;
+  @Inject RecyclerView.ItemDecoration itemDecoration;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        ActivityContactsBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_contacts);
-        binding.toolbar.setTitle("通讯录");
-        binding.toolbar.getTvLeft().setOnClickListener(v -> finish());
-        binding.toolbar.setRightText("添加");
-        binding.toolbar.getTvRight().setOnClickListener(v -> {
-            selectFragment.setViewModel(viewModel.importViewModel());
-//            phoneFragment.setViewModel(viewModel.initFragment());
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .add(android.R.id.content, selectFragment)
-                    .addToBackStack("import")
-                    .commit();
+  private ActionSheetDialog actionSheetDialog;
 
-        });
-        binding.recContacts.setAdapter(adapter);
-        binding.recContacts.addItemDecoration(itemDecoration);
-        adapter.setOnItemClickListener(v -> {
-                    phoneFragment.setViewModel(viewModel.initFragment(v));
-                    getSupportFragmentManager()
-                            .beginTransaction()
-                            .add(android.R.id.content, phoneFragment)
-                            .addToBackStack("contacts")
-                            .commit();
-                }
-        );
-        adapter.setOnItemLongClickListener(v -> {
-            viewModel.delete(v);
-            return true;
-        });
-        binding.setViewModel(viewModel);
-        viewModel.setView(this);
-        viewModel.contacts();
+  @Override protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    ActivityContactsBinding binding =
+        DataBindingUtil.setContentView(this, R.layout.activity_contacts);
+    binding.toolbar.setTitle("通讯录");
+    binding.toolbar.getTvLeft().setOnClickListener(v -> finish());
+    binding.toolbar.setRightText("添加");
+    binding.toolbar.getTvRight().setOnClickListener(v -> {
+      if (actionSheetDialog == null) {
+        actionSheetDialog = new ActionSheetDialog();
+      }
+      actionSheetDialog.setActionSheet(new String[] { "导入联系人", "手动添加" }, Color.RED);
+      actionSheetDialog.setTitle("添加联系人");
+      actionSheetDialog.setOnItemClickListener(position -> {
+        if (position == 0) {
+          selectFragment.setViewModel(viewModel.importViewModel());
+          getSupportFragmentManager().beginTransaction()
+              .add(android.R.id.content, selectFragment)
+              .addToBackStack("contacts")
+              .commit();
+        } else {
+          phoneFragment.setViewModel(viewModel.initFragment());
+          getSupportFragmentManager().beginTransaction()
+              .add(android.R.id.content, phoneFragment)
+              .addToBackStack("import")
+              .commit();
+        }
+      });
+      actionSheetDialog.show(getSupportFragmentManager(), "add");
+    });
+    binding.recContacts.setAdapter(adapter);
+    binding.recContacts.addItemDecoration(itemDecoration);
+    adapter.setOnItemClickListener(v -> {
+      phoneFragment.setViewModel(viewModel.initFragment(v));
+      getSupportFragmentManager().beginTransaction()
+          .add(android.R.id.content, phoneFragment)
+          .addToBackStack("contacts")
+          .commit();
+    });
+    adapter.setOnItemLongClickListener(v -> {
+      showDelete(v);
+      return true;
+    });
+    binding.setViewModel(viewModel);
+    viewModel.setView(this);
+    viewModel.contacts();
+  }
+
+  public void showDelete(int position) {
+    if (actionSheetDialog == null) {
+      actionSheetDialog = new ActionSheetDialog();
     }
+    actionSheetDialog.setTitle("是否删除该联系人?");
+    actionSheetDialog.setActionSheet(new String[] { "删除" }, Color.RED);
+    actionSheetDialog.setOnItemClickListener(v -> viewModel.delete(position));
+    actionSheetDialog.show(getSupportFragmentManager(), "delete");
+  }
 }

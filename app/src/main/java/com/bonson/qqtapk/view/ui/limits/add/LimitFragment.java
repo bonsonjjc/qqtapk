@@ -1,6 +1,7 @@
 package com.bonson.qqtapk.view.ui.limits.add;
 
 import android.databinding.DataBindingUtil;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -15,6 +16,7 @@ import com.bonson.qqtapk.R;
 import com.bonson.qqtapk.databinding.FragmentLimitBinding;
 import com.bonson.qqtapk.di.ActivityScope;
 import com.bonson.qqtapk.utils.TimeUtils;
+import com.bonson.resource.dialog.ActionSheetDialog;
 import com.bonson.resource.dialog.TimePickerDialog;
 import com.bonson.resource.fragment.BaseFragment;
 
@@ -22,7 +24,7 @@ import javax.inject.Inject;
 
 @ActivityScope
 public class LimitFragment extends BaseFragment {
-    LimitViewModel viewModel;
+    private LimitViewModel viewModel;
 
     @Inject
     public LimitFragment() {
@@ -36,7 +38,7 @@ public class LimitFragment extends BaseFragment {
         this.viewModel = viewModel;
     }
 
-    TimePickerDialog timePickerDialog;
+    private TimePickerDialog timePickerDialog;
 
     @Nullable
     @Override
@@ -46,7 +48,7 @@ public class LimitFragment extends BaseFragment {
         binding.setViewModel(viewModel);
         binding.tvTimeOne.setOnClickListener(v -> {
             if (timePickerDialog == null) {
-                timePickerDialog = TimePickerDialog.builder(getActivity());
+                timePickerDialog = new TimePickerDialog();
             }
             timePickerDialog.setOnSaveListener((startHour, startMinute, endHour, endMinute) -> {
                 String start = startHour + startMinute;
@@ -64,12 +66,11 @@ public class LimitFragment extends BaseFragment {
             String[] endTime = TimeUtils.split(viewModel.getLimit().getFend());
 
             timePickerDialog.setValue(startTime[0], startTime[1], endTime[0], endTime[1]);
-            timePickerDialog.show(binding.getRoot(), Gravity.BOTTOM);
+            timePickerDialog.show(getActivity().getSupportFragmentManager(),"time");
         });
         binding.tvTimeTwo.setOnClickListener(v -> {
             if (timePickerDialog == null) {
-                timePickerDialog = TimePickerDialog.builder(getActivity());
-
+                timePickerDialog = new TimePickerDialog();
             }
             timePickerDialog.setOnSaveListener((startHour, startMinute, endHour, endMinute) -> {
                 String start = startHour + startMinute;
@@ -87,10 +88,14 @@ public class LimitFragment extends BaseFragment {
             String[] endTime = TimeUtils.split(viewModel.getLimit().getFfend());
 
             timePickerDialog.setValue(startTime[0], startTime[1], endTime[0], endTime[1]);
-            timePickerDialog.show(binding.getRoot(), Gravity.BOTTOM);
+            timePickerDialog.show(getActivity().getSupportFragmentManager(),"time");
         });
         binding.tvDelete.setOnClickListener(v -> {
-            viewModel.delete();
+            new ActionSheetDialog()
+                .setTitle("是否要删除该呼入限制?")
+                .setActionSheet(new String[] {"删除"}, Color.RED)
+                .setOnItemClickListener(position -> viewModel.delete())
+                .show(getActivity().getSupportFragmentManager(),"delete");
         });
         return binding.getRoot();
     }
@@ -98,7 +103,7 @@ public class LimitFragment extends BaseFragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        if (timePickerDialog != null && timePickerDialog.isShowing()) {
+        if (timePickerDialog != null) {
             timePickerDialog.dismiss();
         }
     }

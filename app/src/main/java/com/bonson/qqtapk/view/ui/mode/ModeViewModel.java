@@ -6,6 +6,7 @@ import android.databinding.ObservableInt;
 
 import com.bonson.qqtapk.di.ActivityScope;
 import com.bonson.qqtapk.model.bean.Baby;
+import com.bonson.qqtapk.model.bean.Device;
 import com.bonson.qqtapk.model.bean.Mode;
 import com.bonson.qqtapk.model.data.mode.ModeModel;
 import com.bonson.library.utils.NumberUtils;
@@ -82,7 +83,7 @@ public class ModeViewModel extends AndroidViewModel {
                 powerMode.set(true);
                 customMode.set(false);
                 interval.set(600);
-                locType("");
+                locType("2");
                 break;
             case "3":
                 safeMode.set(false);
@@ -117,6 +118,7 @@ public class ModeViewModel extends AndroidViewModel {
             view.toast("网络不可用");
             return;
         }
+        view.load();
         Mode mode = new Mode();
         mode.setFsavepower(powerSave.get() ? "1" : "0");
         mode.setBid(Baby.baby.getFid());
@@ -126,8 +128,10 @@ public class ModeViewModel extends AndroidViewModel {
         Disposable disposable = modeModel.update(mode)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(it -> {
+                    view.dismiss();
                     view.toast(it.getMsg());
                 }, e -> {
+                    view.dismiss();
                     view.toast("出错了");
                 });
         compositeDisposable.add(disposable);

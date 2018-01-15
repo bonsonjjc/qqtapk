@@ -86,9 +86,11 @@ public class FamilyViewModel extends AndroidViewModel {
             view.toast("网络不可用");
             return;
         }
+        view.load();
         Disposable disposable = familyModel.update(family)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(result -> {
+                    view.dismiss();
                     view.toast(result.getMsg());
                     if ("0".equals(result.getCode())) {
                         families.set(position, family);
@@ -96,6 +98,7 @@ public class FamilyViewModel extends AndroidViewModel {
                         notifyChange();
                     }
                 }, e -> {
+                    view.dismiss();
                     view.toast("出错了");
                     e.printStackTrace();
                 });
