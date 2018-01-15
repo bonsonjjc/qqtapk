@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.TextView;
-
 import com.bonson.resource.R;
 
 /**
@@ -18,112 +17,127 @@ import com.bonson.resource.R;
  */
 
 public class AlertDialog extends DialogFragment {
-    TextView tvTitle;
-    TextView tvContent;
+  TextView tvTitle;
+  TextView tvContent;
 
-    TextView tvCancel;
-    TextView tvSure;
+  TextView tvCancel;
+  TextView tvSure;
 
+  String title = "";
+  String content = "";
+  String sure = "";
+  String cancel = "";
 
-    String title = "";
-    String content = "";
-    String sure = "";
-    String cancel = "";
+  View vBtnLine, vTitleLine;
 
-    View vBtnLine, vTitleLine;
+  boolean outside;
 
-    public static final int Sure = 1, Cancel = 2;
+  public static final int Sure = 1, Cancel = 2;
 
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.alert_dialog, container, false);
-        tvTitle = view.findViewById(R.id.tv_title);
-        tvContent = view.findViewById(R.id.tv_content);
-        tvCancel = view.findViewById(R.id.tv_cancel);
-        tvSure = view.findViewById(R.id.tv_sure);
-        vTitleLine = view.findViewById(R.id.line_title);
-        vBtnLine = view.findViewById(R.id.line_btn);
-        // 设置背景透明
-        getDialog().getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-        // 去掉标题 死恶心死恶心的
-        getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
-        return view;
-    }
+  @Nullable @Override
+  public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+      @Nullable Bundle savedInstanceState) {
+    View view = inflater.inflate(R.layout.alert_dialog, container, false);
+    tvTitle = view.findViewById(R.id.tv_title);
+    tvContent = view.findViewById(R.id.tv_content);
+    tvCancel = view.findViewById(R.id.tv_cancel);
+    tvSure = view.findViewById(R.id.tv_sure);
+    vTitleLine = view.findViewById(R.id.line_title);
+    vBtnLine = view.findViewById(R.id.line_btn);
+    // 设置背景透明
+    getDialog().getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+    // 去掉标题 死恶心死恶心的
+    getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
+    getDialog().setCanceledOnTouchOutside(outside);
+    return view;
+  }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        tvCancel.setText(cancel);
-        tvSure.setText(sure);
-        tvTitle.setText(title);
-        tvContent.setText(content);
+  @Override public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    super.onViewCreated(view, savedInstanceState);
+    tvCancel.setText(cancel);
+    tvSure.setText(sure);
+    tvTitle.setText(title);
+    tvContent.setText(content);
 
-        View.OnClickListener listener = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dismiss();
-                if (onClickListener != null) {
-                    onClickListener.onClick(v, v.getId() == R.id.tv_cancel ? Cancel : Sure);
-                }
-            }
-        };
-        tvCancel.setOnClickListener(listener);
-        tvSure.setOnClickListener(listener);
-        builder();
-    }
-
-    private void builder() {
-        if (tvCancel != null) {
-            tvCancel.setVisibility(TextUtils.isEmpty(cancel) ? View.GONE : View.VISIBLE);
+    View.OnClickListener listener = new View.OnClickListener() {
+      @Override public void onClick(View v) {
+        dismiss();
+        if (onClickListener != null) {
+          onClickListener.onClick(v, v.getId() == R.id.tv_cancel ? Cancel : Sure);
         }
-        if (tvSure != null) {
-            tvSure.setVisibility(TextUtils.isEmpty(sure) ? View.GONE : View.VISIBLE);
-        }
-        boolean showLine = !TextUtils.isEmpty(sure) && !TextUtils.isEmpty(cancel);
-        if (vBtnLine != null) {
-            vBtnLine.setVisibility(showLine ? View.VISIBLE : View.GONE);
-        }
-        if (tvTitle != null) {
-            if (!TextUtils.isEmpty(title)) {
-                tvTitle.setVisibility(View.VISIBLE);
-                vTitleLine.setVisibility(View.VISIBLE);
-            }
-        }
+      }
+    };
+    tvCancel.setOnClickListener(listener);
+    tvSure.setOnClickListener(listener);
+    builder();
+  }
+
+  public AlertDialog setCanceledOnTouchOutside(boolean outside) {
+    this.outside = outside;
+    if (getDialog() != null) {
+      getDialog().setCanceledOnTouchOutside(outside);
     }
+    return this;
+  }
 
-    public void setOnClickListener(OnClickListener onClickListener) {
-        this.onClickListener = onClickListener;
+  private void builder() {
+    if (tvCancel != null) {
+      tvCancel.setVisibility(TextUtils.isEmpty(cancel) ? View.GONE : View.VISIBLE);
     }
-
-    public AlertDialog setTitle(String title) {
-        this.title = title;
-        builder();
-        return this;
+    if (tvSure != null) {
+      tvSure.setVisibility(TextUtils.isEmpty(sure) ? View.GONE : View.VISIBLE);
     }
-
-    public AlertDialog setContent(String content) {
-        this.content = content;
-        return this;
+    boolean showLine = !TextUtils.isEmpty(sure) && !TextUtils.isEmpty(cancel);
+    if (vBtnLine != null) {
+      if (showLine) {
+        tvCancel.setBackgroundResource(R.drawable.btn_left_sel);
+        tvSure.setBackgroundResource(R.drawable.btn_right_sel);
+        vBtnLine.setVisibility(View.VISIBLE);
+      } else {
+        tvCancel.setBackgroundResource(R.drawable.btn_middle_sel);
+        tvSure.setBackgroundResource(R.drawable.btn_middle_sel);
+        vBtnLine.setVisibility(View.GONE);
+      }
     }
-
-    public AlertDialog setSure(String text) {
-        this.sure = text;
-        builder();
-        return this;
+    if (tvTitle != null) {
+      if (!TextUtils.isEmpty(title)) {
+        tvTitle.setVisibility(View.VISIBLE);
+        vTitleLine.setVisibility(View.VISIBLE);
+      }
     }
+  }
 
-    public AlertDialog setCancel(String text) {
-        this.cancel = text;
-        builder();
-        return this;
-    }
+  public AlertDialog setOnClickListener(OnClickListener onClickListener) {
+    this.onClickListener = onClickListener;
+    return this;
+  }
 
-    private OnClickListener onClickListener;
+  public AlertDialog setTitle(String title) {
+    this.title = title;
+    builder();
+    return this;
+  }
 
-    public interface OnClickListener {
-        void onClick(View view, int witch);
-    }
+  public AlertDialog setContent(String content) {
+    this.content = content;
+    return this;
+  }
 
+  public AlertDialog setSure(String text) {
+    this.sure = text;
+    builder();
+    return this;
+  }
 
+  public AlertDialog setCancel(String text) {
+    this.cancel = text;
+    builder();
+    return this;
+  }
+
+  private OnClickListener onClickListener;
+
+  public interface OnClickListener {
+    void onClick(View view, int witch);
+  }
 }
