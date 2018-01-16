@@ -210,4 +210,14 @@ public class Baby extends Base {
     }
 
     public static Baby baby;
+
+    @Override
+    public Baby clone() {
+        try {
+            return (Baby) super.clone();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+            return new Baby();
+        }
+    }
 }

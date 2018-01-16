@@ -35,7 +35,7 @@ public class UserModel {
         this.userServer = userServer;
     }
 
-    public Flowable<User> getUser() {
+    public User getUser() {
         return userDao.userFirst();
     }
 

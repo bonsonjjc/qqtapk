@@ -7,6 +7,7 @@ import android.text.TextUtils;
 
 import com.bonson.qqtapk.app.Route;
 import com.bonson.qqtapk.di.ActivityScope;
+import com.bonson.qqtapk.model.bean.User;
 import com.bonson.qqtapk.model.data.user.UserModel;
 import com.bonson.library.utils.Md5Utils;
 import com.bonson.resource.activity.BaseView;
@@ -14,6 +15,7 @@ import com.bonson.resource.viewmodel.AndroidViewModel;
 
 import javax.inject.Inject;
 
+import io.reactivex.Flowable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
@@ -86,7 +88,12 @@ public class LoginViewModel extends AndroidViewModel {
     }
 
     void init() {
-        Disposable disposable = userModel.getUser()
+        User user = userModel.getUser();
+        mobile.set(user.getMobile());
+        auto.set(user.getAuto());
+        password.set(auto.get() ? user.getPassword() : "");
+        token = user.getToken();
+       /* Disposable disposable = userModel.getUser()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(user -> {
@@ -96,6 +103,6 @@ public class LoginViewModel extends AndroidViewModel {
                     password.set(auto.get() ? user.getPassword() : "");
                     token = user.getToken();
                 }, Throwable::printStackTrace);
-        compositeDisposable.add(disposable);
+        compositeDisposable.add(disposable);*/
     }
 }

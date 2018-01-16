@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.RecyclerView;
 
+import com.bonson.qqtapk.app.Const;
 import com.bonson.resource.http.qqtfactory.GsonConvertFactory;
 import com.bonson.qqtapk.model.data.ApiServer;
 import com.google.gson.Gson;
@@ -23,7 +24,7 @@ public abstract class RetrofitModule {
     @Provides
     @ActivityScope
     static Retrofit providesRetrofit(OkHttpClient client) {
-        return new retrofit2.Retrofit.Builder().baseUrl("http://wap.bfsafe.com:7070/api/")
+        return new retrofit2.Retrofit.Builder().baseUrl(Const.API_PATH)
                 .client(client)
                 .addConverterFactory(GsonConvertFactory.create(new Gson()))
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())

@@ -32,7 +32,7 @@ public interface UserDao {
     Flowable<List<User>> users();
 
     @Query("select * from users limit 1")
-    Flowable<User> userFirst();
+    User userFirst();
 
 
     @Delete

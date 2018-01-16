@@ -2,6 +2,7 @@ package com.bonson.qqtapk.model.data.baby;
 
 import com.bonson.qqtapk.app.ErrorCode;
 import com.bonson.qqtapk.model.bean.Baby;
+import com.bonson.qqtapk.model.bean.Base;
 import com.bonson.qqtapk.model.bean.Result;
 import com.bonson.qqtapk.model.bean.User;
 import com.bonson.qqtapk.model.bean.UserBean;
@@ -130,16 +131,41 @@ public class BabyModel {
                     if ("0".equals(baby.getFresult())) {
                         result.setCode("0");
                         result.setMsg("切换成功");
-                        Baby r=baby.baby();
+                        Baby r = baby.baby();
                         babyDao.update(r);
                         result.setBody(r);
                     } else {
                         result.setCode("-1");
-                        result.setMsg(baby.getMsg());
+                        result.setMsg(ErrorCode.message(baby.getFresult()));
                     }
                     return result;
                 });
     }
+
+    public Observable<Result<Baby>> changeIMEI(Baby baby) {
+        Map<String, String> map = new LinkedHashMap<>();
+        map.put("fuid", baby.getFuser());
+        map.put("fbid", baby.getFid());
+        map.put("fimei", baby.getFimei());
+        Object body = QQtBuilder.build("44", map);
+        return babyServer.base(body)
+                .subscribeOn(Schedulers.io())
+                .map(babies -> {
+                    Base base = babies.get(0);
+                    Result<Baby> result = new Result<>();
+                    if ("0".equals(base.getFresult())) {
+                        result.setCode("0");
+                        result.setMsg("切换成功");
+                        babyDao.update(baby);
+                        result.setBody(baby);
+                    } else {
+                        result.setCode("-1");
+                        result.setMsg(ErrorCode.message(base.getFresult()));
+                    }
+                    return result;
+                });
+    }
+
 
     public Flowable<List<Baby>> list(String userId) {
         return babyDao.getByUserId(userId)
