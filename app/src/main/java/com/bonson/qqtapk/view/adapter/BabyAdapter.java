@@ -15,8 +15,8 @@ import java.util.List;
 
 public class BabyAdapter extends BaseAdapter<Baby, ItemBabyBinding> {
 
-    public BabyAdapter(Context context, List<Baby> babies) {
-        super(context, babies);
+    public BabyAdapter(Context context) {
+        super(context);
     }
 
     @Override

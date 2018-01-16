@@ -41,6 +41,6 @@ public abstract class InfoModule {
     @ActivityScope
     @Provides
     static SelectAdapter providesAdapter(Context context) {
-        return new SelectAdapter(context, new ObservableArrayList<>());
+        return new SelectAdapter(context);
     }
 }

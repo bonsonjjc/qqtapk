@@ -12,7 +12,8 @@
         <variable
             name="isCurrent"
             type="Boolean" />
-        <import type="android.graphics.Color"/>
+
+        <import type="android.graphics.Color" />
     </data>
 
     <LinearLayout
@@ -26,7 +27,7 @@
             android:layout_width="45dp"
             android:layout_height="45dp"
             android:layout_marginTop="10dp"
-            android:src="@drawable/ico_boy"
+            android:url="@{baby.fimg}"
             android:border_color="@{isCurrent ? @color/theme : @color/transparent}"
             app:civ_border_overlay="false"
             app:civ_border_width="2dp" />

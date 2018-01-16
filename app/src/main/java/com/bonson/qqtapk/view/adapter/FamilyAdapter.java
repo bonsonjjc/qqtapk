@@ -21,8 +21,8 @@ import javax.inject.Inject;
 
 public class FamilyAdapter extends BaseAdapter<Family, ItemFamilyBinding> {
     @Inject
-    public FamilyAdapter(Context context, List<Family> contacts) {
-        super(context, contacts);
+    public FamilyAdapter(Context context) {
+        super(context);
     }
 
     @Override

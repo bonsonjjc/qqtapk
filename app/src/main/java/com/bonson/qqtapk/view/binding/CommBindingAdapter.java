@@ -11,6 +11,8 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.widget.ImageView;
 
+import com.squareup.picasso.Picasso;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
@@ -19,13 +21,20 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public abstract class CommBindingAdapter {
 
-    @BindingAdapter("android:src")
+    @BindingAdapter("android:icon")
     public static void setIcon(ImageView imageView, String img) {
         if (TextUtils.isEmpty(img))
             return;
         Resources resources = imageView.getResources();
         int resId = resources.getIdentifier(img, "drawable", imageView.getContext().getPackageName());
         imageView.setImageResource(resId);
+    }
+
+    @BindingAdapter("android:url")
+    public static void setUrl(CircleImageView imageView, String url) {
+//        if (TextUtils.isEmpty(url))
+//            return;
+//        Picasso.with(imageView.getContext()).load(url).into(imageView);
     }
 
     @BindingAdapter("android:border_color")
@@ -37,6 +46,4 @@ public abstract class CommBindingAdapter {
     public static ColorDrawable convertColorToDrawable(int color) {
         return new ColorDrawable(color);
     }
-
-
 }

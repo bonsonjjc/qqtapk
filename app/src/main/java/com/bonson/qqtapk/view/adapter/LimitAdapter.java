@@ -22,8 +22,8 @@ import javax.inject.Inject;
 public class LimitAdapter extends BaseAdapter<Limit, ItemLimitBinding> {
 
     @Inject
-   public LimitAdapter(Context context, List<Limit> limits) {
-        super(context, limits);
+   public LimitAdapter(Context context) {
+        super(context);
     }
 
     @Override

@@ -22,8 +22,8 @@ import javax.inject.Inject;
 public class ContactAdapter extends BaseAdapter<Contact, ItemContactBinding> {
 
     @Inject
-    public ContactAdapter(Context context, List<Contact> contacts) {
-        super(context, contacts);
+    public ContactAdapter(Context context) {
+        super(context);
     }
 
     @Override

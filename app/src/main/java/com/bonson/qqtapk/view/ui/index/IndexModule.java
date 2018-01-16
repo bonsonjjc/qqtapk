@@ -1,6 +1,8 @@
 package com.bonson.qqtapk.view.ui.index;
 
 import android.content.Context;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.RecyclerView;
 
 import com.bonson.qqtapk.di.ActivityScope;
 import com.bonson.qqtapk.di.FragmentScope;
@@ -40,14 +42,14 @@ public abstract class IndexModule {
 
     @ActivityScope
     @Provides
-    static BabyAdapter providesAdapter(Context context, IndexViewModel viewModel) {
-        return new BabyAdapter(context, viewModel.babies);
+    static BabyAdapter providesAdapter(Context context) {
+        return new BabyAdapter(context);
     }
 
     @Provides
     @ActivityScope
-    static MenuAdapter menuAdapter(MainViewModel viewModel, Context context) {
-        MenuAdapter menuAdapter = new MenuAdapter(context, viewModel.menus);
+    static MenuAdapter menuAdapter(Context context) {
+        MenuAdapter menuAdapter = new MenuAdapter(context);
         return menuAdapter;
     }
 }

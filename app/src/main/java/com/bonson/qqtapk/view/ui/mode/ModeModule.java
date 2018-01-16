@@ -33,6 +33,6 @@ import dagger.android.ContributesAndroidInjector;
   @ActivityScope
   @Provides
   static SelectAdapter providesAdapter(Context context) {
-    return new SelectAdapter(context, new ObservableArrayList<>());
+    return new SelectAdapter(context);
   }
 }

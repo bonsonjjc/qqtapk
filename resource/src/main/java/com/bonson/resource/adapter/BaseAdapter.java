@@ -15,10 +15,9 @@ public abstract class BaseAdapter<Bean, Binding extends ViewDataBinding> extends
     protected List<Bean> beans;
     protected LayoutInflater inflater;
 
-    public BaseAdapter(Context context, List<Bean> beans) {
+    public BaseAdapter(Context context) {
         this.beans = beans;
         inflater = LayoutInflater.from(context);
-
     }
 
     public void setBeans(List<Bean> beans) {

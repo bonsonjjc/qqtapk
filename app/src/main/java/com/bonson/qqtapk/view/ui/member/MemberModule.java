@@ -33,7 +33,7 @@ public abstract class MemberModule {
 
     @ActivityScope
     @Provides
-    static MemberAdapter providesAdapter(MemberViewModel viewModel, Context context) {
-        return new MemberAdapter(context, viewModel.members);
+    static MemberAdapter providesAdapter( Context context) {
+        return new MemberAdapter(context);
     }
 }

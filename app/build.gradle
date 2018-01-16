@@ -37,19 +37,20 @@ android {
 }
 
 dependencies {
-  implementation fileTree(include: ['*.jar'], dir: 'libs')
-  annotationProcessor 'com.android.databinding:compiler:3.0.1'
-  testImplementation 'junit:junit:4.12'
-  androidTestImplementation 'com.android.support.test:runner:1.0.1'
-  androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
-  implementation 'com.android.support.constraint:constraint-layout:1.0.2'
-  implementation "com.android.support:design:$rootProject.ext.supportVersion"
-  implementation "com.android.support:recyclerview-v7:$rootProject.ext.supportVersion"
-  annotationProcessor 'android.arch.persistence.room:compiler:1.0.0'
-  annotationProcessor "com.google.dagger:dagger-android-processor:2.11"
-  annotationProcessor "com.google.dagger:dagger-compiler:2.11"
-  provided 'org.glassfish:javax.annotation:10.0-b28'
-  implementation project(':library')
-  implementation project(':resource')
-  implementation 'com.mylhyl:superDialog:1.0.2'
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    annotationProcessor 'com.android.databinding:compiler:3.0.1'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    implementation "com.android.support:design:$rootProject.ext.supportVersion"
+    implementation "com.android.support:recyclerview-v7:$rootProject.ext.supportVersion"
+    annotationProcessor 'android.arch.persistence.room:compiler:1.0.0'
+    annotationProcessor "com.google.dagger:dagger-android-processor:2.11"
+    annotationProcessor "com.google.dagger:dagger-compiler:2.11"
+    provided 'org.glassfish:javax.annotation:10.0-b28'
+    implementation project(':library')
+    implementation project(':resource')
+    implementation 'com.mylhyl:superDialog:1.0.2'
+    implementation 'com.squareup.picasso:picasso:2.5.2'
 }

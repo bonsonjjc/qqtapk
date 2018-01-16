@@ -11,8 +11,8 @@ import com.bonson.resource.adapter.ViewHolder;
 import java.util.List;
 
 public class CenterAdapter extends BaseAdapter<Message, ItemCenterBinding> {
-  public CenterAdapter(Context context, List<Message> messages) {
-    super(context, messages);
+  public CenterAdapter(Context context) {
+    super(context);
   }
 
   @Override

@@ -21,7 +21,7 @@ public abstract class FlowerModule {
 
     @ActivityScope
     @Provides
-    static FlowerAdapter providesAdapter(Context context, FlowerViewModel viewModel) {
-        return new FlowerAdapter(context, viewModel.flowers);
+    static FlowerAdapter providesAdapter(Context context) {
+        return new FlowerAdapter(context);
     }
 }

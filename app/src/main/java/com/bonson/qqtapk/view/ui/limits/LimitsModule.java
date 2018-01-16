@@ -33,7 +33,7 @@ public abstract class LimitsModule {
 
     @ActivityScope
     @Provides
-    static LimitAdapter providesAdapter(Context context, LimitsViewModel viewModel) {
-        return new LimitAdapter(context, viewModel.limits);
+    static LimitAdapter providesAdapter(Context context) {
+        return new LimitAdapter(context);
     }
 }

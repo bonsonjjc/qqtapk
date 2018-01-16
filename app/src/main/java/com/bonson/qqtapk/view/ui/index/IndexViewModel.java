@@ -41,6 +41,10 @@ public class IndexViewModel extends AndroidViewModel {
                 .subscribe(it -> {
                     babies.clear();
                     babies.addAll(it);
+//                    Baby baby = new Baby();
+//                    baby.setFid("-1");
+//                    baby.setFname("添加宝贝");
+//                    babies.add(baby);
                     notifyChange();
                 }, e -> {
                     e.printStackTrace();

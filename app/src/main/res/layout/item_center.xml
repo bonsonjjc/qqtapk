@@ -23,7 +23,7 @@
         android:layout_centerVertical="true"
         android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
-        android:src="@{messasge.img}"
+        android:icon="@{messasge.img}"
         tools:src="@drawable/ico_sos"
         />
     <TextView

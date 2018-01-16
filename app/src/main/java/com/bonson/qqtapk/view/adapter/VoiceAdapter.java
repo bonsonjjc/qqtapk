@@ -15,8 +15,8 @@ import com.bonson.resource.adapter.ViewHolder;
 import java.util.List;
 
 public class VoiceAdapter extends BaseAdapter<Voice, ViewDataBinding> {
-    public VoiceAdapter(Context context, List<Voice> voices) {
-        super(context, voices);
+    public VoiceAdapter(Context context) {
+        super(context);
     }
 
     @Override

@@ -14,8 +14,8 @@ import java.util.List;
 
 
 public class SelectAdapter extends BaseAdapter<Select, ItemSelectBinding> {
-    public SelectAdapter(Context context, List<Select> selects) {
-        super(context, selects);
+    public SelectAdapter(Context context) {
+        super(context);
     }
 
     @Override

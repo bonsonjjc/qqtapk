@@ -18,10 +18,10 @@ import javax.inject.Inject;
  * Created by zjw on 2018/1/3.
  */
 
-public class MenuAdapter extends BaseAdapter<Menu, ItemMenuBinding> {
+public class MessageAdapter extends BaseAdapter<Menu, ItemMenuBinding> {
 
     @Inject
-    public MenuAdapter(Context context) {
+    public MessageAdapter(Context context) {
         super(context);
     }
 

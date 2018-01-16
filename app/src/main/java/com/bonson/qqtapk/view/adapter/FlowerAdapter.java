@@ -21,8 +21,8 @@ import javax.inject.Inject;
 public class FlowerAdapter extends BaseAdapter<Flower, ItemFlowerBinding> {
 
     @Inject
-   public FlowerAdapter(Context context, List<Flower> contacts) {
-        super(context, contacts);
+   public FlowerAdapter(Context context) {
+        super(context);
     }
 
     @Override

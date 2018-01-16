@@ -21,8 +21,8 @@ import javax.inject.Inject;
 
 public class MemberAdapter extends BaseAdapter<Member, ItemMemberBinding> {
     @Inject
-   public MemberAdapter(Context context, List<Member> contacts) {
-        super(context, contacts);
+   public MemberAdapter(Context context) {
+        super(context);
     }
 
     @Override

@@ -28,8 +28,8 @@ public abstract class VoiceModule {
 
     @ActivityScope
     @Provides
-    static VoiceAdapter providesAdapter(Context context, VoiceViewModel viewModel) {
-        return new VoiceAdapter(context, viewModel.voices);
+    static VoiceAdapter providesAdapter(Context context) {
+        return new VoiceAdapter(context);
     }
 
     @ActivityScope

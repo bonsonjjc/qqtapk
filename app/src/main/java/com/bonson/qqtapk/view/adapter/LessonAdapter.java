@@ -21,8 +21,8 @@ import javax.inject.Inject;
 
 public class LessonAdapter extends BaseAdapter<Lesson, ItemLessonBinding> {
     @Inject
-   public LessonAdapter(Context context, List<Lesson> contacts) {
-        super(context, contacts);
+   public LessonAdapter(Context context) {
+        super(context);
     }
 
     @Override

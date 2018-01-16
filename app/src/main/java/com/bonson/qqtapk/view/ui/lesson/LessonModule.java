@@ -21,7 +21,7 @@ public abstract class LessonModule {
 
     @Provides
     @ActivityScope
-    static LessonAdapter providesAdapter(LessonViewModel viewModel, Context context) {
-        return new LessonAdapter(context, viewModel.getLessons());
+    static LessonAdapter providesAdapter( Context context) {
+        return new LessonAdapter(context);
     }
 }
