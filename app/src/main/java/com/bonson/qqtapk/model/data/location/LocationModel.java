@@ -10,7 +10,6 @@ import com.bonson.qqtapk.utils.QQtBuilder;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 

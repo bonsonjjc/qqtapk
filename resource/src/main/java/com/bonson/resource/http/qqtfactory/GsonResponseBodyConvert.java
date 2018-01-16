@@ -50,8 +50,7 @@ public class GsonResponseBodyConvert<T> implements Converter<ResponseBody, T> {
         }
     }
 
-    public static <T> GsonResponseBodyConvert create(Gson gson, TypeToken<T> typeToken,
-                                                     Boolean encode) {
+    public static <T> GsonResponseBodyConvert create(Gson gson, TypeToken<T> typeToken,Boolean encode) {
         return new GsonResponseBodyConvert<T>(gson, typeToken, encode);
     }
 }

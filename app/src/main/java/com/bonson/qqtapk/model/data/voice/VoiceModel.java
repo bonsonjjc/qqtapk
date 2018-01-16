@@ -5,12 +5,10 @@ import android.text.TextUtils;
 import com.bonson.library.utils.DateUtils;
 import com.bonson.library.utils.Md5Utils;
 import com.bonson.qqtapk.model.bean.Result;
-import com.bonson.qqtapk.model.bean.User;
 import com.bonson.qqtapk.model.bean.Voice;
 import com.bonson.qqtapk.model.data.ApiServer;
 import com.bonson.qqtapk.model.data.UploadServer;
 import com.bonson.qqtapk.utils.QQtBuilder;
-import com.bonson.resource.activity.BaseView;
 
 import java.io.File;
 import java.util.Date;
@@ -21,7 +19,6 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import io.reactivex.Observable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;

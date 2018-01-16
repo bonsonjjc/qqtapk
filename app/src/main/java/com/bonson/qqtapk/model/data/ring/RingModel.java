@@ -34,7 +34,7 @@ public class RingModel {
         map.put("fcvolume", callVolume);
         map.put("fivolume", callerVolume);
         Object args = QQtBuilder.build("47", map);
-        return ringServer.ring(args)
+        return ringServer.base(args)
                 .subscribeOn(Schedulers.io())
                 .map(it -> {
                     Result<Base> result = new Result<>();

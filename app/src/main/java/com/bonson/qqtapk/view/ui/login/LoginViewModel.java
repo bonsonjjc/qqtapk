@@ -15,10 +15,8 @@ import com.bonson.resource.viewmodel.AndroidViewModel;
 
 import javax.inject.Inject;
 
-import io.reactivex.Flowable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by zjw on 2017/12/29.

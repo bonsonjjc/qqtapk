@@ -2,7 +2,6 @@ package com.bonson.qqtapk.view.ui.voice;
 
 import android.content.Context;
 
-import com.bonson.resource.http.qqtfactory.GsonConvertFactory;
 import com.bonson.qqtapk.di.ActivityScope;
 import com.bonson.qqtapk.model.data.UploadServer;
 import com.bonson.qqtapk.view.adapter.VoiceAdapter;

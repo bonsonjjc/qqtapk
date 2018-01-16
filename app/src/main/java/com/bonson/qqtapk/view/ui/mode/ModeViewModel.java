@@ -6,7 +6,6 @@ import android.databinding.ObservableInt;
 
 import com.bonson.qqtapk.di.ActivityScope;
 import com.bonson.qqtapk.model.bean.Baby;
-import com.bonson.qqtapk.model.bean.Device;
 import com.bonson.qqtapk.model.bean.Mode;
 import com.bonson.qqtapk.model.data.mode.ModeModel;
 import com.bonson.library.utils.NumberUtils;

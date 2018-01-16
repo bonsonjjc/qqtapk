@@ -1,88 +1,74 @@
-package com.bonson.qqtapk.view.ui.lesson;
+package com.bonson.qqtapk.view.ui.motion;
 
 import android.app.Application;
 import android.databinding.ObservableArrayList;
+import android.databinding.ObservableList;
 
-import com.bonson.qqtapk.di.ActivityScope;
 import com.bonson.qqtapk.model.bean.Baby;
-import com.bonson.qqtapk.model.bean.Lesson;
-import com.bonson.qqtapk.model.data.lesson.LessonModel;
+import com.bonson.qqtapk.model.data.motion.MotionModel;
 import com.bonson.resource.activity.BaseView;
 import com.bonson.resource.viewmodel.AndroidViewModel;
-
-import java.util.List;
 
 import javax.inject.Inject;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 
-/**
- * Created by jiangjiancheng on 17/12/31.
- */
-@ActivityScope
-public class LessonViewModel extends AndroidViewModel {
-    private final List<Lesson> lessons = new ObservableArrayList<>();
 
-    private LessonModel lessonModel;
-
+public class MotionViewModel extends AndroidViewModel {
+    private MotionModel motionModel;
     private BaseView view;
 
+    public final ObservableList<Object> dataList = new ObservableArrayList<>();
+
     @Inject
-    LessonViewModel(Application application, LessonModel lessonModel) {
+    public MotionViewModel(Application application, MotionModel motionModel) {
         super(application);
-        this.lessonModel = lessonModel;
-    }
-
-    public List<Lesson> getLessons() {
-        return lessons;
-    }
-
-
-    public BaseView getView() {
-        return view;
+        this.motionModel = motionModel;
     }
 
     public void setView(BaseView view) {
         this.view = view;
     }
 
-    public void lessons() {
+    public void motion() {
         if (!isNetWork()) {
             view.toast("网络不可用");
             return;
         }
-        view.load();
-        Disposable disposable = lessonModel.lessons(Baby.baby.getFid())
+        Disposable disposable = motionModel.motion(Baby.baby.getFid())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(it -> {
-                    view.dismiss();
-                    view.toast(it.getMsg());
                     if (it.getCode().equals("0")) {
-                        lessons.addAll(it.getBody());
-                        notifyChange();
+                        dataList.clear();
+                        dataList.addAll(it.getBody());
+                    } else {
+                        view.toast(it.getMsg());
                     }
                 }, e -> {
-                    view.dismiss();
                     view.toast("出错了");
+                    e.printStackTrace();
                 });
         compositeDisposable.add(disposable);
     }
 
-    public void update() {
+    public void sleep() {
         if (!isNetWork()) {
             view.toast("网络不可用");
             return;
         }
-        view.load();
-        Disposable disposable = lessonModel.update(Baby.baby.getFid(), lessons)
+        Disposable disposable = motionModel.sleep(Baby.baby.getFid())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(it -> {
-                    view.toast(it.getMsg());
-                    view.dismiss();
+                    if (it.getCode().equals("0")) {
+                        dataList.clear();
+                        dataList.addAll(it.getBody());
+                    } else {
+                        view.toast(it.getMsg());
+                    }
                 }, e -> {
-                    view.dismiss();
                     view.toast("出错了");
+                    e.printStackTrace();
                 });
         compositeDisposable.add(disposable);
     }

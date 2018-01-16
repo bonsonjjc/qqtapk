@@ -4,7 +4,6 @@ import android.app.Application;
 import android.databinding.Observable;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
-import android.text.TextUtils;
 
 import com.bonson.library.utils.PreferencesHelper;
 import com.bonson.qqtapk.app.Const;
@@ -12,7 +11,6 @@ import com.bonson.qqtapk.di.ActivityScope;
 import com.bonson.qqtapk.model.bean.Baby;
 import com.bonson.qqtapk.model.bean.Device;
 import com.bonson.qqtapk.model.data.setting.SettingModel;
-import com.bonson.qqtapk.view.ui.setting.SettingModule;
 import com.bonson.resource.activity.BaseView;
 import com.bonson.resource.viewmodel.AndroidViewModel;
 

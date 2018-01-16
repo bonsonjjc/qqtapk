@@ -5,7 +5,9 @@ import android.databinding.ObservableField;
 
 import com.bonson.qqtapk.app.Route;
 import com.bonson.qqtapk.di.ActivityScope;
+import com.bonson.qqtapk.model.bean.Baby;
 import com.bonson.qqtapk.model.bean.User;
+import com.bonson.qqtapk.model.data.TokenServer;
 import com.bonson.qqtapk.model.data.setting.SettingModel;
 import com.bonson.qqtapk.model.data.user.UserModel;
 import com.bonson.resource.activity.ActivityUtils;
@@ -32,6 +34,8 @@ public class SettingViewModel extends AndroidViewModel {
     @Inject
     SettingModel settingModel;
 
+    @Inject
+    TokenServer tokenServer;
 
     @Inject
     public SettingViewModel(Application application, UserModel userModel) {
@@ -48,6 +52,28 @@ public class SettingViewModel extends AndroidViewModel {
         this.settingModel = settingModel;
     }
 
+    public void serverToken() {
+        settingModel.setTokenServer(tokenServer);
+        if (!isNetWork()) {
+            view.toast("网络不可用");
+            return;
+        }
+        view.load();
+        Disposable disposable = settingModel.token(Baby.baby)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(it -> {
+                    if (it.getCode().equals("0")) {
+
+                    } else {
+                        view.toast(it.getMsg());
+                    }
+                }, e -> {
+                    view.toast("出错了");
+                    view.dismiss();
+                });
+        compositeDisposable.add(disposable);
+    }
+
     public void exit() {
         Disposable disposable = userModel.exit(User.user)
                 .subscribeOn(Schedulers.io())
@@ -56,7 +82,7 @@ public class SettingViewModel extends AndroidViewModel {
                     view.start(Route.login);
                     ActivityUtils.clear();
                 }, e -> {
-                    view.toast("失败");
+                    view.toast("退出失败");
                 });
         compositeDisposable.add(disposable);
     }

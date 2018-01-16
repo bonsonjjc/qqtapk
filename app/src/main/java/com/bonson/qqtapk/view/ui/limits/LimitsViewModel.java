@@ -1,7 +1,6 @@
 package com.bonson.qqtapk.view.ui.limits;
 
 import android.app.Application;
-import android.databinding.Observable;
 import android.databinding.ObservableArrayList;
 import android.databinding.ObservableBoolean;
 

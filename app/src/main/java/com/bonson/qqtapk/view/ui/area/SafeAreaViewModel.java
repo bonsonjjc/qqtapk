@@ -11,7 +11,7 @@ import com.bonson.qqtapk.model.bean.Baby;
 import com.bonson.qqtapk.model.bean.SafeArea;
 import com.bonson.qqtapk.model.data.area.SafeAreaModel;
 import com.bonson.library.utils.NumberUtils;
-import com.bonson.qqtapk.view.ui.index.main.LocationViewModel;
+import com.bonson.qqtapk.view.ui.index.LocationViewModel;
 import com.bonson.resource.activity.BaseView;
 import com.bonson.resource.viewmodel.AndroidViewModel;
 

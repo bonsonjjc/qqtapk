@@ -1,9 +1,7 @@
 package com.bonson.qqtapk.view.ui.member;
 
-import android.app.Activity;
 import android.app.Application;
 import android.databinding.ObservableArrayList;
-import android.text.TextUtils;
 
 import com.bonson.qqtapk.app.Route;
 import com.bonson.qqtapk.di.ActivityScope;

@@ -19,7 +19,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
  */
 
 public class ModeModel {
-    ApiServer modeServer;
+    private ApiServer modeServer;
 
     @Inject
     public ModeModel(ApiServer modeServer) {
@@ -59,9 +59,9 @@ public class ModeModel {
         return modeServer.mode(args)
                 .subscribeOn(io.reactivex.schedulers.Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .map(callInLimits -> {
+                .map(modes -> {
                     Result<Mode> result = new Result<>();
-                    Mode mode1 = callInLimits.get(0);
+                    Mode mode1 = modes.get(0);
                     if ("0".equals(mode1.getFresult())) {
                         result.setCode("0");
                         result.setBody(mode1);

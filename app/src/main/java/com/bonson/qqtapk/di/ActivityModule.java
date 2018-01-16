@@ -1,5 +1,6 @@
 package com.bonson.qqtapk.di;
 
+import com.bonson.qqtapk.model.data.motion.MotionModel;
 import com.bonson.qqtapk.view.ui.area.SafeAreaActivity;
 import com.bonson.qqtapk.view.ui.area.SafeAreaModule;
 import com.bonson.qqtapk.view.ui.center.message.MessageActivity;
@@ -28,6 +29,8 @@ import com.bonson.qqtapk.view.ui.center.CenterActivity;
 import com.bonson.qqtapk.view.ui.center.CenterModule;
 import com.bonson.qqtapk.view.ui.mode.ModeActivity;
 import com.bonson.qqtapk.view.ui.mode.ModeModule;
+import com.bonson.qqtapk.view.ui.motion.MotionActivity;
+import com.bonson.qqtapk.view.ui.motion.MotionModule;
 import com.bonson.qqtapk.view.ui.register.RegisterActivity;
 import com.bonson.qqtapk.view.ui.register.RegisterModule;
 import com.bonson.qqtapk.view.ui.ring.RingActivity;
@@ -104,6 +107,10 @@ abstract class ActivityModule {
     @ActivityScope
     @ContributesAndroidInjector(modules = {ContactsModule.class, RetrofitModule.class})
     abstract ContactsActivity contactsActivity();
+
+    @ActivityScope
+    @ContributesAndroidInjector(modules = {MotionModule.class, RetrofitModule.class})
+    abstract MotionActivity motionActivity();
 
     @ActivityScope
     @ContributesAndroidInjector(modules = {FlowerModule.class, RetrofitModule.class})

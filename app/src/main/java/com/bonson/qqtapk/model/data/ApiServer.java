@@ -11,8 +11,10 @@ import com.bonson.qqtapk.model.bean.Location;
 import com.bonson.qqtapk.model.bean.Member;
 import com.bonson.qqtapk.model.bean.Message;
 import com.bonson.qqtapk.model.bean.Mode;
+import com.bonson.qqtapk.model.bean.Motion;
 import com.bonson.qqtapk.model.bean.Route;
 import com.bonson.qqtapk.model.bean.SafeArea;
+import com.bonson.qqtapk.model.bean.Sleep;
 import com.bonson.qqtapk.model.bean.UserBean;
 import com.bonson.qqtapk.model.bean.Voice;
 import com.bonson.qqtapk.model.data.index.Index;
@@ -61,10 +63,13 @@ public interface ApiServer {
     Observable<List<Location>> location(@Body Object object);
 
     @POST("data.html")
-    Observable<List<Mode>> mode(@Body Object body);
+    Observable<List<Sleep>> sleeps(@Body Object body);
 
     @POST("data.html")
-    Observable<List<Base>> ring(@Body Object body);
+    Observable<List<Motion>> motions(@Body Object body);
+
+    @POST("data.html")
+    Observable<List<Mode>> mode(@Body Object body);
 
     @POST("data.html")
     Observable<List<Route>> routes(@Body Object body);
@@ -72,12 +77,6 @@ public interface ApiServer {
     @POST("data.html")
 //    @Encode(encoder = true, decoder = true)
     Observable<List<Voice>> voices(@Body Object body);
-
-
-    @POST("data.html")
-//    @Encode(encoder = true, decoder = true)
-    Observable<String> upload(@Body Object body);
-
 
     @POST("data.html")
 //    @Encode(encoder = true, decoder = true)

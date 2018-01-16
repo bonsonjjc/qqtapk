@@ -1,7 +1,7 @@
 package com.bonson.qqtapk.view.ui.area;
 
 import com.bonson.qqtapk.di.ActivityScope;
-import com.bonson.qqtapk.view.ui.index.main.LocationViewModel;
+import com.bonson.qqtapk.view.ui.index.LocationViewModel;
 import com.bonson.resource.viewmodel.AndroidViewModel;
 
 import dagger.Binds;

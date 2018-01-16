@@ -51,6 +51,5 @@ dependencies {
     provided 'org.glassfish:javax.annotation:10.0-b28'
     implementation project(':library')
     implementation project(':resource')
-    implementation 'com.mylhyl:superDialog:1.0.2'
     implementation 'com.squareup.picasso:picasso:2.5.2'
 }

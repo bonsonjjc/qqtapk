@@ -1,22 +1,15 @@
 package com.bonson.resource.activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.widget.ContentLoadingProgressBar;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.android.tu.loadingdialog.LoadingDialog;
 import com.bonson.resource.R;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.bonson.resource.dialog.LoadingDialog;
 
 import dagger.android.support.DaggerAppCompatActivity;
 
@@ -44,12 +37,12 @@ public abstract class BaseDaggerActivity extends DaggerAppCompatActivity impleme
     @Override
     public void load() {
         if (dialog == null) {
-            dialog = new LoadingDialog.Builder(this)
-                    .setMessage("请稍后..")
-                    .create();
+            dialog = new LoadingDialog();
         }
-        if (!dialog.isShowing())
-            dialog.show();
+        dialog.setText("请稍后..");
+        if (!dialog.isShowing()) {
+            dialog.show(getSupportFragmentManager(), "load");
+        }
     }
 
     @Override

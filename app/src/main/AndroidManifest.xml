@@ -62,6 +62,7 @@
     <activity android:name=".view.ui.ring.RingActivity"/>
     <activity android:name=".view.ui.center.CenterActivity"/>
     <activity android:name=".view.ui.center.message.MessageActivity"/>
+    <activity android:name=".view.ui.motion.MotionActivity"/>
 
     <activity android:name=".view.ui.setting.SettingActivity"/>
     <activity android:name=".view.ui.setting.notify.NotifyActivity"/>

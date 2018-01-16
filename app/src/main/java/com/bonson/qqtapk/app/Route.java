@@ -14,6 +14,7 @@ import com.bonson.qqtapk.view.ui.login.LoginActivity;
 import com.bonson.qqtapk.view.ui.member.MemberActivity;
 import com.bonson.qqtapk.view.ui.center.CenterActivity;
 import com.bonson.qqtapk.view.ui.mode.ModeActivity;
+import com.bonson.qqtapk.view.ui.motion.MotionActivity;
 import com.bonson.qqtapk.view.ui.register.RegisterActivity;
 import com.bonson.qqtapk.view.ui.ring.RingActivity;
 import com.bonson.qqtapk.view.ui.route.RouteActivity;
@@ -40,6 +41,7 @@ public final class Route {
     public static String area = SafeAreaActivity.class.getName();
     public static String lesson = LessonActivity.class.getName();
     public static String mode = ModeActivity.class.getName();
+    public static String motion = MotionActivity.class.getName();
     public static String contacts = ContactsActivity.class.getName();
     public static String flower = FlowerActivity.class.getName();
     public static String member = MemberActivity.class.getName();
