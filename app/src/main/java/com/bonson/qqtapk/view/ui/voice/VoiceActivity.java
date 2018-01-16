@@ -5,7 +5,7 @@ import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.view.View;
 
-import com.bonson.library.utils.AudioRecorderUtils;
+import com.bonson.library.utils.media.AudioRecorderUtils;
 import com.bonson.qqtapk.R;
 import com.bonson.qqtapk.databinding.ActivityVoiceBinding;
 import com.bonson.qqtapk.view.adapter.VoiceAdapter;

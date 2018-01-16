@@ -1,8 +1,9 @@
 package com.bonson.qqtapk.di;
 
-import com.bonson.qqtapk.model.data.motion.MotionModel;
 import com.bonson.qqtapk.view.ui.area.SafeAreaActivity;
 import com.bonson.qqtapk.view.ui.area.SafeAreaModule;
+import com.bonson.qqtapk.view.ui.center.CenterActivity;
+import com.bonson.qqtapk.view.ui.center.CenterModule;
 import com.bonson.qqtapk.view.ui.center.message.MessageActivity;
 import com.bonson.qqtapk.view.ui.center.message.MessageModule;
 import com.bonson.qqtapk.view.ui.contacts.ContactsActivity;
@@ -25,8 +26,6 @@ import com.bonson.qqtapk.view.ui.login.LoginActivity;
 import com.bonson.qqtapk.view.ui.login.LoginModule;
 import com.bonson.qqtapk.view.ui.member.MemberActivity;
 import com.bonson.qqtapk.view.ui.member.MemberModule;
-import com.bonson.qqtapk.view.ui.center.CenterActivity;
-import com.bonson.qqtapk.view.ui.center.CenterModule;
 import com.bonson.qqtapk.view.ui.mode.ModeActivity;
 import com.bonson.qqtapk.view.ui.mode.ModeModule;
 import com.bonson.qqtapk.view.ui.motion.MotionActivity;

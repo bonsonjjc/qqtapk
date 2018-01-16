@@ -15,4 +15,6 @@ public class Const {
     public static final String PATH = "http://wap.bfsafe.com:7070";
 
     public static final String API_PATH = PATH + "/api/";
+
+    public static final String QQT_PATH="http://qqt.bfsafe.com/";
 }

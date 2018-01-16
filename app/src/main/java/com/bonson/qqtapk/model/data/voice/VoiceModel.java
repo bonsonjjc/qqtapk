@@ -3,7 +3,7 @@ package com.bonson.qqtapk.model.data.voice;
 import android.text.TextUtils;
 
 import com.bonson.library.utils.DateUtils;
-import com.bonson.library.utils.Md5Utils;
+import com.bonson.library.utils.security.Md5Utils;
 import com.bonson.qqtapk.model.bean.Result;
 import com.bonson.qqtapk.model.bean.Voice;
 import com.bonson.qqtapk.model.data.ApiServer;

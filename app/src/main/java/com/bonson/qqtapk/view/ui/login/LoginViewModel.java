@@ -9,7 +9,7 @@ import com.bonson.qqtapk.app.Route;
 import com.bonson.qqtapk.di.ActivityScope;
 import com.bonson.qqtapk.model.bean.User;
 import com.bonson.qqtapk.model.data.user.UserModel;
-import com.bonson.library.utils.Md5Utils;
+import com.bonson.library.utils.security.Md5Utils;
 import com.bonson.resource.activity.BaseView;
 import com.bonson.resource.viewmodel.AndroidViewModel;
 

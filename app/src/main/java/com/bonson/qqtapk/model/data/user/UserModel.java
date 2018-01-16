@@ -7,7 +7,7 @@ import com.bonson.qqtapk.model.bean.UserBean;
 import com.bonson.qqtapk.model.data.ApiServer;
 import com.bonson.qqtapk.model.db.BabyDao;
 import com.bonson.qqtapk.model.db.UserDao;
-import com.bonson.library.utils.Md5Utils;
+import com.bonson.library.utils.security.Md5Utils;
 import com.bonson.qqtapk.utils.QQtBuilder;
 
 import java.util.LinkedHashMap;

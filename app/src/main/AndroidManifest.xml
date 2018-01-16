@@ -37,7 +37,7 @@
         android:name="com.baidu.lbsapi.API_KEY"
         android:value="huvRWiHNBq4K0nOvjyA3M2if"/>
 
-    <activity android:name=".view.ui.login.LoginActivity">
+    <activity android:name=".test.TestActivity">
       <intent-filter>
         <action android:name="android.intent.action.MAIN"/>
 
