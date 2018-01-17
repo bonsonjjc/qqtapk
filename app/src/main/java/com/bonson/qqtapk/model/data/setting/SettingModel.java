@@ -5,7 +5,6 @@ import com.bonson.qqtapk.model.bean.Baby;
 import com.bonson.qqtapk.model.bean.Base;
 import com.bonson.qqtapk.model.bean.Result;
 import com.bonson.qqtapk.model.data.ApiServer;
-import com.bonson.qqtapk.model.data.TokenServer;
 import com.bonson.qqtapk.utils.QQtBuilder;
 
 import java.util.LinkedHashMap;
@@ -19,16 +18,11 @@ import io.reactivex.schedulers.Schedulers;
 public class SettingModel {
     private ApiServer apiServer;
 
-    TokenServer tokenServer;
-
     @Inject
     public SettingModel(ApiServer apiServer) {
         this.apiServer = apiServer;
     }
 
-    public void setTokenServer(TokenServer tokenServer) {
-        this.tokenServer = tokenServer;
-    }
 
     public Observable<Result<String>> sleepTime(String uid, String bid, String sleepTime) {
         Map<String, String> map = new LinkedHashMap<>();
@@ -59,7 +53,7 @@ public class SettingModel {
         map.put("fmobile", baby.getFaccount());
         map.put("portraitUri", baby.getFimg());
         Object args = QQtBuilder.build("101", map);
-        return tokenServer.token(args)
+        return apiServer.token(args)
                 .subscribeOn(Schedulers.io())
                 .map(it -> {
                     Result<String> result = new Result<>();

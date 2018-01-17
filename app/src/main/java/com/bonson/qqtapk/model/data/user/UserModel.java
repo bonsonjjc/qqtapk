@@ -1,5 +1,6 @@
 package com.bonson.qqtapk.model.data.user;
 
+import com.bonson.qqtapk.di.ActivityScope;
 import com.bonson.qqtapk.model.bean.Baby;
 import com.bonson.qqtapk.model.bean.Result;
 import com.bonson.qqtapk.model.bean.User;
@@ -9,6 +10,7 @@ import com.bonson.qqtapk.model.db.BabyDao;
 import com.bonson.qqtapk.model.db.UserDao;
 import com.bonson.library.utils.security.Md5Utils;
 import com.bonson.qqtapk.utils.QQtBuilder;
+import com.bonson.resource.utils.EncodeUtils;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -21,17 +23,16 @@ import io.reactivex.schedulers.Schedulers;
 /**
  * Created by zjw on 2018/1/2.
  */
-
 public class UserModel {
     private UserDao userDao;
     private BabyDao babyDao;
-    private ApiServer userServer;
+    private ApiServer apiServer;
 
     @Inject
-    public UserModel(UserDao userDao, BabyDao babyDao, ApiServer userServer) {
+    public UserModel(UserDao userDao, BabyDao babyDao, ApiServer apiServer) {
         this.userDao = userDao;
         this.babyDao = babyDao;
-        this.userServer = userServer;
+        this.apiServer = apiServer;
     }
 
     public User getUser() {
@@ -44,7 +45,7 @@ public class UserModel {
         map.put("fpasswd", password);
         map.put("ftoken", token);
         Object body = QQtBuilder.build("01", map);
-        return userServer.user(body)
+        return apiServer.user(body)
                 .subscribeOn(Schedulers.io())
                 .map(userBeans -> {
                     UserBean userBean = userBeans.get(0);
@@ -72,7 +73,7 @@ public class UserModel {
         map.put("fmobile", mobile);
         map.put("ftype", type);
         Object body = QQtBuilder.build("14", map);
-        return userServer.user(body)
+        return apiServer.user(body)
                 .subscribeOn(Schedulers.io())
                 .map(userBeans -> {
                     UserBean userBean = userBeans.get(0);
@@ -94,7 +95,7 @@ public class UserModel {
         map.put("fpasswd", Md5Utils.toMD5(password));
         map.put("fverify", verify);
         Object body = QQtBuilder.build("02", map);
-        return userServer.user(body)
+        return apiServer.user(body)
                 .subscribeOn(Schedulers.io())
                 .map(userBeans -> {
                     UserBean userBean = userBeans.get(0);
@@ -115,7 +116,7 @@ public class UserModel {
         map.put("fmobile", mobile);
         map.put("fverify", verify);
         Object body = QQtBuilder.build("38", map);
-        return userServer.user(body)
+        return apiServer.user(body)
                 .subscribeOn(Schedulers.io())
                 .map(userBeans -> {
                     UserBean userBean = userBeans.get(0);
@@ -137,7 +138,7 @@ public class UserModel {
         map.put("fmobile", mobile);
         map.put("fpasswd", password);
         Object body = QQtBuilder.build("39", map);
-        return userServer.user(body)
+        return apiServer.user(body)
                 .subscribeOn(Schedulers.io())
                 .map(userBeans -> {
                     UserBean userBean = userBeans.get(0);
@@ -159,7 +160,7 @@ public class UserModel {
         map.put("fpasswd", Md5Utils.toMD5(password));
         map.put("fnewpasswd", Md5Utils.toMD5(newPassword));
         Object body = QQtBuilder.build("12", map);
-        return userServer.user(body)
+        return apiServer.user(body)
                 .subscribeOn(Schedulers.io())
                 .map(userBeans -> {
                     UserBean userBean = userBeans.get(0);

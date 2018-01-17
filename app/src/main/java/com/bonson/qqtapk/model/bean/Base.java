@@ -12,6 +12,9 @@ public class Base {
     @Ignore
     private String fresult = "-7";
 
+    @Ignore
+    private String fmsg;
+
     public final String getFresult() {
         return fresult;
     }
@@ -22,5 +25,9 @@ public class Base {
 
     public String getMsg() {
         return ErrorCode.message(fresult);
+    }
+
+    public String getFmsg() {
+        return fmsg;
     }
 }

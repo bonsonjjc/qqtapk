@@ -7,7 +7,6 @@ import com.bonson.qqtapk.app.Route;
 import com.bonson.qqtapk.di.ActivityScope;
 import com.bonson.qqtapk.model.bean.Baby;
 import com.bonson.qqtapk.model.bean.User;
-import com.bonson.qqtapk.model.data.TokenServer;
 import com.bonson.qqtapk.model.data.setting.SettingModel;
 import com.bonson.qqtapk.model.data.user.UserModel;
 import com.bonson.resource.activity.ActivityUtils;
@@ -35,9 +34,6 @@ public class SettingViewModel extends AndroidViewModel {
     SettingModel settingModel;
 
     @Inject
-    TokenServer tokenServer;
-
-    @Inject
     public SettingViewModel(Application application, UserModel userModel) {
         super(application);
         this.userModel = userModel;
@@ -53,7 +49,6 @@ public class SettingViewModel extends AndroidViewModel {
     }
 
     public void serverToken() {
-        settingModel.setTokenServer(tokenServer);
         if (!isNetWork()) {
             view.toast("网络不可用");
             return;

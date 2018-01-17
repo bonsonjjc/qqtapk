@@ -20,9 +20,12 @@ import com.bonson.qqtapk.model.bean.Voice;
 import com.bonson.qqtapk.model.data.index.Index;
 
 import java.util.List;
+import java.util.Map;
 
 import io.reactivex.Observable;
 import retrofit2.http.Body;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
 
 public interface ApiServer {
@@ -75,10 +78,11 @@ public interface ApiServer {
     Observable<List<Route>> routes(@Body Object body);
 
     @POST("data.html")
-//    @Encode(encoder = true, decoder = true)
+    Observable<Map<String, String>> token(@Body Object body);
+
+    @POST("data.html")
     Observable<List<Voice>> voices(@Body Object body);
 
     @POST("data.html")
-//    @Encode(encoder = true, decoder = true)
     Observable<List<UserBean>> user(@Body Object body);
 }

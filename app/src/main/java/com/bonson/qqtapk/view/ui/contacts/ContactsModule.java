@@ -1,14 +1,12 @@
 package com.bonson.qqtapk.view.ui.contacts;
 
 import android.content.Context;
-import android.databinding.ObservableArrayList;
 
 import com.bonson.qqtapk.di.ActivityScope;
 import com.bonson.qqtapk.di.FragmentScope;
 import com.bonson.qqtapk.view.adapter.ContactAdapter;
 import com.bonson.qqtapk.view.ui.contacts.phone.PhoneFragment;
 import com.bonson.qqtapk.view.ui.contacts.phone.PhoneViewModel;
-import com.bonson.qqtapk.view.ui.info.InfoViewModel;
 import com.bonson.qqtapk.view.ui.info.select.SelectAdapter;
 import com.bonson.qqtapk.view.ui.info.select.SelectFragment;
 import com.bonson.qqtapk.view.ui.info.select.SelectViewModel;

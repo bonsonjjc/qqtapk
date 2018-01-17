@@ -3,20 +3,25 @@ package com.bonson.qqtapk.di;
 import android.app.Application;
 import android.content.Context;
 
+import com.bonson.qqtapk.app.Const;
 import com.bonson.qqtapk.model.db.AppDataBase;
 import com.bonson.qqtapk.model.db.BabyDao;
 import com.bonson.qqtapk.model.db.UserDao;
-
-import dagger.Binds;
-import dagger.Module;
-import dagger.Provides;
+import com.bonson.resource.http.TokenInterceptor;
+import com.bonson.resource.http.qqtconvert.QQTConverterFactory;
+import com.google.gson.Gson;
 
 import java.util.concurrent.TimeUnit;
 
 import javax.inject.Singleton;
 
+import dagger.Binds;
+import dagger.Module;
+import dagger.Provides;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
+import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
 /**
  * Created by zjw on 2017/12/29.
@@ -48,8 +53,17 @@ abstract class AppModule {
     @Provides
     static OkHttpClient client() {
         return new OkHttpClient.Builder().addInterceptor(new HttpLoggingInterceptor())
+                .addInterceptor(new TokenInterceptor())
                 .writeTimeout(30L, TimeUnit.SECONDS)
                 .readTimeout(1L, TimeUnit.MINUTES)
                 .build();
+    }
+
+    @Provides
+    @Singleton
+    static Retrofit.Builder providesRetrofitBuilder(OkHttpClient client) {
+        return new Retrofit.Builder().baseUrl(Const.QQT_PATH)
+                .client(client)
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create());
     }
 }

@@ -59,9 +59,9 @@ import dagger.android.ContributesAndroidInjector;
  */
 @Module
 abstract class ActivityModule {
-    @ActivityScope
-    @ContributesAndroidInjector(modules = {LoginModule.class, RetrofitModule.class})
-    abstract LoginActivity loginActivity();
+//    @ActivityScope
+//    @ContributesAndroidInjector(modules = {LoginModule.class, RetrofitModule.class})
+//    abstract LoginActivity loginActivity();
 
     @ActivityScope
     @ContributesAndroidInjector(modules = {RegisterModule.class, RetrofitModule.class})

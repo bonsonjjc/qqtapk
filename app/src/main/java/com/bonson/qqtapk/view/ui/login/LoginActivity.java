@@ -19,7 +19,6 @@ import javax.inject.Inject;
 /**
  * Created by zjw on 2017/12/29.
  */
-
 public class LoginActivity extends BaseDaggerActivity {
     @Inject
     LoginViewModel viewModel;

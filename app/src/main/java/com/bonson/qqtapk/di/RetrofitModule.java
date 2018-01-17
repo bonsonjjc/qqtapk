@@ -4,9 +4,11 @@ import android.content.Context;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.RecyclerView;
 
+import com.bonson.fjqqt.di.FjqqtScope;
+import com.bonson.fjqqt.model.FApiServer;
 import com.bonson.qqtapk.app.Const;
-import com.bonson.resource.http.qqtfactory.GsonConvertFactory;
 import com.bonson.qqtapk.model.data.ApiServer;
+import com.bonson.resource.http.qqtconvert.QQTConverterFactory;
 import com.google.gson.Gson;
 
 import dagger.Module;
@@ -23,18 +25,11 @@ public abstract class RetrofitModule {
 
     @Provides
     @ActivityScope
-    static Retrofit providesRetrofit(OkHttpClient client) {
-        return new retrofit2.Retrofit.Builder().baseUrl(Const.API_PATH)
-                .client(client)
-                .addConverterFactory(GsonConvertFactory.create(new Gson()))
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+    static ApiServer providesApiServer(Retrofit.Builder builder) {
+        Retrofit temp = builder.baseUrl(Const.API_PATH)
+                .addConverterFactory(QQTConverterFactory.create(new Gson()))
                 .build();
-    }
-
-    @Provides
-    @ActivityScope
-    static ApiServer providesApiServer(Retrofit retrofit) {
-        return retrofit.create(ApiServer.class);
+        return temp.create(ApiServer.class);
     }
 
     @Provides

@@ -47,13 +47,8 @@ public class MainViewModel extends AndroidViewModel {
         viewModel.setView(view);
     }
 
-
     public LocationViewModel getViewModel() {
         return viewModel;
-    }
-
-    public void setViewModel(LocationViewModel viewModel) {
-        this.viewModel = viewModel;
     }
 
     public void device() {

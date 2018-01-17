@@ -5,10 +5,9 @@ import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.text.TextUtils;
 
+import com.bonson.fjqqt.model.data.UserModel;
 import com.bonson.qqtapk.app.Route;
-import com.bonson.qqtapk.di.ActivityScope;
 import com.bonson.qqtapk.model.bean.User;
-import com.bonson.qqtapk.model.data.user.UserModel;
 import com.bonson.library.utils.security.Md5Utils;
 import com.bonson.resource.activity.BaseView;
 import com.bonson.resource.viewmodel.AndroidViewModel;
@@ -21,12 +20,12 @@ import io.reactivex.disposables.Disposable;
 /**
  * Created by zjw on 2017/12/29.
  */
-@ActivityScope
 public class LoginViewModel extends AndroidViewModel {
-    public ObservableField<String> mobile = new ObservableField<>(), password = new ObservableField<>();
-    private String token;
+    public ObservableField<String> mobile = new ObservableField<>("");
+    public ObservableField<String> password = new ObservableField<>("");
     public ObservableBoolean enable = new ObservableBoolean(true);
-    public ObservableBoolean auto = new ObservableBoolean();
+    public ObservableBoolean auto = new ObservableBoolean(false);
+    private String token;
     private BaseView view;
 
     private UserModel userModel;
@@ -87,20 +86,12 @@ public class LoginViewModel extends AndroidViewModel {
 
     void init() {
         User user = userModel.getUser();
+        if (user == null) {
+            return;
+        }
         mobile.set(user.getMobile());
         auto.set(user.getAuto());
         password.set(auto.get() ? user.getPassword() : "");
         token = user.getToken();
-       /* Disposable disposable = userModel.getUser()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(user -> {
-                    if (user == null) return;
-                    mobile.set(user.getMobile());
-                    auto.set(user.getAuto());
-                    password.set(auto.get() ? user.getPassword() : "");
-                    token = user.getToken();
-                }, Throwable::printStackTrace);
-        compositeDisposable.add(disposable);*/
     }
 }

@@ -11,6 +11,7 @@ public class SafeArea extends Base {
     private String fradius;
     private String fstate;
     private String fbid;
+    private String ftype;
 
     public String getFid() {
         return fid;
@@ -58,5 +59,13 @@ public class SafeArea extends Base {
 
     public void setFstate(String fstate) {
         this.fstate = fstate;
+    }
+
+    public String getFtype() {
+        return ftype;
+    }
+
+    public void setFtype(String ftype) {
+        this.ftype = ftype;
     }
 }

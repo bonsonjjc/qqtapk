@@ -38,8 +38,9 @@ final class QQTRequestBodyConvert<T> implements Converter<T, RequestBody> {
         JsonWriter jsonWriter = gson.newJsonWriter(writer);
         adapter.write(jsonWriter, value);
         jsonWriter.close();
-        LogUtils.e(buffer.readString(Charset.forName("utf-8")));
-        byte[] encodeArray = EncodeUtils.encodeAes(buffer.readByteArray());
-        return RequestBody.create(MEDIA_TYPE, EncodeUtils.encodeBase64(encodeArray));
+        String content=buffer.readString(Charset.forName("utf-8"));
+        LogUtils.e(content);
+        String encodeArray = EncodeUtils.encode(content);
+        return RequestBody.create(MEDIA_TYPE, encodeArray);
     }
 }

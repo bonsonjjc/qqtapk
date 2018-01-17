@@ -1,7 +1,6 @@
 package com.bonson.qqtapk.view.ui.info;
 
 import android.content.Context;
-import android.databinding.ObservableArrayList;
 
 import com.bonson.qqtapk.di.ActivityScope;
 import com.bonson.qqtapk.di.FragmentScope;

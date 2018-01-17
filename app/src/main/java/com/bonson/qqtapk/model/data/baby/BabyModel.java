@@ -1,5 +1,7 @@
 package com.bonson.qqtapk.model.data.baby;
 
+import android.text.TextUtils;
+
 import com.bonson.qqtapk.app.ErrorCode;
 import com.bonson.qqtapk.model.bean.Baby;
 import com.bonson.qqtapk.model.bean.Base;
@@ -9,6 +11,7 @@ import com.bonson.qqtapk.model.bean.UserBean;
 import com.bonson.qqtapk.model.data.ApiServer;
 import com.bonson.qqtapk.model.db.BabyDao;
 import com.bonson.qqtapk.utils.QQtBuilder;
+import com.bonson.resource.utils.EncodeUtils;
 
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -25,12 +28,12 @@ import io.reactivex.schedulers.Schedulers;
  */
 
 public class BabyModel {
-    private ApiServer babyServer;
+    private ApiServer apiServer;
     private BabyDao babyDao;
 
     @Inject
-    public BabyModel(ApiServer babyServer, BabyDao babyDao) {
-        this.babyServer = babyServer;
+    public BabyModel(ApiServer apiServer, BabyDao babyDao) {
+        this.apiServer = apiServer;
         this.babyDao = babyDao;
     }
 
@@ -39,7 +42,7 @@ public class BabyModel {
         map.put("fuser", uid);
         map.put("fimei", imei);
         Object body = QQtBuilder.build("13", map);
-        return babyServer.baby(body)
+        return apiServer.baby(body)
                 .subscribeOn(Schedulers.io())
                 .map(userBeans -> {
                     Baby baby = userBeans.get(0);
@@ -61,7 +64,7 @@ public class BabyModel {
         map.put("fid", uid);
         map.put("fuser", uid);
         Object body = QQtBuilder.build("28", map);
-        return babyServer.baby(body)
+        return apiServer.baby(body)
                 .subscribeOn(Schedulers.io())
                 .map(userBeans -> {
                     Baby baby = userBeans.get(0);
@@ -95,7 +98,7 @@ public class BabyModel {
         map.put("fheight", update.getFheight());
         map.put("fweight", update.getFweight());
         Object body = QQtBuilder.build("22", map);
-        return babyServer.baby(body)
+        return apiServer.baby(body)
                 .subscribeOn(Schedulers.io())
                 .map(userBeans -> {
                     Baby baby = userBeans.get(0);
@@ -121,9 +124,9 @@ public class BabyModel {
         map.put("fmobile", User.user.getMobile());
         map.put("fpasswd", User.user.getPassword());
         map.put("fbid", bid);
-        map.put("ftoken", User.user.getToken() + "");
+        map.put("ftoken", TextUtils.isEmpty(User.user.getToken()) ? "" : User.user.getToken());
         Object body = QQtBuilder.build("01", map);
-        return babyServer.user(body)
+        return apiServer.user(body)
                 .subscribeOn(Schedulers.io())
                 .map(babies -> {
                     UserBean baby = babies.get(0);
@@ -148,7 +151,7 @@ public class BabyModel {
         map.put("fbid", baby.getFid());
         map.put("fimei", baby.getFimei());
         Object body = QQtBuilder.build("44", map);
-        return babyServer.base(body)
+        return apiServer.base(body)
                 .subscribeOn(Schedulers.io())
                 .map(babies -> {
                     Base base = babies.get(0);
