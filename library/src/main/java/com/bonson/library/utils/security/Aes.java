@@ -16,37 +16,36 @@ import javax.crypto.spec.SecretKeySpec;
  */
 public class Aes {
 
-  private Aes() {
-  }
+    private Aes() {
+    }
 
-  public static byte[] encode(byte[] srcBytes, byte[] key, byte[] newIv) throws Exception {
-    Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
-    SecretKeySpec skeySpec = new SecretKeySpec(key, "AES");
-    IvParameterSpec iv = new IvParameterSpec(newIv);
-    cipher.init(Cipher.ENCRYPT_MODE, skeySpec, iv);
-    byte[] encrypted = cipher.doFinal(srcBytes);
-    return encrypted;
-  }
+    public static byte[] encode(byte[] bytes, byte[] key, byte[] newIv) throws Exception {
+        Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
+        SecretKeySpec skeySpec = new SecretKeySpec(key, "AES");
+        IvParameterSpec iv = new IvParameterSpec(newIv);
+        cipher.init(Cipher.ENCRYPT_MODE, skeySpec, iv);
+        byte[] encodeBytes = cipher.doFinal(bytes);
+        return encodeBytes;
+    }
 
-  public static String encode(String sSrc, byte[] key, byte[] newIv) throws Exception {
-    byte[] srcBytes = sSrc.getBytes("utf-8");
-    byte[] encrypted = encode(srcBytes, key, newIv);
-    return Base64.encode(encrypted);
-  }
+    public static String encodeBase64(String bytes, byte[] key, byte[] newIv) throws Exception {
+        byte[] encodeBytes = encode(bytes.getBytes("utf-8"), key, newIv);
+        return Base64.encode(encodeBytes);
+    }
 
-  public static byte[] decode(byte[] srcBytes, byte[] key, byte[] newIv) throws Exception {
-    Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
-    SecretKeySpec skeySpec = new SecretKeySpec(key, "AES");
-    IvParameterSpec iv = new IvParameterSpec(newIv);
-    cipher.init(Cipher.DECRYPT_MODE, skeySpec, iv);
-    byte[] encrypted = cipher.doFinal(srcBytes);
-    return encrypted;
-  }
+    public static byte[] decode(byte[] bytes, byte[] key, byte[] newIv) throws Exception {
+        Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
+        SecretKeySpec skeySpec = new SecretKeySpec(key, "AES");
+        IvParameterSpec iv = new IvParameterSpec(newIv);
+        cipher.init(Cipher.DECRYPT_MODE, skeySpec, iv);
+        byte[] encrypted = cipher.doFinal(bytes);
+        return encrypted;
+    }
 
-  public static String decode(String sSrc, byte[] key, byte[] newIv) throws Exception {
-    byte[] srcBytes = Base64.decode(sSrc);
-    byte[] decrypted = decode(srcBytes, key, newIv);
-    return new String(decrypted, "utf-8");
-  }
+    public static String decodeBase64(String encodeStr, byte[] key, byte[] newIv) throws Exception {
+        byte[] encodeBytes = Base64.decode(encodeStr);
+        byte[] decodeBytes = decode(encodeBytes, key, newIv);
+        return new String(decodeBytes, "utf-8");
+    }
 
 }

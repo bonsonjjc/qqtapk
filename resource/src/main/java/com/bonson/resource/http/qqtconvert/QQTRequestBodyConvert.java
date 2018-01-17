@@ -1,8 +1,7 @@
 package com.bonson.resource.http.qqtconvert;
 
-import android.util.Base64;
-
-import com.bonson.resource.utils.EnCodeUtils;
+import com.bonson.library.utils.LogUtils;
+import com.bonson.resource.utils.EncodeUtils;
 import com.google.gson.Gson;
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonWriter;
@@ -15,7 +14,6 @@ import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import okio.Buffer;
 import retrofit2.Converter;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Created by zjw on 2018/1/2.
@@ -28,7 +26,7 @@ final class QQTRequestBodyConvert<T> implements Converter<T, RequestBody> {
     private Gson gson;
     private TypeAdapter<T> adapter;
 
-    private QQTRequestBodyConvert(Gson gson, TypeAdapter<T> adapter) {
+    QQTRequestBodyConvert(Gson gson, TypeAdapter<T> adapter) {
         this.gson = gson;
         this.adapter = adapter;
     }
@@ -40,8 +38,8 @@ final class QQTRequestBodyConvert<T> implements Converter<T, RequestBody> {
         JsonWriter jsonWriter = gson.newJsonWriter(writer);
         adapter.write(jsonWriter, value);
         jsonWriter.close();
-        byte[] encodeArray = buffer.readByteArray();
-        encodeArray = EnCodeUtils.encode(encodeArray);
-        return RequestBody.create(MEDIA_TYPE, encodeArray);
+        LogUtils.e(buffer.readString(Charset.forName("utf-8")));
+        byte[] encodeArray = EncodeUtils.encodeAes(buffer.readByteArray());
+        return RequestBody.create(MEDIA_TYPE, EncodeUtils.encodeBase64(encodeArray));
     }
 }

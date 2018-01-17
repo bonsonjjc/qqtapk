@@ -6,6 +6,7 @@ import android.util.Log;
 import com.bonson.library.utils.JsonUtils;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 
@@ -39,12 +40,14 @@ public class GsonResponseBodyConvert<T> implements Converter<ResponseBody, T> {
         }
         Log.e("response", json);
         try {
-            JsonObject jsonObject = JsonUtils.fromJson(json, JsonObject.class);
-            JsonArray body = jsonObject.getAsJsonArray("body");
-            if (body == null) {
-                return gson.fromJson(jsonObject, typeToken.getType());
+            JsonObject jsonObject = gson.fromJson(json, JsonObject.class);
+            if (jsonObject.has("body")) {
+                JsonElement body = jsonObject.get("body");
+                if (body.isJsonArray()) {
+                    return gson.fromJson(body.getAsJsonArray(), typeToken.getType());
+                }
             }
-            return gson.fromJson(body, typeToken.getType());
+            return gson.fromJson(jsonObject, typeToken.getType());
         } finally {
             value.close();
         }
