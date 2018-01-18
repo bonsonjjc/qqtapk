@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.bonson.resource.view.MToolbar
+        android:id="@+id/toolbar"
+        style="@style/Toolbar">
+
+        <include layout="@layout/toolbar" />
+    </com.bonson.resource.view.MToolbar>
+
+    <TextView
+        android:id="@+id/tv_limit"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_height"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/item_selector"
+        android:drawableRight="@drawable/ico_arrow_right"
+        android:gravity="center_vertical"
+        android:onClick="itemClick"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:text="呼入限制"
+        android:textColor="@color/black"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/tv_mode"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_height"
+        android:layout_marginTop="0.1dp"
+        android:background="@drawable/item_selector"
+        android:drawableRight="@drawable/ico_arrow_right"
+        android:gravity="center_vertical"
+        android:onClick="itemClick"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:text="定位模式"
+        android:textColor="@color/black"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/tv_alarm"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_height"
+        android:layout_marginTop="0.1dp"
+        android:background="@drawable/item_selector"
+        android:drawableRight="@drawable/ico_arrow_right"
+        android:gravity="center_vertical"
+        android:onClick="itemClick"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:text="生活提醒"
+        android:textColor="@color/black"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/tv_lesson"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_height"
+        android:layout_marginTop="0.1dp"
+        android:background="@drawable/item_selector"
+        android:drawableRight="@drawable/ico_arrow_right"
+        android:gravity="center_vertical"
+        android:onClick="itemClick"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:text="上课静默"
+        android:textColor="@color/black"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/tv_timer"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_height"
+        android:layout_marginTop="0.1dp"
+        android:background="@drawable/item_selector"
+        android:drawableRight="@drawable/ico_arrow_right"
+        android:gravity="center_vertical"
+        android:onClick="itemClick"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:text="定时定位"
+        android:textColor="@color/black"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/tv_ring"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_height"
+        android:layout_marginTop="0.1dp"
+        android:background="@drawable/item_selector"
+        android:drawableRight="@drawable/ico_arrow_right"
+        android:gravity="center_vertical"
+        android:onClick="itemClick"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:text="铃声设置"
+        android:textColor="@color/black"
+        android:textSize="16sp" />
+
+</LinearLayout>

@@ -39,7 +39,6 @@ final class QQTRequestBodyConvert<T> implements Converter<T, RequestBody> {
         adapter.write(jsonWriter, value);
         jsonWriter.close();
         String content=buffer.readString(Charset.forName("utf-8"));
-        LogUtils.e(content);
         String encodeArray = EncodeUtils.encode(content);
         return RequestBody.create(MEDIA_TYPE, encodeArray);
     }

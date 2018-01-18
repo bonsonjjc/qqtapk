@@ -1,6 +1,7 @@
 package com.bonson.qqtapk.model.data.area;
 
 import com.bonson.qqtapk.app.ErrorCode;
+import com.bonson.qqtapk.model.bean.Baby;
 import com.bonson.qqtapk.model.bean.Result;
 import com.bonson.qqtapk.model.bean.SafeArea;
 import com.bonson.qqtapk.model.data.ApiServer;
@@ -18,17 +19,17 @@ import io.reactivex.schedulers.Schedulers;
  * Created by jiangjiancheng on 17/12/31.
  */
 
-public class SafeAreaModel {
+public class SafeAreaModel implements SafeAreaDataSource {
     private ApiServer areaServer;
 
-    @Inject
-    SafeAreaModel(ApiServer areaServer) {
+    public SafeAreaModel(ApiServer areaServer) {
         this.areaServer = areaServer;
     }
 
-    public Observable<Result<SafeArea>> safeArea(String bid) {
+    @Override
+    public Observable<Result<SafeArea>> safeArea( String type) {
         Map<String, String> map = new LinkedHashMap<>();
-        map.put("fbid", bid);
+        map.put("fbid", Baby.baby.getFid());
         Object body = QQtBuilder.build("04", map);
         return areaServer.safeArea(body)
                 .subscribeOn(Schedulers.io())
@@ -46,9 +47,10 @@ public class SafeAreaModel {
                 });
     }
 
+    @Override
     public Observable<Result<SafeArea>> update(SafeArea safeArea) {
         Map<String, String> map = new LinkedHashMap<>();
-        map.put("fbid", safeArea.getFbid());
+        map.put("fbid", Baby.baby.getFid());
         map.put("fx", safeArea.getFx());
         map.put("fy", safeArea.getFy());
         map.put("fradius", safeArea.getFradius());

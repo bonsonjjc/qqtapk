@@ -4,19 +4,20 @@ import android.arch.persistence.room.Database;
 import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
+
 import com.bonson.qqtapk.model.bean.Baby;
 import com.bonson.qqtapk.model.bean.User;
 
 /**
  * Created by zjw on 2018/1/2.
  */
-@Database(entities = { Baby.class, User.class }, version = 1) public abstract class AppDataBase
-    extends RoomDatabase {
-  public abstract UserDao userDao();
+@Database(entities = {Baby.class, User.class}, version = 1)
+public abstract class AppDataBase extends RoomDatabase {
+    public abstract UserDao userDao();
 
-  public abstract BabyDao babyDao();
+    public abstract BabyDao babyDao();
 
-  public static AppDataBase build(Context context) {
-    return Room.databaseBuilder(context, AppDataBase.class, "db").allowMainThreadQueries().build();
-  }
+    public static AppDataBase build(Context context) {
+        return Room.databaseBuilder(context, AppDataBase.class, "db").allowMainThreadQueries().build();
+    }
 }

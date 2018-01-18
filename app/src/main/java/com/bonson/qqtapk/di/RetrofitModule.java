@@ -34,6 +34,15 @@ public abstract class RetrofitModule {
 
     @Provides
     @ActivityScope
+    static FApiServer providesFApiServer(Retrofit.Builder builder) {
+        Retrofit temp = builder.baseUrl(Const.QQT_PATH)
+                .addConverterFactory(QQTConverterFactory.create(new Gson()))
+                .build();
+        return temp.create(FApiServer.class);
+    }
+
+    @Provides
+    @ActivityScope
     static RecyclerView.ItemDecoration itemDecoration(Context context) {
         return new DividerItemDecoration(context, DividerItemDecoration.VERTICAL);
     }

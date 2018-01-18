@@ -5,9 +5,9 @@ import android.databinding.ObservableArrayList;
 import android.databinding.ObservableList;
 
 import com.bonson.qqtapk.di.ActivityScope;
-import com.bonson.qqtapk.model.bean.Baby;
 import com.bonson.qqtapk.model.bean.Family;
 import com.bonson.qqtapk.model.data.family.FamilyModel;
+import com.bonson.qqtapk.model.data.family.FamilyModelDataSource;
 import com.bonson.qqtapk.view.ui.contacts.phone.PhoneViewModel;
 import com.bonson.resource.activity.BaseView;
 import com.bonson.resource.viewmodel.AndroidViewModel;
@@ -23,7 +23,9 @@ import io.reactivex.disposables.Disposable;
 @ActivityScope
 public class FamilyViewModel extends AndroidViewModel {
     public ObservableList<Family> families = new ObservableArrayList<>();
-    private FamilyModel familyModel;
+
+    @Inject
+    FamilyModelDataSource familyModel;
     private String[] icons = {"ico_sos", "ico_01", "ico_02", "ico_03"};
 
     private BaseView view;
@@ -31,7 +33,7 @@ public class FamilyViewModel extends AndroidViewModel {
     private PhoneViewModel viewModel;
 
     @Inject
-    FamilyViewModel(Application application, FamilyModel familyModel, PhoneViewModel viewModel) {
+    public FamilyViewModel(Application application, PhoneViewModel viewModel) {
         super(application);
         this.familyModel = familyModel;
         this.viewModel = viewModel;
@@ -45,7 +47,6 @@ public class FamilyViewModel extends AndroidViewModel {
 
     public PhoneViewModel updateViewModel(int position) {
         Family family = families.get(position);
-        family.setFbid(Baby.baby.getFid());
         viewModel.title.set(family.getFname());
         viewModel.name.set(family.getFname());
         viewModel.mobile.set(family.getFmobile());
@@ -63,7 +64,7 @@ public class FamilyViewModel extends AndroidViewModel {
             view.toast("网络不可用");
             return;
         }
-        Disposable disposable = familyModel.families(Baby.baby.getFid())
+        Disposable disposable = familyModel.families()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(it -> {
                     view.toast(it.getMsg());

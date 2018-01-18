@@ -51,6 +51,7 @@ public class UserModel {
                         User user = userBean.user();
                         user.setAuto(isAuto);
                         User.user = user;
+                        userDao.delete(userDao.user());
                         userDao.insert(user);
                         babyDao.insert(user.getBabyList());
                         result.setBody(user);

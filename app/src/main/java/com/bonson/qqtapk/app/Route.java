@@ -1,5 +1,10 @@
 package com.bonson.qqtapk.app;
 
+import com.bonson.fjqqt.view.ui.route.RouteListActivity;
+import com.bonson.fjqqt.view.ui.terminal.TerminalActivity;
+import com.bonson.fjqqt.view.ui.terminal.alarm.AlarmActivity;
+import com.bonson.fjqqt.view.ui.terminal.limit.LimitActivity;
+import com.bonson.fjqqt.view.ui.terminal.timer.TimerActivity;
 import com.bonson.qqtapk.view.ui.area.SafeAreaActivity;
 import com.bonson.qqtapk.view.ui.center.message.MessageActivity;
 import com.bonson.qqtapk.view.ui.contacts.ContactsActivity;
@@ -17,7 +22,6 @@ import com.bonson.qqtapk.view.ui.mode.ModeActivity;
 import com.bonson.qqtapk.view.ui.motion.MotionActivity;
 import com.bonson.qqtapk.view.ui.register.RegisterActivity;
 import com.bonson.qqtapk.view.ui.ring.RingActivity;
-import com.bonson.qqtapk.view.ui.route.RouteActivity;
 import com.bonson.qqtapk.view.ui.scan.ScanActivity;
 import com.bonson.qqtapk.view.ui.setting.SettingActivity;
 import com.bonson.qqtapk.view.ui.setting.about.AboutActivity;
@@ -45,7 +49,7 @@ public final class Route {
     public static String contacts = ContactsActivity.class.getName();
     public static String flower = FlowerActivity.class.getName();
     public static String member = MemberActivity.class.getName();
-    public static String route = RouteActivity.class.getName();
+    public static String route = com.bonson.qqtapk.view.ui.route.RouteActivity.class.getName();
     public static String limit = LimitsActivity.class.getName();
     public static String voice = VoiceActivity.class.getName();
 
@@ -57,4 +61,10 @@ public final class Route {
     public static String info = InfoActivity.class.getName();
     public static String ring = RingActivity.class.getName();
     public static String message = MessageActivity.class.getName();
+
+    public static String route2 = RouteListActivity.class.getName();
+    public static String terminal = TerminalActivity.class.getName();
+    public static String limit2 = LimitActivity.class.getName();
+    public static String alarm = AlarmActivity.class.getName();
+    public static String timer = TimerActivity.class.getName();
 }

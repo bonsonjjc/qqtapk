@@ -64,6 +64,13 @@
         <activity android:name=".view.ui.center.message.MessageActivity" />
         <activity android:name=".view.ui.motion.MotionActivity" />
 
+
+        <activity android:name="com.bonson.fjqqt.view.ui.route.RouteListActivity" />
+        <activity android:name="com.bonson.fjqqt.view.ui.terminal.TerminalActivity" />
+        <activity android:name="com.bonson.fjqqt.view.ui.terminal.limit.LimitActivity" />
+        <activity android:name="com.bonson.fjqqt.view.ui.terminal.alarm.AlarmActivity" />
+        <activity android:name="com.bonson.fjqqt.view.ui.terminal.timer.TimerActivity" />
+
         <activity android:name=".view.ui.setting.SettingActivity" />
         <activity android:name=".view.ui.setting.notify.NotifyActivity" />
         <activity android:name=".view.ui.setting.password.PasswordActivity" />

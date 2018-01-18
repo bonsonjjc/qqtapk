@@ -2,8 +2,13 @@ package com.bonson.qqtapk.view.ui.family;
 
 import android.content.Context;
 
+import com.bonson.fjqqt.model.FApiServer;
 import com.bonson.qqtapk.di.ActivityScope;
 import com.bonson.qqtapk.di.FragmentScope;
+import com.bonson.qqtapk.model.bean.Baby;
+import com.bonson.qqtapk.model.data.ApiServer;
+import com.bonson.qqtapk.model.data.family.FamilyModel;
+import com.bonson.qqtapk.model.data.family.FamilyModelDataSource;
 import com.bonson.qqtapk.view.adapter.FamilyAdapter;
 import com.bonson.qqtapk.view.ui.contacts.phone.PhoneFragment;
 import com.bonson.qqtapk.view.ui.contacts.phone.PhoneViewModel;
@@ -35,6 +40,16 @@ public abstract class FamilyModule {
     @ActivityScope
     static FamilyAdapter familyAdapter(Context context) {
         return new FamilyAdapter(context);
+    }
+
+
+    @Provides
+    @ActivityScope
+    static FamilyModelDataSource providesDataSource(ApiServer apiServer, FApiServer fApiServer) {
+        if (Baby.baby.getFtag().equals("L08")) {
+            return new FamilyModel(apiServer);
+        }
+        return new com.bonson.fjqqt.model.data.FamilyModel(fApiServer);
     }
 }
 

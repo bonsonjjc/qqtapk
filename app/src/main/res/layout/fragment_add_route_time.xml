@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="com.bonson.fjqqt.view.ui.route.time.AddTimeViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background"
+        android:orientation="vertical">
+
+        <com.bonson.resource.view.MToolbar
+            android:id="@+id/toolbar"
+            style="@style/Toolbar">
+
+            <TextView
+                android:id="@id/bar_left_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start|center_vertical"
+                android:drawableLeft="@drawable/back_selector"
+                android:drawableStart="@drawable/back_selector"
+                android:gravity="center_vertical"
+                android:onClick="@{(v)->viewModel.view.back()}"
+                android:text="@string/back"
+                android:textColor="@color/back_text" />
+
+            <TextView
+                android:id="@id/bar_title_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:drawablePadding="10dp"
+                android:text="@{viewModel.title}"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                tools:text="缤纷运动" />
+
+            <TextView
+                android:id="@id/bar_right_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end|center_vertical"
+                android:gravity="center_vertical"
+                android:onClick="@{(v)->viewModel.onSave()}"
+                android:text="@string/save"
+                android:textColor="@color/back_text"
+                tools:text="保存" />
+        </com.bonson.resource.view.MToolbar>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:text="在您设置的上报时间段内，终端将以一定的频率上报您孩子的位置信息，稍候即可通过路径查询列表选择对应时间段查看您孩子的轨迹"
+            android:textColor="#818181"
+            android:textSize="14sp" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_height"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|left"
+                android:layout_marginLeft="8dp"
+                android:text="状态设置" />
+
+            <com.bonson.resource.view.SwitchButton
+                android:id="@+id/sb_on"
+                style="@style/SwitchButton"
+                android:layout_gravity="center_vertical|right"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:checked="@={viewModel.state}" />
+        </FrameLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:text="时间设置"
+            android:textColor="#1f90e7"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_height"
+            android:background="@drawable/item_selector"
+            android:drawableLeft="@drawable/ico_hr_time"
+            android:drawablePadding="8dp"
+            android:drawableRight="@drawable/ico_menu_arrow"
+            android:gravity="center_vertical"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:text="@{viewModel.time}"
+            tools:text="00:00~00:00" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:text="周期设置"
+            android:textColor="#1f90e7"
+            android:textSize="14sp" />
+
+
+        <View style="@style/Line" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_height"
+            android:layout_marginTop="0.5dp"
+            android:background="@drawable/item_selector"
+            android:onClick="@{()->viewModel.onItem(1)}"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start|center_vertical"
+                android:text="当天" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end|center_vertical"
+                android:src="@drawable/icon_day_check"
+                android:visibility="@{viewModel.type==1 ? View.VISIBLE : View.GONE}" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_height"
+            android:layout_marginTop="0.5dp"
+            android:background="@drawable/item_selector"
+            android:onClick="@{()->viewModel.onItem(2)}"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start|center_vertical"
+                android:text="周一至周五" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end|center_vertical"
+                android:src="@drawable/icon_day_check"
+                android:visibility="@{viewModel.type==2 ? View.VISIBLE : View.GONE}" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_height"
+            android:layout_marginTop="0.5dp"
+            android:background="@drawable/item_selector"
+            android:onClick="@{()->viewModel.onItem(3)}"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start|center_vertical"
+                android:text="每天" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end|center_vertical"
+                android:src="@drawable/icon_day_check"
+                android:visibility="@{viewModel.type==3 ? View.VISIBLE : View.GONE}" />
+        </FrameLayout>
+    </LinearLayout>
+</layout>

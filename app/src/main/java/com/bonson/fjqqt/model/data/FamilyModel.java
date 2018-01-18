@@ -1,8 +1,10 @@
 package com.bonson.fjqqt.model.data;
 
 import com.bonson.fjqqt.model.FApiServer;
+import com.bonson.qqtapk.model.bean.Baby;
 import com.bonson.qqtapk.model.bean.Family;
 import com.bonson.qqtapk.model.bean.Result;
+import com.bonson.qqtapk.model.data.family.FamilyModelDataSource;
 import com.bonson.resource.utils.EncodeUtils;
 
 import java.util.LinkedHashMap;
@@ -18,7 +20,7 @@ import io.reactivex.schedulers.Schedulers;
  * Created by zjw on 2018/1/3.
  */
 
-public class FamilyModel {
+public class FamilyModel implements FamilyModelDataSource{
     private FApiServer familyServer;
 
     @Inject
@@ -26,10 +28,10 @@ public class FamilyModel {
         this.familyServer = familyServer;
     }
 
-    public Observable<Result<List<Family>>> families(String fmobile) {
+    public Observable<Result<List<Family>>> families() {
         Map<String, String> map = new LinkedHashMap<>();
         map.put("action", "CWA010");
-        map.put("ftmobile", fmobile);
+        map.put("ftmobile", Baby.baby.getFtmobile());
         return familyServer.families(EncodeUtils.encode(map))
                 .subscribeOn(Schedulers.io())
                 .map(it -> {
@@ -49,7 +51,7 @@ public class FamilyModel {
     public Observable<Result<Family>> update(Family family) {
         Map<String, String> map = new LinkedHashMap<>();
         map.put("action", "CWA011");
-        map.put("ftmobile", family.getFbid());
+        map.put("ftmobile", Baby.baby.getFtmobile());
         map.put("fkey", family.getFkey());
         map.put("fmobile", family.getFmobile());
         map.put("fname", family.getFname());

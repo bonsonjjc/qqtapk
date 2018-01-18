@@ -1,8 +1,10 @@
 package com.bonson.fjqqt.model.data;
 
 import com.bonson.fjqqt.model.FApiServer;
+import com.bonson.qqtapk.model.bean.Baby;
 import com.bonson.qqtapk.model.bean.Result;
 import com.bonson.qqtapk.model.bean.SafeArea;
+import com.bonson.qqtapk.model.data.area.SafeAreaDataSource;
 import com.bonson.resource.utils.EncodeUtils;
 
 import java.util.LinkedHashMap;
@@ -13,18 +15,17 @@ import javax.inject.Inject;
 import io.reactivex.Observable;
 import io.reactivex.schedulers.Schedulers;
 
-public class SafeAreaModel {
+public class SafeAreaModel implements SafeAreaDataSource{
     private FApiServer apiServer;
 
-    @Inject
     public SafeAreaModel(FApiServer apiServer) {
         this.apiServer = apiServer;
     }
 
-    public Observable<Result<SafeArea>> safeArea(String mobile, String type) {
+    public Observable<Result<SafeArea>> safeArea(String type) {
         Map<String, String> map = new LinkedHashMap<>();
         map.put("action", "CWA008");
-        map.put("ftmobile", mobile);
+        map.put("ftmobile", Baby.baby.getFtmobile());
         map.put("ftype", type);
         return apiServer.safeArea(EncodeUtils.encode(map))
                 .subscribeOn(Schedulers.io())
@@ -46,7 +47,7 @@ public class SafeAreaModel {
     public Observable<Result<SafeArea>> update(SafeArea safeArea) {
         Map<String, String> map = new LinkedHashMap<>();
         map.put("action", "CWA009");
-        map.put("ftmobile", safeArea.getFbid());
+        map.put("ftmobile", Baby.baby.getFtmobile());
         map.put("ftype", safeArea.getFtype());
         map.put("fx", safeArea.getFx());
         map.put("fy", safeArea.getFy());

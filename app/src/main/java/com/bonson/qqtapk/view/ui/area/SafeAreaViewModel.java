@@ -9,7 +9,7 @@ import com.baidu.mapapi.model.LatLng;
 import com.bonson.qqtapk.di.ActivityScope;
 import com.bonson.qqtapk.model.bean.Baby;
 import com.bonson.qqtapk.model.bean.SafeArea;
-import com.bonson.qqtapk.model.data.area.SafeAreaModel;
+import com.bonson.qqtapk.model.data.area.SafeAreaDataSource;
 import com.bonson.library.utils.NumberUtils;
 import com.bonson.qqtapk.view.ui.index.LocationViewModel;
 import com.bonson.resource.activity.BaseView;
@@ -25,18 +25,19 @@ import io.reactivex.disposables.Disposable;
  */
 @ActivityScope
 public class SafeAreaViewModel extends AndroidViewModel {
-    public ObservableField<String> address = new ObservableField<>("");
     public ObservableInt radius = new ObservableInt();
     public ObservableBoolean state = new ObservableBoolean();
-    ObservableField<LatLng> position = new ObservableField<>();
-    private SafeAreaModel areaModel;
+    public ObservableField<LatLng> position = new ObservableField<>();
+
+    public ObservableField<String> type = new ObservableField<>("1");
+    private SafeAreaDataSource areaModel;
     private BaseView view;
 
     @Inject
     LocationViewModel viewModel;
 
     @Inject
-    SafeAreaViewModel(Application application, SafeAreaModel areaModel) {
+    public SafeAreaViewModel(Application application, SafeAreaDataSource areaModel) {
         super(application);
         this.areaModel = areaModel;
         position.set(new LatLng(0, 0));
@@ -61,7 +62,7 @@ public class SafeAreaViewModel extends AndroidViewModel {
             return;
         }
         view.load();
-        Disposable disposable = areaModel.safeArea(Baby.baby.getFid())
+        Disposable disposable = areaModel.safeArea(type.get())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(it -> {
                     view.dismiss();
@@ -71,6 +72,7 @@ public class SafeAreaViewModel extends AndroidViewModel {
                         position.set(new LatLng(NumberUtils.parseDouble(area.getFy()), NumberUtils.parseDouble(area.getFx())));
                         radius.set(NumberUtils.parseInt(area.getFradius(), 200));
                         state.set("1".equals(area.getFstate()));
+                        type.set(area.getFtype());
                     }
                 }, e -> {
                     view.dismiss();
@@ -87,11 +89,11 @@ public class SafeAreaViewModel extends AndroidViewModel {
         }
         view.load();
         SafeArea safeArea = new SafeArea();
-        safeArea.setFbid(Baby.baby.getFid());
         safeArea.setFradius(radius.get() + 200 + "");
         safeArea.setFstate(state.get() ? "1" : "0");
         safeArea.setFy(position.get().latitude + "");
         safeArea.setFx(position.get().longitude + "");
+        safeArea.setFtype(type.get());
         Disposable disposable = areaModel.update(safeArea)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(it -> {

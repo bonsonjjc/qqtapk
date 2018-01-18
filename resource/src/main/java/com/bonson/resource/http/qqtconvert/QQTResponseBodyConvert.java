@@ -33,7 +33,6 @@ final class QQTResponseBodyConvert<T> implements Converter<ResponseBody, T> {
     public T convert(ResponseBody value) throws IOException {
         try {
             String decode = EncodeUtils.decode(value.string());
-            LogUtils.e(decode);
             JsonObject jsonObject = gson.fromJson(decode, JsonObject.class);
             if (jsonObject.has("body")) {
                 JsonElement body = jsonObject.get("body");
