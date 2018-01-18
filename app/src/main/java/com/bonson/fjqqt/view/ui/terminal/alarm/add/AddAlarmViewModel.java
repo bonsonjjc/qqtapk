@@ -14,8 +14,6 @@ public class AddAlarmViewModel extends AndroidViewModel {
 
     public ObservableInt type = new ObservableInt(1);
 
-    public String
-
     public ObservableInt notifyType = new ObservableInt(0);
 
     public ObservableField<String> custom = new ObservableField<>("自定义");
