@@ -5,6 +5,8 @@ import android.support.v7.widget.RecyclerView;
 
 import com.bonson.fjqqt.model.bean.Route;
 import com.bonson.fjqqt.view.ui.route.TimeAdapter;
+import com.bonson.fjqqt.view.ui.terminal.alarm.Alarm;
+import com.bonson.fjqqt.view.ui.terminal.alarm.AlarmAdapter;
 import com.bonson.fjqqt.view.ui.terminal.timer.Timer;
 import com.bonson.fjqqt.view.ui.terminal.timer.TimerAdapter;
 import com.bonson.qqtapk.model.bean.Baby;
@@ -126,5 +128,12 @@ public class RecyclerViewBindingAdapter {
         TimerAdapter adapter = (TimerAdapter) recyclerView.getAdapter();
         recyclerView.setAdapter(adapter);
         adapter.setBeans(timers);
+    }
+
+    @BindingAdapter("android:alarms")
+    public static void setAlarms(RecyclerView recyclerView, List<Alarm> alarms) {
+        AlarmAdapter adapter = (AlarmAdapter) recyclerView.getAdapter();
+        recyclerView.setAdapter(adapter);
+        adapter.setBeans(alarms);
     }
 }

@@ -1,5 +1,6 @@
 package com.bonson.qqtapk.view.ui.index;
 
+import com.bonson.fjqqt.Path;
 import com.bonson.qqtapk.app.Route;
 import com.bonson.qqtapk.model.bean.Baby;
 import com.bonson.qqtapk.model.bean.Menu;
@@ -32,31 +33,25 @@ public class MenuHelper {
             case "亲情号码":
                 menu.setIcon("ico_menu_qqhm");
                 menu.setRunnable(() -> {
-                    view.start(Route.family);
+                    view.start(Path.family);
                 });
                 break;
             case "安全区域":
                 menu.setIcon("ico_menu_aqqy");
                 menu.setRunnable(() -> {
-                    view.start(Route.area);
+                    view.start(Path.area);
                 });
                 break;
             case "上课静默":
                 menu.setIcon("ico_menu_skjm");
                 menu.setRunnable(() -> {
-                    view.start(Route.lesson);
+                    view.start(Path.lesson);
                 });
                 break;
             case "定位模式":
                 menu.setIcon("ico_menu_dwms");
                 menu.setRunnable(() -> {
                     view.start(Route.mode);
-                });
-                break;
-            case "通讯录":
-                menu.setIcon("ico_menu_txl");
-                menu.setRunnable(() -> {
-                    view.start(Route.contacts);
                 });
                 break;
             case "终端信息":
@@ -68,7 +63,7 @@ public class MenuHelper {
             case "终端设置":
                 menu.setIcon("ico_menu_zdsz");
                 menu.setRunnable(() -> {
-                    view.start(Route.terminal);
+                    view.start(Path.terminal);
                 });
                 break;
             case "呼入限制":
@@ -80,7 +75,7 @@ public class MenuHelper {
             case "路径查询":
                 menu.setIcon("ico_menu_ljcx");
                 menu.setRunnable(() -> {
-                    view.start(Route.route2);
+                    view.start(Path.route);
                 });
                 break;
             case "软件设置":

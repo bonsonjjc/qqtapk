@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import com.bonson.fjqqt.Path;
 import com.bonson.qqtapk.R;
 import com.bonson.qqtapk.app.Route;
 import com.bonson.resource.view.MToolbar;
@@ -24,19 +25,19 @@ public class TerminalActivity extends AppCompatActivity {
         Intent intent = new Intent();
         switch (view.getId()) {
             case R.id.tv_limit:
-                intent.setClassName(this, Route.limit);
+                intent.setClassName(this, Path.limit);
                 break;
             case R.id.tv_mode:
                 intent.setClassName(this, Route.mode);
                 break;
             case R.id.tv_alarm:
-                intent.setClassName(this, Route.alarm);
+                intent.setClassName(this, Path.alarm);
                 break;
             case R.id.tv_lesson:
-                intent.setClassName(this, Route.lesson);
+                intent.setClassName(this, Path.lesson);
                 break;
             case R.id.tv_timer:
-                intent.setClassName(this, Route.timer);
+                intent.setClassName(this, Path.timer);
                 break;
             default:
                 intent.setClassName(this, Route.ring);

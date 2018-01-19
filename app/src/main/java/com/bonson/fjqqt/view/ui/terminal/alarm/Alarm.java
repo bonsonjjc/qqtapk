@@ -1,12 +1,16 @@
 package com.bonson.fjqqt.view.ui.terminal.alarm;
 
-public class Alarm {
+import com.bonson.qqtapk.model.bean.Base;
+
+public class Alarm extends Base {
     private String fid;
     private String ftmobile;
     private String ftimes;
-    private String fctime;
     private String fstate;
+    private String fcycle;
     private String fcontent;
+
+    private String ftype;
 
     public String getFid() {
         return fid;
@@ -32,14 +36,6 @@ public class Alarm {
         this.ftimes = ftimes;
     }
 
-    public String getFctime() {
-        return fctime;
-    }
-
-    public void setFctime(String fctime) {
-        this.fctime = fctime;
-    }
-
     public String getFstate() {
         return fstate;
     }
@@ -54,5 +50,21 @@ public class Alarm {
 
     public void setFcontent(String fcontent) {
         this.fcontent = fcontent;
+    }
+
+    public String getFcycle() {
+        return fcycle;
+    }
+
+    public void setFcycle(String fcycle) {
+        this.fcycle = fcycle;
+    }
+
+    public String getFtype() {
+        return ftype;
+    }
+
+    public void setFtype(String ftype) {
+        this.ftype = ftype;
     }
 }

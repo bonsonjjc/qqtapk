@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import com.bonson.qqtapk.R;
 import com.bonson.qqtapk.databinding.FragmentSelectBinding;
 import com.bonson.qqtapk.di.ActivityScope;
+import com.bonson.qqtapk.view.binding.AdapterDataChangeFactory;
 import com.bonson.resource.fragment.BaseFragment;
 
 import javax.inject.Inject;
@@ -44,7 +45,14 @@ public class SelectFragment extends BaseFragment {
         binding.toolbar.getTvLeft().setOnClickListener(v -> back());
         binding.recSelect.setAdapter(adapter);
         binding.recSelect.addItemDecoration(itemDecoration);
-        adapter.setOnItemClickListener(viewModel.getOnItemClickListener());
+        adapter.setOnItemClickListener(v -> {
+            viewModel.select(v);
+            if (viewModel.getOnItemClickListener() != null) {
+                viewModel.getOnItemClickListener().itemClick(v);
+            }
+        });
+        AdapterDataChangeFactory.create(adapter)
+                .attach(viewModel.selects);
         return binding.getRoot();
     }
 

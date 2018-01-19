@@ -6,7 +6,7 @@ import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
 @Entity(tableName = "babys")
-public class Baby extends Base {
+public class Baby extends Base implements Cloneable{
     @PrimaryKey
     @NonNull
     private String fid;

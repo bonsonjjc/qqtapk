@@ -107,7 +107,7 @@ public class InfoViewModel extends AndroidViewModel {
   public SelectViewModel selectViewModel() {
     viewModel.title.set("我是宝贝的");
     viewModel.setSingle(true);
-    List<Select> selects = new ObservableArrayList<>();
+    ObservableArrayList<Select> selects = new ObservableArrayList<>();
     Select father = new Select();
     father.setName("爸爸");
     father.setChecked(father.getName().equals(baby.getFrelative()));
@@ -136,7 +136,7 @@ public class InfoViewModel extends AndroidViewModel {
     parent.setName("家长");
     parent.setChecked(parent.getName().equals(baby.getFrelative()));
     selects.add(parent);
-    viewModel.selects = selects;
+    viewModel.setSelects(selects);
     viewModel.setOnItemClickListener((v) -> {
       baby.setFrelative(viewModel.selects.get(v).getName());
       notifyChange();

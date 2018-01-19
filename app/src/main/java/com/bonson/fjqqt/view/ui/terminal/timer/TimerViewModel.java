@@ -2,6 +2,7 @@ package com.bonson.fjqqt.view.ui.terminal.timer;
 
 import android.app.Application;
 import android.databinding.ObservableArrayList;
+import android.databinding.ObservableList;
 
 import com.bonson.qqtapk.BR;
 import com.bonson.qqtapk.model.bean.Baby;
@@ -21,7 +22,7 @@ public class TimerViewModel extends AndroidViewModel {
     @Inject
     TimerModel timerModel;
 
-    public final List<Timer> timers = new ObservableArrayList<>();
+    public final ObservableList<Timer> timers = new ObservableArrayList<>();
 
     @Inject
     public TimerViewModel(Application application) {
@@ -46,7 +47,6 @@ public class TimerViewModel extends AndroidViewModel {
                     if (it.getCode().equals("0")) {
                         timers.clear();
                         timers.addAll(it.getBody());
-                        notifyChange();
                     } else {
                         fill();
                     }
@@ -62,7 +62,6 @@ public class TimerViewModel extends AndroidViewModel {
             timer.setFtimes("00:00");
             timers.add(timer);
         }
-        notifyChange();
     }
 
     public void update() {

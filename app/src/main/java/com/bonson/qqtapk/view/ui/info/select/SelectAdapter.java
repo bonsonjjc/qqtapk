@@ -12,9 +12,11 @@ import com.bonson.resource.adapter.ViewHolder;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 
 public class SelectAdapter extends BaseAdapter<Select, ItemSelectBinding> {
-    public SelectAdapter(Context context) {
+   @Inject public SelectAdapter(Context context) {
         super(context);
     }
 

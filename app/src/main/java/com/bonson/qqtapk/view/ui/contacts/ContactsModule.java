@@ -48,11 +48,4 @@ public abstract class ContactsModule {
     static SelectAdapter providesSelectAdapter(Context context) {
         return new SelectAdapter(context);
     }
-
-    @ActivityScope
-    @Provides
-    static ContactAdapter providesAdapter(Context context, ContactsViewModel viewModel) {
-        return new ContactAdapter(context);
-    }
-
 }

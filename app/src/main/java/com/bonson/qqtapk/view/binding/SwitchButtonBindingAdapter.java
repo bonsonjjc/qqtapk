@@ -18,7 +18,7 @@ import com.bonson.resource.view.SwitchButton;
         @InverseBindingMethod(type = SwitchButton.class, attribute = "android:checked", event = "android:checkedAttrChanged"),
 })
 @BindingMethods({
-        @BindingMethod(type = CompoundButton.class, attribute = "android:onCheckedChanged", method = "setOnCheckedChangeListener"),
+        @BindingMethod(type = SwitchButton.class, attribute = "android:onCheckedChanged", method = "setOnCheckedChangeListener"),
 })
 public class SwitchButtonBindingAdapter {
 
@@ -30,7 +30,6 @@ public class SwitchButtonBindingAdapter {
 
     @BindingAdapter(value = {"android:onCheckedChanged", "android:checkedAttrChanged"}, requireAll = false)
     public static void setOnChange(SwitchButton button, SwitchButton.OnCheckedChangeListener onChangeListener, InverseBindingListener inverseBindingListener) {
-        button.setOnCheckedChangeListener(onChangeListener);
         if (inverseBindingListener == null) {
             button.setOnCheckedChangeListener(onChangeListener);
         } else {

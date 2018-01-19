@@ -13,6 +13,8 @@ import com.bonson.qqtapk.view.ui.info.select.SelectViewModel;
 import com.bonson.resource.activity.BaseDaggerActivity;
 import com.bonson.resource.adapter.OnItemClickListener;
 import com.bonson.resource.dialog.AlertDialog;
+
+import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
 
@@ -78,22 +80,17 @@ public class ModeActivity extends BaseDaggerActivity {
   @Inject SelectViewModel selectViewModel;
 
   public void selectDuration(View view) {
-    selectViewModel.setSingle(true);
-    List<Select> selects = new ObservableArrayList<>();
+    List<Select> selects = new ArrayList<>();
     for (int i = 1; i < 13; i++) {
       int second=i * 5*60;
       Select select = new Select(i*5 + "分钟", second == viewModel.interval.get());
       select.setWht(second);
       selects.add(select);
     }
+    selectViewModel.setSingle(true);
     selectViewModel.setSelects(selects);
     selectViewModel.title.set("定位时间间隔");
-    selectViewModel.right.set("保存");
-    selectViewModel.setSingle(true);
     selectFragment.setViewModel(selectViewModel);
-    selectViewModel.setOnItemClickListener(position -> {
-      selectViewModel.select(position);
-    });
     selectViewModel.setOnSaveListener(() -> {
       for (Select select : selectViewModel.selects) {
         if (select.isChecked()) {

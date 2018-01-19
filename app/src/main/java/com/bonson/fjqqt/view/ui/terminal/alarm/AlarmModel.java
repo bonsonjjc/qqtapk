@@ -44,29 +44,29 @@ public class AlarmModel {
     }
 
 
-    public Observable<Result<String>> update(String mobile,List<Alarm> alarms) {
+    public Observable<Result<Alarm>> update(String type, Alarm alarm) {
         Map<String, String> map = new LinkedHashMap<>();
         map.put("action", "CWA020");
-        map.put("ftmobile", mobile);
-        /*map.put("ids", ftype);
-        map.put("fcycle", fid);
-        map.put("fstate", ftimes);
-        map.put("ftimes", ftype);
-        map.put("pstate", ftype);
-        map.put("fcontent", ftype);
-        map.put("ftype", ftype);*/
-        return apiServer.timers(EncodeUtils.encode(map))
+        map.put("ftmobile", alarm.getFtmobile());
+        if (!type.equals("1")) {
+            map.put("ids", alarm.getFid());
+        }
+        map.put("fcycle", alarm.getFcycle());
+        map.put("fstate", alarm.getFstate());
+        map.put("ftimes", alarm.getFtimes());
+        map.put("fcontent", alarm.getFcontent());
+        map.put("ftype", type);
+        return apiServer.alarms(EncodeUtils.encode(map))
                 .subscribeOn(Schedulers.io())
                 .map(it -> {
-                    Result<String> result = new Result<>();
-                    Base base = it.get(0);
+                    Result<Alarm> result = new Result<>();
+                    Alarm base = it.get(0);
+                    result.setMsg(base.getFmsg());
                     if ("100".equals(base.getFresult())) {
                         result.setCode("0");
-                        result.setMsg("设置定时定位成功");
-                        result.setBody("");
+                        result.setBody(base);
                     } else {
                         result.setCode("-1");
-                        result.setMsg(base.getFmsg());
                     }
                     return result;
                 });

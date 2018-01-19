@@ -1,10 +1,5 @@
 package com.bonson.qqtapk.app;
 
-import com.bonson.fjqqt.view.ui.route.RouteListActivity;
-import com.bonson.fjqqt.view.ui.terminal.TerminalActivity;
-import com.bonson.fjqqt.view.ui.terminal.alarm.AlarmActivity;
-import com.bonson.fjqqt.view.ui.terminal.limit.LimitActivity;
-import com.bonson.fjqqt.view.ui.terminal.timer.TimerActivity;
 import com.bonson.qqtapk.view.ui.area.SafeAreaActivity;
 import com.bonson.qqtapk.view.ui.center.message.MessageActivity;
 import com.bonson.qqtapk.view.ui.contacts.ContactsActivity;
@@ -61,10 +56,4 @@ public final class Route {
     public static String info = InfoActivity.class.getName();
     public static String ring = RingActivity.class.getName();
     public static String message = MessageActivity.class.getName();
-
-    public static String route2 = RouteListActivity.class.getName();
-    public static String terminal = TerminalActivity.class.getName();
-    public static String limit2 = LimitActivity.class.getName();
-    public static String alarm = AlarmActivity.class.getName();
-    public static String timer = TimerActivity.class.getName();
 }

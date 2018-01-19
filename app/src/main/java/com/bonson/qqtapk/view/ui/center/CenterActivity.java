@@ -37,7 +37,7 @@ public class CenterActivity extends BaseDaggerActivity {
             Message message = viewModel.getCenters().get(position);
             Intent intent = new Intent();
             intent.setClassName(CenterActivity.this, Route.message);
-            intent.putExtra("type", message.getFtype());
+            intent.putExtra("cycleType", message.getFtype());
             intent.putExtra("title", message.getTitle());
             startActivity(intent);
         });

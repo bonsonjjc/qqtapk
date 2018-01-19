@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 
 import com.bonson.qqtapk.R;
 import com.bonson.qqtapk.databinding.ActivityTimerBinding;
+import com.bonson.qqtapk.view.binding.AdapterDataChangeFactory;
 import com.bonson.resource.activity.BaseDaggerActivity;
 import com.bonson.resource.dialog.TimeDialog;
 import com.bonson.resource.dialog.TimePickerDialog;
@@ -52,6 +53,7 @@ public class TimerActivity extends BaseDaggerActivity {
             });
             dialog.show(getSupportFragmentManager(), "time");
         });
+        AdapterDataChangeFactory.create(timerAdapter).attach(viewModel.timers);
         viewModel.setView(this);
         viewModel.timers();
     }

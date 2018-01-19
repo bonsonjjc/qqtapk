@@ -13,5 +13,5 @@ public interface UploadServer {
 
     @Headers({"Connection:Keep-Alive", "uploadType:pic", "User-Agent:1", "Charset:UTF-8"})
     @POST("uploadImage.html")
-    Observable<String> picture(@Query("type") String token, @Body RequestBody requestBody);
+    Observable<String> picture(@Query("cycleType") String token, @Body RequestBody requestBody);
 }

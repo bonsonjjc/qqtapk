@@ -92,7 +92,6 @@ public class RingViewModel extends AndroidViewModel {
         viewModel.setSingle(true);
         viewModel.setOnSaveListener(() -> view.back());
         viewModel.setOnItemClickListener((v) -> {
-            viewModel.select(v);
             Select select = selects.get(v);
             playerUtils.play(select.getWht());
             ringTitle.set(select.getName());

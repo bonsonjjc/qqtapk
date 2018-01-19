@@ -34,6 +34,7 @@ public class AddTimeFragment extends BaseFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         FragmentAddRouteTimeBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_add_route_time, container, false);
         binding.setViewModel(viewModel);
+        viewModel.setView(this);
         binding.tvTime.setOnClickListener(v -> {
             if (dialog == null) {
                 dialog = new TimePickerDialog();
@@ -47,7 +48,6 @@ public class AddTimeFragment extends BaseFragment {
             });
             dialog.show(getFragmentManager(), "time");
         });
-        viewModel.setView(this);
         return binding.getRoot();
     }
 }

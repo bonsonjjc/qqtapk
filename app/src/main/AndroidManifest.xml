@@ -66,6 +66,9 @@
 
 
         <activity android:name="com.bonson.fjqqt.view.ui.route.RouteListActivity" />
+        <activity android:name="com.bonson.fjqqt.view.ui.area.SafeAreaActivity" />
+        <activity android:name="com.bonson.fjqqt.view.ui.family.FamilyActivity" />
+        <activity android:name="com.bonson.fjqqt.view.ui.terminal.lesson.LessonActivity" />
         <activity android:name="com.bonson.fjqqt.view.ui.terminal.TerminalActivity" />
         <activity android:name="com.bonson.fjqqt.view.ui.terminal.limit.LimitActivity" />
         <activity android:name="com.bonson.fjqqt.view.ui.terminal.alarm.AlarmActivity" />

@@ -29,10 +29,4 @@ import dagger.android.ContributesAndroidInjector;
   @FragmentScope
   @ContributesAndroidInjector
   abstract SelectFragment selectFragment();
-
-  @ActivityScope
-  @Provides
-  static SelectAdapter providesAdapter(Context context) {
-    return new SelectAdapter(context);
-  }
 }

@@ -26,7 +26,7 @@ public class FamilyViewModel extends AndroidViewModel {
 
     @Inject
     FamilyModelDataSource familyModel;
-    private String[] icons = {"ico_sos", "ico_01", "ico_02", "ico_03"};
+    private String[] icons = {"ico_sos", "ico_01", "ico_02", "ico_03", "ico_04", "ico05"};
 
     private BaseView view;
 
@@ -35,7 +35,6 @@ public class FamilyViewModel extends AndroidViewModel {
     @Inject
     public FamilyViewModel(Application application, PhoneViewModel viewModel) {
         super(application);
-        this.familyModel = familyModel;
         this.viewModel = viewModel;
     }
 

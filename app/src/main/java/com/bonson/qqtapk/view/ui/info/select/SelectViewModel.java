@@ -3,11 +3,13 @@ package com.bonson.qqtapk.view.ui.info.select;
 import android.app.Application;
 import android.databinding.ObservableArrayList;
 import android.databinding.ObservableField;
+import android.databinding.ObservableList;
 
 import com.bonson.resource.adapter.OnItemClickListener;
 import com.bonson.resource.fragment.OnSaveListener;
 import com.bonson.resource.viewmodel.AndroidViewModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -15,9 +17,8 @@ import javax.inject.Inject;
 
 public class SelectViewModel extends AndroidViewModel {
     public ObservableField<String> title = new ObservableField<>("");
-    public ObservableField<String> right = new ObservableField<>("");
 
-    public List<Select> selects = new ObservableArrayList<>();
+    public final ObservableList<Select> selects = new ObservableArrayList<>();
 
     private boolean isSingle = false;
 
@@ -51,18 +52,36 @@ public class SelectViewModel extends AndroidViewModel {
         this.onSaveListener = onSaveListener;
     }
 
-    public void select(int position) {
+    void select(int position) {
+        Select select = selects.get(position);
         if (isSingle) {
             for (int i = 0; i < selects.size(); i++) {
-                if (i != position) {
-                    selects.get(i).setChecked(false);
-                } else {
-                    selects.get(position).setChecked(true);
-                }
+                if (i != position)
+                    unSelect(i);
             }
+            select.setChecked(true);
+        } else {
+            select.setChecked(!select.isChecked());
         }
-        notifyChange();
+        selects.set(position, select);
     }
+
+    private void unSelect(int position) {
+        Select select = selects.get(position);
+        if (select.isChecked()) {
+            select.setChecked(false);
+            selects.set(position, select);
+        }
+    }
+
+
+    public void selected(SelectFilter selectFilter) {
+        for (int i = 0; i < selects.size(); i++) {
+            Select select = selects.get(i);
+            selectFilter.isSelect(i, select);
+        }
+    }
+
 
     private OnItemClickListener onItemClickListener;
 
@@ -72,5 +91,9 @@ public class SelectViewModel extends AndroidViewModel {
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
         this.onItemClickListener = onItemClickListener;
+    }
+
+    public interface SelectFilter {
+        boolean isSelect(int index, Select select);
     }
 }

@@ -36,10 +36,4 @@ public abstract class InfoModule {
     @ActivityScope
     @Binds
     abstract AndroidViewModel selectViewModel(SelectViewModel selectViewModel);
-
-    @ActivityScope
-    @Provides
-    static SelectAdapter providesAdapter(Context context) {
-        return new SelectAdapter(context);
-    }
 }

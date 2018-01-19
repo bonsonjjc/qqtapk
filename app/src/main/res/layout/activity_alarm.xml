@@ -25,6 +25,7 @@
             android:id="@+id/rec_alarms"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:alarms="@{viewModel.alarms}"
             app:layoutManager="LinearLayoutManager" />
     </LinearLayout>
 </layout>

@@ -56,7 +56,7 @@ public class SafeAreaViewModel extends AndroidViewModel {
         viewModel.setView(view);
     }
 
-    void init() {
+    public void init() {
         if (!isNetWork()) {
             view.toast("网络不可用");
             return;

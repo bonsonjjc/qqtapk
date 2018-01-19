@@ -39,12 +39,6 @@ public abstract class RingModule {
 
     @ActivityScope
     @Provides
-    static SelectAdapter providesAdapter(Context context) {
-        return new SelectAdapter(context);
-    }
-
-    @ActivityScope
-    @Provides
     static PlayerUtils providesPlayer(Context context) {
         return new PlayerUtils(context);
     }

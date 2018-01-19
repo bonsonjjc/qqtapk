@@ -2,6 +2,7 @@ package com.bonson.qqtapk.view.ui.lesson;
 
 import android.app.Application;
 import android.databinding.ObservableArrayList;
+import android.databinding.ObservableList;
 
 import com.bonson.qqtapk.di.ActivityScope;
 import com.bonson.qqtapk.model.bean.Baby;
@@ -22,22 +23,17 @@ import io.reactivex.disposables.Disposable;
  */
 @ActivityScope
 public class LessonViewModel extends AndroidViewModel {
-    private final List<Lesson> lessons = new ObservableArrayList<>();
+    public final ObservableList<Lesson> lessons = new ObservableArrayList<>();
 
     private LessonModel lessonModel;
 
     private BaseView view;
 
     @Inject
-    LessonViewModel(Application application, LessonModel lessonModel) {
+    public LessonViewModel(Application application, LessonModel lessonModel) {
         super(application);
         this.lessonModel = lessonModel;
     }
-
-    public List<Lesson> getLessons() {
-        return lessons;
-    }
-
 
     public BaseView getView() {
         return view;
@@ -60,7 +56,6 @@ public class LessonViewModel extends AndroidViewModel {
                     view.toast(it.getMsg());
                     if (it.getCode().equals("0")) {
                         lessons.addAll(it.getBody());
-                        notifyChange();
                     }
                 }, e -> {
                     view.dismiss();

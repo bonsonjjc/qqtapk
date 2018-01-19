@@ -10,6 +10,7 @@ import com.bonson.qqtapk.databinding.ActivityLessonBinding;
 import com.bonson.qqtapk.model.bean.Lesson;
 import com.bonson.qqtapk.utils.TimeUtils;
 import com.bonson.qqtapk.view.adapter.LessonAdapter;
+import com.bonson.qqtapk.view.binding.AdapterDataChangeFactory;
 import com.bonson.resource.activity.BaseDaggerActivity;
 import com.bonson.resource.dialog.TimePickerDialog;
 
@@ -41,13 +42,15 @@ public class LessonActivity extends BaseDaggerActivity {
     binding.recNumbers.setAdapter(lessonAdapter);
     binding.recNumbers.addItemDecoration(itemDecoration);
     viewModel.setView(this);
+    AdapterDataChangeFactory
+            .create(lessonAdapter)
+            .attach(viewModel.lessons);
     viewModel.lessons();
-
     lessonAdapter.setOnItemClickListener(v -> {
       if (picker == null) {
         picker = new TimePickerDialog();
       }
-      Lesson lesson = viewModel.getLessons().get(v);
+      Lesson lesson = viewModel.lessons.get(v);
       String[] startTime = TimeUtils.split(lesson.getFbegin());
       String[] endTime = TimeUtils.split(lesson.getFend());
       picker.setValue(startTime[0], startTime[1], endTime[0], endTime[1]);

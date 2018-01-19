@@ -21,43 +21,38 @@
             android:id="@+id/toolbar"
             style="@style/Toolbar">
 
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+            <TextView
+                android:id="@id/bar_left_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start|center_vertical"
+                android:drawableLeft="@drawable/back_selector"
+                android:drawableStart="@drawable/back_selector"
+                android:gravity="center_vertical"
+                android:text="@string/back"
+                android:textColor="@color/back_text" />
 
-                <TextView
-                    android:id="@id/bar_left_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="start|center_vertical"
-                    android:drawableLeft="@drawable/back_selector"
-                    android:drawableStart="@drawable/back_selector"
-                    android:gravity="center_vertical"
-                    android:text="@string/back"
-                    android:textColor="@color/back_text" />
+            <TextView
+                android:id="@id/bar_title_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:drawablePadding="10dp"
+                android:text="@{viewModel.title}"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                tools:text="缤纷运动" />
 
-                <TextView
-                    android:id="@id/bar_title_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:drawablePadding="10dp"
-                    android:text="@{viewModel.title}"
-                    android:textColor="@color/white"
-                    android:textSize="20sp"
-                    tools:text="缤纷运动" />
-
-                <TextView
-                    android:id="@id/bar_right_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="end|center_vertical"
-                    android:gravity="center_vertical"
-                    android:onClick="@{(v)->viewModel.onSave()}"
-                    android:text="@{viewModel.right}"
-                    android:textColor="@color/back_text"
-                    tools:text="保存" />
-            </FrameLayout>
+            <TextView
+                android:id="@id/bar_right_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end|center_vertical"
+                android:gravity="center_vertical"
+                android:onClick="@{(v)->viewModel.onSave()}"
+                android:text="@string/save"
+                android:textColor="@color/back_text"
+                tools:text="保存" />
         </com.bonson.resource.view.MToolbar>
 
         <android.support.v7.widget.RecyclerView

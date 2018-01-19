@@ -1,9 +1,15 @@
 package com.bonson.fjqqt.di;
 
+import com.bonson.fjqqt.view.ui.area.SafeAreaModule;
+import com.bonson.fjqqt.view.ui.family.FamilyModule;
 import com.bonson.fjqqt.view.ui.route.RouteListActivity;
 import com.bonson.fjqqt.view.ui.route.RouteLIstModule;
 import com.bonson.fjqqt.view.ui.terminal.alarm.AlarmActivity;
 import com.bonson.fjqqt.view.ui.terminal.alarm.AlarmModule;
+import com.bonson.fjqqt.view.ui.area.SafeAreaActivity;
+import com.bonson.fjqqt.view.ui.family.FamilyActivity;
+import com.bonson.fjqqt.view.ui.terminal.lesson.LessonActivity;
+import com.bonson.fjqqt.view.ui.terminal.lesson.LessonModule;
 import com.bonson.fjqqt.view.ui.terminal.limit.LimitActivity;
 import com.bonson.fjqqt.view.ui.terminal.limit.LimitModule;
 import com.bonson.fjqqt.view.ui.terminal.timer.TimerActivity;
@@ -37,4 +43,16 @@ public abstract class UIModule {
     @ActivityScope
     @ContributesAndroidInjector(modules = {TimerModule.class, RetrofitModule.class})
     abstract TimerActivity timerActivity();
+
+    @ActivityScope
+    @ContributesAndroidInjector(modules = {FamilyModule.class, RetrofitModule.class})
+    abstract FamilyActivity familyActivity();
+
+    @ActivityScope
+    @ContributesAndroidInjector(modules = {SafeAreaModule.class, RetrofitModule.class})
+    abstract SafeAreaActivity safeAreaActivity();
+
+    @ActivityScope
+    @ContributesAndroidInjector(modules = {LessonModule.class, RetrofitModule.class})
+    abstract LessonActivity lessonActivity();
 }
