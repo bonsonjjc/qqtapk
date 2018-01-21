@@ -30,14 +30,10 @@ public class SafeAreaActivity extends BaseDaggerActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ActivitySafeAreaBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_safe_area);
-        binding.toolbar.getTvLeft().setOnClickListener(view -> {
-            finish();
-        });
+        binding.toolbar.getTvLeft().setOnClickListener(view -> finish());
         binding.toolbar.setTitle("安全区域");
         binding.toolbar.setRightText("保存");
-        binding.toolbar.getTvRight().setOnClickListener(v -> {
-            viewModel.save();
-        });
+        binding.toolbar.getTvRight().setOnClickListener(v -> viewModel.save());
         binding.setViewModel(viewModel);
         viewModel.setView(this);
         Observable.OnPropertyChangedCallback propertyChangedCallback = new Observable.OnPropertyChangedCallback() {

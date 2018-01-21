@@ -65,8 +65,16 @@ public class ResetViewModel extends AndroidViewModel {
             view.toast("请输入新密码");
             return;
         }
+        if (!password.matches("^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,16}$")) {
+            view.toast("密码必须为(8到16位的数字+字母的组合)");
+            return;
+        }
         if (TextUtils.isEmpty(newPassword)) {
             view.toast("再次输入新密码");
+            return;
+        }
+        if (!newPassword.matches("^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,16}$")) {
+            view.toast("密码必须为(8到16位的数字+字母的组合)");
             return;
         }
         if (!password.equals(newPassword)) {

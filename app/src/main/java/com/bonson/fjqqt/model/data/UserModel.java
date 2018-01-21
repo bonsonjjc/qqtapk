@@ -10,6 +10,7 @@ import com.bonson.qqtapk.model.db.UserDao;
 import com.bonson.resource.utils.EncodeUtils;
 
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -51,7 +52,10 @@ public class UserModel {
                         User user = userBean.user();
                         user.setAuto(isAuto);
                         User.user = user;
-                        userDao.delete(userDao.user());
+                        List<User> userList = userDao.users();
+                        if (userList != null) {
+                            userDao.delete(userList);
+                        }
                         userDao.insert(user);
                         babyDao.insert(user.getBabyList());
                         result.setBody(user);

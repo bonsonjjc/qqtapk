@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,6 +38,8 @@ public class AlertDialog extends DialogFragment {
   @Nullable @Override
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
       @Nullable Bundle savedInstanceState) {
+    // 去掉标题 死恶心死恶心的
+    getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
     View view = inflater.inflate(R.layout.alert_dialog, container, false);
     tvTitle = view.findViewById(R.id.tv_title);
     tvContent = view.findViewById(R.id.tv_content);
@@ -44,14 +47,14 @@ public class AlertDialog extends DialogFragment {
     tvSure = view.findViewById(R.id.tv_sure);
     vTitleLine = view.findViewById(R.id.line_title);
     vBtnLine = view.findViewById(R.id.line_btn);
-    // 设置背景透明
-    getDialog().getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-    // 去掉标题 死恶心死恶心的
-    getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
-    getDialog().setCanceledOnTouchOutside(outside);
     return view;
   }
-
+  @Override public void onResume() {
+    super.onResume();
+    // 设置背景透明
+    getDialog().getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+    getDialog().setCanceledOnTouchOutside(outside);
+  }
   @Override public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
     tvCancel.setText(cancel);

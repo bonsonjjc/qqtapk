@@ -1,17 +1,12 @@
 package com.bonson.qqtapk.view.ui.login;
 
-import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
 
 import com.bonson.qqtapk.R;
 import com.bonson.qqtapk.app.Route;
 import com.bonson.qqtapk.databinding.ActivityLoginBinding;
-import com.bonson.qqtapk.view.ui.forget.ForgetActivity;
-import com.bonson.qqtapk.view.ui.index.IndexActivity;
-import com.bonson.qqtapk.view.ui.register.RegisterActivity;
 import com.bonson.resource.activity.BaseDaggerActivity;
 
 import javax.inject.Inject;

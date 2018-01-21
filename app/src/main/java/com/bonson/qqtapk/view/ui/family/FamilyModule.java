@@ -6,6 +6,7 @@ import com.bonson.fjqqt.model.FApiServer;
 import com.bonson.qqtapk.di.ActivityScope;
 import com.bonson.qqtapk.di.FragmentScope;
 import com.bonson.qqtapk.model.bean.Baby;
+import com.bonson.qqtapk.model.bean.Family;
 import com.bonson.qqtapk.model.data.ApiServer;
 import com.bonson.qqtapk.model.data.family.FamilyModel;
 import com.bonson.qqtapk.model.data.family.FamilyModelDataSource;
@@ -13,6 +14,9 @@ import com.bonson.qqtapk.view.adapter.FamilyAdapter;
 import com.bonson.qqtapk.view.ui.contacts.phone.PhoneFragment;
 import com.bonson.qqtapk.view.ui.contacts.phone.PhoneViewModel;
 import com.bonson.resource.viewmodel.AndroidViewModel;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import dagger.Binds;
 import dagger.Module;
@@ -38,18 +42,25 @@ public abstract class FamilyModule {
 
     @Provides
     @ActivityScope
-    static FamilyAdapter familyAdapter(Context context) {
-        return new FamilyAdapter(context);
+    static FamilyModelDataSource providesDataSource(ApiServer apiServer) {
+        return new FamilyModel(apiServer);
     }
-
 
     @Provides
     @ActivityScope
-    static FamilyModelDataSource providesDataSource(ApiServer apiServer, FApiServer fApiServer) {
-        if (Baby.baby.getFtag().equals("L08")) {
-            return new FamilyModel(apiServer);
+    static List<Family> families() {
+        String[] icons = {"ico_sos", "ico_01", "ico_02"};
+        String[] names = {"SOS", "一号键", "二号键"};
+
+        List<Family> families = new ArrayList<>();
+        for (int i = 0; i < icons.length; i++) {
+            Family family = new Family();
+            family.setFname(names[i]);
+            family.setIcon(icons[i]);
+            family.setFkey(i + "");
+            families.add(family);
         }
-        return new com.bonson.fjqqt.model.data.FamilyModel(fApiServer);
+        return families;
     }
 }
 

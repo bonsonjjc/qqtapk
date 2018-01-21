@@ -8,10 +8,10 @@ import com.bonson.fjqqt.view.ui.terminal.alarm.AlarmActivity;
 import com.bonson.fjqqt.view.ui.terminal.alarm.AlarmModule;
 import com.bonson.fjqqt.view.ui.area.SafeAreaActivity;
 import com.bonson.fjqqt.view.ui.family.FamilyActivity;
-import com.bonson.fjqqt.view.ui.terminal.lesson.LessonActivity;
-import com.bonson.fjqqt.view.ui.terminal.lesson.LessonModule;
-import com.bonson.fjqqt.view.ui.terminal.limit.LimitActivity;
-import com.bonson.fjqqt.view.ui.terminal.limit.LimitModule;
+import com.bonson.fjqqt.view.ui.terminal.silence.SilenceActivity;
+import com.bonson.fjqqt.view.ui.terminal.silence.SilenceModule;
+import com.bonson.fjqqt.view.ui.terminal.limit.LimitsActivity;
+import com.bonson.fjqqt.view.ui.terminal.limit.LimitsModule;
 import com.bonson.fjqqt.view.ui.terminal.timer.TimerActivity;
 import com.bonson.fjqqt.view.ui.terminal.timer.TimerModule;
 import com.bonson.qqtapk.di.ActivityScope;
@@ -37,8 +37,8 @@ public abstract class UIModule {
     abstract AlarmActivity alarmActivity();
 
     @ActivityScope
-    @ContributesAndroidInjector(modules = {LimitModule.class, RetrofitModule.class})
-    abstract LimitActivity limitActivity();
+    @ContributesAndroidInjector(modules = {LimitsModule.class, RetrofitModule.class})
+    abstract LimitsActivity limitActivity();
 
     @ActivityScope
     @ContributesAndroidInjector(modules = {TimerModule.class, RetrofitModule.class})
@@ -53,6 +53,6 @@ public abstract class UIModule {
     abstract SafeAreaActivity safeAreaActivity();
 
     @ActivityScope
-    @ContributesAndroidInjector(modules = {LessonModule.class, RetrofitModule.class})
-    abstract LessonActivity lessonActivity();
+    @ContributesAndroidInjector(modules = {SilenceModule.class, RetrofitModule.class})
+    abstract SilenceActivity lessonActivity();
 }

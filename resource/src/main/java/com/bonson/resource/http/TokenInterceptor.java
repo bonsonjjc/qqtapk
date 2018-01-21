@@ -21,7 +21,7 @@ public class TokenInterceptor implements Interceptor {
   private String token() {
     String token = System.currentTimeMillis() + "," + UUID.randomUUID().toString();
     try {
-      token = EncodeUtils.encodeBase64ToString(EncodeUtils.encodeAes(token.getBytes()));
+      token = EncodeUtils.encode(token.getBytes());
     } catch (Exception e) {
       e.printStackTrace();
     }

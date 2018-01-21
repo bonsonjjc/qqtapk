@@ -26,7 +26,6 @@ public class FamilyViewModel extends AndroidViewModel {
 
     @Inject
     FamilyModelDataSource familyModel;
-    private String[] icons = {"ico_sos", "ico_01", "ico_02", "ico_03", "ico_04", "ico05"};
 
     private BaseView view;
 
@@ -68,11 +67,17 @@ public class FamilyViewModel extends AndroidViewModel {
                 .subscribe(it -> {
                     view.toast(it.getMsg());
                     if ("0".equals(it.getCode())) {
-                        families.addAll(it.getBody());
-                        for (int i = 0; i < families.size(); i++) {
-                            families.get(i).setIcon(icons[i]);
+                        for (Family family : it.getBody()) {
+                            for (int i = 0; i < families.size(); i++) {
+                                Family temp = families.get(i);
+                                if (family.getFkey().equals(temp.getFkey())) {
+                                    temp.setFid(family.getFid());
+                                    temp.setFname(family.getFname());
+                                    temp.setFmobile(family.getFmobile());
+                                    families.set(i, temp);
+                                }
+                            }
                         }
-                        notifyChange();
                     }
                 }, e -> {
                     view.toast("出错了");
@@ -95,7 +100,6 @@ public class FamilyViewModel extends AndroidViewModel {
                     if ("0".equals(result.getCode())) {
                         families.set(position, family);
                         view.back();
-                        notifyChange();
                     }
                 }, e -> {
                     view.dismiss();

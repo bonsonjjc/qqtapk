@@ -5,9 +5,13 @@ import android.os.Bundle;
 
 import com.bonson.qqtapk.R;
 import com.bonson.qqtapk.databinding.ActivityFamilyBinding;
+import com.bonson.qqtapk.model.bean.Family;
 import com.bonson.qqtapk.view.adapter.FamilyAdapter;
+import com.bonson.qqtapk.view.binding.AdapterDataChangeFactory;
 import com.bonson.qqtapk.view.ui.contacts.phone.PhoneFragment;
 import com.bonson.resource.activity.BaseDaggerActivity;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -24,6 +28,9 @@ public class FamilyActivity extends BaseDaggerActivity {
     @Inject
     FamilyAdapter familyAdapter;
 
+    @Inject
+    List<Family> familyList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +40,7 @@ public class FamilyActivity extends BaseDaggerActivity {
         binding.toolbar.getTvLeft().setOnClickListener(v -> {
             finish();
         });
+        AdapterDataChangeFactory.create(familyAdapter).attach(viewModel.families);
         familyAdapter.setOnItemClickListener(position -> {
             inputFragment.setViewModel(viewModel.updateViewModel(position));
             getSupportFragmentManager()
@@ -42,6 +50,7 @@ public class FamilyActivity extends BaseDaggerActivity {
                     .commit();
         });
         viewModel.setView(this);
+        viewModel.families.addAll(familyList);
         binding.setViewModel(viewModel);
         viewModel.families();
     }

@@ -54,4 +54,7 @@ public class Timer extends Base {
     public boolean isOpen() {
         return !"00:00".equals(ftimes);
     }
+    public void setOpen(boolean open){
+        ftimes="00:00";
+    }
 }
