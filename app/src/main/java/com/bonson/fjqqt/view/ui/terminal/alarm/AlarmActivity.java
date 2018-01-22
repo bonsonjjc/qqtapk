@@ -1,6 +1,5 @@
 package com.bonson.fjqqt.view.ui.terminal.alarm;
 
-import android.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.os.Bundle;
 
@@ -15,7 +14,7 @@ import com.bonson.resource.dialog.ActionSheetDialog;
 import javax.inject.Inject;
 
 
-public class AlarmActivity extends BaseDaggerActivity {
+public class AlarmActivity extends BaseDaggerActivity<ActivityAlarmBinding> {
     @Inject
     AlarmViewModel viewModel;
 
@@ -33,7 +32,10 @@ public class AlarmActivity extends BaseDaggerActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ActivityAlarmBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_alarm);
+        setBindingLayout(R.layout.activity_alarm);
+        binding.setViewModel(viewModel);
+        setViewModel(viewModel);
+
         binding.toolbar.setTitle("生活提醒");
         binding.toolbar.getTvLeft().setOnClickListener(v -> back());
         binding.toolbar.setRightText("添加");
@@ -51,9 +53,8 @@ public class AlarmActivity extends BaseDaggerActivity {
                     .commit();
 
         });
-        binding.setViewModel(viewModel);
+
         binding.recAlarms.setAdapter(alarmAdapter);
-        viewModel.setView(this);
         viewModel.alarms();
         AdapterDataChangeFactory.create(alarmAdapter).attach(viewModel.alarms);
 
@@ -85,11 +86,5 @@ public class AlarmActivity extends BaseDaggerActivity {
             deleteDialog.show(getSupportFragmentManager(), "delete");
             return true;
         });
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        viewModel.onDestroy();
     }
 }

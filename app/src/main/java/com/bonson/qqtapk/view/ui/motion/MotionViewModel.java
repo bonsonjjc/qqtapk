@@ -17,7 +17,6 @@ import io.reactivex.disposables.Disposable;
 
 public class MotionViewModel extends AndroidViewModel {
     private MotionModel motionModel;
-    private BaseView view;
 
     public final ObservableList<Object> dataList = new ObservableArrayList<>();
 
@@ -25,10 +24,6 @@ public class MotionViewModel extends AndroidViewModel {
     public MotionViewModel(Application application, MotionModel motionModel) {
         super(application);
         this.motionModel = motionModel;
-    }
-
-    public void setView(BaseView view) {
-        this.view = view;
     }
 
     public void motion() {

@@ -1,10 +1,7 @@
 package com.bonson.qqtapk.view.ui.voice;
 
-import android.content.Context;
-
 import com.bonson.qqtapk.di.ActivityScope;
 import com.bonson.qqtapk.model.data.UploadServer;
-import com.bonson.qqtapk.view.adapter.VoiceAdapter;
 import com.bonson.resource.http.qqtfactory.StringConvertFactory;
 import com.bonson.resource.viewmodel.AndroidViewModel;
 import com.google.gson.Gson;
@@ -24,12 +21,6 @@ public abstract class VoiceModule {
     @ActivityScope
     @Binds
     abstract AndroidViewModel viewModel(VoiceViewModel viewModel);
-
-    @ActivityScope
-    @Provides
-    static VoiceAdapter providesAdapter(Context context) {
-        return new VoiceAdapter(context);
-    }
 
     @ActivityScope
     @Provides

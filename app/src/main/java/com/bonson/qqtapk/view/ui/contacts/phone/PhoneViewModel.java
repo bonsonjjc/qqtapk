@@ -25,14 +25,8 @@ public class PhoneViewModel extends AndroidViewModel {
     public final ObservableField<String> mobile = new ObservableField<>("");
 
     @Inject
-    PhoneViewModel(Application application) {
+    public PhoneViewModel(Application application) {
         super(application);
-    }
-
-    private BaseView view;
-
-    public void setView(BaseView view) {
-        this.view = view;
     }
 
     public void onSave() {

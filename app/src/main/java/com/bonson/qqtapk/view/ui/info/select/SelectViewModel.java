@@ -16,7 +16,7 @@ import javax.inject.Inject;
 
 
 public class SelectViewModel extends AndroidViewModel {
-    public ObservableField<String> title = new ObservableField<>("");
+    public final ObservableField<String> title = new ObservableField<>("");
 
     public final ObservableList<Select> selects = new ObservableArrayList<>();
 

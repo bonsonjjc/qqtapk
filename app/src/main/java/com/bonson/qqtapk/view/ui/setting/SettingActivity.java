@@ -22,20 +22,21 @@ import javax.inject.Inject;
  * Created by jiangjiancheng on 17/12/31.
  */
 
-public class SettingActivity extends BaseDaggerActivity {
+public class SettingActivity extends BaseDaggerActivity<ActivitySettingBinding> {
     @Inject
     SettingViewModel viewModel;
 
-    ActionSheetDialog sheetDialog = new ActionSheetDialog();
+    ActionSheetDialog sheetDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ActivitySettingBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_setting);
+        setBindingLayout(R.layout.activity_setting);
+        binding.setViewModel(viewModel);
+        setViewModel(viewModel);
+
         binding.toolbar.setTitle("软件设置");
         binding.toolbar.getTvLeft().setOnClickListener(v -> finish());
-        binding.setViewModel(viewModel);
-        viewModel.setView(this);
     }
 
     public void itemClick(View view) {
@@ -56,13 +57,15 @@ public class SettingActivity extends BaseDaggerActivity {
                 start(Route.map);
                 break;
             case R.id.tv_exit_login:
-                sheetDialog.setTitle("是否退出登录?")
-                        .setActionSheet(new String[]{"退出"}, Color.RED)
+                if (sheetDialog == null) {
+                    sheetDialog = new ActionSheetDialog();
+                    sheetDialog.setTitle("是否退出登录?");
+                }
+                sheetDialog.setActionSheet(new String[]{"退出"}, Color.RED)
                         .setOnItemClickListener(position -> {
                             viewModel.exit();
                         })
                         .show(getSupportFragmentManager(), "exit");
-
                 break;
         }
     }

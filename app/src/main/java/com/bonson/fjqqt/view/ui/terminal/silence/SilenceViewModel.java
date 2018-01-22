@@ -15,7 +15,6 @@ import javax.inject.Inject;
  */
 @ActivityScope
 public class SilenceViewModel extends AndroidViewModel {
-    private BaseView view;
     public ObservableInt cycleType = new ObservableInt(1);
 
     public ObservableField<String> custom = new ObservableField<>("自定义");
@@ -24,10 +23,6 @@ public class SilenceViewModel extends AndroidViewModel {
     @Inject
     public SilenceViewModel(Application application) {
         super(application);
-    }
-
-    public void setView(BaseView view) {
-        this.view = view;
     }
 
 }

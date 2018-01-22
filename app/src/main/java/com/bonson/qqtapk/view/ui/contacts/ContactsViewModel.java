@@ -27,7 +27,6 @@ import io.reactivex.disposables.Disposable;
 @ActivityScope
 public class ContactsViewModel extends AndroidViewModel {
     private ContactsModel contactsModel;
-    private BaseView view;
 
     public final ObservableList<Contact> contacts = new ObservableArrayList<>();
 
@@ -38,14 +37,9 @@ public class ContactsViewModel extends AndroidViewModel {
     SelectViewModel selectViewModel;
 
     @Inject
-    ContactsViewModel(Application application, ContactsModel contactsModel) {
+    public ContactsViewModel(Application application, ContactsModel contactsModel) {
         super(application);
         this.contactsModel = contactsModel;
-    }
-
-    public void setView(BaseView view) {
-        this.view = view;
-        viewModel.setView(view);
     }
 
     public void contacts() {

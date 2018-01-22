@@ -22,7 +22,7 @@ import com.bonson.resource.fragment.BaseFragment;
 import javax.inject.Inject;
 
 @ActivityScope
-public class AddAlarmFragment extends BaseFragment {
+public class AddAlarmFragment extends BaseFragment<FragmentAddAlarmBinding> {
     SelectFragment selectFragment;
 
     AddAlarmViewModel viewModel;
@@ -48,7 +48,7 @@ public class AddAlarmFragment extends BaseFragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        FragmentAddAlarmBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_add_alarm, container, false);
+        setBindingLayout(inflater, R.layout.fragment_add_alarm, container);
         binding.toolbar.setTitle("生活提醒");
         binding.toolbar.getTvLeft().setOnClickListener(v -> back());
         binding.toolbar.getTvRight().setOnClickListener(v -> {
@@ -135,19 +135,6 @@ public class AddAlarmFragment extends BaseFragment {
                     .commit();
         });
         return binding.getRoot();
-    }
-
-
-    @Override
-    public void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
-        LogUtils.e("onSaveInstanceState");
-    }
-
-    @Override
-    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
-        super.onViewStateRestored(savedInstanceState);
-        LogUtils.e("onViewStateRestored");
     }
 
     private OnAlarmSaveListener onAlarmSaveListener;

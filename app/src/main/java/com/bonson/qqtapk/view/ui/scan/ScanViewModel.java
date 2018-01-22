@@ -1,6 +1,8 @@
 package com.bonson.qqtapk.view.ui.scan;
 
 import android.app.Application;
+import android.arch.lifecycle.Lifecycle;
+import android.arch.lifecycle.OnLifecycleEvent;
 import android.databinding.Bindable;
 
 import com.bonson.qqtapk.BR;
@@ -41,6 +43,7 @@ public class ScanViewModel extends AndroidViewModel {
         this.view = view;
     }
 
+    @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     public void init() {
         user = User.user;
         if (user == null) {

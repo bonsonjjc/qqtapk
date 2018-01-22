@@ -1,11 +1,7 @@
 package com.bonson.fjqqt.view.ui.area;
 
-import android.arch.lifecycle.Lifecycle;
-import android.arch.lifecycle.LifecycleOwner;
-import android.databinding.DataBindingUtil;
 import android.databinding.Observable;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 
 import com.baidu.mapapi.map.Circle;
 import com.baidu.mapapi.map.CircleOptions;
@@ -20,7 +16,7 @@ import com.bonson.resource.activity.BaseDaggerActivity;
 import javax.inject.Inject;
 
 
-public class SafeAreaActivity extends BaseDaggerActivity {
+public class SafeAreaActivity extends BaseDaggerActivity<ActivitySafeAreaBinding> {
     @Inject
     SafeAreaViewModel viewModel;
     Circle overlay;
@@ -28,13 +24,15 @@ public class SafeAreaActivity extends BaseDaggerActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ActivitySafeAreaBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_safe_area);
+        setBindingLayout(R.layout.activity_safe_area);
+        binding.setViewModel(viewModel);
+        setViewModel(viewModel);
+
         binding.toolbar.getTvLeft().setOnClickListener(view -> finish());
         binding.toolbar.setTitle("安全区域");
         binding.toolbar.setRightText("保存");
         binding.toolbar.getTvRight().setOnClickListener(v -> viewModel.save());
-        binding.setViewModel(viewModel);
-        viewModel.setView(this);
+
         Observable.OnPropertyChangedCallback propertyChangedCallback = new Observable.OnPropertyChangedCallback() {
             @Override
             public void onPropertyChanged(Observable sender, int propertyId) {
@@ -49,7 +47,7 @@ public class SafeAreaActivity extends BaseDaggerActivity {
         viewModel.state.addOnPropertyChangedCallback(propertyChangedCallback);
         viewModel.position.addOnPropertyChangedCallback(propertyChangedCallback);
         viewModel.radius.addOnPropertyChangedCallback(propertyChangedCallback);
-        viewModel.init();
         overlay = (Circle) binding.mapView.getMap().addOverlay(new CircleOptions().center(viewModel.position.get()));
     }
+
 }

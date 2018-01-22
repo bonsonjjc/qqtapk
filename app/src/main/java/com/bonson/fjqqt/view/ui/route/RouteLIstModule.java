@@ -1,5 +1,6 @@
 package com.bonson.fjqqt.view.ui.route;
 
+import com.bonson.fjqqt.model.bean.RouteTime;
 import com.bonson.fjqqt.view.ui.route.time.AddTimeFragment;
 import com.bonson.fjqqt.view.ui.route.time.AddTimeViewModel;
 import com.bonson.qqtapk.di.ActivityScope;

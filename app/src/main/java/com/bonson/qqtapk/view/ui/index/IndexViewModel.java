@@ -39,14 +39,6 @@ public class IndexViewModel extends AndroidViewModel {
         this.babyModel = babyModel;
     }
 
-    private BaseView view;
-
-
-    public void setView(BaseView view) {
-        this.view = view;
-        mainViewModel.setView(view);
-    }
-
     public void initMenu() {
         menus.clear();
         menus.addAll(MenuHelper.createMenu(view));

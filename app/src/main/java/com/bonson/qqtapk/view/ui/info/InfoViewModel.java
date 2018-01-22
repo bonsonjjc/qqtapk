@@ -36,16 +36,11 @@ public class InfoViewModel extends AndroidViewModel {
 
     private BabyModel babyModel;
 
-    private BaseView view;
 
     @Inject
     public InfoViewModel(Application application, BabyModel babyModel) {
         super(application);
         this.babyModel = babyModel;
-    }
-
-    public void setView(BaseView view) {
-        this.view = view;
     }
 
     public Baby getBaby() {

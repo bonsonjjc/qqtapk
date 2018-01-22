@@ -13,18 +13,18 @@ import javax.inject.Inject;
  * Created by jiangjiancheng on 18/1/7.
  */
 
-public class MapActivity extends BaseDaggerActivity {
+public class MapActivity extends BaseDaggerActivity<ActivityMapBinding> {
     @Inject
     MapViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ActivityMapBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_map);
-        binding.toolbar.setTitle("离线地图");
-        binding.toolbar.getTvLeft().setOnClickListener(v -> {
-            finish();
-        });
+        setBindingLayout(R.layout.activity_map);
         binding.setViewModel(viewModel);
+        setViewModel(viewModel);
+
+        binding.toolbar.setTitle("离线地图");
+        binding.toolbar.getTvLeft().setOnClickListener(v -> finish());
     }
 }

@@ -2,6 +2,7 @@ package com.bonson.qqtapk.view.ui.voice;
 
 import android.app.Application;
 import android.databinding.ObservableArrayList;
+import android.databinding.ObservableList;
 
 import com.bonson.library.utils.DateUtils;
 import com.bonson.qqtapk.di.ActivityScope;
@@ -26,17 +27,12 @@ import io.reactivex.disposables.Disposable;
 @ActivityScope
 public class VoiceViewModel extends AndroidViewModel {
     private VoiceModel voiceModel;
-    private BaseView view;
-    public List<Voice> voices = new ObservableArrayList<>();
+    public ObservableList<Voice> voices = new ObservableArrayList<>();
 
     @Inject
     public VoiceViewModel(Application application, VoiceModel voiceModel) {
         super(application);
         this.voiceModel = voiceModel;
-    }
-
-    public void setView(BaseView view) {
-        this.view = view;
     }
 
     public void send(String time, String path) {
@@ -50,7 +46,6 @@ public class VoiceViewModel extends AndroidViewModel {
         talk.setFpath(path);
         talk.setState("3");
         voices.add(talk);
-        notifyChange();
 
         if (!isNetWork()) {
             view.toast("网络不可用");
@@ -94,7 +89,6 @@ public class VoiceViewModel extends AndroidViewModel {
                 .subscribe(it -> {
                     if ("0".equals(it.getCode())) {
                         voices.addAll(it.getBody());
-                        notifyChange();
                     } else {
                         view.toast(it.getMsg());
                     }

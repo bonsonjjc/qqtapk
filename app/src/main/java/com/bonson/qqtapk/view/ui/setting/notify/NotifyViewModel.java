@@ -1,6 +1,8 @@
 package com.bonson.qqtapk.view.ui.setting.notify;
 
 import android.app.Application;
+import android.arch.lifecycle.Lifecycle;
+import android.arch.lifecycle.OnLifecycleEvent;
 import android.databinding.Observable;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
@@ -24,11 +26,10 @@ import io.reactivex.disposables.Disposable;
  */
 @ActivityScope
 public class NotifyViewModel extends AndroidViewModel {
-    private BaseView view;
-    public ObservableBoolean notify = new ObservableBoolean();
-    public ObservableBoolean voice = new ObservableBoolean();
-    public ObservableBoolean vibrate = new ObservableBoolean();
-    public ObservableField<String> sleepTime = new ObservableField<>("00:00 ~ 00:00");
+    public final ObservableBoolean notify = new ObservableBoolean();
+    public final ObservableBoolean voice = new ObservableBoolean();
+    public final ObservableBoolean vibrate = new ObservableBoolean();
+    public final ObservableField<String> sleepTime = new ObservableField<>("00:00 ~ 00:00");
 
     @Inject
     PreferencesHelper helper;
@@ -39,11 +40,11 @@ public class NotifyViewModel extends AndroidViewModel {
     public NotifyViewModel(Application application, SettingModel settingModel) {
         super(application);
         this.settingModel = settingModel;
-        sleepTime.set(Device.device.getFsleep());
     }
 
-
+    @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     public void init() {
+        sleepTime.set(Device.device.getFsleep());
         notify.set(helper.get(Const.NOTIFY_KEY, true));
         voice.set(helper.get(Const.VOICE_KEY, true));
         vibrate.set(helper.get(Const.VIBRATE_KEY, true));
@@ -64,10 +65,6 @@ public class NotifyViewModel extends AndroidViewModel {
 
     public void setHelper(PreferencesHelper helper) {
         this.helper = helper;
-    }
-
-    public void setView(BaseView view) {
-        this.view = view;
     }
 
     public void sleepTime() {

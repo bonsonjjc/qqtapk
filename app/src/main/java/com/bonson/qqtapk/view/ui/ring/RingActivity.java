@@ -17,7 +17,7 @@ import javax.inject.Inject;
  * Created by jiangjiancheng on 18/1/8.
  */
 
-public class RingActivity extends BaseDaggerActivity {
+public class RingActivity extends BaseDaggerActivity<ActivityRingBinding> {
     @Inject
     RingViewModel viewModel;
 
@@ -30,13 +30,14 @@ public class RingActivity extends BaseDaggerActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ActivityRingBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_ring);
+        setBindingLayout(R.layout.activity_ring);
+        binding.setViewModel(viewModel);
+        setViewModel(viewModel);
+
         binding.toolbar.setTitle("铃声设置");
         binding.toolbar.getTvLeft().setOnClickListener(view -> finish());
         binding.toolbar.setRightText("保存");
         binding.toolbar.getTvRight().setOnClickListener(v -> viewModel.setRing());
-        binding.setViewModel(viewModel);
-        viewModel.setView(this);
         viewModel.ring();
     }
 
@@ -54,10 +55,5 @@ public class RingActivity extends BaseDaggerActivity {
     public void onBackPressed() {
         playerUtils.stop();
         super.onBackPressed();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
     }
 }

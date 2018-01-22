@@ -27,25 +27,24 @@ import io.reactivex.disposables.Disposable;
 
 public class RingViewModel extends AndroidViewModel {
     private RingModel ringModel;
-    public ObservableField<String> ringTitle = new ObservableField<>();
-    public ObservableField<String> ring = new ObservableField<>();
-    public ObservableInt callVolume = new ObservableInt(1);
-    public ObservableInt callerVolume = new ObservableInt(1);
+    public final ObservableField<String> ringTitle = new ObservableField<>();
+    public final ObservableField<String> ring = new ObservableField<>();
+    public final ObservableInt callVolume = new ObservableInt(1);
+    public final ObservableInt callerVolume = new ObservableInt(1);
 
-    private SelectViewModel viewModel;
+    @Inject
+    SelectViewModel viewModel;
 
     @Inject
     List<Select> selects;
-    private BaseView view;
 
     @Inject
     PlayerUtils playerUtils;
 
     @Inject
-    public RingViewModel(Application application, RingModel ringModel, SelectViewModel selectViewModel) {
+    public RingViewModel(Application application, RingModel ringModel) {
         super(application);
         this.ringModel = ringModel;
-        this.viewModel = selectViewModel;
     }
 
     public void ring() {
@@ -60,10 +59,6 @@ public class RingViewModel extends AndroidViewModel {
                 notifyChange();
             }
         }
-    }
-
-    public void setView(BaseView view) {
-        this.view = view;
     }
 
     public void setRing() {

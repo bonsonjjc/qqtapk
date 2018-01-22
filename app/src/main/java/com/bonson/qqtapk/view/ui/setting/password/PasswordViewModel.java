@@ -26,17 +26,12 @@ public class PasswordViewModel extends AndroidViewModel {
     public ObservableField<String> surePassword = new ObservableField<>("");
 
 
-    private BaseView view;
     private UserModel userModel;
 
     @Inject
     public PasswordViewModel(Application application, UserModel userModel) {
         super(application);
         this.userModel = userModel;
-    }
-
-    public void setView(BaseView view) {
-        this.view = view;
     }
 
     public void modify() {

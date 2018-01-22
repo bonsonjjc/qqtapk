@@ -29,12 +29,6 @@ public class TimerViewModel extends AndroidViewModel {
         super(application);
     }
 
-    private BaseView view;
-
-    public void setView(BaseView view) {
-        this.view = view;
-    }
-
     public void timers() {
         if (!isNetWork()) {
             view.toast("网络不可用");

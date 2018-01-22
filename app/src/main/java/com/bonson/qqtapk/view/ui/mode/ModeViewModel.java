@@ -9,6 +9,7 @@ import com.bonson.qqtapk.model.bean.Baby;
 import com.bonson.qqtapk.model.bean.Mode;
 import com.bonson.qqtapk.model.data.mode.ModeModel;
 import com.bonson.library.utils.NumberUtils;
+import com.bonson.qqtapk.view.ui.info.select.SelectViewModel;
 import com.bonson.resource.activity.BaseView;
 import com.bonson.resource.viewmodel.AndroidViewModel;
 
@@ -22,30 +23,27 @@ import io.reactivex.disposables.Disposable;
  */
 @ActivityScope
 public class ModeViewModel extends AndroidViewModel {
-    public ObservableBoolean powerSave = new ObservableBoolean();
+    public final ObservableBoolean powerSave = new ObservableBoolean();
 
-    public ObservableBoolean safeMode = new ObservableBoolean();
-    public ObservableBoolean powerMode = new ObservableBoolean();
-    public ObservableBoolean customMode = new ObservableBoolean();
+    public final ObservableBoolean safeMode = new ObservableBoolean();
+    public final ObservableBoolean powerMode = new ObservableBoolean();
+    public final ObservableBoolean customMode = new ObservableBoolean();
 
-    public ObservableBoolean blendMode = new ObservableBoolean();
-    public ObservableBoolean normalMode = new ObservableBoolean();
-    public ObservableBoolean accurateMode = new ObservableBoolean();
+    public final ObservableBoolean blendMode = new ObservableBoolean();
+    public final ObservableBoolean normalMode = new ObservableBoolean();
+    public final ObservableBoolean accurateMode = new ObservableBoolean();
 
-    public ObservableInt interval = new ObservableInt();
+    public final ObservableInt interval = new ObservableInt();
 
     private ModeModel modeModel;
 
-    private BaseView view;
+    @Inject
+    SelectViewModel viewModel;
 
     @Inject
-    ModeViewModel(Application application, ModeModel modeModel) {
+    public ModeViewModel(Application application, ModeModel modeModel) {
         super(application);
         this.modeModel = modeModel;
-    }
-
-    public void setView(BaseView view) {
-        this.view = view;
     }
 
     public void mode() {

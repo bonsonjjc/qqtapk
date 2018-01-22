@@ -27,20 +27,10 @@ public class LessonViewModel extends AndroidViewModel {
 
     private LessonModel lessonModel;
 
-    private BaseView view;
-
     @Inject
     public LessonViewModel(Application application, LessonModel lessonModel) {
         super(application);
         this.lessonModel = lessonModel;
-    }
-
-    public BaseView getView() {
-        return view;
-    }
-
-    public void setView(BaseView view) {
-        this.view = view;
     }
 
     public void lessons() {
@@ -73,8 +63,8 @@ public class LessonViewModel extends AndroidViewModel {
         Disposable disposable = lessonModel.update(Baby.baby.getFid(), lessons)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(it -> {
-                    view.toast(it.getMsg());
                     view.dismiss();
+                    view.toast(it.getMsg());
                 }, e -> {
                     view.dismiss();
                     view.toast("出错了");

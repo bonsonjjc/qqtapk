@@ -1,6 +1,5 @@
 package com.bonson.fjqqt.view.ui.terminal.timer;
 
-import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 
@@ -9,11 +8,10 @@ import com.bonson.qqtapk.databinding.ActivityTimerBinding;
 import com.bonson.qqtapk.view.binding.AdapterDataChangeFactory;
 import com.bonson.resource.activity.BaseDaggerActivity;
 import com.bonson.resource.dialog.TimeDialog;
-import com.bonson.resource.dialog.TimePickerDialog;
 
 import javax.inject.Inject;
 
-public class TimerActivity extends BaseDaggerActivity {
+public class TimerActivity extends BaseDaggerActivity<ActivityTimerBinding> {
     @Inject
     TimerViewModel viewModel;
 
@@ -28,8 +26,9 @@ public class TimerActivity extends BaseDaggerActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ActivityTimerBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_timer);
+        setBindingLayout(R.layout.activity_timer);
         binding.setViewModel(viewModel);
+        setViewModel(viewModel);
 
         binding.toolbar.setTitle("定时定位");
         binding.toolbar.getTvLeft().setOnClickListener(v -> back());
@@ -54,13 +53,6 @@ public class TimerActivity extends BaseDaggerActivity {
             dialog.show(getSupportFragmentManager(), "time");
         });
         AdapterDataChangeFactory.create(timerAdapter).attach(viewModel.timers);
-        viewModel.setView(this);
         viewModel.timers();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        viewModel.onDestroy();
     }
 }

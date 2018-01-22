@@ -20,25 +20,16 @@ import io.reactivex.disposables.Disposable;
 
 
 public class AlarmViewModel extends AndroidViewModel {
+    public final ObservableList<Alarm> alarms = new ObservableArrayList<>();
     @Inject
     AlarmModel alarmModel;
-
-    public final ObservableList<Alarm> alarms = new ObservableArrayList<>();
+    @Inject
+    AddAlarmViewModel addAlarmViewModel;
 
     @Inject
     public AlarmViewModel(Application application) {
         super(application);
     }
-
-    private BaseView view;
-
-    public void setView(BaseView view) {
-        this.view = view;
-    }
-
-
-    @Inject
-    AddAlarmViewModel addAlarmViewModel;
 
     public AddAlarmViewModel getAddAlarmViewModel() {
         return addAlarmViewModel;

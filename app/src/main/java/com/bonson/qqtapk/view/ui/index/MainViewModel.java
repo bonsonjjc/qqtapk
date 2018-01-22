@@ -29,8 +29,6 @@ public class MainViewModel extends AndroidViewModel {
     public final ObservableField<String> sleepTime = new ObservableField<>("0小时");
     public final ObservableField<String> heart = new ObservableField<>("正常");
 
-    private BaseView view;
-
     @Inject
     LocationViewModel viewModel;
 
@@ -40,11 +38,6 @@ public class MainViewModel extends AndroidViewModel {
         this.indexModel = indexModel;
         Baby baby = Baby.baby;
         type.set(baby.getFtag());
-    }
-
-    public void setView(BaseView view) {
-        this.view = view;
-        viewModel.setView(view);
     }
 
     public LocationViewModel getViewModel() {

@@ -4,7 +4,8 @@ import android.databinding.BindingAdapter;
 import android.support.v7.widget.RecyclerView;
 
 import com.bonson.fjqqt.model.bean.Route;
-import com.bonson.fjqqt.view.ui.route.TimeAdapter;
+import com.bonson.fjqqt.model.bean.RouteTime;
+import com.bonson.fjqqt.view.ui.route.RouteTimeAdapter;
 import com.bonson.fjqqt.view.ui.terminal.alarm.Alarm;
 import com.bonson.fjqqt.view.ui.terminal.alarm.AlarmAdapter;
 import com.bonson.fjqqt.view.ui.terminal.timer.Timer;
@@ -117,8 +118,8 @@ public class RecyclerViewBindingAdapter {
     }
 
     @BindingAdapter("android:times")
-    public static void setTimes(RecyclerView recyclerView, List<Route> centers) {
-        TimeAdapter adapter = (TimeAdapter) recyclerView.getAdapter();
+    public static void setTimes(RecyclerView recyclerView, List<RouteTime> centers) {
+        RouteTimeAdapter adapter = (RouteTimeAdapter) recyclerView.getAdapter();
         recyclerView.setAdapter(adapter);
         adapter.setBeans(centers);
     }

@@ -1,6 +1,5 @@
 package com.bonson.qqtapk.view.ui.register;
 
-import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 
 import com.bonson.qqtapk.R;
@@ -13,7 +12,7 @@ import javax.inject.Inject;
  * Created by zjw on 2017/12/29.
  */
 
-public class RegisterActivity extends BaseDaggerActivity {
+public class RegisterActivity extends BaseDaggerActivity<ActivityRegisterBinding> {
     @Inject
     RegisterViewModel viewModel;
 
@@ -23,24 +22,16 @@ public class RegisterActivity extends BaseDaggerActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ActivityRegisterBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_register);
+        setBindingLayout(R.layout.activity_register);
+        binding.setViewModel(viewModel);
+        binding.setVerifyViewModel(verifyViewModel);
+        setViewModel(viewModel, verifyViewModel);
+
         binding.toolbar.setTitle("注册");
         binding.toolbar.getTvLeft().setOnClickListener(view -> {
             finish();
         });
-        binding.setViewModel(viewModel);
-        viewModel.setView(this);
-
-        binding.setVerifyViewModel(verifyViewModel);
-        verifyViewModel.setView(this);
         verifyViewModel.verifyEnable.set(true);
         verifyViewModel.verifyText.set(getString(R.string.verify));
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        viewModel.onDestroy();
-        verifyViewModel.onDestroy();
     }
 }

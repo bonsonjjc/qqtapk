@@ -1,6 +1,8 @@
 package com.bonson.qqtapk.view.ui.route;
 
 import android.app.Application;
+import android.databinding.ObservableArrayList;
+import android.databinding.ObservableList;
 
 import com.bonson.qqtapk.di.ActivityScope;
 import com.bonson.qqtapk.model.bean.Baby;
@@ -21,8 +23,7 @@ import io.reactivex.disposables.Disposable;
  */
 @ActivityScope
 public class RouteViewModel extends AndroidViewModel {
-    private List<Route> routes;
-    private BaseView view;
+    public final ObservableList<Route> routes = new ObservableArrayList<>();
 
     private RouteModel routeModel;
 
@@ -30,15 +31,6 @@ public class RouteViewModel extends AndroidViewModel {
     public RouteViewModel(Application application, RouteModel routeModel) {
         super(application);
         this.routeModel = routeModel;
-    }
-
-    public void setView(BaseView view) {
-        this.view = view;
-    }
-
-    public void setRoutes(List<Route> routes) {
-        this.routes = routes;
-        notifyChange();
     }
 
     public void routes(String start, String end) {
@@ -50,8 +42,9 @@ public class RouteViewModel extends AndroidViewModel {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(it -> {
                     view.toast(it.getMsg());
+                    routes.clear();
                     if (it.getCode().equals("0")) {
-                        setRoutes(it.getBody());
+                        routes.addAll(it.getBody());
                     }
                 }, e -> {
                     view.toast("出错了");

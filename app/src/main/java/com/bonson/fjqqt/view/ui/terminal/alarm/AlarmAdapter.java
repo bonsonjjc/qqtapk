@@ -5,6 +5,7 @@ import android.databinding.DataBindingUtil;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.bonson.qqtapk.BR;
 import com.bonson.qqtapk.R;
 import com.bonson.qqtapk.databinding.ItemAlarmBinding;
 import com.bonson.resource.adapter.BaseAdapter;
@@ -42,7 +43,6 @@ public class AlarmAdapter extends BaseAdapter<Alarm, ItemAlarmBinding> {
             }
             return false;
         });
-
 
     }
 }

@@ -24,20 +24,14 @@ import io.reactivex.disposables.Disposable;
 @ActivityScope
 public class VerifyViewModel extends AndroidViewModel {
 
-    public ObservableField<String> verifyText = new ObservableField<>();
-    public ObservableBoolean verifyEnable = new ObservableBoolean();
+    public final ObservableField<String> verifyText = new ObservableField<>();
+    public final ObservableBoolean verifyEnable = new ObservableBoolean();
     @Inject
     UserModel userModel;
-
-    private BaseView view;
 
     @Inject
     public VerifyViewModel(Application application) {
         super(application);
-    }
-
-    public void setView(BaseView view) {
-        this.view = view;
     }
 
     public void verify(String mobile, int type) {
@@ -49,14 +43,17 @@ public class VerifyViewModel extends AndroidViewModel {
             view.toast("网络不可用");
             return;
         }
+        view.load();
         Disposable disposable = userModel.verify(mobile, type + "")
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(it -> {
+                    view.dismiss();
                     view.toast(it.getMsg());
                     if (it.getCode().equals("0")) {
                         shutdown(90);
                     }
                 }, e -> {
+                    view.dismiss();
                     view.toast("出错了");
                     e.printStackTrace();
                 });

@@ -1,6 +1,5 @@
 package com.bonson.qqtapk.view.ui.index;
 
-import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
@@ -20,7 +19,7 @@ import javax.inject.Inject;
  * Created by zjw on 2018/1/2.
  */
 
-public class IndexActivity extends BaseDaggerActivity {
+public class IndexActivity extends BaseDaggerActivity<ActivityIndexBinding> {
     @Inject
     IndexViewModel viewModel;
 
@@ -32,20 +31,19 @@ public class IndexActivity extends BaseDaggerActivity {
 
     @Inject
     RecyclerView.ItemDecoration itemDecoration;
-    ActivityIndexBinding binding;
 
     TextureMapView mapView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        viewModel.setView(this);
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_index);
-        mapView = findViewById(R.id.mapView);
-        mapView.onCreate(this, savedInstanceState);
-
+        setBindingLayout(R.layout.activity_index);
         binding.setViewModel(viewModel);
         binding.setMainViewModel(viewModel.mainViewModel);
+        setViewModel(viewModel,viewModel.mainViewModel);
+
+        mapView = findViewById(R.id.mapView);
+        mapView.onCreate(this, savedInstanceState);
 
         binding.recBabyList.setAdapter(babyAdapter);
         binding.recBabyList.addItemDecoration(itemDecoration);

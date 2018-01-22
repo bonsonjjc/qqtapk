@@ -11,11 +11,11 @@ import javax.inject.Inject;
 
 
 public class InputViewModel extends AndroidViewModel {
-    public ObservableField<String> hint = new ObservableField<>("");
-    public ObservableField<String> value = new ObservableField<>("");
-    public ObservableField<String> title = new ObservableField<>("");
-    public ObservableField<String> digits = new ObservableField<>("");
-    public ObservableInt length = new ObservableInt(20);
+    public final ObservableField<String> hint = new ObservableField<>("");
+    public final ObservableField<String> value = new ObservableField<>("");
+    public final ObservableField<String> title = new ObservableField<>("");
+    public final ObservableField<String> digits = new ObservableField<>("");
+    public final ObservableInt length = new ObservableInt(20);
 
     @Inject
     public InputViewModel(Application application) {

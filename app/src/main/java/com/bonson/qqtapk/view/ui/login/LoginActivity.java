@@ -14,20 +14,20 @@ import javax.inject.Inject;
 /**
  * Created by zjw on 2017/12/29.
  */
-public class LoginActivity extends BaseDaggerActivity {
+public class LoginActivity extends BaseDaggerActivity<ActivityLoginBinding> {
     @Inject
     LoginViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ActivityLoginBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_login);
+        setBindingLayout(R.layout.activity_login);
+        binding.setViewModel(viewModel);
+        setViewModel(viewModel);
+
         binding.toolbar.setLeftText("返回");
         binding.toolbar.getTvLeft().setOnClickListener(view -> finish());
-        viewModel.setView(this);
         binding.toolbar.setTitle("登录");
-        binding.setViewModel(viewModel);
-        viewModel.init();
     }
 
     public void login(View view) {
@@ -42,9 +42,4 @@ public class LoginActivity extends BaseDaggerActivity {
         start(Route.register);
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        viewModel.onDestroy();
-    }
 }

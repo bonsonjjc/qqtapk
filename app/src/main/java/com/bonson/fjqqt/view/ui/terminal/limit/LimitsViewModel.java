@@ -3,6 +3,7 @@ package com.bonson.fjqqt.view.ui.terminal.limit;
 import android.app.Application;
 import android.databinding.ObservableArrayList;
 import android.databinding.ObservableBoolean;
+import android.databinding.ObservableList;
 
 import com.bonson.qqtapk.model.bean.Baby;
 import com.bonson.qqtapk.model.bean.Device;
@@ -23,11 +24,9 @@ import io.reactivex.disposables.Disposable;
  * Created by jiangjiancheng on 17/12/31.
  */
 public class LimitsViewModel extends AndroidViewModel {
-    private BaseView view;
-
     private LimitModel limitModel;
-    public ObservableBoolean open = new ObservableBoolean(false);
-    public List<Limit> limits = new ObservableArrayList<>();
+    public final ObservableBoolean open = new ObservableBoolean(false);
+    public final ObservableList<Limit> limits = new ObservableArrayList<>();
 
     private LimitViewModel viewModel;
 
@@ -37,11 +36,6 @@ public class LimitsViewModel extends AndroidViewModel {
         this.viewModel = viewModel;
         this.limitModel = limitModel;
         open.set("0".equals(Device.device.getFcstate()));
-    }
-
-    public void setView(BaseView view) {
-        this.view = view;
-        viewModel.setView(view);
     }
 
     public void limits() {
@@ -55,7 +49,6 @@ public class LimitsViewModel extends AndroidViewModel {
                     view.toast(it.getMsg());
                     if (it.getCode().equals("0")) {
                         limits.addAll(it.getBody());
-                        notifyChange();
                     }
                 }, e -> {
                     view.toast("出错了");
@@ -77,7 +70,6 @@ public class LimitsViewModel extends AndroidViewModel {
                     if (it.getCode().equals("0")) {
                         limit.setFid(it.getBody().getFid());
                         limits.add(limit);
-                        notifyChange();
                         view.back();
                     }
                 }, e -> {
@@ -100,7 +92,6 @@ public class LimitsViewModel extends AndroidViewModel {
                     view.toast(it.getMsg());
                     if (it.getCode().equals("0")) {
                         limits.set(position, limit);
-                        notifyChange();
                         view.back();
                     }
                 }, e -> {
@@ -149,7 +140,6 @@ public class LimitsViewModel extends AndroidViewModel {
                     view.toast(it.getMsg());
                     if (it.getCode().equals("0")) {
                         limits.remove(position);
-                        notifyChange();
                         view.back();
                     }
                 }, e -> {
@@ -173,6 +163,8 @@ public class LimitsViewModel extends AndroidViewModel {
                     if (!it.getCode().equals("0")) {
                         open.set(!open.get());
                         Device.device.setFcstate(it.getBody());
+                    }else{
+                        open.set(!open.get());
                     }
                 }, e -> {
                     view.dismiss();

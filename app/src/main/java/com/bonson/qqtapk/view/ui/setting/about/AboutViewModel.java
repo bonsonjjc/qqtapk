@@ -13,19 +13,14 @@ import javax.inject.Inject;
  */
 
 public class AboutViewModel extends AndroidViewModel {
-    public ObservableField<String> servicePhone = new ObservableField<>("15659149106");
+    public final ObservableField<String> servicePhone = new ObservableField<>("15659149106");
 
-    public ObservableField<String> webUrl = new ObservableField<>("www.baidu.com");
+    public final ObservableField<String> webUrl = new ObservableField<>("www.baidu.com");
 
-    public ObservableField<String> version = new ObservableField<>("3.0.0");
-    private BaseView view;
+    public final ObservableField<String> version = new ObservableField<>("3.0.0");
 
     @Inject
     public AboutViewModel(Application application) {
         super(application);
-    }
-
-    public void setView(BaseView view) {
-        this.view = view;
     }
 }

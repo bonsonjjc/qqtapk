@@ -111,7 +111,7 @@
                     <CheckBox
                         android:id="@+id/ck_protocol"
                         style="@style/CheckBox"
-                        android:checked="@={viewModel.agree}"
+                        android:checked="@={viewModel.isAgree}"
                         android:text="@string/read_and_agree" />
 
                     <TextView

@@ -1,6 +1,5 @@
 package com.bonson.qqtapk.view.ui.member;
 
-import android.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
@@ -10,15 +9,15 @@ import com.bonson.qqtapk.databinding.ActivityMemberBinding;
 import com.bonson.qqtapk.view.adapter.MemberAdapter;
 import com.bonson.qqtapk.view.ui.contacts.phone.PhoneFragment;
 import com.bonson.resource.activity.BaseDaggerActivity;
-
 import com.bonson.resource.dialog.ActionSheetDialog;
+
 import javax.inject.Inject;
 
 /**
  * Created by jiangjiancheng on 17/12/31.
  */
 
-public class MemberActivity extends BaseDaggerActivity {
+public class MemberActivity extends BaseDaggerActivity<ActivityMemberBinding> {
     @Inject
     MemberViewModel viewModel;
 
@@ -34,7 +33,10 @@ public class MemberActivity extends BaseDaggerActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ActivityMemberBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_member);
+        setBindingLayout(R.layout.activity_member);
+        binding.setViewModel(viewModel);
+        setViewModel(viewModel);
+
         binding.toolbar.setTitle("家庭成员");
         binding.toolbar.getTvLeft().setOnClickListener(v -> finish());
         binding.toolbar.setRightText("邀请");
@@ -58,12 +60,11 @@ public class MemberActivity extends BaseDaggerActivity {
                     .addToBackStack("member")
                     .commit();
         });
-        binding.setViewModel(viewModel);
-        viewModel.setView(this);
+
         viewModel.members();
     }
 
-    public void delete(int p){
+    public void delete(int p) {
         if (!viewModel.isAdmin(p)) {
             toast("没有权限");
             return;
@@ -72,9 +73,9 @@ public class MemberActivity extends BaseDaggerActivity {
             return;
         }
         new ActionSheetDialog()
-            .setTitle("是否要删除该呼入限制?")
-            .setActionSheet(new String[] {"删除"}, Color.RED)
-            .setOnItemClickListener(position -> viewModel.delete(p))
-            .show(getSupportFragmentManager(),"delete");
+                .setTitle("是否要删除该呼入限制?")
+                .setActionSheet(new String[]{"删除"}, Color.RED)
+                .setOnItemClickListener(position -> viewModel.delete(p))
+                .show(getSupportFragmentManager(), "delete");
     }
 }

@@ -1,8 +1,11 @@
 package com.bonson.qqtapk.view.ui.register;
 
 import android.app.Application;
+import android.databinding.ObservableBoolean;
+import android.databinding.ObservableField;
 import android.text.TextUtils;
 
+import com.bonson.qqtapk.app.Route;
 import com.bonson.qqtapk.di.ActivityScope;
 import com.bonson.qqtapk.model.data.user.UserModel;
 import com.bonson.resource.activity.BaseView;
@@ -18,9 +21,10 @@ import io.reactivex.disposables.Disposable;
  */
 @ActivityScope
 public class RegisterViewModel extends AndroidViewModel {
-    private String mobile, password, verify;
-    private boolean isAgree;
-    private BaseView view;
+    public final ObservableField<String> mobile = new ObservableField<>("");
+    public final ObservableField<String> password = new ObservableField<>("");
+    public final ObservableField<String> verify = new ObservableField<>("");
+    public final ObservableBoolean isAgree = new ObservableBoolean(false);
     @Inject
     UserModel userModel;
 
@@ -29,56 +33,20 @@ public class RegisterViewModel extends AndroidViewModel {
         super(application);
     }
 
-    public String getMobile() {
-        return mobile;
-    }
-
-    public void setMobile(String mobile) {
-        this.mobile = mobile;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getVerify() {
-        return verify;
-    }
-
-    public void setVerify(String verify) {
-        this.verify = verify;
-    }
-
-    public boolean isAgree() {
-        return isAgree;
-    }
-
-    public void setAgree(boolean agree) {
-        isAgree = agree;
-    }
-
-    public void setView(BaseView view) {
-        this.view = view;
-    }
-
     public void register() {
-        if (TextUtils.isEmpty(mobile)) {
+        if (TextUtils.isEmpty(mobile.get())) {
             view.toast("请输入手机号码");
             return;
         }
-        if (TextUtils.isEmpty(password)) {
+        if (TextUtils.isEmpty(password.get())) {
             view.toast("请输入手机密码");
             return;
         }
-        if (TextUtils.isEmpty(verify)) {
+        if (TextUtils.isEmpty(verify.get())) {
             view.toast("请输入手机验证码");
             return;
         }
-        if (!isAgree) {
+        if (!isAgree.get()) {
             view.toast("您还未同意用户协议");
             return;
         }
@@ -86,14 +54,18 @@ public class RegisterViewModel extends AndroidViewModel {
             view.toast("网络不可用");
             return;
         }
-        Disposable disposable = userModel.register(mobile, password, verify)
+        view.load();
+        Disposable disposable = userModel.register(mobile.get(), password.get(), verify.get())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(it -> {
+                    view.dismiss();
                     view.toast(it.getMsg());
                     if (it.getCode().equals("0")) {
-                        view.start("");
+                        view.start(Route.login);
+                        view.back();
                     }
                 }, e -> {
+                    view.dismiss();
                     view.toast("出错了");
                     e.printStackTrace();
                 });

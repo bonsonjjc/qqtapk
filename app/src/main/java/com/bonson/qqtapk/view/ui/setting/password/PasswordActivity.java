@@ -13,15 +13,17 @@ import javax.inject.Inject;
  * Created by jiangjiancheng on 17/12/31.
  */
 
-public class PasswordActivity extends BaseDaggerActivity {
+public class PasswordActivity extends BaseDaggerActivity<ActivityPasswordBinding> {
     @Inject
     PasswordViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ActivityPasswordBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_password);
+        setBindingLayout(R.layout.activity_password);
         binding.setViewModel(viewModel);
+        setViewModel(viewModel);
+
         binding.toolbar.setTitle("修改密码");
         binding.toolbar.getTvLeft().setOnClickListener(v -> {
             finish();
@@ -30,6 +32,5 @@ public class PasswordActivity extends BaseDaggerActivity {
         binding.toolbar.getTvRight().setOnClickListener(v -> {
             viewModel.modify();
         });
-        viewModel.setView(this);
     }
 }

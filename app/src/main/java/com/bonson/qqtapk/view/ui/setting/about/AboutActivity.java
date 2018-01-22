@@ -14,20 +14,21 @@ import javax.inject.Inject;
  * Created by jiangjiancheng on 18/1/7.
  */
 
-public class AboutActivity extends BaseDaggerActivity {
+public class AboutActivity extends BaseDaggerActivity<ActivityAboutBinding> {
     @Inject
     AboutViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ActivityAboutBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_about);
+        setBindingLayout(R.layout.activity_about);
+        binding.setViewModel(viewModel);
+        setViewModel(viewModel);
+
         binding.toolbar.setTitle("关于我们");
         binding.toolbar.getTvLeft().setOnClickListener(v -> {
             finish();
         });
-        binding.setViewModel(viewModel);
-        viewModel.setView(this);
     }
 
     public void itemClick(View view) {

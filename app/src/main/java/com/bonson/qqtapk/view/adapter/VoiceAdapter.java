@@ -14,7 +14,10 @@ import com.bonson.resource.adapter.ViewHolder;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 public class VoiceAdapter extends BaseAdapter<Voice, ViewDataBinding> {
+    @Inject
     public VoiceAdapter(Context context) {
         super(context);
     }

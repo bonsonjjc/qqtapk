@@ -13,29 +13,20 @@ import javax.inject.Inject;
  * Created by jiangjiancheng on 17/12/31.
  */
 
-public class RouteActivity extends BaseDaggerActivity {
+public class RouteActivity extends BaseDaggerActivity<ActivityRouteBinding> {
     @Inject
     RouteViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ActivityRouteBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_route);
+        setBindingLayout(R.layout.activity_route);
         binding.setViewModel(viewModel);
-        binding.toolbar.setTitle("路径查询");
-        binding.toolbar.getTvLeft().setOnClickListener(view -> {
-            finish();
-        });
-        binding.toolbar.getTvTitle().setOnClickListener(view -> {
-            toast("显示对话框");
-        });
-        viewModel.setView(this);
-        viewModel.routes("", "");
-    }
+        setViewModel(viewModel);
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        viewModel.onDestroy();
+        binding.toolbar.setTitle("路径查询");
+        binding.toolbar.getTvLeft().setOnClickListener(view -> finish());
+        binding.toolbar.getTvTitle().setOnClickListener(view -> toast("显示对话框"));
+        viewModel.routes("", "");
     }
 }

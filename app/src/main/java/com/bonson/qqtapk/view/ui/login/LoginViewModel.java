@@ -1,6 +1,8 @@
 package com.bonson.qqtapk.view.ui.login;
 
 import android.app.Application;
+import android.arch.lifecycle.Lifecycle;
+import android.arch.lifecycle.OnLifecycleEvent;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.text.TextUtils;
@@ -25,27 +27,14 @@ public class LoginViewModel extends AndroidViewModel {
     public ObservableField<String> password = new ObservableField<>("");
     public ObservableBoolean enable = new ObservableBoolean(true);
     public ObservableBoolean auto = new ObservableBoolean(false);
-    private String token;
-    private BaseView view;
+    public String token="";
 
     private UserModel userModel;
 
     @Inject
-    LoginViewModel(Application application, UserModel userModel) {
+    public LoginViewModel(Application application, UserModel userModel) {
         super(application);
         this.userModel = userModel;
-    }
-
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
-    }
-
-    public void setView(BaseView view) {
-        this.view = view;
     }
 
     public void login() {
@@ -84,6 +73,7 @@ public class LoginViewModel extends AndroidViewModel {
         compositeDisposable.add(disposable);
     }
 
+    @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     void init() {
         User user = userModel.getUser();
         if (user == null) {

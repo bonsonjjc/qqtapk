@@ -42,6 +42,7 @@ public class SelectFragment extends BaseFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         FragmentSelectBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_select, container, false);
         binding.setViewModel(viewModel);
+        setViewModel(viewModel);
         binding.toolbar.getTvLeft().setOnClickListener(v -> back());
         binding.recSelect.setAdapter(adapter);
         binding.recSelect.addItemDecoration(itemDecoration);

@@ -40,10 +40,4 @@ public abstract class CenterModule {
         }
         return messages;
     }
-
-    @ActivityScope
-    @Provides
-    static CenterAdapter providesAdapter(Context context) {
-        return new CenterAdapter(context);
-    }
 }

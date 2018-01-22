@@ -27,8 +27,6 @@ public class FamilyViewModel extends AndroidViewModel {
     @Inject
     FamilyModelDataSource familyModel;
 
-    private BaseView view;
-
     private PhoneViewModel viewModel;
 
     @Inject
@@ -36,12 +34,6 @@ public class FamilyViewModel extends AndroidViewModel {
         super(application);
         this.viewModel = viewModel;
     }
-
-    public void setView(BaseView view) {
-        this.view = view;
-        viewModel.setView(view);
-    }
-
 
     public PhoneViewModel updateViewModel(int position) {
         Family family = families.get(position);

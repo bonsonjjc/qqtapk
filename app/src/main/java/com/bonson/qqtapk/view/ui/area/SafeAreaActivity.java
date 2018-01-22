@@ -1,10 +1,7 @@
 package com.bonson.qqtapk.view.ui.area;
 
-import android.databinding.DataBindingUtil;
 import android.databinding.Observable;
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.SeekBar;
 
 import com.baidu.mapapi.map.Circle;
 import com.baidu.mapapi.map.CircleOptions;
@@ -21,7 +18,7 @@ import javax.inject.Inject;
  * Created by jiangjiancheng on 17/12/31.
  */
 
-public class SafeAreaActivity extends BaseDaggerActivity {
+public class SafeAreaActivity extends BaseDaggerActivity<ActivitySafeAreaBinding> {
     @Inject
     SafeAreaViewModel viewModel;
     Circle overlay;
@@ -29,13 +26,14 @@ public class SafeAreaActivity extends BaseDaggerActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ActivitySafeAreaBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_safe_area);
-        binding.toolbar.getTvLeft().setOnClickListener(view -> finish());
+        setBindingLayout(R.layout.activity_safe_area);
+        binding.setViewModel(viewModel);
+        setViewModel(viewModel);
+
+        binding.toolbar.getTvLeft().setOnClickListener(view -> back());
         binding.toolbar.setTitle("安全区域");
         binding.toolbar.setRightText("保存");
         binding.toolbar.getTvRight().setOnClickListener(v -> viewModel.save());
-        binding.setViewModel(viewModel);
-        viewModel.setView(this);
         Observable.OnPropertyChangedCallback propertyChangedCallback = new Observable.OnPropertyChangedCallback() {
             @Override
             public void onPropertyChanged(Observable sender, int propertyId) {

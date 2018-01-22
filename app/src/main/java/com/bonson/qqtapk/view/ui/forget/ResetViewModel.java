@@ -1,11 +1,13 @@
 package com.bonson.qqtapk.view.ui.forget;
 
 import android.app.Application;
+import android.databinding.ObservableField;
 import android.text.TextUtils;
 
 import com.bonson.qqtapk.di.ActivityScope;
 import com.bonson.qqtapk.model.data.user.UserModel;
 import com.bonson.resource.activity.BaseView;
+import com.bonson.resource.fragment.OnSaveListener;
 import com.bonson.resource.viewmodel.AndroidViewModel;
 
 import javax.inject.Inject;
@@ -18,62 +20,30 @@ import io.reactivex.disposables.Disposable;
  */
 @ActivityScope
 public class ResetViewModel extends AndroidViewModel {
-    @Inject
-    UserModel userModel;
-    BaseView view;
-    private String mobile, password, newPassword;
+    public final ObservableField<String> mobile = new ObservableField<>("");
+    public final ObservableField<String> password = new ObservableField<>("");
+    public final ObservableField<String> newPassword = new ObservableField<>("");
 
     @Inject
-    ResetViewModel(Application application) {
+    public ResetViewModel(Application application) {
         super(application);
     }
 
-    public void setView(BaseView view) {
-        this.view = view;
-    }
-
-    public String getMobile() {
-        return mobile;
-    }
-
-    public void setMobile(String mobile) {
-        this.mobile = mobile;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getNewPassword() {
-        return newPassword;
-    }
-
-    public void setNewPassword(String newPassword) {
-        this.newPassword = newPassword;
-    }
 
     public void reset() {
-        if (TextUtils.isEmpty(mobile)) {
-            view.toast("请输入手机号码");
-            return;
-        }
-        if (TextUtils.isEmpty(password)) {
+        if (TextUtils.isEmpty(password.get())) {
             view.toast("请输入新密码");
             return;
         }
-        if (!password.matches("^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,16}$")) {
+        if (!password.get().matches("^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,16}$")) {
             view.toast("密码必须为(8到16位的数字+字母的组合)");
             return;
         }
-        if (TextUtils.isEmpty(newPassword)) {
+        if (TextUtils.isEmpty(newPassword.get())) {
             view.toast("再次输入新密码");
             return;
         }
-        if (!newPassword.matches("^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,16}$")) {
+        if (!newPassword.get().matches("^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,16}$")) {
             view.toast("密码必须为(8到16位的数字+字母的组合)");
             return;
         }
@@ -81,21 +51,14 @@ public class ResetViewModel extends AndroidViewModel {
             view.toast("两次密码不一至");
             return;
         }
-        if (!isNetWork()) {
-            view.toast("网络不可用");
-            return;
+        if (onSaveListener != null) {
+            onSaveListener.onSave();
         }
-        Disposable disposable = userModel.resetPassword(mobile, password)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(it -> {
-                    view.toast(it.getMsg());
-                    if (it.getCode().equals("0")) {
-                        view.start("finish");
-                    }
-                }, e -> {
-                    view.toast("出错了");
-                    e.printStackTrace();
-                });
-        compositeDisposable.add(disposable);
+    }
+
+    private OnSaveListener onSaveListener;
+
+    public void setOnSaveListener(OnSaveListener onSaveListener) {
+        this.onSaveListener = onSaveListener;
     }
 }

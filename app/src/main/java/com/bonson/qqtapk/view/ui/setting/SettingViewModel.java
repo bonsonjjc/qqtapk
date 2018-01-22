@@ -26,8 +26,6 @@ import io.reactivex.schedulers.Schedulers;
 public class SettingViewModel extends AndroidViewModel {
     public ObservableField<String> mobile = new ObservableField<>("");
 
-    private BaseView view;
-
     private UserModel userModel;
 
     @Inject
@@ -38,14 +36,6 @@ public class SettingViewModel extends AndroidViewModel {
         super(application);
         this.userModel = userModel;
         mobile.set(User.user.getMobile());
-    }
-
-    public void setView(BaseView view) {
-        this.view = view;
-    }
-
-    public void setSettingModel(SettingModel settingModel) {
-        this.settingModel = settingModel;
     }
 
     public void serverToken() {

@@ -1,6 +1,7 @@
 package com.bonson.qqtapk.view.ui.forget;
 
 import android.app.Application;
+import android.databinding.ObservableField;
 import android.text.TextUtils;
 
 import com.bonson.qqtapk.di.ActivityScope;
@@ -18,46 +19,30 @@ import io.reactivex.disposables.Disposable;
  */
 @ActivityScope
 public class ForgetViewModel extends AndroidViewModel {
-    private String mobile, verify;
-    private BaseView view;
+    public ObservableField<String> mobile = new ObservableField<>("");
+    public ObservableField<String> verify = new ObservableField<>("");
     @Inject
     UserModel userModel;
 
     @Inject
-    ForgetViewModel(Application application) {
+    ResetViewModel viewModel;
+
+    @Inject
+    public ForgetViewModel(Application application) {
         super(application);
     }
 
-    public void setView(BaseView view) {
-        this.view = view;
-    }
-
-    public String getMobile() {
-        return mobile;
-    }
-
-    public void setMobile(String mobile) {
-        this.mobile = mobile;
-    }
-
-    public String getVerify() {
-        return verify;
-    }
-
-    public void setVerify(String verify) {
-        this.verify = verify;
-    }
-
     public void forget() {
-        if (TextUtils.isEmpty(mobile)) {
+        if (TextUtils.isEmpty(mobile.get())) {
             view.toast("请输入手机号码");
             return;
         }
-        if (TextUtils.isEmpty(verify)) {
+        if (TextUtils.isEmpty(verify.get())) {
             view.toast("请输入验证码");
             return;
         }
-        Disposable disposable = userModel.forget(mobile, verify)
+        viewModel.mobile.set(mobile.get());
+        Disposable disposable = userModel.forget(mobile.get(), verify.get())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(it -> {
                     view.toast(it.getMsg());
@@ -65,6 +50,28 @@ public class ForgetViewModel extends AndroidViewModel {
                         view.start("");
                     }
                 }, e -> {
+                    view.toast("出错了");
+                    e.printStackTrace();
+                });
+        compositeDisposable.add(disposable);
+    }
+
+    public void reset() {
+        if (!isNetWork()) {
+            view.toast("网络不可用");
+            return;
+        }
+        view.load();
+        Disposable disposable = userModel.resetPassword(mobile.get(), viewModel.password.get())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(it -> {
+                    view.dismiss();
+                    view.toast(it.getMsg());
+                    if (it.getCode().equals("0")) {
+                        view.back();
+                    }
+                }, e -> {
+                    view.dismiss();
                     view.toast("出错了");
                     e.printStackTrace();
                 });

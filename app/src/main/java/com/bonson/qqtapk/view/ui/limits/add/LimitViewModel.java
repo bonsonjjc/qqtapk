@@ -22,7 +22,6 @@ public class LimitViewModel extends AndroidViewModel {
         super(application);
     }
 
-    private BaseView view;
 
     @Bindable
     public Limit getLimit() {
@@ -32,10 +31,6 @@ public class LimitViewModel extends AndroidViewModel {
     public void setLimit(Limit limit) {
         this.limit = limit;
         notifyPropertyChanged(BR.limit);
-    }
-
-    public void setView(BaseView view) {
-        this.view = view;
     }
 
     public void delete() {

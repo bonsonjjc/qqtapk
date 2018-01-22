@@ -4,6 +4,7 @@ import android.app.Application;
 import android.databinding.ObservableArrayList;
 import android.databinding.ObservableField;
 import android.databinding.ObservableInt;
+import android.databinding.ObservableList;
 import android.text.TextUtils;
 
 import com.bonson.qqtapk.di.ActivityScope;
@@ -25,25 +26,19 @@ import io.reactivex.disposables.Disposable;
  */
 @ActivityScope
 public class FlowerViewModel extends AndroidViewModel {
-    public List<Flower> flowers = new ObservableArrayList<>();
+    public final ObservableList<Flower> flowers = new ObservableArrayList<>();
 
-    public ObservableInt flowerCount = new ObservableInt(0);
+    public final ObservableInt flowerCount = new ObservableInt(0);
 
-    public ObservableField<String> desc = new ObservableField<>("");
-    public ObservableField<String> count = new ObservableField<>("");
+    public final ObservableField<String> desc = new ObservableField<>("");
+    public final ObservableField<String> count = new ObservableField<>("");
 
     private FlowerModel flowerModel;
 
-    private BaseView view;
-
     @Inject
-    FlowerViewModel(Application application, FlowerModel flowerModel) {
+    public FlowerViewModel(Application application, FlowerModel flowerModel) {
         super(application);
         this.flowerModel = flowerModel;
-    }
-
-    public void setView(BaseView view) {
-        this.view = view;
     }
 
     public void flowers(int start, int pagerSize) {
@@ -74,15 +69,18 @@ public class FlowerViewModel extends AndroidViewModel {
             return;
         }
         Flower flower = create("1");
-        Disposable disposable =
-                flowerModel.pull(flower).observeOn(AndroidSchedulers.mainThread()).subscribe(it -> {
+        view.load();
+        Disposable disposable = flowerModel.pull(flower)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(it -> {
+                    view.dismiss();
                     view.toast(it.getMsg());
                     if (it.getCode().equals("0")) {
                         view.toast("奖励" + it.getMsg());
                         flowers.add(flower);
-                        notifyChange();
                     }
                 }, e -> {
+                    view.dismiss();
                     view.toast("出错了");
                 });
         compositeDisposable.add(disposable);
@@ -120,15 +118,18 @@ public class FlowerViewModel extends AndroidViewModel {
             return;
         }
         Flower flower = create("2");
-        Disposable disposable =
-                flowerModel.pull(flower).observeOn(AndroidSchedulers.mainThread()).subscribe(it -> {
+        view.load();
+        Disposable disposable = flowerModel.pull(flower)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(it -> {
+                    view.dismiss();
                     view.toast(it.getMsg());
                     if (it.getCode().equals("0")) {
                         flowers.add(flower);
                         view.toast("惩罚" + it.getMsg());
-                        notifyChange();
                     }
                 }, e -> {
+                    view.dismiss();
                     view.toast("出错了");
                 });
         compositeDisposable.add(disposable);

@@ -1,6 +1,5 @@
 package com.bonson.qqtapk.view.ui.family;
 
-import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 
 import com.bonson.qqtapk.R;
@@ -19,7 +18,7 @@ import javax.inject.Inject;
  * Created by jiangjiancheng on 17/12/31.
  */
 
-public class FamilyActivity extends BaseDaggerActivity {
+public class FamilyActivity extends BaseDaggerActivity<ActivityFamilyBinding> {
     @Inject
     FamilyViewModel viewModel;
     @Inject
@@ -34,12 +33,13 @@ public class FamilyActivity extends BaseDaggerActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ActivityFamilyBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_family);
+        setBindingLayout(R.layout.activity_family);
+        binding.setViewModel(viewModel);
+        setViewModel(viewModel);
+
         binding.recNumbers.setAdapter(familyAdapter);
         binding.toolbar.setTitle("亲情号码");
-        binding.toolbar.getTvLeft().setOnClickListener(v -> {
-            finish();
-        });
+        binding.toolbar.getTvLeft().setOnClickListener(v -> finish());
         AdapterDataChangeFactory.create(familyAdapter).attach(viewModel.families);
         familyAdapter.setOnItemClickListener(position -> {
             inputFragment.setViewModel(viewModel.updateViewModel(position));
@@ -49,9 +49,7 @@ public class FamilyActivity extends BaseDaggerActivity {
                     .addToBackStack("family")
                     .commit();
         });
-        viewModel.setView(this);
         viewModel.families.addAll(familyList);
-        binding.setViewModel(viewModel);
         viewModel.families();
     }
 }

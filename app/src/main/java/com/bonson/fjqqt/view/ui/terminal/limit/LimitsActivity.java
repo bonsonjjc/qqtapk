@@ -1,21 +1,20 @@
 package com.bonson.fjqqt.view.ui.terminal.limit;
 
-import android.databinding.DataBindingUtil;
 import android.databinding.Observable;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 
 import com.bonson.qqtapk.R;
 import com.bonson.qqtapk.databinding.ActivityLimitBinding;
-import com.bonson.qqtapk.databinding.ActivityLimitsBinding;
 import com.bonson.qqtapk.view.adapter.LimitAdapter;
+import com.bonson.qqtapk.view.binding.AdapterDataChangeFactory;
 import com.bonson.qqtapk.view.ui.limits.add.LimitFragment;
 import com.bonson.resource.activity.BaseDaggerActivity;
 
 import javax.inject.Inject;
 
 
-public class LimitsActivity extends BaseDaggerActivity {
+public class LimitsActivity extends BaseDaggerActivity<ActivityLimitBinding> {
 
     @Inject
     LimitFragment fragment;
@@ -31,7 +30,10 @@ public class LimitsActivity extends BaseDaggerActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ActivityLimitBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_limit);
+        setBindingLayout(R.layout.activity_limit);
+        binding.setViewModel(viewModel);
+        setViewModel(viewModel);
+
         binding.toolbar.getTvLeft().setOnClickListener(view -> finish());
         binding.toolbar.getTvRight().setOnClickListener(view -> {
             fragment.setViewModel(viewModel.addViewModel());
@@ -43,7 +45,8 @@ public class LimitsActivity extends BaseDaggerActivity {
         });
         binding.recLimits.setAdapter(adapter);
         binding.recLimits.addItemDecoration(itemDecoration);
-        binding.setViewModel(viewModel);
+        AdapterDataChangeFactory.create(adapter).attach(viewModel.limits);
+
         adapter.setOnItemClickListener(position -> {
             fragment.setViewModel(viewModel.updateViewModel(position));
             getSupportFragmentManager()
@@ -52,7 +55,7 @@ public class LimitsActivity extends BaseDaggerActivity {
                     .addToBackStack("limit")
                     .commit();
         });
-        viewModel.setView(this);
+
         viewModel.limits();
         viewModel.open.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
             @Override

@@ -1,6 +1,8 @@
 package com.bonson.qqtapk.view.ui.area;
 
 import android.app.Application;
+import android.arch.lifecycle.Lifecycle;
+import android.arch.lifecycle.OnLifecycleEvent;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.databinding.ObservableInt;
@@ -31,7 +33,6 @@ public class SafeAreaViewModel extends AndroidViewModel {
 
     public ObservableField<String> type = new ObservableField<>("1");
     private SafeAreaDataSource areaModel;
-    private BaseView view;
 
     @Inject
     LocationViewModel viewModel;
@@ -55,7 +56,7 @@ public class SafeAreaViewModel extends AndroidViewModel {
         this.view = view;
         viewModel.setView(view);
     }
-
+    @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     public void init() {
         if (!isNetWork()) {
             view.toast("网络不可用");

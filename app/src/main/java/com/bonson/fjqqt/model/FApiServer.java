@@ -1,5 +1,6 @@
 package com.bonson.fjqqt.model;
 
+import com.bonson.fjqqt.model.bean.RouteTime;
 import com.bonson.fjqqt.view.ui.terminal.alarm.Alarm;
 import com.bonson.fjqqt.model.bean.Info;
 import com.bonson.fjqqt.model.bean.Route;
@@ -39,6 +40,10 @@ public interface FApiServer {
     @FormUrlEncoded
     @POST("qqt3wap")
     Observable<List<Route>> routes(@Field("data") String bean);
+
+    @FormUrlEncoded
+    @POST("qqt3wap")
+    Observable<List<RouteTime>> routeTimes(@Field("data") String bean);
 
     @FormUrlEncoded
     @POST("qqt3wap")

@@ -34,6 +34,7 @@ public class InputFragment extends BaseFragment {
         FragmentInputBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_input, container, false);
         binding.toolbar.getTvLeft().setOnClickListener(v -> back());
         binding.setViewModel(viewModel);
+        setViewModel(viewModel);
         return binding.getRoot();
     }
 

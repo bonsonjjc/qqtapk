@@ -9,6 +9,7 @@ public class RouteTime extends Base {
     private String fbegminutes;
     private String fendminutes;
     private String ftype;
+    private String fctime;
     private String fstate;
 
     public String getFtmobile() {
@@ -65,5 +66,13 @@ public class RouteTime extends Base {
 
     public void setFstate(String fstate) {
         this.fstate = fstate;
+    }
+
+    public String getFctime() {
+        return fctime;
+    }
+
+    public void setFctime(String fctime) {
+        this.fctime = fctime;
     }
 }

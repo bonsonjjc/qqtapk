@@ -25,16 +25,16 @@ public class RouteModel {
         this.routeServer = routeServer;
     }
 
-    public Observable<Result<List<Route>>> times(String mobile) {
+    public Observable<Result<List<RouteTime>>> times(String mobile) {
         Map<String, String> map = new LinkedHashMap<>();
         map.put("action", "CWA005");
         map.put("ftmobile", mobile);
         String json = EncodeUtils.encode(map);
-        return routeServer.routes(json)
+        return routeServer.routeTimes(json)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .map(routes -> {
-                    Result<List<Route>> result = new Result<>();
+                    Result<List<RouteTime>> result = new Result<>();
                     if (routes.isEmpty()) {
                         result.setCode("-1");
                         result.setMsg("没有路径时间列表");
@@ -91,7 +91,7 @@ public class RouteModel {
                         result.setMsg("添加路径时间成功");
                     } else {
                         result.setCode("-1");
-                        result.setMsg(userBean.getMsg());
+                        result.setMsg(userBean.getFmsg());
                     }
                     return result;
                 });
