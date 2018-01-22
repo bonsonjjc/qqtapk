@@ -1,6 +1,5 @@
 package com.bonson.qqtapk.view.ui.route;
 
-import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 
 import com.bonson.qqtapk.R;
@@ -17,6 +16,8 @@ public class RouteActivity extends BaseDaggerActivity<ActivityRouteBinding> {
     @Inject
     RouteViewModel viewModel;
 
+    RouteTimeDialog timeDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,9 +25,16 @@ public class RouteActivity extends BaseDaggerActivity<ActivityRouteBinding> {
         binding.setViewModel(viewModel);
         setViewModel(viewModel);
 
-        binding.toolbar.setTitle("路径查询");
         binding.toolbar.getTvLeft().setOnClickListener(view -> finish());
-        binding.toolbar.getTvTitle().setOnClickListener(view -> toast("显示对话框"));
+        binding.toolbar.getTvTitle().setOnClickListener(view -> {
+            if (timeDialog == null) {
+                timeDialog = new RouteTimeDialog();
+            }
+            if (!timeDialog.isShowing()) {
+                timeDialog.show(getSupportFragmentManager(), "time");
+            }
+        });
         viewModel.routes("", "");
+
     }
 }

@@ -1,6 +1,5 @@
 package com.bonson.fjqqt.view.ui.route.time;
 
-import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -37,33 +36,36 @@ public class AddTimeFragment extends BaseFragment<FragmentAddRouteTimeBinding> {
         binding.setViewModel(viewModel);
         setViewModel(viewModel);
 
-        binding.tvTime.setOnClickListener(v -> {
-            if (dialog == null) {
-                dialog = new TimePickerDialog();
-            }
-            dialog.setValue(viewModel.routeTime.getFbeghours(), viewModel.routeTime.getFbegminutes(), viewModel.routeTime.getFendhours(), viewModel.routeTime.getFendminutes());
-            dialog.setOnSaveListener((startHour, startMinute, endHour, endMinute) -> {
-                String start = startHour + ":" + startMinute;
-                String end = endHour + ":" + endMinute;
-                int s = NumberUtils.parseInt(startHour + startMinute);
-                int e = NumberUtils.parseInt(endHour + endMinute);
-                if (s > e) {
-                    toast("开始时间不能大于结束时间");
-                    return;
-                }
-                if (e - s > 120) {
-                    toast("设置的最长时间不能超过2小时");
-                    return;
-                }
-                viewModel.routeTime.setFbeghours(startHour);
-                viewModel.routeTime.setFbegminutes(startMinute);
-                viewModel.routeTime.setFendhours(endHour);
-                viewModel.routeTime.setFendminutes(endMinute);
-                viewModel.time.set(start + "~" + end);
-                dialog.dismiss();
-            });
-            dialog.show(getFragmentManager(), "time");
-        });
+        binding.toolbar.getTvLeft().setOnClickListener(v -> back());
+        binding.tvTime.setOnClickListener(v -> showTime());
         return binding.getRoot();
+    }
+
+    private void showTime() {
+        if (dialog == null) {
+            dialog = new TimePickerDialog();
+        }
+        dialog.setValue(viewModel.routeTime.getFbeghours(), viewModel.routeTime.getFbegminutes(), viewModel.routeTime.getFendhours(), viewModel.routeTime.getFendminutes());
+        dialog.setOnSaveListener((startHour, startMinute, endHour, endMinute) -> {
+            String start = startHour + ":" + startMinute;
+            String end = endHour + ":" + endMinute;
+            int s = NumberUtils.parseInt(startHour + startMinute);
+            int e = NumberUtils.parseInt(endHour + endMinute);
+            if (s > e) {
+                toast("开始时间不能大于结束时间");
+                return;
+            }
+            if (e - s > 120) {
+                toast("设置的最长时间不能超过2小时");
+                return;
+            }
+            viewModel.routeTime.setFbeghours(startHour);
+            viewModel.routeTime.setFbegminutes(startMinute);
+            viewModel.routeTime.setFendhours(endHour);
+            viewModel.routeTime.setFendminutes(endMinute);
+            viewModel.time.set(start + "~" + end);
+            dialog.dismiss();
+        });
+        dialog.show(getFragmentManager(), "time");
     }
 }

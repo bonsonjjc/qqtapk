@@ -1,11 +1,5 @@
 package com.bonson.qqtapk.di;
 
-import android.content.Context;
-import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.RecyclerView;
-
-import com.bonson.fjqqt.di.FjqqtScope;
-import com.bonson.fjqqt.model.FApiServer;
 import com.bonson.qqtapk.app.Const;
 import com.bonson.qqtapk.model.data.ApiServer;
 import com.bonson.resource.http.qqtconvert.QQTConverterFactory;
@@ -13,9 +7,7 @@ import com.google.gson.Gson;
 
 import dagger.Module;
 import dagger.Provides;
-import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
 /**
  * Created by zjw on 2018/1/4.
@@ -23,27 +15,12 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 @Module
 public abstract class RetrofitModule {
 
-    @Provides
     @ActivityScope
+    @Provides
     static ApiServer providesApiServer(Retrofit.Builder builder) {
         Retrofit temp = builder.baseUrl(Const.API_PATH)
                 .addConverterFactory(QQTConverterFactory.create(new Gson()))
                 .build();
         return temp.create(ApiServer.class);
-    }
-
-    @Provides
-    @ActivityScope
-    static FApiServer providesFApiServer(Retrofit.Builder builder) {
-        Retrofit temp = builder.baseUrl(Const.QQT_PATH)
-                .addConverterFactory(QQTConverterFactory.create(new Gson()))
-                .build();
-        return temp.create(FApiServer.class);
-    }
-
-    @Provides
-    @ActivityScope
-    static RecyclerView.ItemDecoration itemDecoration(Context context) {
-        return new DividerItemDecoration(context, DividerItemDecoration.VERTICAL);
     }
 }

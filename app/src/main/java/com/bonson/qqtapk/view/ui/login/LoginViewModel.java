@@ -7,11 +7,10 @@ import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.text.TextUtils;
 
-import com.bonson.fjqqt.model.data.UserModel;
-import com.bonson.qqtapk.app.Route;
-import com.bonson.qqtapk.model.bean.User;
 import com.bonson.library.utils.security.Md5Utils;
-import com.bonson.resource.activity.BaseView;
+import com.bonson.qqtapk.app.Route;
+import com.bonson.qqtapk.di.ActivityScope;
+import com.bonson.qqtapk.model.bean.User;
 import com.bonson.resource.viewmodel.AndroidViewModel;
 
 import javax.inject.Inject;
@@ -22,19 +21,21 @@ import io.reactivex.disposables.Disposable;
 /**
  * Created by zjw on 2017/12/29.
  */
+@ActivityScope
 public class LoginViewModel extends AndroidViewModel {
-    public ObservableField<String> mobile = new ObservableField<>("");
-    public ObservableField<String> password = new ObservableField<>("");
-    public ObservableBoolean enable = new ObservableBoolean(true);
-    public ObservableBoolean auto = new ObservableBoolean(false);
-    public String token="";
+    public final ObservableField<String> mobile = new ObservableField<>("");
+    public final ObservableField<String> password = new ObservableField<>("");
+    public final ObservableBoolean enable = new ObservableBoolean(true);
+    public final ObservableBoolean auto = new ObservableBoolean(false);
+    public String token = "";
+    public User user;
 
-    private UserModel userModel;
+    private LoginServer loginServer;
 
     @Inject
-    public LoginViewModel(Application application, UserModel userModel) {
+    public LoginViewModel(Application application, LoginServer loginServer) {
         super(application);
-        this.userModel = userModel;
+        this.loginServer = loginServer;
     }
 
     public void login() {
@@ -52,8 +53,12 @@ public class LoginViewModel extends AndroidViewModel {
         }
         view.load();
         enable.set(false);
-        String pwd = password.get().length() == 32 ? password.get() : Md5Utils.toMD5(password.get());
-        Disposable disposable = userModel.login(mobile.get(), pwd, token, auto.get())
+        String pwd = user.getPassword().length() == 32 ? password.get() : Md5Utils.toMD5(password.get());
+        user.setPassword(pwd);
+        user.setMobile(mobile.get());
+        user.setAuto(auto.get());
+        user.setToken(token);
+        Disposable disposable = loginServer.login(user)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(result -> {
                     view.dismiss();
@@ -75,13 +80,17 @@ public class LoginViewModel extends AndroidViewModel {
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     void init() {
-        User user = userModel.getUser();
+        user = loginServer.getUser();
         if (user == null) {
+            user = new User();
+            user.setMobile("");
+            user.setAuto(false);
+            user.setToken("");
             return;
         }
-        mobile.set(user.getMobile());
-        auto.set(user.getAuto());
-        password.set(auto.get() ? user.getPassword() : "");
         token = user.getToken();
+        mobile.set(user.getMobile());
+        password.set(user.getPassword());
+        auto.set(user.getAuto());
     }
 }

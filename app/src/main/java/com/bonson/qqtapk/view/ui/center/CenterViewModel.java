@@ -6,6 +6,7 @@ import android.databinding.ObservableArrayList;
 import android.databinding.ObservableList;
 
 import com.bonson.qqtapk.BR;
+import com.bonson.qqtapk.model.bean.Baby;
 import com.bonson.qqtapk.model.bean.Message;
 import com.bonson.qqtapk.model.data.center.MessageModel;
 import com.bonson.resource.activity.BaseView;
@@ -34,7 +35,7 @@ public class CenterViewModel extends AndroidViewModel {
             view.toast("网络不可用");
             return;
         }
-        Disposable disposable = messageModel.message()
+        Disposable disposable = messageModel.message(Baby.baby.getFid())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(it -> {
                     if (it.getCode().equals("0")) {

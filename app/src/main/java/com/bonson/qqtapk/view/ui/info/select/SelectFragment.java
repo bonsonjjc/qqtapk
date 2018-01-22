@@ -4,6 +4,7 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,8 +20,7 @@ import javax.inject.Inject;
 
 
 @ActivityScope
-public class SelectFragment extends BaseFragment {
-
+public class SelectFragment extends BaseFragment<FragmentSelectBinding> {
     @Inject
     SelectAdapter adapter;
 
@@ -40,9 +40,10 @@ public class SelectFragment extends BaseFragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        FragmentSelectBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_select, container, false);
+        setBindingLayout(inflater, R.layout.fragment_select, container);
         binding.setViewModel(viewModel);
         setViewModel(viewModel);
+
         binding.toolbar.getTvLeft().setOnClickListener(v -> back());
         binding.recSelect.setAdapter(adapter);
         binding.recSelect.addItemDecoration(itemDecoration);

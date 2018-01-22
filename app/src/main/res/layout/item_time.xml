@@ -5,7 +5,7 @@
     <data>
 
         <variable
-            name="routeTime"
+            name="data"
             type="com.bonson.fjqqt.model.bean.RouteTime" />
     </data>
 
@@ -23,7 +23,7 @@
             android:drawableEnd="@drawable/ico_arrow_right"
             android:drawableRight="@drawable/ico_arrow_right"
             android:gravity="center_vertical"
-            android:text="@{routeTime.fctime}"
+            android:text="@{data.fctime}"
             android:textColor="@color/black"
             android:textSize="14.6sp"
             tools:text="名称" />

@@ -27,7 +27,7 @@ import okhttp3.RequestBody;
  * Created by jiangjiancheng on 18/1/8.
  */
 
-public class VoiceModel {
+public class VoiceModel implements VoiceDataSource {
     private ApiServer voiceServer;
 
     private UploadServer uploadServer;
@@ -40,6 +40,7 @@ public class VoiceModel {
         this.uploadServer = uploadServer;
     }
 
+    @Override
     public Observable<Result<List<Voice>>> voices(String fuser, String bid, int start, int pageSize) {
         Map<String, String> map = new LinkedHashMap<>();
         map.put("fuser", fuser);
@@ -71,6 +72,7 @@ public class VoiceModel {
                 });
     }
 
+    @Override
     public Observable<Result<String>> upload(File file) {
         String time = DateUtils.format(new Date(), "yyyyMMddHHmmss");
         String token = Md5Utils.toMD5(time + Md5Utils.toMD5("BonsonJva"));
@@ -95,6 +97,7 @@ public class VoiceModel {
 
     }
 
+    @Override
     public Observable<Result<String>> addVoice(Voice voice) {
         Map<String, String> body = new LinkedHashMap<>();
         body.put("ftype", voice.getFtype());

@@ -9,6 +9,7 @@ import com.bonson.fjqqt.view.ui.terminal.timer.Timer;
 import com.bonson.qqtapk.model.bean.Base;
 import com.bonson.qqtapk.model.bean.Family;
 import com.bonson.qqtapk.model.bean.Lesson;
+import com.bonson.qqtapk.model.bean.Limit;
 import com.bonson.qqtapk.model.bean.Location;
 import com.bonson.qqtapk.model.bean.SafeArea;
 import com.bonson.qqtapk.model.bean.UserBean;
@@ -52,6 +53,10 @@ public interface FApiServer {
     @FormUrlEncoded
     @POST("qqt3wap")
     Observable<List<Family>> families(@Field("data") String bean);
+
+    @FormUrlEncoded
+    @POST("qqt3wap")
+    Observable<List<Limit>> limits(@Field("data") String bean);
 
     @FormUrlEncoded
     @POST("qqt3wap")

@@ -7,6 +7,7 @@ import android.databinding.ObservableList;
 import android.text.TextUtils;
 
 import com.bonson.fjqqt.view.ui.terminal.alarm.add.AddAlarmViewModel;
+import com.bonson.qqtapk.di.ActivityScope;
 import com.bonson.qqtapk.model.bean.Baby;
 import com.bonson.resource.activity.BaseView;
 import com.bonson.resource.viewmodel.AndroidViewModel;
@@ -18,7 +19,7 @@ import javax.inject.Inject;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 
-
+@ActivityScope
 public class AlarmViewModel extends AndroidViewModel {
     public final ObservableList<Alarm> alarms = new ObservableArrayList<>();
     @Inject
@@ -47,14 +48,6 @@ public class AlarmViewModel extends AndroidViewModel {
                     if (it.getCode().equals("0")) {
                         alarms.clear();
                         alarms.addAll(it.getBody());
-                    } else {
-                        Alarm alarm = new Alarm();
-                        alarm.setFcycle("1!2!3!4!5");
-                        alarm.setFtimes("12:33");
-                        alarm.setFcontent(AlarmUtils.notifyTypes[3]);
-                        alarm.setFstate("1");
-                        alarm.setFid("666666");
-                        alarms.add(alarm);
                     }
                 }, e -> {
                     view.toast("出错了");

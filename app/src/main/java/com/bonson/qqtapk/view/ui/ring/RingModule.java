@@ -2,6 +2,8 @@ package com.bonson.qqtapk.view.ui.ring;
 
 import android.content.Context;
 import android.databinding.ObservableArrayList;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.RecyclerView;
 
 import com.bonson.qqtapk.R;
 import com.bonson.qqtapk.di.ActivityScope;
@@ -33,10 +35,6 @@ public abstract class RingModule {
     @Binds
     abstract AndroidViewModel selectViewModel(SelectViewModel selectViewModel);
 
-    @FragmentScope
-    @ContributesAndroidInjector
-    abstract SelectFragment selectFragment();
-
     @ActivityScope
     @Provides
     static PlayerUtils providesPlayer(Context context) {
@@ -56,4 +54,14 @@ public abstract class RingModule {
         selects.add(new Select("铃声7", false, R.raw.r10, "10"));
         return selects;
     }
+
+    @ActivityScope
+    @Provides
+    static RecyclerView.ItemDecoration itemDecoration(Context context) {
+        return new DividerItemDecoration(context, DividerItemDecoration.VERTICAL);
+    }
+
+    @FragmentScope
+    @ContributesAndroidInjector
+    abstract SelectFragment selectFragment();
 }

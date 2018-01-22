@@ -14,7 +14,7 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
-public class MessageModel {
+public class MessageModel implements MessageDataSource {
     private ApiServer apiServer;
 
     @Inject
@@ -22,8 +22,10 @@ public class MessageModel {
         this.apiServer = apiServer;
     }
 
-    public Observable<Result<List<Message>>> message() {
+    @Override
+    public Observable<Result<List<Message>>> message(String bid) {
         Map<String, String> map = new LinkedHashMap<>();
+        map.put("fbid", bid);
         Object body = QQtBuilder.build("11", map);
         return apiServer.messages(body)
                 .subscribeOn(Schedulers.io())

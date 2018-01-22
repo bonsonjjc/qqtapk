@@ -21,14 +21,15 @@ import io.reactivex.schedulers.Schedulers;
  * Created by zjw on 2018/1/5.
  */
 
-public class ContactsModel {
+public class ContactsModel implements ContactDataSource {
     private ApiServer contactsServer;
 
     @Inject
-    ContactsModel(ApiServer contactsServer) {
+    public ContactsModel(ApiServer contactsServer) {
         this.contactsServer = contactsServer;
     }
 
+    @Override
     public Observable<Result<List<Contact>>> contacts(String bid, int start, int pageSize) {
         Map<String, String> map = new LinkedHashMap<>();
         map.put("fid", bid);
@@ -81,19 +82,23 @@ public class ContactsModel {
                 });
     }
 
+    @Override
     public Observable<Result<Contact>> add(Contact contacts) {
         return set("1", contacts);
     }
 
 
+    @Override
     public Observable<Result<Contact>> update(Contact contacts) {
         return set("3", contacts);
     }
 
+    @Override
     public Observable<Result<Contact>> delete(Contact contacts) {
         return set("2", contacts);
     }
 
+    @Override
     public Observable<Result<Base>> add(String bid, List<Contact> list) {
         StringBuilder builder = new StringBuilder();
         for (Contact contact : list) {

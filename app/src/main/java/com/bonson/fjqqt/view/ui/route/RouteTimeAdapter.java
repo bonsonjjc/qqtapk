@@ -29,7 +29,7 @@ public class RouteTimeAdapter extends BaseAdapter<RouteTime, ItemTimeBinding> {
     public void onBindViewHolder(ViewHolder<ItemTimeBinding> holder, int position) {
         RouteTime route = beans.get(position);
         ItemTimeBinding binding = holder.getBinding();
-        binding.setRouteTime(route);
+        binding.setData(route);
         binding.executePendingBindings();
 
         binding.getRoot().setOnClickListener(v -> {

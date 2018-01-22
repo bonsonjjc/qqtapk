@@ -2,8 +2,10 @@ package com.bonson.qqtapk.view.ui.route;
 
 import android.app.Application;
 import android.databinding.ObservableArrayList;
+import android.databinding.ObservableField;
 import android.databinding.ObservableList;
 
+import com.bonson.library.utils.DateUtils;
 import com.bonson.qqtapk.di.ActivityScope;
 import com.bonson.qqtapk.model.bean.Baby;
 import com.bonson.qqtapk.model.bean.Route;
@@ -11,6 +13,7 @@ import com.bonson.qqtapk.model.data.route.RouteModel;
 import com.bonson.resource.activity.BaseView;
 import com.bonson.resource.viewmodel.AndroidViewModel;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -24,7 +27,7 @@ import io.reactivex.disposables.Disposable;
 @ActivityScope
 public class RouteViewModel extends AndroidViewModel {
     public final ObservableList<Route> routes = new ObservableArrayList<>();
-
+    public final ObservableField<String> title = new ObservableField<>(DateUtils.format(new Date(), "yyyy-MM-dd"));
     private RouteModel routeModel;
 
     @Inject

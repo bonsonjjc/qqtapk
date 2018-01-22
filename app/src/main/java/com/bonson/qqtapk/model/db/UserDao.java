@@ -18,12 +18,8 @@ import io.reactivex.Flowable;
 
 @Dao
 public interface UserDao {
-
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     long insert(User user);
-//
-//    @Query("select * from users where userId = :id")
-//    User getById(String id);
 
     @Query("select * from users")
     User user();

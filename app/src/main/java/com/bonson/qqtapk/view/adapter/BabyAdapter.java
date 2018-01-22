@@ -13,8 +13,11 @@ import com.bonson.resource.adapter.ViewHolder;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 public class BabyAdapter extends BaseAdapter<Baby, ItemBabyBinding> {
 
+    @Inject
     public BabyAdapter(Context context) {
         super(context);
     }

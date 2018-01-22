@@ -30,7 +30,6 @@
                 android:drawableLeft="@drawable/back_selector"
                 android:drawableStart="@drawable/back_selector"
                 android:gravity="center_vertical"
-                android:onClick="@{(v)->viewModel.view.back()}"
                 android:text="@string/back"
                 android:textColor="@color/back_text" />
 

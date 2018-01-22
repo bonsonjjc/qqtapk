@@ -7,6 +7,7 @@ import android.databinding.ObservableList;
 import com.bonson.fjqqt.model.bean.RouteTime;
 import com.bonson.fjqqt.model.data.RouteModel;
 import com.bonson.fjqqt.view.ui.route.time.AddTimeViewModel;
+import com.bonson.qqtapk.di.ActivityScope;
 import com.bonson.qqtapk.model.bean.Baby;
 import com.bonson.resource.activity.BaseView;
 import com.bonson.resource.viewmodel.AndroidViewModel;
@@ -16,6 +17,7 @@ import javax.inject.Inject;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 
+@ActivityScope
 public class RouteListViewModel extends AndroidViewModel {
 
     public final ObservableList<RouteTime> routes = new ObservableArrayList<>();

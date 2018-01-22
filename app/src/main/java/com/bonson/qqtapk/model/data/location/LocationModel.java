@@ -16,7 +16,7 @@ import javax.inject.Inject;
 import io.reactivex.Observable;
 import io.reactivex.schedulers.Schedulers;
 
-public class LocationModel {
+public class LocationModel implements LocationModelSource {
     private ApiServer locationServer;
 
     @Inject
@@ -24,6 +24,7 @@ public class LocationModel {
         this.locationServer = locationServer;
     }
 
+    @Override
     public Observable<Result<String>> location(String bid) {
         Map<String, String> map = new LinkedHashMap<>();
         map.put("fbid", bid);
@@ -45,6 +46,7 @@ public class LocationModel {
                 });
     }
 
+    @Override
     public Observable<Result<Location>> result(String bid, String seqid, int count) {
         Map<String, String> map = new LinkedHashMap<>();
         map.put("fbid", bid);

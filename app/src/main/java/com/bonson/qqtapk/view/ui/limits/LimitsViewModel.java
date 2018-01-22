@@ -1,10 +1,13 @@
 package com.bonson.qqtapk.view.ui.limits;
 
 import android.app.Application;
+import android.arch.lifecycle.Lifecycle;
+import android.arch.lifecycle.OnLifecycleEvent;
 import android.databinding.ObservableArrayList;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableList;
 
+import com.bonson.qqtapk.di.ActivityScope;
 import com.bonson.qqtapk.model.bean.Baby;
 import com.bonson.qqtapk.model.bean.Device;
 import com.bonson.qqtapk.model.bean.Limit;
@@ -23,8 +26,8 @@ import io.reactivex.disposables.Disposable;
 /**
  * Created by jiangjiancheng on 17/12/31.
  */
+@ActivityScope
 public class LimitsViewModel extends AndroidViewModel {
-
     private LimitModel limitModel;
     public final ObservableBoolean open = new ObservableBoolean(false);
     public final ObservableList<Limit> limits = new ObservableArrayList<>();
@@ -36,6 +39,10 @@ public class LimitsViewModel extends AndroidViewModel {
     public LimitsViewModel(Application application, LimitModel limitModel) {
         super(application);
         this.limitModel = limitModel;
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
+    void init() {
         open.set("0".equals(Device.device.getFcstate()));
     }
 

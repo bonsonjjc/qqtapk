@@ -1,11 +1,13 @@
 package com.bonson.fjqqt.view.ui.family;
 
+import android.content.Context;
+import android.support.v7.widget.DividerItemDecoration;
+
 import com.bonson.fjqqt.model.FApiServer;
-import com.bonson.fjqqt.model.data.FamilyModel;
 import com.bonson.qqtapk.di.ActivityScope;
 import com.bonson.qqtapk.di.FragmentScope;
 import com.bonson.qqtapk.model.bean.Family;
-import com.bonson.qqtapk.model.data.family.FamilyModelDataSource;
+import com.bonson.qqtapk.model.data.family.FamilyDataSource;
 import com.bonson.qqtapk.view.ui.contacts.phone.PhoneFragment;
 import com.bonson.qqtapk.view.ui.contacts.phone.PhoneViewModel;
 import com.bonson.qqtapk.view.ui.family.FamilyViewModel;
@@ -35,8 +37,14 @@ public abstract class FamilyModule {
 
     @Provides
     @ActivityScope
-    static FamilyModelDataSource providesDataSource(FApiServer fApiServer) {
+    static FamilyDataSource providesDataSource(FApiServer fApiServer) {
         return new FamilyModel(fApiServer);
+    }
+
+    @Provides
+    @ActivityScope
+    static DividerItemDecoration itemDecoration(Context context) {
+        return new DividerItemDecoration(context, DividerItemDecoration.VERTICAL);
     }
 
     @Provides

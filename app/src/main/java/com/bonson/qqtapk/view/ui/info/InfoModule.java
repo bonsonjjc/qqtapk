@@ -1,6 +1,8 @@
 package com.bonson.qqtapk.view.ui.info;
 
 import android.content.Context;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.RecyclerView;
 
 import com.bonson.qqtapk.di.ActivityScope;
 import com.bonson.qqtapk.di.FragmentScope;
@@ -32,6 +34,13 @@ public abstract class InfoModule {
     @FragmentScope
     @ContributesAndroidInjector
     abstract InputFragment inputFragment();
+
+
+    @Provides
+    @ActivityScope
+    static RecyclerView.ItemDecoration itemDecoration(Context context) {
+        return new DividerItemDecoration(context, DividerItemDecoration.VERTICAL);
+    }
 
     @ActivityScope
     @Binds

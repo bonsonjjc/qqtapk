@@ -24,7 +24,7 @@ public class InfoModel {
 
     public Observable<Result<Info>> info(String mobile) {
         Map<String, String> map = new LinkedHashMap<>();
-        map.put("action", "CWA013");
+        map.put("action", "CWA016");
         map.put("ftmobile", mobile);
         return apiServer.info(EncodeUtils.encode(map))
                 .subscribeOn(Schedulers.io())
@@ -45,7 +45,7 @@ public class InfoModel {
 
     public Observable<Result<String>> update(Info info) {
         Map<String, String> map = new LinkedHashMap<>();
-        map.put("action", "CWA013");
+        map.put("action", "CWA017");
         map.put("ftmobile", info.getFtmobile());
         map.put("ftname", info.getFtname());
         map.put("fsex", info.getFsex());

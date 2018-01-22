@@ -1,6 +1,5 @@
 package com.bonson.qqtapk.view.ui.ring;
 
-import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.view.View;
 

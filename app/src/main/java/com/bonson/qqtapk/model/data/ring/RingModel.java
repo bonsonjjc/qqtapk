@@ -18,7 +18,7 @@ import io.reactivex.schedulers.Schedulers;
  * Created by jiangjiancheng on 18/1/8.
  */
 
-public class RingModel {
+public class RingModel implements RingDataSource {
     private ApiServer ringServer;
 
     @Inject
@@ -26,6 +26,7 @@ public class RingModel {
         this.ringServer = ringServer;
     }
 
+    @Override
     public Observable<Result<Base>> ring(String fbid, String fuser, String caller, String callVolume, String callerVolume) {
         Map<String, String> map = new LinkedHashMap<>();
         map.put("fbid", fbid);

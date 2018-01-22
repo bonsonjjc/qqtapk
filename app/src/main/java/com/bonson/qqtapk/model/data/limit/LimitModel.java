@@ -19,7 +19,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
  * Created by jiangjiancheng on 18/1/4.
  */
 
-public class LimitModel {
+public class LimitModel implements LimitDataSource {
     private ApiServer server;
 
     @Inject

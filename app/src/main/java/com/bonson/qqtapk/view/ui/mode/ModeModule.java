@@ -1,6 +1,8 @@
 package com.bonson.qqtapk.view.ui.mode;
 
 import android.content.Context;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.RecyclerView;
 
 import com.bonson.qqtapk.di.ActivityScope;
 import com.bonson.qqtapk.di.FragmentScope;
@@ -17,16 +19,24 @@ import dagger.android.ContributesAndroidInjector;
 /**
  * Created by jiangjiancheng on 17/12/31.
  */
-@Module public abstract class ModeModule {
-  @ActivityScope
-  @Binds
-  abstract AndroidViewModel viewModel(ModeViewModel viewModel);
+@Module
+public abstract class ModeModule {
+    @ActivityScope
+    @Binds
+    abstract AndroidViewModel viewModel(ModeViewModel viewModel);
 
-  @ActivityScope
-  @Binds
-  abstract AndroidViewModel selectViewModel(SelectViewModel viewModel);
+    @ActivityScope
+    @Binds
+    abstract AndroidViewModel selectViewModel(SelectViewModel viewModel);
 
-  @FragmentScope
-  @ContributesAndroidInjector
-  abstract SelectFragment selectFragment();
+
+    @ActivityScope
+    @Provides
+    static RecyclerView.ItemDecoration itemDecoration(Context context) {
+        return new DividerItemDecoration(context, DividerItemDecoration.VERTICAL);
+    }
+
+    @FragmentScope
+    @ContributesAndroidInjector
+    abstract SelectFragment selectFragment();
 }

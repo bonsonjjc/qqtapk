@@ -21,7 +21,7 @@ import io.reactivex.schedulers.Schedulers;
  * Created by zjw on 2018/1/4.
  */
 
-public class LessonModel {
+public class LessonModel implements LessonDataSource {
     private ApiServer lessonServer;
 
     @Inject
@@ -29,6 +29,7 @@ public class LessonModel {
         this.lessonServer = lessonServer;
     }
 
+    @Override
     public Observable<Result<List<Lesson>>> lessons(String id) {
         Map<String, String> map = new LinkedHashMap<>();
         map.put("fbid", id);
@@ -49,6 +50,7 @@ public class LessonModel {
                 });
     }
 
+    @Override
     public Observable<Result<Base>> update(String bid, List<Lesson> lessons) {
         Map<String, String> map = new LinkedHashMap<>();
         StringBuilder builder = new StringBuilder();

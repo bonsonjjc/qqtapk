@@ -1,6 +1,7 @@
 package com.bonson.qqtapk.view.ui.index;
 
 import android.os.Bundle;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
 import android.view.View;
@@ -39,8 +40,8 @@ public class IndexActivity extends BaseDaggerActivity<ActivityIndexBinding> {
         super.onCreate(savedInstanceState);
         setBindingLayout(R.layout.activity_index);
         binding.setViewModel(viewModel);
-        binding.setMainViewModel(viewModel.mainViewModel);
-        setViewModel(viewModel,viewModel.mainViewModel);
+        binding.setMainViewModel(viewModel.viewModel);
+        setViewModel(viewModel, viewModel.viewModel);
 
         mapView = findViewById(R.id.mapView);
         mapView.onCreate(this, savedInstanceState);

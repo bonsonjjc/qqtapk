@@ -23,11 +23,11 @@ import javax.inject.Inject;
 
 @ActivityScope
 public class AddAlarmFragment extends BaseFragment<FragmentAddAlarmBinding> {
-    SelectFragment selectFragment;
 
     AddAlarmViewModel viewModel;
     @Inject
     SelectViewModel selectViewModel;
+    SelectFragment selectFragment;
 
     @Inject
     public AddAlarmFragment() {

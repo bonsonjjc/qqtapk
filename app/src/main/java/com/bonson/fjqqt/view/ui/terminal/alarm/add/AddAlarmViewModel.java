@@ -35,6 +35,7 @@ public class AddAlarmViewModel extends AndroidViewModel {
     AlarmModel alarmModel;
 
     @Inject
+
     public AddAlarmViewModel(Application application) {
         super(application);
     }

@@ -7,6 +7,7 @@ import android.os.Handler;
 import com.bonson.qqtapk.model.bean.Baby;
 import com.bonson.qqtapk.model.bean.Location;
 import com.bonson.qqtapk.model.data.location.LocationModel;
+import com.bonson.qqtapk.model.data.location.LocationModelSource;
 import com.bonson.resource.activity.BaseView;
 import com.bonson.resource.viewmodel.AndroidViewModel;
 
@@ -20,18 +21,12 @@ public class LocationViewModel extends AndroidViewModel {
     public final ObservableField<String> address = new ObservableField<>("");
     public final ObservableField<String> time = new ObservableField<>("当前:");
 
-    private BaseView view;
-
-    private LocationModel locationModel;
+    private LocationModelSource locationModel;
 
     @Inject
-    public LocationViewModel(Application application, LocationModel locationModel) {
+    public LocationViewModel(Application application, LocationModelSource locationModel) {
         super(application);
         this.locationModel = locationModel;
-    }
-
-    public void setView(BaseView view) {
-        this.view = view;
     }
 
     public void location() {

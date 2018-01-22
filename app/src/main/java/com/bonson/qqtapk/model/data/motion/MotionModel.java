@@ -15,7 +15,7 @@ import javax.inject.Inject;
 import io.reactivex.Observable;
 import io.reactivex.schedulers.Schedulers;
 
-public class MotionModel {
+public class MotionModel implements MotionDataSource {
     private ApiServer apiServer;
 
     @Inject
@@ -23,6 +23,7 @@ public class MotionModel {
         this.apiServer = apiServer;
     }
 
+    @Override
     public Observable<Result<List<Motion>>> motion(String bid) {
         Map<String, String> map = new LinkedHashMap<>();
         map.put("fbaby", bid);
@@ -42,6 +43,7 @@ public class MotionModel {
                 });
     }
 
+    @Override
     public Observable<Result<List<Sleep>>> sleep(String bid) {
         Map<String, String> map = new LinkedHashMap<>();
         map.put("fbaby", bid);

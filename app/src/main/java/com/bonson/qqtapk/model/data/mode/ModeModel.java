@@ -18,7 +18,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
  * Created by jiangjiancheng on 18/1/4.
  */
 
-public class ModeModel {
+public class ModeModel implements ModeDataSource {
     private ApiServer modeServer;
 
     @Inject
@@ -26,6 +26,7 @@ public class ModeModel {
         this.modeServer = modeServer;
     }
 
+    @Override
     public Observable<Result<Mode>> model(String bid) {
         Map<String, String> map = new LinkedHashMap<>();
         map.put("fbid", bid);
@@ -48,6 +49,7 @@ public class ModeModel {
                 });
     }
 
+    @Override
     public Observable<Result<Mode>> update(Mode mode) {
         Map<String, String> map = new LinkedHashMap<>();
         map.put("fbid", mode.getBid());

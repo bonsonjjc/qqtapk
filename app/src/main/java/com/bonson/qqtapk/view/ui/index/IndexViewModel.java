@@ -10,7 +10,6 @@ import com.bonson.qqtapk.model.bean.Baby;
 import com.bonson.qqtapk.model.bean.Menu;
 import com.bonson.qqtapk.model.bean.User;
 import com.bonson.qqtapk.model.data.baby.BabyModel;
-import com.bonson.resource.activity.BaseView;
 import com.bonson.resource.viewmodel.AndroidViewModel;
 
 import javax.inject.Inject;
@@ -31,7 +30,7 @@ public class IndexViewModel extends AndroidViewModel {
     private BabyModel babyModel;
 
     @Inject
-    MainViewModel mainViewModel;
+    MainViewModel viewModel;
 
     @Inject
     public IndexViewModel(Application application, BabyModel babyModel) {
@@ -82,6 +81,6 @@ public class IndexViewModel extends AndroidViewModel {
     }
 
     public void device() {
-        mainViewModel.device();
+        viewModel.device();
     }
 }

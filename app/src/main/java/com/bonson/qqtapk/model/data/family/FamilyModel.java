@@ -20,7 +20,7 @@ import io.reactivex.schedulers.Schedulers;
  * Created by zjw on 2018/1/3.
  */
 
-public class FamilyModel implements FamilyModelDataSource {
+public class FamilyModel implements FamilyDataSource {
     private ApiServer familyServer;
 
     @Inject

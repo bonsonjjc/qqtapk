@@ -1,10 +1,14 @@
 package com.bonson.qqtapk.view.ui.index;
 
 import android.content.Context;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.RecyclerView;
 
+import com.bonson.fjqqt.model.FApiServer;
 import com.bonson.qqtapk.di.ActivityScope;
-import com.bonson.qqtapk.view.adapter.BabyAdapter;
-import com.bonson.qqtapk.view.adapter.MenuAdapter;
+import com.bonson.qqtapk.model.data.ApiServer;
+import com.bonson.qqtapk.model.data.location.LocationModel;
+import com.bonson.qqtapk.model.data.location.LocationModelSource;
 import com.bonson.resource.viewmodel.AndroidViewModel;
 
 import dagger.Binds;
@@ -29,16 +33,22 @@ public abstract class IndexModule {
     @Binds
     abstract AndroidViewModel locViewModel(LocationViewModel viewModel);
 
-    @ActivityScope
     @Provides
-    static BabyAdapter providesAdapter(Context context) {
-        return new BabyAdapter(context);
+    @ActivityScope
+    static RecyclerView.ItemDecoration itemDecoration(Context context) {
+        return new DividerItemDecoration(context, DividerItemDecoration.VERTICAL);
     }
 
     @Provides
     @ActivityScope
-    static MenuAdapter menuAdapter(Context context) {
-        MenuAdapter menuAdapter = new MenuAdapter(context);
-        return menuAdapter;
+    static LocationModelSource locationModelSource(ApiServer apiServer){
+        return  new LocationModel(apiServer);
     }
+//
+//    @Provides
+//    @ActivityScope
+//    static LocationModelSource locationModelSource(FApiServer apiServer){
+//        return  new com.bonson.fjqqt.model.data.LocationModel(apiServer);
+//    }
+
 }

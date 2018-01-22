@@ -15,7 +15,7 @@ import javax.inject.Inject;
 import io.reactivex.Observable;
 import io.reactivex.schedulers.Schedulers;
 
-public class SettingModel {
+public class SettingModel implements SettingDataSource {
     private ApiServer apiServer;
 
     @Inject
@@ -24,6 +24,7 @@ public class SettingModel {
     }
 
 
+    @Override
     public Observable<Result<String>> sleepTime(String uid, String bid, String sleepTime) {
         Map<String, String> map = new LinkedHashMap<>();
         map.put("fbid", bid);
@@ -47,6 +48,7 @@ public class SettingModel {
                 });
     }
 
+    @Override
     public Observable<Result<String>> token(Baby baby) {
         Map<String, String> map = new LinkedHashMap<>();
         map.put("fname", baby.getFaccount());

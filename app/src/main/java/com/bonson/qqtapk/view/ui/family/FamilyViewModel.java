@@ -6,10 +6,8 @@ import android.databinding.ObservableList;
 
 import com.bonson.qqtapk.di.ActivityScope;
 import com.bonson.qqtapk.model.bean.Family;
-import com.bonson.qqtapk.model.data.family.FamilyModel;
-import com.bonson.qqtapk.model.data.family.FamilyModelDataSource;
+import com.bonson.qqtapk.model.data.family.FamilyDataSource;
 import com.bonson.qqtapk.view.ui.contacts.phone.PhoneViewModel;
-import com.bonson.resource.activity.BaseView;
 import com.bonson.resource.viewmodel.AndroidViewModel;
 
 import javax.inject.Inject;
@@ -25,7 +23,7 @@ public class FamilyViewModel extends AndroidViewModel {
     public ObservableList<Family> families = new ObservableArrayList<>();
 
     @Inject
-    FamilyModelDataSource familyModel;
+    FamilyDataSource familyModel;
 
     private PhoneViewModel viewModel;
 

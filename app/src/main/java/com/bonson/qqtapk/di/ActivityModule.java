@@ -1,5 +1,6 @@
 package com.bonson.qqtapk.di;
 
+import com.bonson.fjqqt.di.QQTRetrofitModule;
 import com.bonson.qqtapk.view.ui.area.SafeAreaActivity;
 import com.bonson.qqtapk.view.ui.area.SafeAreaModule;
 import com.bonson.qqtapk.view.ui.center.CenterActivity;
@@ -22,8 +23,6 @@ import com.bonson.qqtapk.view.ui.lesson.LessonActivity;
 import com.bonson.qqtapk.view.ui.lesson.LessonModule;
 import com.bonson.qqtapk.view.ui.limits.LimitsActivity;
 import com.bonson.qqtapk.view.ui.limits.LimitsModule;
-import com.bonson.qqtapk.view.ui.login.LoginActivity;
-import com.bonson.qqtapk.view.ui.login.LoginModule;
 import com.bonson.qqtapk.view.ui.member.MemberActivity;
 import com.bonson.qqtapk.view.ui.member.MemberModule;
 import com.bonson.qqtapk.view.ui.mode.ModeActivity;
@@ -84,7 +83,7 @@ abstract class ActivityModule {
     abstract MessageActivity messageActivity();
 
     @ActivityScope
-    @ContributesAndroidInjector(modules = {IndexModule.class, RetrofitModule.class})
+    @ContributesAndroidInjector(modules = {IndexModule.class, RetrofitModule.class, QQTRetrofitModule.class})
     abstract IndexActivity mainActivity();
 
     @ActivityScope

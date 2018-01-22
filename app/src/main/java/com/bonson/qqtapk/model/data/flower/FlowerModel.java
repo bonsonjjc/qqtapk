@@ -19,7 +19,7 @@ import io.reactivex.schedulers.Schedulers;
  * Created by zjw on 2018/1/4.
  */
 
-public class FlowerModel {
+public class FlowerModel implements FlowerDataSource {
     private ApiServer flowerServer;
 
     @Inject
@@ -27,6 +27,7 @@ public class FlowerModel {
         this.flowerServer = flowerServer;
     }
 
+    @Override
     public Observable<Result<List<Flower>>> flowers(String id, int start, int pagerSize) {
         Map<String, String> map = new LinkedHashMap<>();
         map.put("fbid", id);
@@ -55,6 +56,7 @@ public class FlowerModel {
                 });
     }
 
+    @Override
     public Observable<Result<Flower>> pull(Flower flower) {
         Map<String, String> map = new LinkedHashMap<>();
         map.put("fbid", flower.getFid());

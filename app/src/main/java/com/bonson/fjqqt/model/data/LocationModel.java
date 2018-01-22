@@ -5,6 +5,7 @@ import android.text.TextUtils;
 import com.bonson.fjqqt.model.FApiServer;
 import com.bonson.qqtapk.model.bean.Location;
 import com.bonson.qqtapk.model.bean.Result;
+import com.bonson.qqtapk.model.data.location.LocationModelSource;
 import com.bonson.resource.utils.EncodeUtils;
 
 import java.util.LinkedHashMap;
@@ -15,7 +16,7 @@ import javax.inject.Inject;
 import io.reactivex.Observable;
 import io.reactivex.schedulers.Schedulers;
 
-public class LocationModel {
+public class LocationModel implements LocationModelSource {
     private FApiServer apiServer;
 
     @Inject

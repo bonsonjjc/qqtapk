@@ -5,8 +5,8 @@ import com.bonson.fjqqt.view.ui.terminal.TerminalActivity;
 import com.bonson.fjqqt.view.ui.terminal.alarm.AlarmActivity;
 import com.bonson.fjqqt.view.ui.area.SafeAreaActivity;
 import com.bonson.fjqqt.view.ui.family.FamilyActivity;
-import com.bonson.fjqqt.view.ui.terminal.silence.SilenceActivity;
 import com.bonson.fjqqt.view.ui.terminal.limit.LimitsActivity;
+import com.bonson.fjqqt.view.ui.terminal.silence.SilenceActivity;
 import com.bonson.fjqqt.view.ui.terminal.timer.TimerActivity;
 
 public class Path {

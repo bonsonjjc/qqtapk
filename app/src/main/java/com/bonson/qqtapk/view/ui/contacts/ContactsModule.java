@@ -1,5 +1,9 @@
 package com.bonson.qqtapk.view.ui.contacts;
 
+import android.content.Context;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.RecyclerView;
+
 import com.bonson.qqtapk.di.ActivityScope;
 import com.bonson.qqtapk.di.FragmentScope;
 import com.bonson.qqtapk.view.ui.contacts.phone.PhoneFragment;
@@ -10,6 +14,7 @@ import com.bonson.resource.viewmodel.AndroidViewModel;
 
 import dagger.Binds;
 import dagger.Module;
+import dagger.Provides;
 import dagger.android.ContributesAndroidInjector;
 
 /**
@@ -33,6 +38,12 @@ public abstract class ContactsModule {
     @FragmentScope
     abstract PhoneFragment inputFragment();
 
+
+    @ActivityScope
+    @Provides
+    static RecyclerView.ItemDecoration itemDecoration(Context context) {
+        return new DividerItemDecoration(context, DividerItemDecoration.VERTICAL);
+    }
 
     @FragmentScope
     @ContributesAndroidInjector

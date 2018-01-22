@@ -19,7 +19,7 @@ import io.reactivex.schedulers.Schedulers;
  * Created by jiangjiancheng on 18/1/4.
  */
 
-public class RouteModel {
+public class RouteModel implements RouteDataSource {
     ApiServer routeServer;
 
     @Inject

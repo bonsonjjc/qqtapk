@@ -1,6 +1,7 @@
 package com.bonson.fjqqt.view.ui.route;
 
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 
 import com.bonson.fjqqt.view.ui.route.time.AddTimeFragment;
 import com.bonson.qqtapk.R;
@@ -21,6 +22,9 @@ public class RouteListActivity extends BaseDaggerActivity<ActivityRouteTimeBindi
     @Inject
     AddTimeFragment fragment;
 
+    @Inject
+    RecyclerView.ItemDecoration itemDecoration;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +44,7 @@ public class RouteListActivity extends BaseDaggerActivity<ActivityRouteTimeBindi
                     .commit();
         });
         binding.recNumbers.setAdapter(adapter);
+        binding.recNumbers.addItemDecoration(itemDecoration);
         adapter.setOnItemClickListener(v -> {
             fragment.setViewModel(viewModel.edit(v));
             getSupportFragmentManager()

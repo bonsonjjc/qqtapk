@@ -20,7 +20,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
  * Created by jiangjiancheng on 18/1/4.
  */
 
-public class MemberModel {
+public class MemberModel implements MemberDataSource {
     private ApiServer memberServer;
 
     @Inject
