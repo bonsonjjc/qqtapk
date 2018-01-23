@@ -34,8 +34,6 @@ public class SafeAreaViewModel extends AndroidViewModel {
     public ObservableField<String> type = new ObservableField<>("1");
     private SafeAreaDataSource areaModel;
 
-    @Inject
-    LocationViewModel viewModel;
 
     @Inject
     public SafeAreaViewModel(Application application, SafeAreaDataSource areaModel) {
@@ -44,18 +42,6 @@ public class SafeAreaViewModel extends AndroidViewModel {
         position.set(new LatLng(0, 0));
     }
 
-    public LocationViewModel getViewModel() {
-        return viewModel;
-    }
-
-    public void setViewModel(LocationViewModel viewModel) {
-        this.viewModel = viewModel;
-    }
-
-    public void setView(BaseView view) {
-        this.view = view;
-        viewModel.setView(view);
-    }
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     public void init() {
         if (!isNetWork()) {

@@ -1,13 +1,13 @@
 package com.bonson.fjqqt;
 
-import com.bonson.fjqqt.view.ui.route.RouteListActivity;
-import com.bonson.fjqqt.view.ui.terminal.TerminalActivity;
-import com.bonson.fjqqt.view.ui.terminal.alarm.AlarmActivity;
-import com.bonson.fjqqt.view.ui.area.SafeAreaActivity;
-import com.bonson.fjqqt.view.ui.family.FamilyActivity;
-import com.bonson.fjqqt.view.ui.terminal.limit.LimitsActivity;
-import com.bonson.fjqqt.view.ui.terminal.silence.SilenceActivity;
-import com.bonson.fjqqt.view.ui.terminal.timer.TimerActivity;
+import com.bonson.fjqqt.view.route.RouteListActivity;
+import com.bonson.fjqqt.view.terminal.TerminalActivity;
+import com.bonson.fjqqt.view.terminal.alarm.AlarmActivity;
+import com.bonson.fjqqt.view.area.SafeAreaActivity;
+import com.bonson.fjqqt.view.family.FamilyActivity;
+import com.bonson.fjqqt.view.terminal.limit.LimitsActivity;
+import com.bonson.fjqqt.view.terminal.silence.SilenceActivity;
+import com.bonson.fjqqt.view.terminal.timer.TimerActivity;
 
 public class Path {
     public static String route = RouteListActivity.class.getName();

@@ -5,6 +5,8 @@ import com.bonson.qqtapk.view.ui.area.SafeAreaActivity;
 import com.bonson.qqtapk.view.ui.area.SafeAreaModule;
 import com.bonson.qqtapk.view.ui.center.CenterActivity;
 import com.bonson.qqtapk.view.ui.center.CenterModule;
+import com.bonson.qqtapk.view.ui.center.locmap.LocMapActivity;
+import com.bonson.qqtapk.view.ui.center.locmap.LocMapModule;
 import com.bonson.qqtapk.view.ui.center.message.MessageActivity;
 import com.bonson.qqtapk.view.ui.center.message.MessageModule;
 import com.bonson.qqtapk.view.ui.contacts.ContactsActivity;
@@ -58,9 +60,6 @@ import dagger.android.ContributesAndroidInjector;
  */
 @Module
 abstract class ActivityModule {
-//    @ActivityScope
-//    @ContributesAndroidInjector(modules = {LoginModule.class, RetrofitModule.class})
-//    abstract LoginActivity loginActivity();
 
     @ActivityScope
     @ContributesAndroidInjector(modules = {RegisterModule.class, RetrofitModule.class})
@@ -77,6 +76,10 @@ abstract class ActivityModule {
     @ActivityScope
     @ContributesAndroidInjector(modules = {CenterModule.class, RetrofitModule.class})
     abstract CenterActivity centerActivity();
+
+    @ActivityScope
+    @ContributesAndroidInjector(modules = {LocMapModule.class, RetrofitModule.class})
+    abstract LocMapActivity locMapActivity();
 
     @ActivityScope
     @ContributesAndroidInjector(modules = {MessageModule.class, RetrofitModule.class})
@@ -157,4 +160,5 @@ abstract class ActivityModule {
     @ActivityScope
     @ContributesAndroidInjector(modules = {RingModule.class, RetrofitModule.class})
     abstract RingActivity ringActivity();
+
 }

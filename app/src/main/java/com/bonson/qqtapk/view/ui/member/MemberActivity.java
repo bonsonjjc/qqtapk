@@ -6,7 +6,6 @@ import android.support.v7.widget.RecyclerView;
 
 import com.bonson.qqtapk.R;
 import com.bonson.qqtapk.databinding.ActivityMemberBinding;
-import com.bonson.qqtapk.view.adapter.MemberAdapter;
 import com.bonson.qqtapk.view.ui.contacts.phone.PhoneFragment;
 import com.bonson.resource.activity.BaseDaggerActivity;
 import com.bonson.resource.dialog.ActionSheetDialog;

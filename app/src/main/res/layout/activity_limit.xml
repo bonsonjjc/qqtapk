@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.bonson.fjqqt.view.ui.terminal.limit.LimitsViewModel" />
+            type="com.bonson.fjqqt.view.terminal.limit.LimitsViewModel" />
     </data>
 
     <LinearLayout

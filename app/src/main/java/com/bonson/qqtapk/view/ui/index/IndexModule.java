@@ -35,12 +35,6 @@ public abstract class IndexModule {
 
     @Provides
     @ActivityScope
-    static RecyclerView.ItemDecoration itemDecoration(Context context) {
-        return new DividerItemDecoration(context, DividerItemDecoration.VERTICAL);
-    }
-
-    @Provides
-    @ActivityScope
     static LocationModelSource locationModelSource(ApiServer apiServer){
         return  new LocationModel(apiServer);
     }

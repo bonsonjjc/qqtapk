@@ -1,13 +1,12 @@
 package com.bonson.qqtapk.view.ui.contacts;
 
-import android.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 
 import com.bonson.qqtapk.R;
 import com.bonson.qqtapk.databinding.ActivityContactsBinding;
-import com.bonson.qqtapk.view.adapter.ContactAdapter;
+import com.bonson.qqtapk.utils.binding.AdapterDataChangeFactory;
 import com.bonson.qqtapk.view.ui.contacts.phone.PhoneFragment;
 import com.bonson.qqtapk.view.ui.info.select.SelectFragment;
 import com.bonson.resource.activity.BaseDaggerActivity;
@@ -52,6 +51,7 @@ public class ContactsActivity extends BaseDaggerActivity<ActivityContactsBinding
         });
         binding.recContacts.setAdapter(adapter);
         binding.recContacts.addItemDecoration(itemDecoration);
+        AdapterDataChangeFactory.create(adapter).attach(viewModel.contacts);
         adapter.setOnItemClickListener(v -> {
             phoneFragment.setViewModel(viewModel.initFragment(v));
             getSupportFragmentManager().beginTransaction()

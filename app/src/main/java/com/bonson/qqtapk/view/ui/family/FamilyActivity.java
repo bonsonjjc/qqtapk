@@ -5,8 +5,7 @@ import android.os.Bundle;
 import com.bonson.qqtapk.R;
 import com.bonson.qqtapk.databinding.ActivityFamilyBinding;
 import com.bonson.qqtapk.model.bean.Family;
-import com.bonson.qqtapk.view.adapter.FamilyAdapter;
-import com.bonson.qqtapk.view.binding.AdapterDataChangeFactory;
+import com.bonson.qqtapk.utils.binding.AdapterDataChangeFactory;
 import com.bonson.qqtapk.view.ui.contacts.phone.PhoneFragment;
 import com.bonson.resource.activity.BaseDaggerActivity;
 

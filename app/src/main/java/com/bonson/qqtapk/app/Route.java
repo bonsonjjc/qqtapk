@@ -1,6 +1,7 @@
 package com.bonson.qqtapk.app;
 
 import com.bonson.qqtapk.view.ui.area.SafeAreaActivity;
+import com.bonson.qqtapk.view.ui.center.locmap.LocMapActivity;
 import com.bonson.qqtapk.view.ui.center.message.MessageActivity;
 import com.bonson.qqtapk.view.ui.contacts.ContactsActivity;
 import com.bonson.qqtapk.view.ui.family.FamilyActivity;
@@ -47,6 +48,7 @@ public final class Route {
     public static String route = com.bonson.qqtapk.view.ui.route.RouteActivity.class.getName();
     public static String limit = LimitsActivity.class.getName();
     public static String voice = VoiceActivity.class.getName();
+    public static String locmap = LocMapActivity.class.getName();
 
     public static String setting = SettingActivity.class.getName();
     public static String password = PasswordActivity.class.getName();

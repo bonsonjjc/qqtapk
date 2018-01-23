@@ -4,11 +4,11 @@
 
     <data>
 
-        <import type="com.bonson.fjqqt.view.ui.terminal.alarm.AlarmUtils" />
+        <import type="com.bonson.fjqqt.view.terminal.alarm.AlarmUtils" />
 
         <variable
             name="viewModel"
-            type="com.bonson.fjqqt.view.ui.terminal.silence.SilenceViewModel" />
+            type="com.bonson.fjqqt.view.terminal.silence.SilenceViewModel" />
     </data>
 
     <LinearLayout

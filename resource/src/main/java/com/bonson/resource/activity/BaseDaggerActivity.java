@@ -1,6 +1,8 @@
 package com.bonson.resource.activity;
 
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
+import android.databinding.ViewDataBinding;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.ColorRes;
@@ -10,6 +12,7 @@ import android.widget.Toast;
 
 import com.bonson.resource.R;
 import com.bonson.resource.dialog.LoadingDialog;
+import com.bonson.resource.viewmodel.AndroidViewModel;
 
 import dagger.android.support.DaggerAppCompatActivity;
 
@@ -17,13 +20,27 @@ import dagger.android.support.DaggerAppCompatActivity;
  * Created by zjw on 2017/12/29.
  */
 
-public abstract class BaseDaggerActivity extends DaggerAppCompatActivity implements BaseView {
+public abstract class BaseDaggerActivity<Binding extends ViewDataBinding> extends DaggerAppCompatActivity implements BaseView {
+    protected Binding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().findViewById(android.R.id.content).setBackgroundColor(color(R.color.background));
         ActivityUtils.push(this);
+    }
+
+    public void setBindingLayout(int layout) {
+        binding = DataBindingUtil.setContentView(this, layout);
+    }
+
+    public void setViewModel(AndroidViewModel... viewModel) {
+        if (viewModel != null && viewModel.length != 0) {
+            for (int i = 0; i < viewModel.length; i++) {
+                getLifecycle().addObserver(viewModel[i]);
+                viewModel[i].setView(this);
+            }
+        }
     }
 
     @Override

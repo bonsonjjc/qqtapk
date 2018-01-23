@@ -5,7 +5,6 @@ import android.support.v7.widget.RecyclerView;
 
 import com.bonson.qqtapk.R;
 import com.bonson.qqtapk.databinding.ActivityFlowerBinding;
-import com.bonson.qqtapk.view.adapter.FlowerAdapter;
 import com.bonson.resource.activity.BaseDaggerActivity;
 
 import javax.inject.Inject;

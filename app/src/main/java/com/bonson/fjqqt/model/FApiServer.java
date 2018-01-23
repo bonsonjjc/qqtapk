@@ -1,11 +1,11 @@
 package com.bonson.fjqqt.model;
 
 import com.bonson.fjqqt.model.bean.RouteTime;
-import com.bonson.fjqqt.view.ui.terminal.alarm.Alarm;
+import com.bonson.fjqqt.view.terminal.alarm.Alarm;
 import com.bonson.fjqqt.model.bean.Info;
 import com.bonson.fjqqt.model.bean.Route;
 import com.bonson.fjqqt.model.bean.Sms;
-import com.bonson.fjqqt.view.ui.terminal.timer.Timer;
+import com.bonson.fjqqt.view.terminal.timer.Timer;
 import com.bonson.qqtapk.model.bean.Base;
 import com.bonson.qqtapk.model.bean.Family;
 import com.bonson.qqtapk.model.bean.Lesson;

@@ -8,12 +8,13 @@ import android.text.TextUtils;
 import com.bonson.qqtapk.di.ActivityScope;
 import com.bonson.qqtapk.model.bean.Baby;
 import com.bonson.qqtapk.model.bean.Contact;
+import com.bonson.qqtapk.model.data.contacts.ContactsHelper;
 import com.bonson.qqtapk.model.data.contacts.ContactsModel;
 import com.bonson.qqtapk.view.ui.contacts.phone.PhoneViewModel;
 import com.bonson.qqtapk.view.ui.info.select.SelectViewModel;
-import com.bonson.resource.activity.BaseView;
 import com.bonson.resource.viewmodel.AndroidViewModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -47,15 +48,18 @@ public class ContactsViewModel extends AndroidViewModel {
             view.toast("网络不可用");
             return;
         }
+        view.load();
         Disposable disposable = contactsModel.contacts(Baby.baby.getFid(), 0, 10)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(it -> {
+                    view.dismiss();
                     view.toast(it.getMsg());
                     if (it.getCode().equals("0")) {
+                        contacts.clear();
                         contacts.addAll(it.getBody());
-                        notifyChange();
                     }
                 }, e -> {
+                    view.dismiss();
                     view.toast("出错了");
                 });
         compositeDisposable.add(disposable);
@@ -63,8 +67,23 @@ public class ContactsViewModel extends AndroidViewModel {
 
     public SelectViewModel importViewModel() {
         selectViewModel.setSingle(false);
+        selectViewModel.setSelects(ContactsHelper.contacts(getApplication()));
         selectViewModel.setOnSaveListener(() -> {
-
+            List<Contact> contacts = new ArrayList<>();
+            selectViewModel.selected((index, select) -> {
+                if (select.isChecked()) {
+                    Contact contact = new Contact();
+                    contact.setFname(select.getName());
+                    contact.setFmobile(select.getValue());
+                    contacts.add(contact);
+                }
+                return true;
+            });
+            if (contacts.isEmpty()) {
+                view.toast("请选择联系人");
+                return;
+            }
+            addAll(contacts);
         });
         selectViewModel.title.set("选择联系人");
         return selectViewModel;
@@ -121,7 +140,6 @@ public class ContactsViewModel extends AndroidViewModel {
                     if (it.getCode().equals("0")) {
                         view.toast("添加" + it.getMsg());
                         contacts.add(it.getBody());
-                        notifyChange();
                         view.back();
                     } else {
                         view.toast(it.getMsg());
@@ -148,7 +166,6 @@ public class ContactsViewModel extends AndroidViewModel {
                     if (it.getCode().equals("0")) {
                         view.toast("删除" + it.getMsg());
                         contacts.remove(position);
-                        notifyChange();
                     } else {
                         view.toast(it.getMsg());
                     }
@@ -172,10 +189,31 @@ public class ContactsViewModel extends AndroidViewModel {
                     if (it.getCode().equals("0")) {
                         view.toast("修改" + it.getMsg());
                         contacts.set(position, contact);
-                        notifyChange();
                         view.back();
                     } else {
                         view.toast(it.getMsg());
+                    }
+                }, e -> {
+                    view.dismiss();
+                    view.toast("出错了");
+                });
+        compositeDisposable.add(disposable);
+    }
+
+    public void addAll(List<Contact> contacts) {
+        if (!isNetWork()) {
+            view.toast("网络不可用");
+            return;
+        }
+        view.load();
+        Disposable disposable = contactsModel.add(Baby.baby.getFid(), contacts)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(it -> {
+                    view.dismiss();
+                    view.toast(it.getMsg());
+                    if (it.getCode().equals("0")) {
+                        view.back();
+                        contacts();
                     }
                 }, e -> {
                     view.dismiss();

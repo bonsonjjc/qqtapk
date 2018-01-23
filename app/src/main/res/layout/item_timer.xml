@@ -8,7 +8,7 @@
 
         <variable
             name="timer"
-            type="com.bonson.fjqqt.view.ui.terminal.timer.Timer" />
+            type="com.bonson.fjqqt.view.terminal.timer.Timer" />
     </data>
 
     <FrameLayout

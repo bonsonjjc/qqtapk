@@ -76,7 +76,7 @@ public class ContactsModel implements ContactDataSource {
                         result.setMsg("联系人成功");
                     } else {
                         result.setCode("-1");
-                        result.setMsg(ErrorCode.message(contact.getFresult()));
+                        result.setMsg(contact.getMsg());
                     }
                     return result;
                 });
@@ -104,6 +104,8 @@ public class ContactsModel implements ContactDataSource {
         for (Contact contact : list) {
             String fname = contact.getFname();
             fname = fname.length() > 4 ? fname.substring(0, 4) : fname;
+            builder.append(fname);
+            builder.append("-");
             String fmobile = contact.getFmobile();
             fmobile = fmobile.replaceAll("(\\+86)?-?", "");
             builder.append(fmobile);
@@ -127,9 +129,9 @@ public class ContactsModel implements ContactDataSource {
                         result.setMsg("导入联系人成功");
                     } else {
                         result.setCode("-1");
-                        result.setMsg(ErrorCode.message(contact.getFresult()));
+                        result.setMsg(contact.getMsg());
                     }
-                    return null;
+                    return result;
                 });
     }
 

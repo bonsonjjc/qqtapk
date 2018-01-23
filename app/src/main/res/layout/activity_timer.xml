@@ -6,7 +6,7 @@
 
         <variable
             name="viewModel"
-            type="com.bonson.fjqqt.view.ui.terminal.timer.TimerViewModel" />
+            type="com.bonson.fjqqt.view.terminal.timer.TimerViewModel" />
     </data>
 
     <LinearLayout

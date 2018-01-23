@@ -10,6 +10,7 @@ import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.Stroke;
 import com.bonson.qqtapk.R;
 import com.bonson.qqtapk.databinding.ActivitySafeAreaBinding;
+import com.bonson.qqtapk.view.ui.index.LocationViewModel;
 import com.bonson.resource.activity.BaseDaggerActivity;
 
 import javax.inject.Inject;
@@ -23,12 +24,16 @@ public class SafeAreaActivity extends BaseDaggerActivity<ActivitySafeAreaBinding
     SafeAreaViewModel viewModel;
     Circle overlay;
 
+    @Inject
+    LocationViewModel locationViewModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setBindingLayout(R.layout.activity_safe_area);
         binding.setViewModel(viewModel);
-        setViewModel(viewModel);
+        binding.setLocViewModel(locationViewModel);
+        setViewModel(viewModel, locationViewModel);
 
         binding.toolbar.getTvLeft().setOnClickListener(view -> back());
         binding.toolbar.setTitle("安全区域");
@@ -48,7 +53,24 @@ public class SafeAreaActivity extends BaseDaggerActivity<ActivitySafeAreaBinding
         viewModel.state.addOnPropertyChangedCallback(propertyChangedCallback);
         viewModel.position.addOnPropertyChangedCallback(propertyChangedCallback);
         viewModel.radius.addOnPropertyChangedCallback(propertyChangedCallback);
-        viewModel.init();
         overlay = (Circle) binding.mapView.getMap().addOverlay(new CircleOptions().center(viewModel.position.get()));
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        binding.mapView.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        binding.mapView.onPause();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        binding.mapView.onDestroy();
     }
 }

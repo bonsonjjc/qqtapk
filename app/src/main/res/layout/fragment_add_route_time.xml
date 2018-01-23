@@ -9,7 +9,7 @@
 
         <variable
             name="viewModel"
-            type="com.bonson.fjqqt.view.ui.route.time.AddTimeViewModel" />
+            type="com.bonson.fjqqt.view.route.time.AddTimeViewModel" />
     </data>
 
     <LinearLayout

@@ -1,6 +1,5 @@
 package com.bonson.qqtapk.view.ui.lesson;
 
-import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 
@@ -9,8 +8,7 @@ import com.bonson.qqtapk.R;
 import com.bonson.qqtapk.databinding.ActivityLessonBinding;
 import com.bonson.qqtapk.model.bean.Lesson;
 import com.bonson.qqtapk.utils.TimeUtils;
-import com.bonson.qqtapk.view.adapter.LessonAdapter;
-import com.bonson.qqtapk.view.binding.AdapterDataChangeFactory;
+import com.bonson.qqtapk.utils.binding.AdapterDataChangeFactory;
 import com.bonson.resource.activity.BaseDaggerActivity;
 import com.bonson.resource.dialog.TimePickerDialog;
 

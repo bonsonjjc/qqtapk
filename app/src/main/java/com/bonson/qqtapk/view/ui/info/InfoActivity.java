@@ -38,8 +38,7 @@ public class InfoActivity extends BaseDaggerActivity<ActivityInfoBinding> {
         super.onCreate(savedInstanceState);
         setBindingLayout(R.layout.activity_info);
         binding.setViewModel(viewModel);
-        setViewModel(viewModel
-        );
+        setViewModel(viewModel);
 
         binding.toolbar.setTitle("宝贝信息");
         binding.toolbar.getTvLeft().setOnClickListener(v -> finish());

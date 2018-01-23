@@ -41,15 +41,18 @@ public class RouteViewModel extends AndroidViewModel {
             view.toast("网络不可用");
             return;
         }
+        view.load();
         Disposable disposable = routeModel.routes(Baby.baby.getFid(), start, end)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(it -> {
                     view.toast(it.getMsg());
+                    view.dismiss();
                     routes.clear();
                     if (it.getCode().equals("0")) {
                         routes.addAll(it.getBody());
                     }
                 }, e -> {
+                    view.dismiss();
                     view.toast("出错了");
                 });
         compositeDisposable.add(disposable);

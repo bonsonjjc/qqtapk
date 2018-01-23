@@ -6,7 +6,7 @@
 
         <variable
             name="viewModel"
-            type="com.bonson.fjqqt.view.ui.route.RouteListViewModel" />
+            type="com.bonson.fjqqt.view.route.RouteListViewModel" />
     </data>
 
     <LinearLayout

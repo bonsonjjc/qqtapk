@@ -7,8 +7,7 @@ import com.bonson.qqtapk.R;
 import com.bonson.qqtapk.app.Route;
 import com.bonson.qqtapk.databinding.ActivityCenterBinding;
 import com.bonson.qqtapk.model.bean.Message;
-import com.bonson.qqtapk.view.adapter.CenterAdapter;
-import com.bonson.qqtapk.view.binding.AdapterDataChangeFactory;
+import com.bonson.qqtapk.utils.binding.AdapterDataChangeFactory;
 import com.bonson.resource.activity.BaseDaggerActivity;
 
 import java.util.List;
@@ -41,7 +40,7 @@ public class CenterActivity extends BaseDaggerActivity<ActivityCenterBinding> {
             Message message = viewModel.centers.get(position);
             Intent intent = new Intent();
             intent.setClassName(CenterActivity.this, Route.message);
-            intent.putExtra("cycleType", message.getFtype());
+            intent.putExtra("type", message.getFtype());
             intent.putExtra("title", message.getTitle());
             startActivity(intent);
         });

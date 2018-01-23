@@ -29,6 +29,10 @@ public class RouteActivity extends BaseDaggerActivity<ActivityRouteBinding> {
         binding.toolbar.getTvTitle().setOnClickListener(view -> {
             if (timeDialog == null) {
                 timeDialog = new RouteTimeDialog();
+                timeDialog.setOnSaveListener((start, end) -> {
+                    viewModel.routes(start, end);
+                    timeDialog.dismiss();
+                });
             }
             if (!timeDialog.isShowing()) {
                 timeDialog.show(getSupportFragmentManager(), "time");

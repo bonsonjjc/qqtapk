@@ -9,7 +9,7 @@
 
         <variable
             name="alarm"
-            type="com.bonson.fjqqt.view.ui.terminal.alarm.Alarm" />
+            type="com.bonson.fjqqt.view.terminal.alarm.Alarm" />
     </data>
 
     <android.support.constraint.ConstraintLayout

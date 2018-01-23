@@ -86,8 +86,8 @@ public class LocationViewModel extends AndroidViewModel {
     }
 
     @Override
-    public void onDestroy() {
+    protected void onCleared() {
+        super.onCleared();
         handler.removeCallbacksAndMessages(null);
-        super.onDestroy();
     }
 }

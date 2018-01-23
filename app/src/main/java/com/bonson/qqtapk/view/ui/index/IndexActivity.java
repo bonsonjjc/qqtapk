@@ -1,17 +1,17 @@
 package com.bonson.qqtapk.view.ui.index;
 
 import android.os.Bundle;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.baidu.mapapi.map.TextureMapView;
 import com.bonson.qqtapk.R;
 import com.bonson.qqtapk.app.Route;
 import com.bonson.qqtapk.databinding.ActivityIndexBinding;
-import com.bonson.qqtapk.view.adapter.BabyAdapter;
-import com.bonson.qqtapk.view.adapter.MenuAdapter;
 import com.bonson.resource.activity.BaseDaggerActivity;
 
 import javax.inject.Inject;
@@ -30,11 +30,6 @@ public class IndexActivity extends BaseDaggerActivity<ActivityIndexBinding> {
     @Inject
     MenuAdapter menuAdapter;
 
-    @Inject
-    RecyclerView.ItemDecoration itemDecoration;
-
-    TextureMapView mapView;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,12 +38,17 @@ public class IndexActivity extends BaseDaggerActivity<ActivityIndexBinding> {
         binding.setMainViewModel(viewModel.viewModel);
         setViewModel(viewModel, viewModel.viewModel);
 
-        mapView = findViewById(R.id.mapView);
-        mapView.onCreate(this, savedInstanceState);
+        binding.mapView.onCreate(this, savedInstanceState);
 
         binding.recBabyList.setAdapter(babyAdapter);
-        binding.recBabyList.addItemDecoration(itemDecoration);
         viewModel.babies();
+        binding.drawerLayout.addDrawerListener(new DrawerLayout.SimpleDrawerListener() {
+            @Override
+            public void onDrawerSlide(View menu, float slideOffset) {
+                int m = menu.getRight() < binding.content.getRight() ? 1 : -1;
+                binding.content.setTranslationX(slideOffset * menu.getWidth() * m);
+            }
+        });
 
         binding.recMenus.setAdapter(menuAdapter);
         viewModel.initMenu();
@@ -83,18 +83,18 @@ public class IndexActivity extends BaseDaggerActivity<ActivityIndexBinding> {
     @Override
     protected void onResume() {
         super.onResume();
-        mapView.onResume();
+        binding.mapView.onResume();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        mapView.onPause();
+        binding.mapView.onPause();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mapView.onDestroy();
+        binding.mapView.onDestroy();
     }
 }

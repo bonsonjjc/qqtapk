@@ -1,14 +1,12 @@
 package com.bonson.qqtapk.view.ui.limits;
 
-import android.databinding.DataBindingUtil;
 import android.databinding.Observable;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 
 import com.bonson.qqtapk.R;
 import com.bonson.qqtapk.databinding.ActivityLimitsBinding;
-import com.bonson.qqtapk.view.adapter.LimitAdapter;
-import com.bonson.qqtapk.view.binding.AdapterDataChangeFactory;
+import com.bonson.qqtapk.utils.binding.AdapterDataChangeFactory;
 import com.bonson.qqtapk.view.ui.limits.add.LimitFragment;
 import com.bonson.resource.activity.BaseDaggerActivity;
 

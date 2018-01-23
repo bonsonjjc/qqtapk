@@ -6,12 +6,13 @@
 
         <variable
             name="viewModel"
-            type="com.bonson.resource.viewmodel.AndroidViewModel" />
+            type="com.bonson.qqtapk.view.ui.center.message.MessageViewModel" />
     </data>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <com.bonson.resource.view.MToolbar
             android:id="@+id/toolbar"
@@ -21,9 +22,11 @@
         </com.bonson.resource.view.MToolbar>
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/rec_member"
+            android:id="@+id/rec_messages"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:divider="@{null}"
+            android:messages="@{viewModel.messages}"
             app:layoutManager="LinearLayoutManager" />
     </LinearLayout>
 </layout>

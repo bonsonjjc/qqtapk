@@ -35,9 +35,11 @@ public class CenterViewModel extends AndroidViewModel {
             view.toast("网络不可用");
             return;
         }
+        view.load();
         Disposable disposable = messageModel.message(Baby.baby.getFid())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(it -> {
+                    view.dismiss();
                     if (it.getCode().equals("0")) {
                         for (Message message : it.getBody()) {
                             for (int i = 0; i < centers.size(); i++) {
@@ -53,9 +55,9 @@ public class CenterViewModel extends AndroidViewModel {
                         view.toast(it.getMsg());
                     }
                 }, e -> {
+                    view.dismiss();
                     view.toast("出错了");
                 });
         compositeDisposable.add(disposable);
-
     }
 }

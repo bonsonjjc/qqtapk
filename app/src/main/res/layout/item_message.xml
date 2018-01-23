@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.text.TextUtils" />
+
+        <variable
+            name="data"
+            type="com.bonson.qqtapk.model.bean.Message" />
+    </data>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_height"
+        android:background="@drawable/item_selector"
+        android:drawableEnd="@drawable/ico_arrow_right"
+        android:drawablePadding="15dp"
+        android:drawableRight="@drawable/ico_arrow_right"
+        android:ellipsize="marquee"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:gravity="center_vertical"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:singleLine="true"
+        android:text="@{TextUtils.isEmpty(data.fshort) ? data.ftext : data.fshort}"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        tools:text="名称" />
+</layout>

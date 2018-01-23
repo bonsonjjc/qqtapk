@@ -1,10 +1,17 @@
 package com.bonson.resource.viewmodel;
 
 import android.app.Application;
+import android.arch.lifecycle.Lifecycle;
+import android.arch.lifecycle.LifecycleObserver;
+import android.arch.lifecycle.OnLifecycleEvent;
 import android.content.Context;
 import android.databinding.BaseObservable;
+import android.databinding.Bindable;
+import android.databinding.Observable;
+import android.databinding.PropertyChangeRegistry;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.support.annotation.NonNull;
 
 import com.bonson.resource.activity.BaseView;
 
@@ -14,11 +21,11 @@ import io.reactivex.disposables.CompositeDisposable;
  * Created by jiangjiancheng on 17/12/31.
  */
 
-public abstract class AndroidViewModel extends BaseObservable {
-    private Application application;
+public class AndroidViewModel extends BaseObservable implements LifecycleObserver {
     protected CompositeDisposable compositeDisposable;
-
-    public AndroidViewModel(Application application) {
+    protected BaseView view;
+    protected final Application application;
+    public AndroidViewModel(@NonNull Application application) {
         this.application = application;
         compositeDisposable = new CompositeDisposable();
     }
@@ -27,10 +34,14 @@ public abstract class AndroidViewModel extends BaseObservable {
         return application;
     }
 
+
+    public void setView(BaseView view) {
+        this.view = view;
+    }
+
     protected boolean isNetWork() {
         // 获得网络状态管理器
-        ConnectivityManager connectivityManager = (ConnectivityManager) getApplication()
-                .getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager connectivityManager = (ConnectivityManager) application.getSystemService(Context.CONNECTIVITY_SERVICE);
 
         if (connectivityManager == null) {
             return false;
@@ -49,7 +60,8 @@ public abstract class AndroidViewModel extends BaseObservable {
         return false;
     }
 
-    public void onDestroy() {
+    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+    protected void onCleared() {
         compositeDisposable.clear();
     }
 }

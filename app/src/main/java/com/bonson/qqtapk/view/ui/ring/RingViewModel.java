@@ -74,6 +74,8 @@ public class RingViewModel extends AndroidViewModel {
                     view.toast(it.getMsg());
                     if (it.getCode().equals("0")) {
                         Device.device.setFcaller(ring.get());
+                        Device.device.setFcvolume(callVolume.get() + "");
+                        Device.device.setFivolume(callerVolume.get() + "");
                     }
                 }, e -> {
                     view.dismiss();

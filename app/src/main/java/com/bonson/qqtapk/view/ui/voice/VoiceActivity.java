@@ -1,6 +1,5 @@
 package com.bonson.qqtapk.view.ui.voice;
 
-import android.databinding.DataBindingUtil;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.view.View;
@@ -8,8 +7,7 @@ import android.view.View;
 import com.bonson.library.utils.media.AudioRecorderUtils;
 import com.bonson.qqtapk.R;
 import com.bonson.qqtapk.databinding.ActivityVoiceBinding;
-import com.bonson.qqtapk.view.adapter.VoiceAdapter;
-import com.bonson.qqtapk.view.binding.AdapterDataChangeFactory;
+import com.bonson.qqtapk.utils.binding.AdapterDataChangeFactory;
 import com.bonson.qqtapk.view.widget.VoiceView;
 import com.bonson.resource.activity.BaseDaggerActivity;
 

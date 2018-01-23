@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -21,6 +22,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
+            android:id="@+id/content"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
@@ -39,8 +41,8 @@
                     android:layout_marginLeft="8dp"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
-                    android:url="@{viewModel.icon}"
                     android:onClick="icon"
+                    android:url="@{viewModel.icon}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -66,18 +68,246 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:layout_marginEnd="8dp"
-                    android:onClick="menu"
                     android:layout_marginRight="8dp"
                     android:layout_marginTop="8dp"
+                    android:onClick="menu"
                     android:src="@drawable/ico_menu"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
             </android.support.constraint.ConstraintLayout>
 
-            <include
-                layout="@layout/fragment_main"
-                app:mainViewModel="@{mainViewModel}" />
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/background"
+                android:orientation="vertical">
+
+                <com.baidu.mapapi.map.TextureMapView
+                    android:id="@+id/mapView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <LinearLayout
+                    android:id="@+id/tv_items"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@color/background"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:padding="2dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableLeft="@drawable/ico_item_zd"
+                        android:drawablePadding="2dp"
+                        android:drawableStart="@drawable/ico_item_zd"
+                        android:text="@{mainViewModel.type}"
+                        android:textSize="12.5sp"
+                        tools:text="L08 开机" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginStart="5dp"
+                        android:drawableLeft="@drawable/ico_item_dl"
+                        android:drawablePadding="2dp"
+                        android:drawableStart="@drawable/ico_item_dl"
+                        android:text="@{mainViewModel.battery}"
+                        android:textSize="12.5sp"
+                        tools:text="80%" />
+
+                    <TextView
+                        android:id="@+id/tv_item_3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginStart="5dp"
+                        android:drawableLeft="@drawable/ico_item_bs"
+                        android:drawablePadding="2dp"
+                        android:drawableStart="@drawable/ico_item_bs"
+                        android:text="@{mainViewModel.stepNumber}"
+                        android:textSize="12.5sp"
+                        tools:text="50步" />
+
+                    <TextView
+                        android:id="@+id/tv_item_4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginStart="5dp"
+                        android:drawableLeft="@drawable/ico_item_sm"
+                        android:drawablePadding="2dp"
+                        android:drawableStart="@drawable/ico_item_sm"
+                        android:text="@{mainViewModel.sleepTime}"
+                        android:textSize="12.5sp"
+                        tools:text="8小时" />
+
+                    <TextView
+                        android:id="@+id/tv_item_5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginStart="5dp"
+                        android:drawableLeft="@drawable/ico_item_xl"
+                        android:drawablePadding="2dp"
+                        android:drawableStart="@drawable/ico_item_xl"
+                        android:text="@{mainViewModel.heart}"
+                        android:textSize="12.5sp"
+                        tools:text="8小时" />
+                </LinearLayout>
+
+                <android.support.design.widget.FloatingActionButton
+                    android:id="@+id/fb_action1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="20dp"
+                    android:src="@drawable/ico_fb_yjjt"
+                    app:backgroundTint="@color/white"
+                    app:elevation="0dp"
+                    app:fabSize="mini"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_items" />
+
+                <android.support.design.widget.FloatingActionButton
+                    android:id="@+id/fb_action2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/ico_fb_yjsj"
+                    app:backgroundTint="@color/white"
+                    app:elevation="0dp"
+                    app:fabSize="mini"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/fb_action1" />
+
+                <android.support.design.widget.FloatingActionButton
+                    android:id="@+id/fb_action3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/ico_fb_yuyin"
+                    app:backgroundTint="@color/white"
+                    app:elevation="0dp"
+                    app:fabSize="mini"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/fb_action2" />
+
+                <android.support.design.widget.FloatingActionButton
+                    android:id="@+id/fb_action4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/ico_fb_yd"
+                    app:backgroundTint="@color/white"
+                    app:elevation="0dp"
+                    app:fabSize="mini"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/fb_action3" />
+
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <android.support.design.widget.FloatingActionButton
+                        android:id="@+id/fb_location"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ico_fb_dw"
+                        app:backgroundTint="@color/white"
+                        app:elevation="0dp"
+                        app:fabSize="mini" />
+                </FrameLayout>
+
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/constraintLayout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:clickable="true"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <TextView
+                        android:id="@+id/tv_time"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="20dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:gravity="start|center_vertical"
+                        android:text="@{mainViewModel.viewModel.time}"
+                        android:textColor="#919191"
+                        android:textSize="13.5sp"
+                        app:layout_constraintEnd_toStartOf="@+id/img_navigation"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="15分前爸爸在:" />
+
+                    <TextView
+                        android:id="@+id/tv_address"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="1dp"
+                        android:gravity="start|center_vertical"
+                        android:paddingEnd="20dp"
+                        android:paddingRight="20dp"
+                        android:text="@{mainViewModel.viewModel.address}"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/img_navigation"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_time"
+                        tools:text="福建福州五四北泰禾广场" />
+
+                    <ImageView
+                        android:id="@+id/img_navigation"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginRight="8dp"
+                        android:layout_marginTop="8dp"
+                        android:src="@drawable/ico_fb_dh"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/img_call"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:id="@+id/img_call"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginRight="8dp"
+                        android:layout_marginTop="8dp"
+                        android:src="@drawable/ico_fb_ddh"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </android.support.constraint.ConstraintLayout>
+            </android.support.constraint.ConstraintLayout>
         </LinearLayout>
 
         <LinearLayout
@@ -103,6 +333,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:babies="@{viewModel.babies}"
+                android:divider="@{null}"
                 app:layoutManager="LinearLayoutManager" />
         </LinearLayout>
 
@@ -126,6 +357,7 @@
                 android:id="@+id/rec_menus"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:divider="@{@drawable/ico_menu_line}"
                 android:menus="@{viewModel.menus}"
                 app:layoutManager="LinearLayoutManager" />
         </LinearLayout>
