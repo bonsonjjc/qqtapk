@@ -1,16 +1,10 @@
 package com.bonson.qqtapk.view.ui.scan;
 
 import android.app.Application;
-import android.arch.lifecycle.Lifecycle;
-import android.arch.lifecycle.OnLifecycleEvent;
-import android.databinding.Bindable;
 
-import com.bonson.qqtapk.BR;
 import com.bonson.qqtapk.model.bean.Baby;
 import com.bonson.qqtapk.model.bean.User;
 import com.bonson.qqtapk.model.data.baby.BabyModel;
-import com.bonson.qqtapk.model.data.user.UserModel;
-import com.bonson.resource.activity.BaseView;
 import com.bonson.resource.viewmodel.AndroidViewModel;
 
 import javax.inject.Inject;
@@ -20,13 +14,6 @@ import io.reactivex.disposables.Disposable;
 
 public class ScanViewModel extends AndroidViewModel {
     private BabyModel babyModel;
-    @Bindable
-    String imei;
-    @Inject
-    UserModel userModel;
-    private User user;
-
-    private BaseView view;
 
     @Inject
     public ScanViewModel(Application application, BabyModel babyModel) {
@@ -34,37 +21,13 @@ public class ScanViewModel extends AndroidViewModel {
         this.babyModel = babyModel;
     }
 
-    public void setImei(String imei) {
-        this.imei = imei;
-        notifyPropertyChanged(BR.imei);
-    }
-
-    public void setView(BaseView view) {
-        this.view = view;
-    }
-
-    @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
-    public void init() {
-        user = User.user;
-        if (user == null) {
-            user = userModel.getUser();
-            if (user != null) {
-                User.user = user;
-            }
-        }
-    }
-
-    public void setUserModel(UserModel userModel) {
-        this.userModel = userModel;
-    }
-
-    public void add() {
-        view.load();
+    public void add(String imei) {
         if (!isNetWork()) {
             view.toast("网络不可用");
             return;
         }
-        Disposable disposable = babyModel.bind(user.getUserId(), imei)
+        view.load();
+        Disposable disposable = babyModel.bind(User.user.getUserId(), imei)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(it -> {
                     view.dismiss();
@@ -79,7 +42,7 @@ public class ScanViewModel extends AndroidViewModel {
         compositeDisposable.add(disposable);
     }
 
-    public void change() {
+    public void change(String imei) {
         if (!isNetWork()) {
             view.toast("网络不可用");
             return;

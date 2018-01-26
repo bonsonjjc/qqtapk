@@ -2,6 +2,7 @@ package com.bonson.qqtapk.view.ui.index;
 
 import android.content.Context;
 import android.databinding.DataBindingUtil;
+import android.view.View;
 import android.view.ViewGroup;
 
 import com.bonson.qqtapk.R;
@@ -33,12 +34,14 @@ public class MenuAdapter extends BaseAdapter<Menu, ItemMenuBinding> {
 
     @Override
     public void onBindViewHolder(ViewHolder<ItemMenuBinding> holder, int position) {
-        holder.getBinding().setMenu(beans.get(position));
+        Menu menu = beans.get(position);
+        holder.getBinding().setMenu(menu);
         holder.getBinding().executePendingBindings();
-//        holder.itemView.setOnClickListener((View v) -> {
-//            if (null != onItemClickListener) {
-//                onItemClickListener.itemClick(position);
-//            }
-//        });
+        if (!menu.isOther())
+            holder.itemView.setOnClickListener(v -> {
+                if (null != onItemClickListener) {
+                    onItemClickListener.itemClick(position);
+                }
+            });
     }
 }

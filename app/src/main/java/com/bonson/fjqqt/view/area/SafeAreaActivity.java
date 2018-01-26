@@ -34,7 +34,7 @@ public class SafeAreaActivity extends BaseDaggerActivity<ActivitySafeAreaBinding
         binding.setViewModel(viewModel);
         binding.setLocViewModel(locationViewModel);
         setViewModel(viewModel, locationViewModel);
-
+        viewModel.setLocationViewModel(locationViewModel);
         binding.rgType.setOnCheckedChangeListener((group, checkedId) -> {
             switch (checkedId) {
                 case R.id.rb_home:

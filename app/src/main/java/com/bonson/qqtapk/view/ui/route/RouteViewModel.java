@@ -2,6 +2,7 @@ package com.bonson.qqtapk.view.ui.route;
 
 import android.app.Application;
 import android.databinding.ObservableArrayList;
+import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.databinding.ObservableList;
 
@@ -26,7 +27,12 @@ import io.reactivex.disposables.Disposable;
  */
 @ActivityScope
 public class RouteViewModel extends AndroidViewModel {
-    public final ObservableList<Route> routes = new ObservableArrayList<>();
+    public final List<Route> routes = new ObservableArrayList<>();
+    public final ObservableBoolean visible = new ObservableBoolean(false);
+
+    public final ObservableField<String> address = new ObservableField<>("");
+    public final ObservableField<String> time = new ObservableField<>("");
+
     public final ObservableField<String> title = new ObservableField<>(DateUtils.format(new Date(), "yyyy-MM-dd"));
     private RouteModel routeModel;
 
@@ -50,10 +56,16 @@ public class RouteViewModel extends AndroidViewModel {
                     routes.clear();
                     if (it.getCode().equals("0")) {
                         routes.addAll(it.getBody());
+                        visible.set(true);
+                    } else {
+                        visible.set(false);
                     }
                 }, e -> {
                     view.dismiss();
+                    routes.clear();
+                    visible.set(false);
                     view.toast("出错了");
+                    e.printStackTrace();
                 });
         compositeDisposable.add(disposable);
     }

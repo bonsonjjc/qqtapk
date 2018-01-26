@@ -2,16 +2,14 @@ package com.bonson.qqtapk.model.data.baby;
 
 import android.text.TextUtils;
 
-import com.bonson.qqtapk.app.ErrorCode;
 import com.bonson.qqtapk.model.bean.Baby;
 import com.bonson.qqtapk.model.bean.Base;
 import com.bonson.qqtapk.model.bean.Result;
 import com.bonson.qqtapk.model.bean.User;
 import com.bonson.qqtapk.model.bean.UserBean;
 import com.bonson.qqtapk.model.data.ApiServer;
-import com.bonson.qqtapk.model.db.BabyDao;
+import com.bonson.qqtapk.model.db.UserDao;
 import com.bonson.qqtapk.utils.QQtBuilder;
-import com.bonson.resource.utils.EncodeUtils;
 
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -29,10 +27,10 @@ import io.reactivex.schedulers.Schedulers;
 
 public class BabyModel {
     private ApiServer apiServer;
-    private BabyDao babyDao;
+    private UserDao babyDao;
 
     @Inject
-    public BabyModel(ApiServer apiServer, BabyDao babyDao) {
+    public BabyModel(ApiServer apiServer, UserDao babyDao) {
         this.apiServer = apiServer;
         this.babyDao = babyDao;
     }
@@ -50,10 +48,10 @@ public class BabyModel {
                     if ("0".equals(baby.getFresult())) {
                         result.setCode("0");
                         result.setMsg("绑定成功");
-                        babyDao.insert(baby);
+                        babyDao.insertBaby(baby);
                     } else {
                         result.setCode("-1");
-                        result.setMsg(ErrorCode.message(baby.getFresult()));
+                        result.setMsg(baby.getMsg());
                     }
                     return result;
                 });
@@ -61,7 +59,7 @@ public class BabyModel {
 
     public Observable<Result<Baby>> unbind(String uid, String bid) {
         Map<String, String> map = new LinkedHashMap<>();
-        map.put("fid", uid);
+        map.put("fid", bid);
         map.put("fuser", uid);
         Object body = QQtBuilder.build("28", map);
         return apiServer.baby(body)
@@ -72,10 +70,10 @@ public class BabyModel {
                     if ("0".equals(baby.getFresult())) {
                         result.setCode("0");
                         result.setMsg("解绑成功");
-                        babyDao.delete(baby);
+                        babyDao.deleteBaby(baby);
                     } else {
                         result.setCode("-1");
-                        result.setMsg(ErrorCode.message(baby.getFresult()));
+                        result.setMsg(baby.getMsg());
                     }
                     return result;
                 });
@@ -106,17 +104,13 @@ public class BabyModel {
                     if ("0".equals(baby.getFresult())) {
                         result.setCode("0");
                         result.setMsg("修改成功");
-                        babyDao.update(baby);
+                        babyDao.insertBaby(baby);
                     } else {
                         result.setCode("-1");
-                        result.setMsg(ErrorCode.message(baby.getFresult()));
+                        result.setMsg(baby.getMsg());
                     }
                     return result;
                 });
-    }
-
-    public Baby getLocal(String bid) {
-        return babyDao.getById(bid);
     }
 
     public Observable<Result<Baby>> getBaby(String bid) {
@@ -135,11 +129,11 @@ public class BabyModel {
                         result.setCode("0");
                         result.setMsg("切换成功");
                         Baby r = baby.baby();
-                        babyDao.update(r);
+                        babyDao.insertBaby(r);
                         result.setBody(r);
                     } else {
                         result.setCode("-1");
-                        result.setMsg(ErrorCode.message(baby.getFresult()));
+                        result.setMsg(baby.getMsg());
                     }
                     return result;
                 });
@@ -159,19 +153,13 @@ public class BabyModel {
                     if ("0".equals(base.getFresult())) {
                         result.setCode("0");
                         result.setMsg("切换成功");
-                        babyDao.update(baby);
+                        babyDao.insertBaby(baby);
                         result.setBody(baby);
                     } else {
                         result.setCode("-1");
-                        result.setMsg(ErrorCode.message(base.getFresult()));
+                        result.setMsg(baby.getMsg());
                     }
                     return result;
                 });
-    }
-
-
-    public Flowable<List<Baby>> list(String userId) {
-        return babyDao.getByUserId(userId)
-                .subscribeOn(Schedulers.io());
     }
 }

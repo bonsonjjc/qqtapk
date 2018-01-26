@@ -8,8 +8,8 @@ import android.databinding.ObservableList;
 import com.bonson.qqtapk.di.ActivityScope;
 import com.bonson.qqtapk.model.bean.Baby;
 import com.bonson.qqtapk.model.bean.Menu;
-import com.bonson.qqtapk.model.bean.User;
 import com.bonson.qqtapk.model.data.baby.BabyModel;
+import com.bonson.qqtapk.model.db.UserDao;
 import com.bonson.resource.viewmodel.AndroidViewModel;
 
 import javax.inject.Inject;
@@ -27,25 +27,29 @@ public class IndexViewModel extends AndroidViewModel {
     public final ObservableList<Baby> babies = new ObservableArrayList<>();
 
     public final ObservableField<String> icon = new ObservableField<>();
-    private BabyModel babyModel;
+
+    @Inject
+    UserDao userDao;
 
     @Inject
     MainViewModel viewModel;
 
     @Inject
-    public IndexViewModel(Application application, BabyModel babyModel) {
+    BabyModel babyServer;
+
+    @Inject
+    public IndexViewModel(Application application) {
         super(application);
-        this.babyModel = babyModel;
     }
 
     public void initMenu() {
         menus.clear();
-        menus.addAll(MenuHelper.createMenu(view));
+        menus.addAll(MenuHelper.createMenu());
     }
 
     public void babies() {
         icon.set(Baby.baby.getFimg());
-        Disposable disposable = babyModel.list(User.user.getUserId())
+        Disposable disposable = userDao.babyList()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(it -> {
                     Baby baby = new Baby();
@@ -64,7 +68,7 @@ public class IndexViewModel extends AndroidViewModel {
             return;
         }
         view.load();
-        Disposable disposable = babyModel.getBaby(babies.get(index).getFid())
+        Disposable disposable = babyServer.getBaby(babies.get(index).getFid())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(it -> {
                     view.toast(it.getMsg());

@@ -15,8 +15,6 @@ import com.bonson.qqtapk.model.bean.User;
 public abstract class AppDataBase extends RoomDatabase {
     public abstract UserDao userDao();
 
-    public abstract BabyDao babyDao();
-
     public static AppDataBase build(Context context) {
         return Room.databaseBuilder(context, AppDataBase.class, "db").allowMainThreadQueries().build();
     }

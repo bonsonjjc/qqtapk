@@ -8,7 +8,9 @@ import android.databinding.ObservableField;
 import android.databinding.ObservableInt;
 
 import com.baidu.mapapi.model.LatLng;
+import com.baidu.mapapi.search.geocode.GeoCoder;
 import com.bonson.qqtapk.di.ActivityScope;
+import com.bonson.qqtapk.model.baidu.GeoCoderHelper;
 import com.bonson.qqtapk.model.bean.Baby;
 import com.bonson.qqtapk.model.bean.SafeArea;
 import com.bonson.qqtapk.model.data.area.SafeAreaDataSource;
@@ -33,13 +35,20 @@ public class SafeAreaViewModel extends AndroidViewModel {
 
     public ObservableField<String> type = new ObservableField<>("1");
     private SafeAreaDataSource areaModel;
+    private LocationViewModel locationViewModel;
 
+    @Inject
+    GeoCoderHelper coderHelper;
 
     @Inject
     public SafeAreaViewModel(Application application, SafeAreaDataSource areaModel) {
         super(application);
         this.areaModel = areaModel;
         position.set(new LatLng(0, 0));
+    }
+
+    public void setLocationViewModel(LocationViewModel locationViewModel) {
+        this.locationViewModel = locationViewModel;
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
@@ -56,10 +65,12 @@ public class SafeAreaViewModel extends AndroidViewModel {
                     view.toast(it.getMsg());
                     if ("0".equals(it.getCode())) {
                         SafeArea area = it.getBody();
-                        position.set(new LatLng(NumberUtils.parseDouble(area.getFy()), NumberUtils.parseDouble(area.getFx())));
-                        radius.set(NumberUtils.parseInt(area.getFradius(), 200));
+                        LatLng latLng = new LatLng(NumberUtils.parseDouble(area.getFy()), NumberUtils.parseDouble(area.getFx()));
+                        map(latLng);
+                        radius.set(NumberUtils.parseInt(area.getFradius(), 200) - 200);
                         state.set("1".equals(area.getFstate()));
                         type.set(area.getFtype());
+                        coderHelper.convert(position.get());
                     }
                 }, e -> {
                     view.dismiss();
@@ -96,9 +107,23 @@ public class SafeAreaViewModel extends AndroidViewModel {
 
     public void map(LatLng latLng) {
         position.set(latLng);
+        Disposable disposable = coderHelper.convert(position.get())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(it -> {
+                    locationViewModel.address.set(it);
+                }, e -> {
+                    e.printStackTrace();
+                });
+        compositeDisposable.add(disposable);
     }
 
     public void change() {
         state.set(!state.get());
+    }
+
+    @Override
+    protected void onCleared() {
+        super.onCleared();
+        coderHelper.destroy();
     }
 }

@@ -16,5 +16,8 @@ public class Const {
 
     public static final String API_PATH = PATH + "/api/";
 
-    public static final String QQT_PATH="http://qqt.bfsafe.com/";
+    public static final String QQT_PATH = "http://qqt.bfsafe.com/";
+
+
+    public static final String IMEI_VALIDATE = "^\\d{15,18}$";
 }

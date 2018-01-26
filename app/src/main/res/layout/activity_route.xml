@@ -5,6 +5,8 @@
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
             name="viewModel"
             type="com.bonson.qqtapk.view.ui.route.RouteViewModel" />
@@ -35,8 +37,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:drawablePadding="10dp"
-                android:text="@{viewModel.title}"
                 android:drawableRight="@drawable/ico_arrow_down"
+                android:onClick="showDialog"
+                android:text="@{viewModel.title}"
                 android:textColor="@color/white"
                 android:textSize="20sp"
                 tools:text="缤纷运动" />
@@ -58,7 +61,7 @@
             android:layout_margin="3dp"
             android:background="@color/white"
             android:clickable="true"
-            android:visibility="gone"
+            android:visibility="@{viewModel.visible ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
@@ -72,6 +75,7 @@
                 android:layout_marginRight="15dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
+                android:text="@{viewModel.time}"
                 android:textColor="#919191"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toStartOf="@+id/img_play"
@@ -90,6 +94,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="2dp"
                 android:singleLine="true"
+                android:text="@{viewModel.address}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/img_play"
                 app:layout_constraintStart_toStartOf="parent"
@@ -101,6 +106,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="14dp"
+                android:onClick="next"
                 android:src="@drawable/ico_play"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

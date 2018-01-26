@@ -6,12 +6,10 @@ import com.bonson.qqtapk.model.bean.Baby;
 import com.bonson.qqtapk.model.bean.Result;
 import com.bonson.qqtapk.model.bean.User;
 import com.bonson.qqtapk.model.bean.UserBean;
-import com.bonson.qqtapk.model.db.BabyDao;
 import com.bonson.qqtapk.model.db.UserDao;
 import com.bonson.resource.utils.EncodeUtils;
 
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -23,13 +21,11 @@ import io.reactivex.schedulers.Schedulers;
 public class LoginModel implements LoginServer {
     private FApiServer apiServer;
     private UserDao userDao;
-    private BabyDao babyDao;
 
     @Inject
-    public LoginModel(FApiServer apiServer, UserDao userDao, BabyDao babyDao) {
+    public LoginModel(FApiServer apiServer, UserDao userDao) {
         this.apiServer = apiServer;
         this.userDao = userDao;
-        this.babyDao = babyDao;
     }
 
     @Override
@@ -49,13 +45,14 @@ public class LoginModel implements LoginServer {
                         result.setMsg("登录成功");
                         Baby.baby = userBean.baby();
                         User tempUser = userBean.user();
+                        tempUser.setAuto(user.getAuto());
                         User.user = tempUser;
-                        List<User> userList = userDao.users();
-                        if (userList != null) {
-                            userDao.delete(userList);
+                        User locUser = userDao.user();
+                        if (locUser != null) {
+                            userDao.deleteUser(locUser);
                         }
-                        userDao.insert(tempUser);
-                        babyDao.insert(tempUser.getBabyList());
+                        userDao.insertUer(tempUser);
+                        userDao.insertBaby(tempUser.getBabyList());
                         result.setBody(tempUser);
                     } else {
                         result.setCode("-1");

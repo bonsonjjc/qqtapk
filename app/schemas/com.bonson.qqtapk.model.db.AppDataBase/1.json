@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "22ba11942726d26176b3eaf429d65f3a",
+    "identityHash": "0694611fc9f16c3838733b7f07ae14bd",
     "entities": [
       {
         "tableName": "babys",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`fid` TEXT NOT NULL, `fname` TEXT, `fimg` TEXT, `faccount` TEXT, `fpasswd` TEXT, `fuser` TEXT, `fimei` TEXT, `frelative` TEXT, `fsex` TEXT, `fbirth` TEXT, `fheight` TEXT, `fweight` TEXT, `fisadmin` TEXT, `fbtname` TEXT, `ftmobile` TEXT, `fprovince` TEXT, `fcity` TEXT, `farea` TEXT, `fareaname` TEXT, `fmenus` TEXT, `ftag` TEXT, `furl` TEXT, PRIMARY KEY(`fid`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`fid` TEXT NOT NULL, `fname` TEXT, `fimg` TEXT, `faccount` TEXT, `fpasswd` TEXT, `fuser` TEXT, `fimei` TEXT, `frelative` TEXT, `fsex` TEXT, `fbirth` TEXT, `fheight` TEXT, `fweight` TEXT, `fisadmin` TEXT, `fbtname` TEXT, `ftmobile` TEXT, `fprovince` TEXT, `fcity` TEXT, `farea` TEXT, `fareaname` TEXT, `fmenus` TEXT, `ftag` TEXT, `furl` TEXT, PRIMARY KEY(`fid`), FOREIGN KEY(`fuser`) REFERENCES `users`(`userId`) ON UPDATE CASCADE ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "fid",
@@ -147,8 +147,29 @@
           ],
           "autoGenerate": false
         },
-        "indices": [],
-        "foreignKeys": []
+        "indices": [
+          {
+            "name": "fuser",
+            "unique": false,
+            "columnNames": [
+              "fuser"
+            ],
+            "createSql": "CREATE  INDEX `fuser` ON `${TABLE_NAME}` (`fuser`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "users",
+            "onDelete": "CASCADE",
+            "onUpdate": "CASCADE",
+            "columns": [
+              "fuser"
+            ],
+            "referencedColumns": [
+              "userId"
+            ]
+          }
+        ]
       },
       {
         "tableName": "users",
@@ -191,7 +212,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"22ba11942726d26176b3eaf429d65f3a\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"0694611fc9f16c3838733b7f07ae14bd\")"
     ]
   }
 }

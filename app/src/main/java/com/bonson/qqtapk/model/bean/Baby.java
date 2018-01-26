@@ -1,12 +1,15 @@
 package com.bonson.qqtapk.model.bean;
 
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.Ignore;
+import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
-@Entity(tableName = "babys")
-public class Baby extends Base implements Cloneable{
+@Entity(tableName = "babys", indices = @Index(value = "fuser", name = "fuser"), foreignKeys = @ForeignKey(entity = User.class,
+        parentColumns = "userId", childColumns = "fuser", onDelete = ForeignKey.CASCADE, onUpdate = ForeignKey.CASCADE))
+public class Baby extends Base implements Cloneable {
     @PrimaryKey
     @NonNull
     private String fid;

@@ -1,6 +1,8 @@
 package com.bonson.qqtapk.view.ui.index;
 
 import android.app.Application;
+import android.arch.lifecycle.Lifecycle;
+import android.arch.lifecycle.OnLifecycleEvent;
 import android.databinding.ObservableField;
 import android.os.Handler;
 
@@ -86,6 +88,7 @@ public class LocationViewModel extends AndroidViewModel {
     }
 
     @Override
+    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     protected void onCleared() {
         super.onCleared();
         handler.removeCallbacksAndMessages(null);

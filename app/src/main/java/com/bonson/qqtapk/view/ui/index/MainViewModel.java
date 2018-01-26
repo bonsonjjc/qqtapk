@@ -8,7 +8,6 @@ import com.bonson.qqtapk.model.bean.Baby;
 import com.bonson.qqtapk.model.bean.Device;
 import com.bonson.qqtapk.model.bean.Location;
 import com.bonson.qqtapk.model.data.index.IndexModel;
-import com.bonson.resource.activity.BaseView;
 import com.bonson.resource.viewmodel.AndroidViewModel;
 
 import javax.inject.Inject;

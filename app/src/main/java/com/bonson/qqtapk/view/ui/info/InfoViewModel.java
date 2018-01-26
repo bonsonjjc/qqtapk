@@ -6,21 +6,18 @@ import android.text.TextUtils;
 
 import com.bonson.qqtapk.app.Route;
 import com.bonson.qqtapk.model.bean.Baby;
-import com.bonson.qqtapk.model.bean.User;
 import com.bonson.qqtapk.model.data.baby.BabyModel;
+import com.bonson.qqtapk.model.db.UserDao;
 import com.bonson.qqtapk.view.ui.info.input.InputViewModel;
 import com.bonson.qqtapk.view.ui.info.select.Select;
 import com.bonson.qqtapk.view.ui.info.select.SelectViewModel;
 import com.bonson.resource.activity.ActivityUtils;
-import com.bonson.resource.activity.BaseView;
 import com.bonson.resource.viewmodel.AndroidViewModel;
+
+import javax.inject.Inject;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
-
-import java.util.List;
-
-import javax.inject.Inject;
 
 /**
  * Created by jiangjiancheng on 17/12/31.
@@ -35,6 +32,7 @@ public class InfoViewModel extends AndroidViewModel {
     InputViewModel inputViewModel;
 
     private BabyModel babyModel;
+    UserDao userDao;
 
 
     @Inject
@@ -158,7 +156,7 @@ public class InfoViewModel extends AndroidViewModel {
                     view.dismiss();
                     view.toast(it.getMsg());
                     if (it.getCode().equals("0")) {
-                        Disposable subscribe = babyModel.list(User.user.getUserId())
+                        Disposable subscribe = userDao.babyList()
                                 .observeOn(AndroidSchedulers.mainThread())
                                 .subscribe(list -> {
                                     if (list.isEmpty()) {

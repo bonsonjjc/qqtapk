@@ -12,7 +12,7 @@ public class Menu extends BaseObservable {
     private String name;
     private String detail;
 
-    private Runnable runnable;
+    private String action;
 
     public String getIcon() {
         return icon;
@@ -39,11 +39,15 @@ public class Menu extends BaseObservable {
         this.detail = detail;
     }
 
-    public Runnable getRunnable() {
-        return runnable;
+    public String getAction() {
+        return action;
     }
 
-    public void setRunnable(Runnable runnable) {
-        this.runnable = runnable;
+    public void setAction(String action) {
+        this.action = action;
+    }
+
+    public boolean isOther() {
+        return "其他".equals(name);
     }
 }

@@ -1,16 +1,13 @@
 package com.bonson.qqtapk.model.data.user;
 
-import com.bonson.qqtapk.di.ActivityScope;
 import com.bonson.qqtapk.model.bean.Baby;
 import com.bonson.qqtapk.model.bean.Result;
 import com.bonson.qqtapk.model.bean.User;
 import com.bonson.qqtapk.model.bean.UserBean;
 import com.bonson.qqtapk.model.data.ApiServer;
-import com.bonson.qqtapk.model.db.BabyDao;
 import com.bonson.qqtapk.model.db.UserDao;
 import com.bonson.library.utils.security.Md5Utils;
 import com.bonson.qqtapk.utils.QQtBuilder;
-import com.bonson.resource.utils.EncodeUtils;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -25,18 +22,16 @@ import io.reactivex.schedulers.Schedulers;
  */
 public class UserModel {
     private UserDao userDao;
-    private BabyDao babyDao;
     private ApiServer apiServer;
 
     @Inject
-    public UserModel(UserDao userDao, BabyDao babyDao, ApiServer apiServer) {
+    public UserModel(UserDao userDao, ApiServer apiServer) {
         this.userDao = userDao;
-        this.babyDao = babyDao;
         this.apiServer = apiServer;
     }
 
     public User getUser() {
-        return userDao.userFirst();
+        return userDao.user();
     }
 
     public Observable<Result<User>> login(String mobile, String password, String token, boolean isAuto) {
@@ -57,8 +52,8 @@ public class UserModel {
                         User user = userBean.user();
                         user.setAuto(isAuto);
                         User.user = user;
-                        userDao.insert(user);
-                        babyDao.insert(user.getBabyList());
+                        userDao.insertUer(user);
+                        userDao.insertBaby(user.getBabyList());
                         result.setBody(user);
                     } else {
                         result.setCode("-1");
@@ -170,7 +165,7 @@ public class UserModel {
                         result.setMsg("修改密码成功");
                         User.user.setAuto(false);
                         User.user.setPassword("");
-                        userDao.insert(User.user);
+                        userDao.insertUer(User.user);
                     } else {
                         result.setCode("-1");
                         result.setMsg(userBean.getMsg());
@@ -182,7 +177,7 @@ public class UserModel {
     public Observable<Boolean> exit(User user) {
         return Observable.create(e -> {
             user.setPassword("");
-            long insert = userDao.insert(user);
+            long insert = userDao.insertUer(user);
             e.onNext(true);
             e.onComplete();
         });

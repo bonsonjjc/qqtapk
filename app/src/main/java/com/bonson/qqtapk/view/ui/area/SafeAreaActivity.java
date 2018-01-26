@@ -34,7 +34,9 @@ public class SafeAreaActivity extends BaseDaggerActivity<ActivitySafeAreaBinding
         binding.setViewModel(viewModel);
         binding.setLocViewModel(locationViewModel);
         setViewModel(viewModel, locationViewModel);
-
+        viewModel.setLocationViewModel(locationViewModel);
+        binding.mapView.showZoomControls(false);
+        binding.mapView.showScaleControl(false);
         binding.toolbar.getTvLeft().setOnClickListener(view -> back());
         binding.toolbar.setTitle("安全区域");
         binding.toolbar.setRightText("保存");

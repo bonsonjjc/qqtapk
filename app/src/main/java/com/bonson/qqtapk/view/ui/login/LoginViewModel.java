@@ -38,6 +38,23 @@ public class LoginViewModel extends AndroidViewModel {
         this.loginServer = loginServer;
     }
 
+    @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
+    void init() {
+        user = loginServer.getUser();
+        if (user == null) {
+            user = new User();
+            user.setMobile("");
+            user.setPassword("");
+            user.setAuto(false);
+            user.setToken("");
+            return;
+        }
+        token = user.getToken();
+        mobile.set(user.getMobile());
+        password.set(user.getAuto() ? user.getPassword() : "");
+        auto.set(user.getAuto());
+    }
+
     public void login() {
         if (TextUtils.isEmpty(mobile.get())) {
             view.toast("请输入账号");
@@ -76,21 +93,5 @@ public class LoginViewModel extends AndroidViewModel {
                     e.printStackTrace();
                 });
         compositeDisposable.add(disposable);
-    }
-
-    @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
-    void init() {
-        user = loginServer.getUser();
-        if (user == null) {
-            user = new User();
-            user.setMobile("");
-            user.setAuto(false);
-            user.setToken("");
-            return;
-        }
-        token = user.getToken();
-        mobile.set(user.getMobile());
-        password.set(user.getPassword());
-        auto.set(user.getAuto());
     }
 }

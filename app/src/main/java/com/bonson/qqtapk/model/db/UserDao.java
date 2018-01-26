@@ -6,6 +6,7 @@ import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
 
+import com.bonson.qqtapk.model.bean.Baby;
 import com.bonson.qqtapk.model.bean.User;
 
 import java.util.List;
@@ -19,20 +20,26 @@ import io.reactivex.Flowable;
 @Dao
 public interface UserDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    long insert(User user);
+    long insertUer(User user);
 
     @Query("select * from users")
     User user();
 
-    @Query("select * from users")
-    List<User> users();
+    @Delete
+    int deleteUser(User user);
 
-    @Query("select * from users limit 1")
-    User userFirst();
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    Long[] insertBaby(Baby... baby);
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    List<Long> insertBaby(List<Baby> baby);
 
     @Delete
-    int delete(User user);
-    @Delete
-    void delete(List<User> users);
+    int deleteBaby(Baby baby);
+
+    @Query("select * from babys where fid = :id")
+    Baby baby(String id);
+
+    @Query("select * from babys order by fid asc")
+    Flowable<List<Baby>> babyList();
 }
