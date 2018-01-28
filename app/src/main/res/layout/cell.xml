@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="cell"
+            type="com.bonson.qqtapk.view.ui.motion.bean.Cell" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="@{cell.visible}">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{cell.value1}"
+            android:textColor="#555555"
+            android:textSize="12sp"
+            tools:text="10:23" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2dp"
+            android:layout_marginTop="2dp"
+            android:text="@{cell.value2}"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            tools:text="94次/分" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{cell.value3}"
+            android:textColor="#555555"
+            android:textSize="12sp"
+            android:visibility="@{cell.value3==null ? View.GONE : View.VISIBLE}"
+            tools:text="心率正常" />
+    </LinearLayout>
+</layout>
+

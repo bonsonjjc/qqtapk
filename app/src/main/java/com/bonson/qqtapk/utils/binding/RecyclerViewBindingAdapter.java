@@ -34,6 +34,8 @@ import com.bonson.qqtapk.view.ui.lesson.LessonAdapter;
 import com.bonson.qqtapk.view.ui.limits.LimitAdapter;
 import com.bonson.qqtapk.view.ui.member.MemberAdapter;
 import com.bonson.qqtapk.view.ui.index.MenuAdapter;
+import com.bonson.qqtapk.view.ui.motion.TableAdapter;
+import com.bonson.qqtapk.view.ui.motion.bean.Table;
 import com.bonson.qqtapk.view.ui.voice.VoiceAdapter;
 import com.bonson.qqtapk.view.ui.info.select.Select;
 import com.bonson.qqtapk.view.ui.info.select.SelectAdapter;
@@ -158,5 +160,13 @@ public class RecyclerViewBindingAdapter {
         AlarmAdapter adapter = (AlarmAdapter) recyclerView.getAdapter();
         recyclerView.setAdapter(adapter);
         adapter.setBeans(alarms);
+    }
+
+
+    @BindingAdapter("android:tables")
+    public static void setTables(RecyclerView recyclerView, List<Table> tables) {
+        TableAdapter adapter = (TableAdapter) recyclerView.getAdapter();
+        recyclerView.setAdapter(adapter);
+        adapter.setBeans(tables);
     }
 }

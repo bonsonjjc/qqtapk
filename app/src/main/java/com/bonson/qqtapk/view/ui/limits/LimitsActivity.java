@@ -36,6 +36,28 @@ public class LimitsActivity extends BaseDaggerActivity<ActivityLimitsBinding> {
         binding.setViewModel(viewModel);
         setViewModel(viewModel);
 
+        adapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
+            @Override
+            public void onChanged() {
+                if (adapter.getItemCount() == 0) {
+
+                }
+            }
+
+            @Override
+            public void onItemRangeInserted(int positionStart, int itemCount) {
+                if (adapter.getItemCount() == 0) {
+
+                }
+            }
+
+            @Override
+            public void onItemRangeRemoved(int positionStart, int itemCount) {
+                if (adapter.getItemCount() == 0) {
+
+                }
+            }
+        });
         binding.toolbar.setTitle("呼入限制");
         binding.toolbar.getTvLeft().setOnClickListener(view -> finish());
         binding.toolbar.setRightText("添加");

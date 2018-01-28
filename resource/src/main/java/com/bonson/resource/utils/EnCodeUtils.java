@@ -3,7 +3,7 @@ package com.bonson.resource.utils;
 import com.bonson.library.utils.security.Base64;
 import com.google.gson.Gson;
 
-public class EnCodeUtils {
+public class EncodeUtils {
     public static byte[] encodeAes(byte[] bytes) {
         return AesUtils.encode(bytes);
     }

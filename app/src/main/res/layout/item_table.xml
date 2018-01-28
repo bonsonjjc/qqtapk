@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="table"
+            type="com.bonson.qqtapk.view.ui.motion.bean.Table" />
+    </data>
+
+    <android.support.v7.widget.GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:columnCount="3"
+        app:rowCount="3">
+
+        <include
+            android:id="@+id/row_0_0"
+            layout="@layout/cell"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:cell="@{table.cell0_0}"
+            app:layout_column="0"
+            app:layout_columnWeight="1"
+            app:layout_row="0"
+            app:layout_rowWeight="1" />
+
+        <include
+            android:id="@+id/row_0_1"
+            layout="@layout/cell"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginLeft="0.1dp"
+            android:layout_marginRight="0.1dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:cell="@{table.cell0_1}"
+            app:layout_column="1"
+            app:layout_columnWeight="1"
+            app:layout_row="0"
+            app:layout_rowWeight="1" />
+
+        <include
+            android:id="@+id/row_0_2"
+            layout="@layout/cell"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:cell="@{table.cell0_2}"
+            app:layout_column="2"
+            app:layout_columnWeight="1"
+            app:layout_row="0"
+            app:layout_rowWeight="1" />
+
+        <include
+            android:id="@+id/row_1_0"
+            layout="@layout/cell"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="0.1dp"
+            android:layout_marginTop="0.1dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:cell="@{table.cell1_0}"
+            app:layout_column="0"
+            app:layout_columnWeight="1"
+            app:layout_row="1"
+            app:layout_rowWeight="1" />
+
+        <include
+            android:id="@+id/row_1_1"
+            layout="@layout/cell"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="0.1dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:cell="@{table.cell1_1}"
+            app:layout_column="1"
+            app:layout_columnWeight="1"
+            app:layout_row="1"
+            app:layout_rowWeight="1" />
+
+        <include
+            android:id="@+id/row_1_2"
+            layout="@layout/cell"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="0.1dp"
+            android:layout_marginTop="0.1dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:cell="@{table.cell1_2}"
+            app:layout_column="2"
+            app:layout_columnWeight="1"
+            app:layout_row="1"
+            app:layout_rowWeight="1" />
+
+        <include
+            android:id="@+id/row_2_0"
+            layout="@layout/cell"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="0.1dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:cell="@{table.cell2_0}"
+            app:layout_column="0"
+            app:layout_columnWeight="1"
+            app:layout_row="2"
+            app:layout_rowWeight="1" />
+
+        <include
+            android:id="@+id/row_2_1"
+            layout="@layout/cell"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginLeft="0.1dp"
+            android:layout_marginRight="0.1dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:cell="@{table.cell2_1}"
+            app:layout_column="1"
+            app:layout_columnWeight="1"
+            app:layout_row="2"
+            app:layout_rowWeight="1" />
+
+        <include
+            android:id="@+id/row_2_2"
+            layout="@layout/cell"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:cell="@{table.cell2_2}"
+            app:layout_column="2"
+            app:layout_columnWeight="1"
+            app:layout_row="2"
+            app:layout_rowWeight="1" />
+
+    </android.support.v7.widget.GridLayout>
+</layout>

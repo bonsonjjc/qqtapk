@@ -37,6 +37,7 @@ public class MotionModel implements MotionDataSource {
                         result.setMsg("没有运动记录");
                     } else {
                         result.setCode("0");
+                        result.setMsg("获取运动成功");
                         result.setBody(it);
                     }
                     return result;
@@ -54,9 +55,10 @@ public class MotionModel implements MotionDataSource {
                     Result<List<Sleep>> result = new Result<>();
                     if (it.isEmpty()) {
                         result.setCode("-1");
-                        result.setMsg("没有运动记录");
+                        result.setMsg("没有睡眠记录");
                     } else {
                         result.setCode("0");
+                        result.setMsg("获取睡眠成功");
                         result.setBody(it);
                     }
                     return result;

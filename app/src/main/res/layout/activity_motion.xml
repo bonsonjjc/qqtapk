@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -20,5 +22,97 @@
             <include layout="@layout/toolbar" />
         </com.bonson.resource.view.MToolbar>
 
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <com.bonson.qqtapk.view.widget.MoveView
+                android:id="@+id/mv"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginBottom="15dp"
+                android:layout_marginEnd="25dp"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="15dp"
+                android:background="@color/transparent"
+                app:layout_constraintBottom_toTopOf="@+id/btn_history"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <RadioGroup
+                android:id="@+id/rg_action_group"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start|center_vertical"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp"
+                android:gravity="end|center_vertical"
+                android:layoutDirection="rtl"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toTopOf="@+id/btn_history"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <RadioButton
+                    android:id="@+id/rb_yd"
+                    style="@style/RbAction"
+                    android:button="@drawable/yd_item"
+                    android:checked="true"
+                    android:text='@{viewModel.type==1 ? "运动" :""}'
+                    android:textColor="@color/theme"
+                    tools:text="运动" />
+
+                <RadioButton
+                    android:id="@+id/rb_sm"
+                    style="@style/RbAction"
+                    android:layout_marginTop="10dp"
+                    android:button="@drawable/sm_item"
+                    android:text='@{viewModel.type==2 ? "睡眠" :""}'
+                    android:textColor="@color/theme_sm" />
+                <!--
+                                <RadioButton
+                                    android:id="@+id/rb_xl"
+                                    style="@style/RbAction"
+                                    android:layout_marginTop="10dp"
+                                    android:button="@drawable/xl_item"
+                                    android:text='@{viewModel.type==3 ? "心率" :""}'
+                                    android:textColor="@color/theme_heart"
+                                    android:visibility="@{viewModel.mode == 1 ? View.GONE :View.VISIBLE}" />-->
+            </RadioGroup>
+
+            <ImageView
+                android:id="@+id/btn_history"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_marginBottom="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
+                android:src="@drawable/ico_lsjl"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        </android.support.constraint.ConstraintLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/background"
+            android:orientation="vertical">
+
+            <com.bonson.qqtapk.view.widget.TableView
+                android:id="@+id/tb_times"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:orientation="horizontal" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rec_tables"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:tables="@{viewModel.tables}" />
+        </LinearLayout>
     </LinearLayout>
 </layout>
