@@ -13,10 +13,7 @@ import com.bonson.qqtapk.model.bean.Device;
 import com.bonson.qqtapk.model.bean.Limit;
 import com.bonson.qqtapk.model.data.limit.LimitModel;
 import com.bonson.qqtapk.view.ui.limits.add.LimitViewModel;
-import com.bonson.resource.activity.BaseView;
-import com.bonson.resource.viewmodel.AndroidViewModel;
-
-import java.util.List;
+import com.bonson.qqtapk.viewmodel.UserViewModel;
 
 import javax.inject.Inject;
 
@@ -27,7 +24,7 @@ import io.reactivex.disposables.Disposable;
  * Created by jiangjiancheng on 17/12/31.
  */
 @ActivityScope
-public class LimitsViewModel extends AndroidViewModel {
+public class LimitsViewModel extends UserViewModel {
     private LimitModel limitModel;
     public final ObservableBoolean open = new ObservableBoolean(false);
     public final ObservableList<Limit> limits = new ObservableArrayList<>();
@@ -51,7 +48,7 @@ public class LimitsViewModel extends AndroidViewModel {
             view.toast("网络不可用");
             return;
         }
-        Disposable disposable = limitModel.limits(Baby.baby.getFid())
+        Disposable disposable = limitModel.limits(user().getBabyId())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(it -> {
                     view.toast(it.getMsg());
@@ -113,7 +110,7 @@ public class LimitsViewModel extends AndroidViewModel {
         viewModel.title.set("添加呼入限制");
         Limit limit = new Limit();
         limit.setFcstate("1");
-        limit.setFbid(Baby.baby.getFid());
+        limit.setFbid(user().getBabyId());
         viewModel.setLimit(limit);
         viewModel.setOnSaveListener(() -> {
             add(limit);
@@ -123,7 +120,7 @@ public class LimitsViewModel extends AndroidViewModel {
 
     public LimitViewModel updateViewModel(int position) {
         Limit limit = limits.get(position);
-        limit.setFbid(Baby.baby.getFid());
+        limit.setFbid(user().getBabyId());
         viewModel.title.set("修改呼入限制");
         viewModel.setLimit(limit);
         viewModel.setOnDeleteListener(() -> {
@@ -163,7 +160,7 @@ public class LimitsViewModel extends AndroidViewModel {
             return;
         }
         view.load();
-        Disposable disposable = limitModel.updateState(Baby.baby.getFid(), Baby.baby.getFuser(), open.get() ? "0" : "1")
+        Disposable disposable = limitModel.updateState(user().getBabyId(), user().getUserId(), open.get() ? "0" : "1")
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(it -> {
                     view.dismiss();

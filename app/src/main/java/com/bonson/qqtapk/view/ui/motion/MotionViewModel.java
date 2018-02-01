@@ -10,7 +10,7 @@ import com.bonson.qqtapk.model.bean.Motion;
 import com.bonson.qqtapk.model.bean.Sleep;
 import com.bonson.qqtapk.model.data.motion.MotionModel;
 import com.bonson.qqtapk.view.ui.motion.bean.Table;
-import com.bonson.resource.viewmodel.AndroidViewModel;
+import com.bonson.qqtapk.viewmodel.UserViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +21,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 
 
-public class MotionViewModel extends AndroidViewModel {
+public class MotionViewModel extends UserViewModel {
     private MotionModel motionModel;
     public final ObservableInt type = new ObservableInt(1);
     public final ObservableList<Table> tables = new ObservableArrayList<>();
@@ -48,7 +48,7 @@ public class MotionViewModel extends AndroidViewModel {
             return;
         }
         view.load();
-        Disposable disposable = motionModel.motion(Baby.baby.getFid())
+        Disposable disposable = motionModel.motion(user().getBabyId())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(it -> {
                     view.dismiss();
@@ -79,7 +79,7 @@ public class MotionViewModel extends AndroidViewModel {
             }
             return;
         }
-        Disposable disposable = motionModel.sleep(Baby.baby.getFid())
+        Disposable disposable = motionModel.sleep(user().getBabyId())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(it -> {
                     view.dismiss();

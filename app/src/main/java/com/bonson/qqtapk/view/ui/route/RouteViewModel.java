@@ -4,15 +4,13 @@ import android.app.Application;
 import android.databinding.ObservableArrayList;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
-import android.databinding.ObservableList;
 
 import com.bonson.library.utils.DateUtils;
 import com.bonson.qqtapk.di.ActivityScope;
 import com.bonson.qqtapk.model.bean.Baby;
 import com.bonson.qqtapk.model.bean.Route;
 import com.bonson.qqtapk.model.data.route.RouteModel;
-import com.bonson.resource.activity.BaseView;
-import com.bonson.resource.viewmodel.AndroidViewModel;
+import com.bonson.qqtapk.viewmodel.UserViewModel;
 
 import java.util.Date;
 import java.util.List;
@@ -26,7 +24,7 @@ import io.reactivex.disposables.Disposable;
  * Created by jiangjiancheng on 17/12/31.
  */
 @ActivityScope
-public class RouteViewModel extends AndroidViewModel {
+public class RouteViewModel extends UserViewModel {
     public final List<Route> routes = new ObservableArrayList<>();
     public final ObservableBoolean visible = new ObservableBoolean(false);
 
@@ -48,7 +46,7 @@ public class RouteViewModel extends AndroidViewModel {
             return;
         }
         view.load();
-        Disposable disposable = routeModel.routes(Baby.baby.getFid(), start, end)
+        Disposable disposable = routeModel.routes(user().getBabyId(), start, end)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(it -> {
                     view.toast(it.getMsg());

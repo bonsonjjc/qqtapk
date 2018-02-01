@@ -52,7 +52,7 @@ public class MemberActivity extends BaseDaggerActivity<ActivityMemberBinding> {
                 toast("只能修改");
                 return;
             }
-            inputFragment.setViewModel(viewModel.modifyViewModel(p));
+            inputFragment.setPhoneViewModel(viewModel.modifyViewModel(p));
             getSupportFragmentManager()
                     .beginTransaction()
                     .add(android.R.id.content, inputFragment)

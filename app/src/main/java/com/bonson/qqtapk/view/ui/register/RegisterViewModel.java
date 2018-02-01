@@ -8,8 +8,7 @@ import android.text.TextUtils;
 import com.bonson.qqtapk.app.Route;
 import com.bonson.qqtapk.di.ActivityScope;
 import com.bonson.qqtapk.model.data.user.UserModel;
-import com.bonson.resource.activity.BaseView;
-import com.bonson.resource.viewmodel.AndroidViewModel;
+import com.bonson.qqtapk.viewmodel.UserViewModel;
 
 import javax.inject.Inject;
 
@@ -20,7 +19,7 @@ import io.reactivex.disposables.Disposable;
  * Created by zjw on 2017/12/29.
  */
 @ActivityScope
-public class RegisterViewModel extends AndroidViewModel {
+public class RegisterViewModel extends UserViewModel {
     public final ObservableField<String> mobile = new ObservableField<>("");
     public final ObservableField<String> password = new ObservableField<>("");
     public final ObservableField<String> verify = new ObservableField<>("");

@@ -212,8 +212,6 @@ public class Baby extends Base implements Cloneable {
         this.furl = furl;
     }
 
-    public static Baby baby;
-
     @Override
     public Baby clone() {
         try {

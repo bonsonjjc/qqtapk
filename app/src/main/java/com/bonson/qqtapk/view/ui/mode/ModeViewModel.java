@@ -10,8 +10,7 @@ import com.bonson.qqtapk.model.bean.Mode;
 import com.bonson.qqtapk.model.data.mode.ModeModel;
 import com.bonson.library.utils.NumberUtils;
 import com.bonson.qqtapk.view.ui.info.select.SelectViewModel;
-import com.bonson.resource.activity.BaseView;
-import com.bonson.resource.viewmodel.AndroidViewModel;
+import com.bonson.qqtapk.viewmodel.UserViewModel;
 
 import javax.inject.Inject;
 
@@ -22,7 +21,7 @@ import io.reactivex.disposables.Disposable;
  * Created by jiangjiancheng on 17/12/31.
  */
 @ActivityScope
-public class ModeViewModel extends AndroidViewModel {
+public class ModeViewModel extends UserViewModel {
     public final ObservableBoolean powerSave = new ObservableBoolean();
 
     public final ObservableBoolean safeMode = new ObservableBoolean();
@@ -51,7 +50,7 @@ public class ModeViewModel extends AndroidViewModel {
             view.toast("网络不可用");
             return;
         }
-        Disposable disposable = modeModel.model(Baby.baby.getFid())
+        Disposable disposable = modeModel.model(user().getBabyId())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(it -> {
                     view.toast(it.getMsg());
@@ -118,7 +117,7 @@ public class ModeViewModel extends AndroidViewModel {
         view.load();
         Mode mode = new Mode();
         mode.setFsavepower(powerSave.get() ? "1" : "0");
-        mode.setBid(Baby.baby.getFid());
+        mode.setBid(user().getBabyId());
         mode.setFlocation(interval.get() + "");
         mode.setFlmode(safeMode.get() ? "1" : powerMode.get() ? "2" : customMode.get() ? "3" : "1");
         mode.setFloctype(blendMode.get() ? "1" : normalMode.get() ? "2" : accurateMode.get() ? "3" : "1");

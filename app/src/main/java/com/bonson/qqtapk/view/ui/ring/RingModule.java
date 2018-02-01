@@ -10,10 +10,9 @@ import com.bonson.qqtapk.di.ActivityScope;
 import com.bonson.qqtapk.di.FragmentScope;
 import com.bonson.library.utils.media.PlayerUtils;
 import com.bonson.qqtapk.view.ui.info.select.Select;
-import com.bonson.qqtapk.view.ui.info.select.SelectAdapter;
 import com.bonson.qqtapk.view.ui.info.select.SelectFragment;
 import com.bonson.qqtapk.view.ui.info.select.SelectViewModel;
-import com.bonson.resource.viewmodel.AndroidViewModel;
+import com.bonson.qqtapk.viewmodel.UserViewModel;
 
 import java.util.List;
 
@@ -29,11 +28,11 @@ import dagger.android.ContributesAndroidInjector;
 public abstract class RingModule {
     @ActivityScope
     @Binds
-    abstract AndroidViewModel viewModel(RingViewModel viewModel);
+    abstract UserViewModel viewModel(RingViewModel viewModel);
 
     @ActivityScope
     @Binds
-    abstract AndroidViewModel selectViewModel(SelectViewModel selectViewModel);
+    abstract UserViewModel selectViewModel(SelectViewModel selectViewModel);
 
     @ActivityScope
     @Provides

@@ -50,7 +50,8 @@ abstract class AppModule {
     @Singleton
     @Provides
     static OkHttpClient client() {
-        return new OkHttpClient.Builder().addInterceptor(new HttpLoggingInterceptor())
+        return new OkHttpClient.Builder()
+                .addInterceptor(new HttpLoggingInterceptor())
                 .addInterceptor(new TokenInterceptor())
                 .writeTimeout(30L, TimeUnit.SECONDS)
                 .readTimeout(1L, TimeUnit.MINUTES)
@@ -60,7 +61,8 @@ abstract class AppModule {
     @Provides
     @Singleton
     static Retrofit.Builder providesRetrofitBuilder(OkHttpClient client) {
-        return new Retrofit.Builder().baseUrl(Const.QQT_PATH)
+        return new Retrofit.Builder()
+                .baseUrl(Const.QQT_PATH)
                 .client(client)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create());
     }

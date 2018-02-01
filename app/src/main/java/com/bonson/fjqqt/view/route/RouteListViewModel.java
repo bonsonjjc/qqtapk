@@ -9,8 +9,7 @@ import com.bonson.fjqqt.model.data.RouteModel;
 import com.bonson.fjqqt.view.route.time.AddTimeViewModel;
 import com.bonson.qqtapk.di.ActivityScope;
 import com.bonson.qqtapk.model.bean.Baby;
-import com.bonson.resource.activity.BaseView;
-import com.bonson.resource.viewmodel.AndroidViewModel;
+import com.bonson.qqtapk.viewmodel.UserViewModel;
 
 import javax.inject.Inject;
 
@@ -18,7 +17,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 
 @ActivityScope
-public class RouteListViewModel extends AndroidViewModel {
+public class RouteListViewModel extends UserViewModel {
 
     public final ObservableList<RouteTime> routes = new ObservableArrayList<>();
 
@@ -38,7 +37,7 @@ public class RouteListViewModel extends AndroidViewModel {
             view.start("网络不可用");
             return;
         }
-        Disposable disposable = routeModel.times(Baby.baby.getFtmobile())
+        Disposable disposable = routeModel.times(baby().getFtmobile())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(it -> {
                     view.toast(it.getMsg());
@@ -93,7 +92,7 @@ public class RouteListViewModel extends AndroidViewModel {
             return;
         }
         view.load();
-        routeTime.setFtmobile(Baby.baby.getFtmobile());
+        routeTime.setFtmobile(baby().getFtmobile());
         Disposable disposable = routeModel.addTime(routeTime)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(it -> {

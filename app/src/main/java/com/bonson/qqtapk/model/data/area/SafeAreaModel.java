@@ -5,6 +5,7 @@ import com.bonson.qqtapk.model.bean.Baby;
 import com.bonson.qqtapk.model.bean.Result;
 import com.bonson.qqtapk.model.bean.SafeArea;
 import com.bonson.qqtapk.model.data.ApiServer;
+import com.bonson.qqtapk.model.db.UserDao;
 import com.bonson.qqtapk.utils.QQtBuilder;
 
 import java.util.LinkedHashMap;
@@ -21,15 +22,16 @@ import io.reactivex.schedulers.Schedulers;
 
 public class SafeAreaModel implements SafeAreaDataSource {
     private ApiServer areaServer;
-
-    public SafeAreaModel(ApiServer areaServer) {
+    Baby baby;
+    public SafeAreaModel(ApiServer areaServer,UserDao userDao) {
         this.areaServer = areaServer;
+        baby=userDao.baby(userDao.user().getBabyId());
     }
 
     @Override
     public Observable<Result<SafeArea>> safeArea( String type) {
         Map<String, String> map = new LinkedHashMap<>();
-        map.put("fbid", Baby.baby.getFid());
+        map.put("fbid", baby.getFid());
         Object body = QQtBuilder.build("04", map);
         return areaServer.safeArea(body)
                 .subscribeOn(Schedulers.io())
@@ -50,7 +52,7 @@ public class SafeAreaModel implements SafeAreaDataSource {
     @Override
     public Observable<Result<SafeArea>> update(SafeArea safeArea) {
         Map<String, String> map = new LinkedHashMap<>();
-        map.put("fbid", Baby.baby.getFid());
+        map.put("fbid", baby.getFid());
         map.put("fx", safeArea.getFx());
         map.put("fy", safeArea.getFy());
         map.put("fradius", safeArea.getFradius());

@@ -105,7 +105,6 @@ public class BabyModel {
                         result.setCode("0");
                         result.setMsg("修改成功");
                         result.setBody(baby);
-                        Baby.baby = baby;
                         userDao.insertBaby(baby);
                     } else {
                         result.setCode("-1");

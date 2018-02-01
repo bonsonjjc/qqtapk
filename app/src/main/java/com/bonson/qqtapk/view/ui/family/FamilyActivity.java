@@ -41,7 +41,7 @@ public class FamilyActivity extends BaseDaggerActivity<ActivityFamilyBinding> {
         binding.toolbar.getTvLeft().setOnClickListener(v -> finish());
         AdapterDataChangeFactory.create(familyAdapter).attach(viewModel.families);
         familyAdapter.setOnItemClickListener(position -> {
-            inputFragment.setViewModel(viewModel.updateViewModel(position));
+            inputFragment.setPhoneViewModel(viewModel.updateViewModel(position));
             getSupportFragmentManager()
                     .beginTransaction()
                     .add(android.R.id.content, inputFragment)

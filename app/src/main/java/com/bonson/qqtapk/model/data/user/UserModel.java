@@ -30,39 +30,6 @@ public class UserModel {
         this.apiServer = apiServer;
     }
 
-    public User getUser() {
-        return userDao.user();
-    }
-
-    public Observable<Result<User>> login(String mobile, String password, String token, boolean isAuto) {
-        Map<String, String> map = new LinkedHashMap<>();
-        map.put("fmobile", mobile);
-        map.put("fpasswd", password);
-        map.put("ftoken", token);
-        Object body = QQtBuilder.build("01", map);
-        return apiServer.user(body)
-                .subscribeOn(Schedulers.io())
-                .map(userBeans -> {
-                    UserBean userBean = userBeans.get(0);
-                    Result<User> result = new Result<>();
-                    if ("0".equals(userBean.getFresult())) {
-                        result.setCode("0");
-                        result.setMsg("登录成功");
-                        Baby.baby = userBean.baby();
-                        User user = userBean.user();
-                        user.setAuto(isAuto);
-                        User.user = user;
-                        userDao.insertUer(user);
-                        userDao.insertBaby(user.getBabyList());
-                        result.setBody(user);
-                    } else {
-                        result.setCode("-1");
-                        result.setMsg(userBean.getMsg());
-                    }
-                    return result;
-                });
-    }
-
     public Observable<Result<User>> verify(String mobile, String type) {
         Map<String, String> map = new LinkedHashMap<>();
         map.put("fmobile", mobile);
@@ -149,9 +116,9 @@ public class UserModel {
                 });
     }
 
-    public Observable<Result<User>> password(String password, String newPassword) {
+    public Observable<Result<User>> password(String userId,String password, String newPassword) {
         Map<String, String> map = new LinkedHashMap<>();
-        map.put("fid", User.user.getUserId());
+        map.put("fid", userId);
         map.put("fpasswd", Md5Utils.toMD5(password));
         map.put("fnewpasswd", Md5Utils.toMD5(newPassword));
         Object body = QQtBuilder.build("12", map);
@@ -163,23 +130,15 @@ public class UserModel {
                     if ("0".equals(userBean.getFresult())) {
                         result.setCode("0");
                         result.setMsg("修改密码成功");
-                        User.user.setAuto(false);
-                        User.user.setPassword("");
-                        userDao.insertUer(User.user);
+                        User user = userDao.user();
+                        user.setAuto(false);
+                        user.setPassword("");
+                        userDao.insertUer(user);
                     } else {
                         result.setCode("-1");
                         result.setMsg(userBean.getMsg());
                     }
                     return result;
                 });
-    }
-
-    public Observable<Boolean> exit(User user) {
-        return Observable.create(e -> {
-            user.setPassword("");
-            long insert = userDao.insertUer(user);
-            e.onNext(true);
-            e.onComplete();
-        });
     }
 }

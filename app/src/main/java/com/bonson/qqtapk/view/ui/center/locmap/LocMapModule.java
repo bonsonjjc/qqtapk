@@ -1,7 +1,7 @@
 package com.bonson.qqtapk.view.ui.center.locmap;
 
 import com.bonson.qqtapk.di.ActivityScope;
-import com.bonson.resource.viewmodel.AndroidViewModel;
+import com.bonson.qqtapk.viewmodel.UserViewModel;
 
 import dagger.Binds;
 import dagger.Module;
@@ -10,5 +10,5 @@ import dagger.Module;
 public abstract class LocMapModule {
     @ActivityScope
     @Binds
-    abstract AndroidViewModel viewModel(LocMapViewModel viewModel);
+    abstract UserViewModel viewModel(LocMapViewModel viewModel);
 }

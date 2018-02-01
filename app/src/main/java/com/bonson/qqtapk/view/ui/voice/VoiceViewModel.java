@@ -9,12 +9,10 @@ import com.bonson.qqtapk.di.ActivityScope;
 import com.bonson.qqtapk.model.bean.Baby;
 import com.bonson.qqtapk.model.bean.Voice;
 import com.bonson.qqtapk.model.data.voice.VoiceModel;
-import com.bonson.resource.activity.BaseView;
-import com.bonson.resource.viewmodel.AndroidViewModel;
+import com.bonson.qqtapk.viewmodel.UserViewModel;
 
 import java.io.File;
 import java.util.Date;
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -25,7 +23,7 @@ import io.reactivex.disposables.Disposable;
  * Created by jiangjiancheng on 17/12/31.
  */
 @ActivityScope
-public class VoiceViewModel extends AndroidViewModel {
+public class VoiceViewModel extends UserViewModel {
     private VoiceModel voiceModel;
     public ObservableList<Voice> voices = new ObservableArrayList<>();
 
@@ -38,8 +36,8 @@ public class VoiceViewModel extends AndroidViewModel {
     public void send(String time, String path) {
         Voice talk = new Voice();
         talk.setFbabyname("我");
-        talk.setFuser(Baby.baby.getFuser());
-        talk.setFtuser(Baby.baby.getFid());
+        talk.setFuser(user().getUserId());
+        talk.setFtuser(user().getBabyId());
         talk.setFtype("1");
         talk.setFtime(time);
         talk.setFctime(DateUtils.format(new Date(), "yyyy-MM-dd hh:mm:ss"));
@@ -84,7 +82,7 @@ public class VoiceViewModel extends AndroidViewModel {
             view.toast("网络不可用");
             return;
         }
-        Disposable disposable = voiceModel.voices(Baby.baby.getFuser(), Baby.baby.getFid(), voices.size(), 10)
+        Disposable disposable = voiceModel.voices(user().getUserId(), user().getBabyId(), voices.size(), 10)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(it -> {
                     if ("0".equals(it.getCode())) {

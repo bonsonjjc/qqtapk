@@ -4,14 +4,9 @@ import android.app.Application;
 import android.databinding.ObservableArrayList;
 import android.databinding.ObservableList;
 
-import com.bonson.qqtapk.BR;
 import com.bonson.qqtapk.di.ActivityScope;
 import com.bonson.qqtapk.model.bean.Baby;
-import com.bonson.resource.activity.BaseView;
-import com.bonson.resource.viewmodel.AndroidViewModel;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.bonson.qqtapk.viewmodel.UserViewModel;
 
 import javax.inject.Inject;
 
@@ -19,7 +14,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 
 @ActivityScope
-public class TimerViewModel extends AndroidViewModel {
+public class TimerViewModel extends UserViewModel {
     @Inject
     TimerModel timerModel;
 
@@ -35,7 +30,7 @@ public class TimerViewModel extends AndroidViewModel {
             view.toast("网络不可用");
             return;
         }
-        Disposable disposable = timerModel.timers(Baby.baby.getFtmobile())
+        Disposable disposable = timerModel.timers(baby().getFtmobile())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(it -> {
                     view.toast(it.getMsg());
@@ -76,7 +71,7 @@ public class TimerViewModel extends AndroidViewModel {
             }
         }
         view.load();
-        Disposable disposable = timerModel.update(Baby.baby.getFtmobile(), fid.toString(), times.toString(), "1")
+        Disposable disposable = timerModel.update(baby().getFtmobile(), fid.toString(), times.toString(), "1")
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(it -> {
                     view.dismiss();

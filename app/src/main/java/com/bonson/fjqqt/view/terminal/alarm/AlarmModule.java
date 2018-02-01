@@ -10,7 +10,7 @@ import com.bonson.qqtapk.di.ActivityScope;
 import com.bonson.qqtapk.di.FragmentScope;
 import com.bonson.qqtapk.view.ui.info.select.SelectFragment;
 import com.bonson.qqtapk.view.ui.info.select.SelectViewModel;
-import com.bonson.resource.viewmodel.AndroidViewModel;
+import com.bonson.qqtapk.viewmodel.UserViewModel;
 
 import dagger.Binds;
 import dagger.Module;
@@ -22,15 +22,15 @@ public abstract class AlarmModule {
 
     @ActivityScope
     @Binds
-    abstract AndroidViewModel viewModel(AlarmViewModel viewModel);
+    abstract UserViewModel viewModel(AlarmViewModel viewModel);
 
     @ActivityScope
     @Binds
-    abstract AndroidViewModel addAlarmViewModel(AddAlarmViewModel viewModel);
+    abstract UserViewModel addAlarmViewModel(AddAlarmViewModel viewModel);
 
     @ActivityScope
     @Binds
-    abstract AndroidViewModel addSelectViewModel(SelectViewModel viewModel);
+    abstract UserViewModel addSelectViewModel(SelectViewModel viewModel);
 
     @Provides
     @ActivityScope

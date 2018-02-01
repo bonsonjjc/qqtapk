@@ -7,6 +7,4 @@ import io.reactivex.Observable;
 
 public interface LoginServer {
     Observable<Result<User>> login(User user);
-
-    User getUser();
 }

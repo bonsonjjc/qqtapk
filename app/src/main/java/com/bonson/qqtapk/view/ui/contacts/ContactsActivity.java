@@ -53,7 +53,7 @@ public class ContactsActivity extends BaseDaggerActivity<ActivityContactsBinding
         binding.recContacts.addItemDecoration(itemDecoration);
         AdapterDataChangeFactory.create(adapter).attach(viewModel.contacts);
         adapter.setOnItemClickListener(v -> {
-            phoneFragment.setViewModel(viewModel.initFragment(v));
+            phoneFragment.setPhoneViewModel(viewModel.initFragment(v));
             getSupportFragmentManager().beginTransaction()
                     .add(android.R.id.content, phoneFragment)
                     .addToBackStack("contacts")
@@ -80,7 +80,7 @@ public class ContactsActivity extends BaseDaggerActivity<ActivityContactsBinding
                         .addToBackStack("contacts")
                         .commit();
             } else {
-                phoneFragment.setViewModel(viewModel.initFragment());
+                phoneFragment.setPhoneViewModel(viewModel.initFragment());
                 getSupportFragmentManager().beginTransaction()
                         .add(android.R.id.content, phoneFragment)
                         .addToBackStack("import")

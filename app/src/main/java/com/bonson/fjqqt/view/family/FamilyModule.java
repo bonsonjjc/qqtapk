@@ -8,10 +8,11 @@ import com.bonson.qqtapk.di.ActivityScope;
 import com.bonson.qqtapk.di.FragmentScope;
 import com.bonson.qqtapk.model.bean.Family;
 import com.bonson.qqtapk.model.data.family.FamilyDataSource;
+import com.bonson.qqtapk.model.db.UserDao;
 import com.bonson.qqtapk.view.ui.contacts.phone.PhoneFragment;
 import com.bonson.qqtapk.view.ui.contacts.phone.PhoneViewModel;
 import com.bonson.qqtapk.view.ui.family.FamilyViewModel;
-import com.bonson.resource.viewmodel.AndroidViewModel;
+import com.bonson.qqtapk.viewmodel.UserViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,11 +26,11 @@ import dagger.android.ContributesAndroidInjector;
 public abstract class FamilyModule {
     @ActivityScope
     @Binds
-    abstract AndroidViewModel viewModel(FamilyViewModel viewModel);
+    abstract UserViewModel viewModel(FamilyViewModel viewModel);
 
     @ActivityScope
     @Binds
-    abstract AndroidViewModel fragment(PhoneViewModel viewModel);
+    abstract UserViewModel fragment(PhoneViewModel viewModel);
 
     @ContributesAndroidInjector
     @FragmentScope
@@ -37,8 +38,8 @@ public abstract class FamilyModule {
 
     @Provides
     @ActivityScope
-    static FamilyDataSource providesDataSource(FApiServer fApiServer) {
-        return new FamilyModel(fApiServer);
+    static FamilyDataSource providesDataSource(FApiServer fApiServer, UserDao userDao) {
+        return new FamilyModel(fApiServer,userDao);
     }
 
     @Provides

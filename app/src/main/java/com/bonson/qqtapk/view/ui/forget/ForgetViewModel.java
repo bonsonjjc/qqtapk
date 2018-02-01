@@ -6,8 +6,7 @@ import android.text.TextUtils;
 
 import com.bonson.qqtapk.di.ActivityScope;
 import com.bonson.qqtapk.model.data.user.UserModel;
-import com.bonson.resource.activity.BaseView;
-import com.bonson.resource.viewmodel.AndroidViewModel;
+import com.bonson.qqtapk.viewmodel.UserViewModel;
 
 import javax.inject.Inject;
 
@@ -18,7 +17,7 @@ import io.reactivex.disposables.Disposable;
  * Created by zjw on 2017/12/29.
  */
 @ActivityScope
-public class ForgetViewModel extends AndroidViewModel {
+public class ForgetViewModel extends UserViewModel {
     public ObservableField<String> mobile = new ObservableField<>("");
     public ObservableField<String> verify = new ObservableField<>("");
     @Inject

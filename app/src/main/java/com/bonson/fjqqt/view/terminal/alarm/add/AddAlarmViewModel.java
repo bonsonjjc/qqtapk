@@ -9,16 +9,15 @@ import android.databinding.ObservableList;
 import com.bonson.fjqqt.view.terminal.alarm.Alarm;
 import com.bonson.fjqqt.view.terminal.alarm.AlarmModel;
 import com.bonson.fjqqt.view.terminal.alarm.AlarmUtils;
-import com.bonson.library.utils.NumberUtils;
 import com.bonson.qqtapk.di.ActivityScope;
 import com.bonson.qqtapk.model.bean.Baby;
 import com.bonson.qqtapk.view.ui.info.select.Select;
-import com.bonson.resource.viewmodel.AndroidViewModel;
+import com.bonson.qqtapk.viewmodel.UserViewModel;
 
 import javax.inject.Inject;
 
 @ActivityScope
-public class AddAlarmViewModel extends AndroidViewModel {
+public class AddAlarmViewModel extends UserViewModel {
     public ObservableInt hour = new ObservableInt(0);
     public ObservableInt minute = new ObservableInt(0);
 
@@ -84,7 +83,7 @@ public class AddAlarmViewModel extends AndroidViewModel {
     public Alarm getAlarm() {
         alarm.setFcycle(cycle);
         alarm.setFcontent(notifyType.get());
-        alarm.setFtmobile(Baby.baby.getFtmobile());
+        alarm.setFtmobile(baby().getFtmobile());
         alarm.setFtimes(String.format("%02d:%02d", hour.get(), minute.get()));
         return alarm;
     }

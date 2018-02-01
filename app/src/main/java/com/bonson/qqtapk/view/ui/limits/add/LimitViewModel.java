@@ -7,13 +7,12 @@ import android.text.TextUtils;
 
 import com.bonson.qqtapk.BR;
 import com.bonson.qqtapk.model.bean.Limit;
-import com.bonson.resource.activity.BaseView;
 import com.bonson.resource.fragment.OnSaveListener;
-import com.bonson.resource.viewmodel.AndroidViewModel;
+import com.bonson.qqtapk.viewmodel.UserViewModel;
 
 import javax.inject.Inject;
 
-public class LimitViewModel extends AndroidViewModel {
+public class LimitViewModel extends UserViewModel {
     public final ObservableField<String> title = new ObservableField<>("");
     private Limit limit;
 

@@ -12,7 +12,7 @@ import com.bonson.qqtapk.model.data.member.MemberModel;
 import com.bonson.qqtapk.view.ui.contacts.phone.PhoneViewModel;
 import com.bonson.resource.activity.ActivityUtils;
 import com.bonson.resource.activity.BaseView;
-import com.bonson.resource.viewmodel.AndroidViewModel;
+import com.bonson.qqtapk.viewmodel.UserViewModel;
 
 import java.util.List;
 
@@ -25,13 +25,11 @@ import io.reactivex.disposables.Disposable;
  * Created by jiangjiancheng on 17/12/31.
  */
 @ActivityScope
-public class MemberViewModel extends AndroidViewModel {
+public class MemberViewModel extends UserViewModel {
 
     public final List<Member> members = new ObservableArrayList<>();
 
     private MemberModel memberModel;
-
-    private BaseView view;
 
     private PhoneViewModel viewModel;
 
@@ -42,17 +40,12 @@ public class MemberViewModel extends AndroidViewModel {
         this.memberModel = memberModel;
     }
 
-    public void setView(BaseView view) {
-        this.view = view;
-        viewModel.setView(view);
-    }
-
     public void members() {
         if (!isNetWork()) {
             view.toast("网络不可用");
             return;
         }
-        Disposable disposable = memberModel.members(Baby.baby.getFid(), 0, 10)
+        Disposable disposable = memberModel.members(user().getBabyId(), 0, 10)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(it -> {
                     view.toast(it.getMsg());
@@ -118,12 +111,12 @@ public class MemberViewModel extends AndroidViewModel {
 
     public boolean isSelf(int position) {
         Member member = members.get(position);
-        return member.getAdmin().equals(User.user.getUserId());
+        return member.getAdmin().equals(user().getUserId());
     }
 
     public boolean isAdmin(int position) {
         Member member = members.get(position);
-        return member.getFuid().equals(User.user.getUserId());
+        return member.getFuid().equals(user().getUserId());
     }
 
     public PhoneViewModel modifyViewModel(int position) {
@@ -135,7 +128,7 @@ public class MemberViewModel extends AndroidViewModel {
         viewModel.name.set(member.getFname());
         viewModel.setOnPhoneListener(() -> {
             member.setFname(viewModel.name.get());
-            member.setFbid(Baby.baby.getFid());
+            member.setFbid(user().getBabyId());
             update(position, member);
         });
         return viewModel;

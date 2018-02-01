@@ -14,7 +14,7 @@ import com.bonson.qqtapk.view.ui.info.input.InputViewModel;
 import com.bonson.qqtapk.view.ui.info.select.Select;
 import com.bonson.qqtapk.view.ui.info.select.SelectViewModel;
 import com.bonson.resource.activity.ActivityUtils;
-import com.bonson.resource.viewmodel.AndroidViewModel;
+import com.bonson.qqtapk.viewmodel.UserViewModel;
 
 import java.io.File;
 import java.util.List;
@@ -31,7 +31,7 @@ import okhttp3.RequestBody;
  * Created by jiangjiancheng on 17/12/31.
  */
 @ActivityScope
-public class InfoViewModel extends AndroidViewModel {
+public class InfoViewModel extends UserViewModel {
     @Inject
     SelectViewModel viewModel;
     @Inject
@@ -41,10 +41,21 @@ public class InfoViewModel extends AndroidViewModel {
     @Inject
     UploadServer uploadServer;
 
+    private Baby baby;
+
     @Inject
     public InfoViewModel(@NonNull Application application) {
         super(application);
-        baby = Baby.baby;
+    }
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        baby = baby().clone();
+    }
+
+    public Baby getBaby() {
+        return baby;
     }
 
     public InputViewModel inputFragment(int type, String title, String hint) {
@@ -53,22 +64,22 @@ public class InfoViewModel extends AndroidViewModel {
         switch (type) {
             case InfoActivity.Type.name:
                 inputViewModel.digits.set(null);
-                inputViewModel.value.set(Baby.baby.getFname());
+                inputViewModel.value.set(baby.getFname());
                 inputViewModel.length.set(4);
                 break;
             case InfoActivity.Type.mobile:
                 inputViewModel.digits.set("0123456789");
-                inputViewModel.value.set(Baby.baby.getFtmobile());
+                inputViewModel.value.set(baby.getFtmobile());
                 inputViewModel.length.set(11);
                 break;
             case InfoActivity.Type.height:
                 inputViewModel.digits.set("0123456789");
-                inputViewModel.value.set(Baby.baby.getFheight());
+                inputViewModel.value.set(baby.getFheight());
                 inputViewModel.length.set(3);
                 break;
             case InfoActivity.Type.weight:
                 inputViewModel.digits.set("0123456789");
-                inputViewModel.value.set(Baby.baby.getFweight());
+                inputViewModel.value.set(baby.getFweight());
                 inputViewModel.length.set(3);
                 break;
         }
@@ -79,16 +90,16 @@ public class InfoViewModel extends AndroidViewModel {
             }
             switch (type) {
                 case InfoActivity.Type.name:
-                    Baby.baby.setFname(inputViewModel.value.get());
+                    baby.setFname(inputViewModel.value.get());
                     break;
                 case InfoActivity.Type.mobile:
-                    Baby.baby.setFtmobile(inputViewModel.value.get());
+                    baby.setFtmobile(inputViewModel.value.get());
                     break;
                 case InfoActivity.Type.height:
-                    Baby.baby.setFheight(inputViewModel.value.get());
+                    baby.setFheight(inputViewModel.value.get());
                     break;
                 case InfoActivity.Type.weight:
-                    Baby.baby.setFweight(inputViewModel.value.get());
+                    baby.setFweight(inputViewModel.value.get());
                     break;
             }
             view.back();
@@ -96,12 +107,6 @@ public class InfoViewModel extends AndroidViewModel {
             update();
         });
         return inputViewModel;
-    }
-
-    private Baby baby;
-
-    public Baby getBaby() {
-        return baby;
     }
 
     public SelectViewModel selectViewModel() {
@@ -112,12 +117,12 @@ public class InfoViewModel extends AndroidViewModel {
         for (String parent1 : parents) {
             Select parent = new Select();
             parent.setName(parent1);
-            parent.setChecked(parent.getName().equals(Baby.baby.getFrelative()));
+            parent.setChecked(parent.getName().equals(baby.getFrelative()));
             selects.add(parent);
         }
         viewModel.setSelects(selects);
         viewModel.setOnItemClickListener((v) -> {
-            Baby.baby.setFrelative(viewModel.selects.get(v).getName());
+            baby.setFrelative(viewModel.selects.get(v).getName());
             notifyChange();
             update();
             view.back();
@@ -132,7 +137,7 @@ public class InfoViewModel extends AndroidViewModel {
         }
         RequestBody requestBody = RequestBody.create(MultipartBody.FORM, bytes);
         MultipartBody multipartBody = new MultipartBody.Builder()
-                .addFormDataPart("file2", Baby.baby.getFid() + ".jpg", requestBody)
+                .addFormDataPart("file2", baby.getFid() + ".jpg", requestBody)
                 .build();
         Disposable disposable = uploadServer.icon(multipartBody)
                 .subscribeOn(Schedulers.io())
@@ -142,7 +147,7 @@ public class InfoViewModel extends AndroidViewModel {
                         view.toast("头像上传失败");
                         return;
                     }
-                    Baby.baby.setFimg(it);
+                    baby.setFimg(it);
                     notifyChange();
                     update();
                 }, e -> {
@@ -157,7 +162,7 @@ public class InfoViewModel extends AndroidViewModel {
             return;
         }
         view.load();
-        Disposable disposable = babyModel.update(Baby.baby)
+        Disposable disposable = babyModel.update(baby)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(it -> {
                     view.dismiss();
@@ -175,7 +180,7 @@ public class InfoViewModel extends AndroidViewModel {
             return;
         }
         view.load();
-        Disposable disposable = babyModel.unbind(Baby.baby.getFuser(), Baby.baby.getFid())
+        Disposable disposable = babyModel.unbind(baby.getFuser(), baby.getFid())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(it -> {
                     view.dismiss();
@@ -186,7 +191,7 @@ public class InfoViewModel extends AndroidViewModel {
                             view.start(Route.login);
                             ActivityUtils.clear();
                         } else {
-                            Baby.baby = babies.get(0);
+                            baby = babies.get(0);
                             view.back();
                         }
                     }

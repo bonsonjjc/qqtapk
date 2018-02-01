@@ -5,17 +5,16 @@ import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.databinding.ObservableInt;
 
-import com.bonson.fjqqt.model.bean.Route;
 import com.bonson.fjqqt.model.bean.RouteTime;
 import com.bonson.library.utils.NumberUtils;
 import com.bonson.qqtapk.di.ActivityScope;
 import com.bonson.resource.activity.BaseView;
-import com.bonson.resource.viewmodel.AndroidViewModel;
+import com.bonson.qqtapk.viewmodel.UserViewModel;
 
 import javax.inject.Inject;
 
 @ActivityScope
-public class AddTimeViewModel extends AndroidViewModel {
+public class AddTimeViewModel extends UserViewModel {
     public final ObservableField<String> title = new ObservableField<>("");
     public final ObservableField<String> time = new ObservableField<>("00:00~00:00");
     public final ObservableBoolean state = new ObservableBoolean(true);

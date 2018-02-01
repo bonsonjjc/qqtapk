@@ -1,8 +1,6 @@
 package com.bonson.qqtapk.view.ui.login;
 
 import android.app.Application;
-import android.arch.lifecycle.Lifecycle;
-import android.arch.lifecycle.OnLifecycleEvent;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.text.TextUtils;
@@ -11,7 +9,7 @@ import com.bonson.library.utils.security.Md5Utils;
 import com.bonson.qqtapk.app.Route;
 import com.bonson.qqtapk.di.ActivityScope;
 import com.bonson.qqtapk.model.bean.User;
-import com.bonson.resource.viewmodel.AndroidViewModel;
+import com.bonson.qqtapk.viewmodel.UserViewModel;
 
 import javax.inject.Inject;
 
@@ -22,14 +20,13 @@ import io.reactivex.disposables.Disposable;
  * Created by zjw on 2017/12/29.
  */
 @ActivityScope
-public class LoginViewModel extends AndroidViewModel {
+public class LoginViewModel extends UserViewModel {
     public final ObservableField<String> mobile = new ObservableField<>("");
     public final ObservableField<String> password = new ObservableField<>("");
     public final ObservableBoolean enable = new ObservableBoolean(true);
     public final ObservableBoolean auto = new ObservableBoolean(false);
     public String token = "";
-    public User user;
-
+    private User user;
     private LoginServer loginServer;
 
     @Inject
@@ -39,14 +36,13 @@ public class LoginViewModel extends AndroidViewModel {
     }
 
     public void onCreate() {
-        user = loginServer.getUser();
-        if (user == null) {
+        user=user();
+        if (user== null) {
             user = new User();
             user.setMobile("");
             user.setPassword("");
             user.setAuto(false);
             user.setToken("");
-            return;
         }
         token = user.getToken();
         mobile.set(user.getMobile());

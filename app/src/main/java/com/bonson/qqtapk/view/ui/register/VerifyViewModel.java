@@ -7,8 +7,7 @@ import android.text.TextUtils;
 
 import com.bonson.qqtapk.di.ActivityScope;
 import com.bonson.qqtapk.model.data.user.UserModel;
-import com.bonson.resource.activity.BaseView;
-import com.bonson.resource.viewmodel.AndroidViewModel;
+import com.bonson.qqtapk.viewmodel.UserViewModel;
 
 import java.util.concurrent.TimeUnit;
 
@@ -22,7 +21,7 @@ import io.reactivex.disposables.Disposable;
  * Created by zjw on 2018/1/3.
  */
 @ActivityScope
-public class VerifyViewModel extends AndroidViewModel {
+public class VerifyViewModel extends UserViewModel {
 
     public final ObservableField<String> verifyText = new ObservableField<>();
     public final ObservableBoolean verifyEnable = new ObservableBoolean();

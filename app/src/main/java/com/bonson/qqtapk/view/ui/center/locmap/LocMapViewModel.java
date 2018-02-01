@@ -8,7 +8,7 @@ import com.baidu.mapapi.model.LatLng;
 import com.bonson.qqtapk.di.ActivityScope;
 import com.bonson.qqtapk.model.bean.Message;
 import com.bonson.qqtapk.model.data.center.MessageModel;
-import com.bonson.resource.viewmodel.AndroidViewModel;
+import com.bonson.qqtapk.viewmodel.UserViewModel;
 
 import javax.inject.Inject;
 
@@ -16,7 +16,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 
 @ActivityScope
-public class LocMapViewModel extends AndroidViewModel {
+public class LocMapViewModel extends UserViewModel {
     @Inject
     MessageModel messageModel;
     public ObservableField<LatLng> position = new ObservableField<>();

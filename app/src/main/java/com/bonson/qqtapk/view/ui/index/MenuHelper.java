@@ -14,13 +14,13 @@ import java.util.List;
  */
 
 public class MenuHelper {
-    public static List<Menu> createMenu() {
+    public static List<Menu> createMenu(String menustr,String tag) {
         List<Menu> menus = new ArrayList<>();
-        for (String name : Baby.baby.getFmenus().split(",")) {
+        for (String name : menustr.split(",")) {
             Menu menu = new Menu();
             menu.setName(name);
             menus.add(menu);
-            if (Baby.baby.getFtag().equals("L08")) {
+            if (tag.equals("L08")) {
                 setActon1(menu);
             } else {
                 setActon2(menu);

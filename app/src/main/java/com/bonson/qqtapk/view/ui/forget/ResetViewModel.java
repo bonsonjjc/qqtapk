@@ -5,21 +5,16 @@ import android.databinding.ObservableField;
 import android.text.TextUtils;
 
 import com.bonson.qqtapk.di.ActivityScope;
-import com.bonson.qqtapk.model.data.user.UserModel;
-import com.bonson.resource.activity.BaseView;
 import com.bonson.resource.fragment.OnSaveListener;
-import com.bonson.resource.viewmodel.AndroidViewModel;
+import com.bonson.qqtapk.viewmodel.UserViewModel;
 
 import javax.inject.Inject;
-
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
 
 /**
  * Created by zjw on 2018/1/3.
  */
 @ActivityScope
-public class ResetViewModel extends AndroidViewModel {
+public class ResetViewModel extends UserViewModel {
     public final ObservableField<String> mobile = new ObservableField<>("");
     public final ObservableField<String> password = new ObservableField<>("");
     public final ObservableField<String> newPassword = new ObservableField<>("");

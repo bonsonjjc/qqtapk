@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:drawable="@drawable/ico_arrow_down" android:state_checked="true">
-        <shape>
-            <solid android:color="#fff" />
-        </shape>
-    </item>
+    <item android:drawable="@drawable/ico_tab_item" android:state_checked="true"/>
     <item>
         <shape>
-            <solid android:color="#c1bebe" />
+            <solid android:color="#dddddd" />
         </shape>
     </item>
 </selector>

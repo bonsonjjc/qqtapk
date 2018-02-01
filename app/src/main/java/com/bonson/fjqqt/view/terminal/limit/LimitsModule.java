@@ -7,7 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import com.bonson.qqtapk.di.ActivityScope;
 import com.bonson.qqtapk.di.FragmentScope;
 import com.bonson.qqtapk.view.ui.limits.add.LimitFragment;
-import com.bonson.resource.viewmodel.AndroidViewModel;
+import com.bonson.qqtapk.viewmodel.UserViewModel;
 
 import dagger.Binds;
 import dagger.Module;
@@ -25,12 +25,12 @@ public abstract class LimitsModule {
 
     @ActivityScope
     @Binds
-    abstract AndroidViewModel viewModel(LimitsViewModel viewModel);
+    abstract UserViewModel viewModel(LimitsViewModel viewModel);
 
 
     @ActivityScope
     @Binds
-    abstract AndroidViewModel limitViewModel(com.bonson.qqtapk.view.ui.limits.add.LimitViewModel viewModel);
+    abstract UserViewModel limitViewModel(com.bonson.qqtapk.view.ui.limits.add.LimitViewModel viewModel);
 
 
     @FragmentScope

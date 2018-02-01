@@ -8,8 +8,7 @@ import com.bonson.qqtapk.app.Route;
 import com.bonson.qqtapk.di.ActivityScope;
 import com.bonson.qqtapk.model.data.user.UserModel;
 import com.bonson.resource.activity.ActivityUtils;
-import com.bonson.resource.activity.BaseView;
-import com.bonson.resource.viewmodel.AndroidViewModel;
+import com.bonson.qqtapk.viewmodel.UserViewModel;
 
 import javax.inject.Inject;
 
@@ -20,11 +19,10 @@ import io.reactivex.disposables.Disposable;
  * Created by jiangjiancheng on 17/12/31.
  */
 @ActivityScope
-public class PasswordViewModel extends AndroidViewModel {
+public class PasswordViewModel extends UserViewModel {
     public ObservableField<String> oldPassword = new ObservableField<>("");
     public ObservableField<String> newPassword = new ObservableField<>("");
     public ObservableField<String> surePassword = new ObservableField<>("");
-
 
     private UserModel userModel;
 
@@ -62,14 +60,13 @@ public class PasswordViewModel extends AndroidViewModel {
             return;
         }
         view.load();
-        Disposable disposable = userModel.password(oldPassword.get(), newPassword.get())
+        Disposable disposable = userModel.password(user().getUserId(), oldPassword.get(), newPassword.get())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(it -> {
                     view.dismiss();
                     view.toast(it.getMsg());
                     if (it.getCode().equals("0")) {
-                        view.start(Route.login);
-                        ActivityUtils.clear();
+                        exit();
                     }
                 }, e -> {
                     view.dismiss();

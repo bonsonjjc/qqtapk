@@ -3,7 +3,7 @@ package com.bonson.qqtapk.view.ui.forget;
 import com.bonson.qqtapk.di.ActivityScope;
 import com.bonson.qqtapk.di.FragmentScope;
 import com.bonson.qqtapk.view.ui.register.VerifyViewModel;
-import com.bonson.resource.viewmodel.AndroidViewModel;
+import com.bonson.qqtapk.viewmodel.UserViewModel;
 
 import dagger.Binds;
 import dagger.Module;
@@ -17,15 +17,15 @@ import dagger.android.ContributesAndroidInjector;
 public abstract class ForgetModule {
     @Binds
     @ActivityScope
-    abstract AndroidViewModel viewModel(ForgetViewModel viewModel);
+    abstract UserViewModel viewModel(ForgetViewModel viewModel);
 
     @Binds
     @ActivityScope
-    abstract AndroidViewModel verifyModel(VerifyViewModel viewModel);
+    abstract UserViewModel verifyModel(VerifyViewModel viewModel);
 
     @Binds
     @ActivityScope
-    abstract AndroidViewModel resetModel(ResetViewModel viewModel);
+    abstract UserViewModel resetModel(ResetViewModel viewModel);
 
     @ContributesAndroidInjector
     @FragmentScope

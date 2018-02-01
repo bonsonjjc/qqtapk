@@ -8,10 +8,7 @@ import com.bonson.qqtapk.di.ActivityScope;
 import com.bonson.qqtapk.model.bean.Baby;
 import com.bonson.qqtapk.model.bean.Lesson;
 import com.bonson.qqtapk.model.data.lesson.LessonModel;
-import com.bonson.resource.activity.BaseView;
-import com.bonson.resource.viewmodel.AndroidViewModel;
-
-import java.util.List;
+import com.bonson.qqtapk.viewmodel.UserViewModel;
 
 import javax.inject.Inject;
 
@@ -22,7 +19,7 @@ import io.reactivex.disposables.Disposable;
  * Created by jiangjiancheng on 17/12/31.
  */
 @ActivityScope
-public class LessonViewModel extends AndroidViewModel {
+public class LessonViewModel extends UserViewModel {
     public final ObservableList<Lesson> lessons = new ObservableArrayList<>();
 
     private LessonModel lessonModel;
@@ -39,7 +36,7 @@ public class LessonViewModel extends AndroidViewModel {
             return;
         }
         view.load();
-        Disposable disposable = lessonModel.lessons(Baby.baby.getFid())
+        Disposable disposable = lessonModel.lessons(user().getBabyId())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(it -> {
                     view.dismiss();
@@ -60,7 +57,7 @@ public class LessonViewModel extends AndroidViewModel {
             return;
         }
         view.load();
-        Disposable disposable = lessonModel.update(Baby.baby.getFid(), lessons)
+        Disposable disposable = lessonModel.update(user().getBabyId(), lessons)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(it -> {
                     view.dismiss();

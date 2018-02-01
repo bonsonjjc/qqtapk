@@ -5,7 +5,7 @@ import android.content.Context;
 import com.bonson.library.utils.PreferencesHelper;
 import com.bonson.qqtapk.app.Const;
 import com.bonson.qqtapk.di.ActivityScope;
-import com.bonson.resource.viewmodel.AndroidViewModel;
+import com.bonson.qqtapk.viewmodel.UserViewModel;
 
 import dagger.Binds;
 import dagger.Module;
@@ -19,7 +19,7 @@ import dagger.Provides;
 public abstract class NotifyModule {
     @ActivityScope
     @Binds
-    abstract AndroidViewModel viewModel(NotifyViewModel viewModel);
+    abstract UserViewModel viewModel(NotifyViewModel viewModel);
 
     @ActivityScope
     @Provides

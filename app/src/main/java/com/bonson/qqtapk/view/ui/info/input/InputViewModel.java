@@ -5,12 +5,12 @@ import android.databinding.ObservableField;
 import android.databinding.ObservableInt;
 
 import com.bonson.resource.fragment.OnSaveListener;
-import com.bonson.resource.viewmodel.AndroidViewModel;
+import com.bonson.qqtapk.viewmodel.UserViewModel;
 
 import javax.inject.Inject;
 
 
-public class InputViewModel extends AndroidViewModel {
+public class InputViewModel extends UserViewModel {
     public final ObservableField<String> hint = new ObservableField<>("");
     public final ObservableField<String> value = new ObservableField<>("");
     public final ObservableField<String> title = new ObservableField<>("");

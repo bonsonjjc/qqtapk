@@ -4,12 +4,11 @@ import android.content.Context;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.RecyclerView;
 
-import com.bonson.fjqqt.model.bean.RouteTime;
 import com.bonson.fjqqt.view.route.time.AddTimeFragment;
 import com.bonson.fjqqt.view.route.time.AddTimeViewModel;
 import com.bonson.qqtapk.di.ActivityScope;
 import com.bonson.qqtapk.di.FragmentScope;
-import com.bonson.resource.viewmodel.AndroidViewModel;
+import com.bonson.qqtapk.viewmodel.UserViewModel;
 
 import dagger.Binds;
 import dagger.Module;
@@ -20,11 +19,11 @@ import dagger.android.ContributesAndroidInjector;
 public abstract class RouteLIstModule {
     @ActivityScope
     @Binds
-    abstract AndroidViewModel viewModel(RouteListViewModel viewModel);
+    abstract UserViewModel viewModel(RouteListViewModel viewModel);
 
     @ActivityScope
     @Binds
-    abstract AndroidViewModel addViewModel(AddTimeViewModel viewModel);
+    abstract UserViewModel addViewModel(AddTimeViewModel viewModel);
 
     @FragmentScope
     @ContributesAndroidInjector

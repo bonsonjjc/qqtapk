@@ -13,8 +13,7 @@ import com.bonson.qqtapk.di.ActivityScope;
 import com.bonson.qqtapk.model.bean.Baby;
 import com.bonson.qqtapk.model.bean.Device;
 import com.bonson.qqtapk.model.data.setting.SettingModel;
-import com.bonson.resource.activity.BaseView;
-import com.bonson.resource.viewmodel.AndroidViewModel;
+import com.bonson.qqtapk.viewmodel.UserViewModel;
 
 import javax.inject.Inject;
 
@@ -25,7 +24,7 @@ import io.reactivex.disposables.Disposable;
  * Created by jiangjiancheng on 17/12/31.
  */
 @ActivityScope
-public class NotifyViewModel extends AndroidViewModel {
+public class NotifyViewModel extends UserViewModel {
     public final ObservableBoolean notify = new ObservableBoolean();
     public final ObservableBoolean voice = new ObservableBoolean();
     public final ObservableBoolean vibrate = new ObservableBoolean();
@@ -73,7 +72,7 @@ public class NotifyViewModel extends AndroidViewModel {
             return;
         }
         view.load();
-        Disposable disposable = settingModel.sleepTime(Baby.baby.getFuser(), Baby.baby.getFid(), sleepTime.get())
+        Disposable disposable = settingModel.sleepTime(user().getUserId(), user().getBabyId(), sleepTime.get())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(it -> {
                     view.toast(it.getMsg());

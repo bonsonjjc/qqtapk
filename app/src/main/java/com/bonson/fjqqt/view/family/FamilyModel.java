@@ -5,6 +5,7 @@ import com.bonson.qqtapk.model.bean.Baby;
 import com.bonson.qqtapk.model.bean.Family;
 import com.bonson.qqtapk.model.bean.Result;
 import com.bonson.qqtapk.model.data.family.FamilyDataSource;
+import com.bonson.qqtapk.model.db.UserDao;
 import com.bonson.resource.utils.EncodeUtils;
 
 import java.util.LinkedHashMap;
@@ -22,16 +23,18 @@ import io.reactivex.schedulers.Schedulers;
 
 public class FamilyModel implements FamilyDataSource {
     private FApiServer apiServer;
+    Baby baby;
 
     @Inject
-    public FamilyModel(FApiServer apiServer) {
+    public FamilyModel(FApiServer apiServer, UserDao userDao) {
         this.apiServer = apiServer;
+        baby = userDao.baby(userDao.user().getBabyId());
     }
 
     public Observable<Result<List<Family>>> families() {
         Map<String, String> map = new LinkedHashMap<>();
         map.put("action", "CWA010");
-        map.put("ftmobile", Baby.baby.getFtmobile());
+        map.put("ftmobile", baby.getFtmobile());
         return apiServer.families(EncodeUtils.encode(map))
                 .subscribeOn(Schedulers.io())
                 .map(it -> {
@@ -51,7 +54,7 @@ public class FamilyModel implements FamilyDataSource {
     public Observable<Result<Family>> update(Family family) {
         Map<String, String> map = new LinkedHashMap<>();
         map.put("action", "CWA011");
-        map.put("ftmobile", Baby.baby.getFtmobile());
+        map.put("ftmobile", baby.getFtmobile());
         map.put("fkey", family.getFkey());
         map.put("fmobile", family.getFmobile());
         map.put("fname", family.getFname());

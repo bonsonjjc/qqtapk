@@ -9,8 +9,7 @@ import com.bonson.qqtapk.di.ActivityScope;
 import com.bonson.qqtapk.model.bean.Baby;
 import com.bonson.qqtapk.model.bean.Menu;
 import com.bonson.qqtapk.model.data.baby.BabyModel;
-import com.bonson.qqtapk.model.db.UserDao;
-import com.bonson.resource.viewmodel.AndroidViewModel;
+import com.bonson.qqtapk.viewmodel.UserViewModel;
 
 import javax.inject.Inject;
 
@@ -21,7 +20,7 @@ import io.reactivex.disposables.Disposable;
  * Created by zjw on 2018/1/2.
  */
 @ActivityScope
-public class IndexViewModel extends AndroidViewModel {
+public class IndexViewModel extends UserViewModel {
     public final ObservableList<Menu> menus = new ObservableArrayList<>();
     public final ObservableList<Baby> babies = new ObservableArrayList<>();
     public final ObservableField<String> icon = new ObservableField<>();
@@ -39,11 +38,11 @@ public class IndexViewModel extends AndroidViewModel {
 
     public void initMenu() {
         menus.clear();
-        menus.addAll(MenuHelper.createMenu());
+        menus.addAll(MenuHelper.createMenu(baby().getFmenus(),baby().getFtag()));
     }
 
     public void babies() {
-        icon.set(Baby.baby.getFimg());
+        icon.set(baby().getFimg());
         Disposable disposable = babyServer.getUserDao().babyList()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(it -> {

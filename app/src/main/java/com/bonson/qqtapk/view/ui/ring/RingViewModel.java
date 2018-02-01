@@ -11,8 +11,7 @@ import com.bonson.library.utils.NumberUtils;
 import com.bonson.library.utils.media.PlayerUtils;
 import com.bonson.qqtapk.view.ui.info.select.Select;
 import com.bonson.qqtapk.view.ui.info.select.SelectViewModel;
-import com.bonson.resource.activity.BaseView;
-import com.bonson.resource.viewmodel.AndroidViewModel;
+import com.bonson.qqtapk.viewmodel.UserViewModel;
 
 import java.util.List;
 
@@ -25,7 +24,7 @@ import io.reactivex.disposables.Disposable;
  * Created by jiangjiancheng on 18/1/8.
  */
 
-public class RingViewModel extends AndroidViewModel {
+public class RingViewModel extends UserViewModel {
     private RingModel ringModel;
     public final ObservableField<String> ringTitle = new ObservableField<>();
     public final ObservableField<String> ring = new ObservableField<>();
@@ -67,7 +66,7 @@ public class RingViewModel extends AndroidViewModel {
             return;
         }
         view.load();
-        Disposable disposable = ringModel.ring(Baby.baby.getFid(), Baby.baby.getFuser(), ring.get(), callVolume.get() + "", callerVolume.get() + "")
+        Disposable disposable = ringModel.ring(user().getBabyId(), user().getBabyId(), ring.get(), callVolume.get() + "", callerVolume.get() + "")
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(it -> {
                     view.dismiss();

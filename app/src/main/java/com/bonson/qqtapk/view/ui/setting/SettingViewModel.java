@@ -10,8 +10,7 @@ import com.bonson.qqtapk.model.bean.User;
 import com.bonson.qqtapk.model.data.setting.SettingModel;
 import com.bonson.qqtapk.model.data.user.UserModel;
 import com.bonson.resource.activity.ActivityUtils;
-import com.bonson.resource.activity.BaseView;
-import com.bonson.resource.viewmodel.AndroidViewModel;
+import com.bonson.qqtapk.viewmodel.UserViewModel;
 
 import javax.inject.Inject;
 
@@ -23,19 +22,20 @@ import io.reactivex.schedulers.Schedulers;
  * Created by jiangjiancheng on 17/12/31.
  */
 @ActivityScope
-public class SettingViewModel extends AndroidViewModel {
+public class SettingViewModel extends UserViewModel {
     public ObservableField<String> mobile = new ObservableField<>("");
-
-    private UserModel userModel;
 
     @Inject
     SettingModel settingModel;
 
     @Inject
-    public SettingViewModel(Application application, UserModel userModel) {
+    public SettingViewModel(Application application) {
         super(application);
-        this.userModel = userModel;
-        mobile.set(User.user.getMobile());
+    }
+
+    @Override
+    public void onCreate() {
+        mobile.set(user().getMobile());
     }
 
     public void serverToken() {
@@ -44,7 +44,7 @@ public class SettingViewModel extends AndroidViewModel {
             return;
         }
         view.load();
-        Disposable disposable = settingModel.token(Baby.baby)
+        Disposable disposable = settingModel.token(baby())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(it -> {
                     if (it.getCode().equals("0")) {
@@ -55,19 +55,6 @@ public class SettingViewModel extends AndroidViewModel {
                 }, e -> {
                     view.toast("出错了");
                     view.dismiss();
-                });
-        compositeDisposable.add(disposable);
-    }
-
-    public void exit() {
-        Disposable disposable = userModel.exit(User.user)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(it -> {
-                    view.start(Route.login);
-                    ActivityUtils.clear();
-                }, e -> {
-                    view.toast("退出失败");
                 });
         compositeDisposable.add(disposable);
     }

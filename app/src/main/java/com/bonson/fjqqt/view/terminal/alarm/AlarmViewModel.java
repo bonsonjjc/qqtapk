@@ -2,17 +2,12 @@ package com.bonson.fjqqt.view.terminal.alarm;
 
 import android.app.Application;
 import android.databinding.ObservableArrayList;
-import android.databinding.ObservableField;
 import android.databinding.ObservableList;
-import android.text.TextUtils;
 
 import com.bonson.fjqqt.view.terminal.alarm.add.AddAlarmViewModel;
 import com.bonson.qqtapk.di.ActivityScope;
 import com.bonson.qqtapk.model.bean.Baby;
-import com.bonson.resource.activity.BaseView;
-import com.bonson.resource.viewmodel.AndroidViewModel;
-
-import java.util.List;
+import com.bonson.qqtapk.viewmodel.UserViewModel;
 
 import javax.inject.Inject;
 
@@ -20,7 +15,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 
 @ActivityScope
-public class AlarmViewModel extends AndroidViewModel {
+public class AlarmViewModel extends UserViewModel {
     public final ObservableList<Alarm> alarms = new ObservableArrayList<>();
     @Inject
     AlarmModel alarmModel;
@@ -41,7 +36,7 @@ public class AlarmViewModel extends AndroidViewModel {
             view.toast("网络不可用");
             return;
         }
-        Disposable disposable = alarmModel.alarms(Baby.baby.getFtmobile())
+        Disposable disposable = alarmModel.alarms(baby().getFtmobile())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(it -> {
                     view.toast(it.getMsg());

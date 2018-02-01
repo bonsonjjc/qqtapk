@@ -8,10 +8,8 @@ import android.os.Handler;
 
 import com.bonson.qqtapk.model.bean.Baby;
 import com.bonson.qqtapk.model.bean.Location;
-import com.bonson.qqtapk.model.data.location.LocationModel;
 import com.bonson.qqtapk.model.data.location.LocationModelSource;
-import com.bonson.resource.activity.BaseView;
-import com.bonson.resource.viewmodel.AndroidViewModel;
+import com.bonson.qqtapk.viewmodel.UserViewModel;
 
 import javax.inject.Inject;
 
@@ -19,7 +17,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 
 
-public class LocationViewModel extends AndroidViewModel {
+public class LocationViewModel extends UserViewModel {
     public final ObservableField<String> address = new ObservableField<>("");
     public final ObservableField<String> time = new ObservableField<>("当前:");
 
@@ -37,7 +35,7 @@ public class LocationViewModel extends AndroidViewModel {
             return;
         }
         view.load();
-        Disposable disposable = locationModel.location(Baby.baby.getFid())
+        Disposable disposable = locationModel.location(user().getBabyId())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(it -> {
                     view.toast(it.getMsg());
@@ -61,7 +59,7 @@ public class LocationViewModel extends AndroidViewModel {
             return;
         }
         handler.postDelayed(() -> {
-            Disposable disposable = locationModel.result(Baby.baby.getFid(), seqid, count)
+            Disposable disposable = locationModel.result(user().getBabyId(), seqid, count)
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(result -> {
                         switch (result.getCode()) {
@@ -89,8 +87,8 @@ public class LocationViewModel extends AndroidViewModel {
 
     @Override
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
-    protected void onCleared() {
-        super.onCleared();
+    protected void onDestroy() {
+        super.onDestroy();
         handler.removeCallbacksAndMessages(null);
     }
 }

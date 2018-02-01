@@ -5,14 +5,14 @@ import android.app.Application;
 import com.bonson.qqtapk.model.bean.Baby;
 import com.bonson.qqtapk.model.bean.User;
 import com.bonson.qqtapk.model.data.baby.BabyModel;
-import com.bonson.resource.viewmodel.AndroidViewModel;
+import com.bonson.qqtapk.viewmodel.UserViewModel;
 
 import javax.inject.Inject;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 
-public class ScanViewModel extends AndroidViewModel {
+public class ScanViewModel extends UserViewModel {
     private BabyModel babyModel;
 
     @Inject
@@ -27,13 +27,15 @@ public class ScanViewModel extends AndroidViewModel {
             return;
         }
         view.load();
-        Disposable disposable = babyModel.bind(User.user.getUserId(), imei)
+        Disposable disposable = babyModel.bind(user().getUserId(), imei)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(it -> {
                     view.dismiss();
                     view.toast(it.getMsg());
                     if (it.getCode().equals("0")) {
-
+                        getUserDao().insertBaby(it.getBody());
+                        user().setBabyId(it.getBody().getFid());
+                        getUserDao().insertUer(user());
                     }
                 }, e -> {
                     view.dismiss();
@@ -48,15 +50,15 @@ public class ScanViewModel extends AndroidViewModel {
             return;
         }
         view.load();
-        Baby baby = Baby.baby.clone();
-        baby.setFimei(imei);
-        Disposable disposable = babyModel.changeIMEI(baby)
+        baby().setFimei(imei);
+        Disposable disposable = babyModel.changeIMEI(baby())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(it -> {
                     view.dismiss();
                     view.toast(it.getMsg());
                     if (it.getCode().equals("0")) {
-                        Baby.baby = baby;
+                        baby().setFimei(imei);
+                        getUserDao().insertBaby(baby());
                     }
                 }, e -> {
                     view.dismiss();

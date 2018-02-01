@@ -4,18 +4,13 @@ import android.app.Application;
 import android.arch.lifecycle.Lifecycle;
 import android.arch.lifecycle.OnLifecycleEvent;
 import android.databinding.ObservableArrayList;
-import android.databinding.ObservableField;
-import android.databinding.ObservableInt;
 import android.databinding.ObservableList;
 
 import com.bonson.fjqqt.model.data.LessonModel;
-import com.bonson.fjqqt.view.terminal.alarm.AlarmUtils;
 import com.bonson.qqtapk.di.ActivityScope;
 import com.bonson.qqtapk.model.bean.Baby;
 import com.bonson.qqtapk.model.bean.Lesson;
-import com.bonson.qqtapk.view.ui.info.select.Select;
-import com.bonson.resource.activity.BaseView;
-import com.bonson.resource.viewmodel.AndroidViewModel;
+import com.bonson.qqtapk.viewmodel.UserViewModel;
 
 import javax.inject.Inject;
 
@@ -26,7 +21,7 @@ import io.reactivex.disposables.Disposable;
  * Created by jiangjiancheng on 18/1/21.
  */
 @ActivityScope
-public class SilenceViewModel extends AndroidViewModel {
+public class SilenceViewModel extends UserViewModel {
     public final ObservableList<Lesson> lessons = new ObservableArrayList<>();
 
     @Inject
@@ -43,7 +38,7 @@ public class SilenceViewModel extends AndroidViewModel {
             view.toast("网络不可用");
             return;
         }
-        Disposable disposable = lessonModel.lessons(Baby.baby.getFtmobile())
+        Disposable disposable = lessonModel.lessons(baby().getFtmobile())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(it -> {
                     if (it.getCode().equals("0")) {
@@ -64,7 +59,7 @@ public class SilenceViewModel extends AndroidViewModel {
             return;
         }
         view.load();
-        Disposable disposable = lessonModel.update(Baby.baby.getFtmobile(), lessons)
+        Disposable disposable = lessonModel.update(baby().getFtmobile(), lessons)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(it -> {
                     view.dismiss();

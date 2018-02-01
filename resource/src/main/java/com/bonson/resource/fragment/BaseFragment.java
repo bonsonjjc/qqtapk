@@ -4,19 +4,15 @@ import android.app.Activity;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
-import android.inputmethodservice.InputMethodService;
-import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Toast;
 
 import com.bonson.resource.activity.BaseDaggerActivity;
 import com.bonson.resource.activity.BaseView;
 import com.bonson.resource.viewmodel.AndroidViewModel;
 
 import dagger.android.support.DaggerFragment;
-
 /**
  * Created by zjw on 2017/12/29.
  */

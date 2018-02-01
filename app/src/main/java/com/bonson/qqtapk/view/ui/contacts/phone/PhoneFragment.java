@@ -19,8 +19,8 @@ import javax.inject.Inject;
  * Created by jiangjiancheng on 18/1/6.
  */
 @ActivityScope
-public class PhoneFragment extends BaseFragment {
-    PhoneViewModel viewModel;
+public class PhoneFragment extends BaseFragment<FragmentPhoneBinding> {
+    private PhoneViewModel viewModel;
 
     @Inject
     public PhoneFragment() {
@@ -29,18 +29,14 @@ public class PhoneFragment extends BaseFragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        FragmentPhoneBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_phone, container, false);
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_phone, container, false);
         binding.setViewModel(viewModel);
         setViewModel(viewModel);
         binding.toolbar.getTvLeft().setOnClickListener(v -> back());
         return binding.getRoot();
     }
 
-    public PhoneViewModel getViewModel() {
-        return viewModel;
-    }
-
-    public void setViewModel(PhoneViewModel viewModel) {
+    public void setPhoneViewModel(PhoneViewModel viewModel) {
         this.viewModel = viewModel;
     }
 

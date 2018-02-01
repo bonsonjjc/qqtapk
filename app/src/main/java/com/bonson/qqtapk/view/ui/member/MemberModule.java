@@ -8,7 +8,7 @@ import com.bonson.qqtapk.di.ActivityScope;
 import com.bonson.qqtapk.di.FragmentScope;
 import com.bonson.qqtapk.view.ui.contacts.phone.PhoneFragment;
 import com.bonson.qqtapk.view.ui.contacts.phone.PhoneViewModel;
-import com.bonson.resource.viewmodel.AndroidViewModel;
+import com.bonson.qqtapk.viewmodel.UserViewModel;
 
 import dagger.Binds;
 import dagger.Module;
@@ -22,11 +22,11 @@ import dagger.android.ContributesAndroidInjector;
 public abstract class MemberModule {
     @ActivityScope
     @Binds
-    abstract AndroidViewModel viewModel(MemberViewModel viewModel);
+    abstract UserViewModel viewModel(MemberViewModel viewModel);
 
     @ActivityScope
     @Binds
-    abstract AndroidViewModel fragment(PhoneViewModel viewModel);
+    abstract UserViewModel fragment(PhoneViewModel viewModel);
 
     @ActivityScope
     @Provides

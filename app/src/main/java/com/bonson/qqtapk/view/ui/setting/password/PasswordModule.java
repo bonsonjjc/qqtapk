@@ -1,7 +1,7 @@
 package com.bonson.qqtapk.view.ui.setting.password;
 
 import com.bonson.qqtapk.di.ActivityScope;
-import com.bonson.resource.viewmodel.AndroidViewModel;
+import com.bonson.qqtapk.viewmodel.UserViewModel;
 
 import dagger.Binds;
 import dagger.Module;
@@ -13,5 +13,5 @@ import dagger.Module;
 public abstract class PasswordModule {
     @ActivityScope
     @Binds
-    abstract AndroidViewModel viewModel(PasswordViewModel viewModel);
+    abstract UserViewModel viewModel(PasswordViewModel viewModel);
 }

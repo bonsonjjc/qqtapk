@@ -17,9 +17,28 @@
 
         <com.bonson.resource.view.MToolbar
             android:id="@+id/toolbar"
-            style="@style/Toolbar">
+            style="@style/Toolbar"
+            android:background="@color/transparent">
 
-            <include layout="@layout/toolbar" />
+            <TextView
+                android:id="@id/bar_left_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start|center_vertical"
+                android:drawableLeft="@drawable/back_selector"
+                android:gravity="center_vertical"
+                android:text="返回"
+                android:textColor="@color/back_text" />
+
+            <TextView
+                android:id="@id/bar_title_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:drawablePadding="10dp"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                tools:text="缤纷运动" />
         </com.bonson.resource.view.MToolbar>
 
         <android.support.constraint.ConstraintLayout
@@ -41,6 +60,17 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <ImageView
+                android:id="@+id/img_target"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginTop="50dp"
+                android:src="@drawable/ico_menu_xtsz"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <RadioGroup
                 android:id="@+id/rg_action_group"
                 android:layout_width="wrap_content"
@@ -60,7 +90,7 @@
                     android:button="@drawable/yd_item"
                     android:checked="true"
                     android:text='@{viewModel.type==1 ? "运动" :""}'
-                    android:textColor="@color/theme"
+                    android:textColor="@color/theme_yd"
                     tools:text="运动" />
 
                 <RadioButton
@@ -70,15 +100,15 @@
                     android:button="@drawable/sm_item"
                     android:text='@{viewModel.type==2 ? "睡眠" :""}'
                     android:textColor="@color/theme_sm" />
-                <!--
-                                <RadioButton
-                                    android:id="@+id/rb_xl"
-                                    style="@style/RbAction"
-                                    android:layout_marginTop="10dp"
-                                    android:button="@drawable/xl_item"
-                                    android:text='@{viewModel.type==3 ? "心率" :""}'
-                                    android:textColor="@color/theme_heart"
-                                    android:visibility="@{viewModel.mode == 1 ? View.GONE :View.VISIBLE}" />-->
+
+                <!--<RadioButton
+                    android:id="@+id/rb_xl"
+                    style="@style/RbAction"
+                    android:layout_marginTop="10dp"
+                    android:button="@drawable/xl_item"
+                    android:text='@{viewModel.type==3 ? "心率" :""}'
+                    android:textColor="@color/theme_heart"
+                    android:visibility="@{viewModel.mode == 1 ? View.GONE :View.VISIBLE}" />-->
             </RadioGroup>
 
             <ImageView
@@ -99,7 +129,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@color/background"
             android:orientation="vertical">
 
             <com.bonson.qqtapk.view.widget.TableView
@@ -112,6 +141,7 @@
                 android:id="@+id/rec_tables"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="@color/background"
                 android:tables="@{viewModel.tables}" />
         </LinearLayout>
     </LinearLayout>

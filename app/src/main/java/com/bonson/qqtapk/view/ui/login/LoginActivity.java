@@ -1,6 +1,5 @@
 package com.bonson.qqtapk.view.ui.login;
 
-import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.view.View;
 

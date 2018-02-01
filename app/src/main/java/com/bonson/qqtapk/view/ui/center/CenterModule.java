@@ -2,7 +2,7 @@ package com.bonson.qqtapk.view.ui.center;
 
 import com.bonson.qqtapk.di.ActivityScope;
 import com.bonson.qqtapk.model.bean.Message;
-import com.bonson.resource.viewmodel.AndroidViewModel;
+import com.bonson.qqtapk.viewmodel.UserViewModel;
 
 import dagger.Binds;
 import dagger.Module;
@@ -15,7 +15,7 @@ import java.util.List;
 public abstract class CenterModule {
     @ActivityScope
     @Binds
-    abstract AndroidViewModel viewModel(CenterViewModel centerViewModel);
+    abstract UserViewModel viewModel(CenterViewModel centerViewModel);
 
     @ActivityScope
     @Provides

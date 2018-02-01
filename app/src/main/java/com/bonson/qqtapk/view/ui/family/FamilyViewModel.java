@@ -8,7 +8,7 @@ import com.bonson.qqtapk.di.ActivityScope;
 import com.bonson.qqtapk.model.bean.Family;
 import com.bonson.qqtapk.model.data.family.FamilyDataSource;
 import com.bonson.qqtapk.view.ui.contacts.phone.PhoneViewModel;
-import com.bonson.resource.viewmodel.AndroidViewModel;
+import com.bonson.qqtapk.viewmodel.UserViewModel;
 
 import javax.inject.Inject;
 
@@ -19,7 +19,7 @@ import io.reactivex.disposables.Disposable;
  * Created by jiangjiancheng on 17/12/31.
  */
 @ActivityScope
-public class FamilyViewModel extends AndroidViewModel {
+public class FamilyViewModel extends UserViewModel {
     public ObservableList<Family> families = new ObservableArrayList<>();
 
     @Inject

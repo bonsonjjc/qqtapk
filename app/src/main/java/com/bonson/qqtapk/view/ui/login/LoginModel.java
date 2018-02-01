@@ -43,10 +43,8 @@ public class LoginModel implements LoginServer {
                     if ("100".equals(userBean.getFresult())) {
                         result.setCode("0");
                         result.setMsg("登录成功");
-                        Baby.baby = userBean.baby();
                         User tempUser = userBean.user();
                         tempUser.setAuto(user.getAuto());
-                        User.user = tempUser;
                         User locUser = userDao.user();
                         if (locUser != null) {
                             userDao.deleteUser(locUser);
@@ -60,10 +58,5 @@ public class LoginModel implements LoginServer {
                     }
                     return result;
                 });
-    }
-
-    @Override
-    public User getUser() {
-        return userDao.user();
     }
 }

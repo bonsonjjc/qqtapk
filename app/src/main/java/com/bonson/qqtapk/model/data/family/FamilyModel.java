@@ -5,6 +5,7 @@ import com.bonson.qqtapk.model.bean.Baby;
 import com.bonson.qqtapk.model.bean.Family;
 import com.bonson.qqtapk.model.bean.Result;
 import com.bonson.qqtapk.model.data.ApiServer;
+import com.bonson.qqtapk.model.db.UserDao;
 import com.bonson.qqtapk.utils.QQtBuilder;
 
 import java.util.LinkedHashMap;
@@ -22,16 +23,18 @@ import io.reactivex.schedulers.Schedulers;
 
 public class FamilyModel implements FamilyDataSource {
     private ApiServer familyServer;
+    Baby baby;
 
     @Inject
-    public FamilyModel(ApiServer familyServer) {
+    public FamilyModel(ApiServer familyServer, UserDao userDao) {
         this.familyServer = familyServer;
+        baby=userDao.baby(userDao.user().getBabyId());
     }
 
     @Override
     public Observable<Result<List<Family>>> families() {
         Map<String, String> map = new LinkedHashMap<>();
-        map.put("fbid", Baby.baby.getFid());
+        map.put("fbid", baby.getFid());
         Object body = QQtBuilder.build("03", map);
         return familyServer.families(body)
                 .subscribeOn(Schedulers.io())
@@ -52,7 +55,7 @@ public class FamilyModel implements FamilyDataSource {
     @Override
     public Observable<Result<Family>> update(Family family) {
         Map<String, String> map = new LinkedHashMap<>();
-        map.put("fbid", Baby.baby.getFid());
+        map.put("fbid", baby.getFid());
         map.put("fkey", family.getFkey());
         map.put("fmobile", family.getFmobile());
         map.put("fname", family.getFname());

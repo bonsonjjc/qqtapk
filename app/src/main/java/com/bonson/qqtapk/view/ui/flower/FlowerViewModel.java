@@ -11,10 +11,7 @@ import com.bonson.qqtapk.di.ActivityScope;
 import com.bonson.qqtapk.model.bean.Baby;
 import com.bonson.qqtapk.model.bean.Flower;
 import com.bonson.qqtapk.model.data.flower.FlowerModel;
-import com.bonson.resource.activity.BaseView;
-import com.bonson.resource.viewmodel.AndroidViewModel;
-
-import java.util.List;
+import com.bonson.qqtapk.viewmodel.UserViewModel;
 
 import javax.inject.Inject;
 
@@ -25,7 +22,7 @@ import io.reactivex.disposables.Disposable;
  * Created by jiangjiancheng on 17/12/31.
  */
 @ActivityScope
-public class FlowerViewModel extends AndroidViewModel {
+public class FlowerViewModel extends UserViewModel {
     public final ObservableList<Flower> flowers = new ObservableArrayList<>();
 
     public final ObservableInt flowerCount = new ObservableInt(0);
@@ -46,7 +43,7 @@ public class FlowerViewModel extends AndroidViewModel {
             view.toast("网络不可用");
             return;
         }
-        Disposable disposable = flowerModel.flowers(Baby.baby.getFid(), start, pagerSize)
+        Disposable disposable = flowerModel.flowers(user().getBabyId(), start, pagerSize)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(it -> {
                     view.toast(it.getMsg());
@@ -104,7 +101,7 @@ public class FlowerViewModel extends AndroidViewModel {
         flower.setFnum(count.get());
         flower.setFdesc(desc.get());
         flower.setFtype(type);
-        flower.setFid(Baby.baby.getFid());
+        flower.setFid(user().getBabyId());
         return flower;
     }
 

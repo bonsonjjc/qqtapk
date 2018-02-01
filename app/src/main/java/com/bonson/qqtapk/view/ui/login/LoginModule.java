@@ -1,7 +1,7 @@
 package com.bonson.qqtapk.view.ui.login;
 
 import com.bonson.qqtapk.di.ActivityScope;
-import com.bonson.resource.viewmodel.AndroidViewModel;
+import com.bonson.qqtapk.viewmodel.UserViewModel;
 
 import dagger.Binds;
 import dagger.Module;
@@ -14,7 +14,7 @@ import dagger.Provides;
 public abstract class LoginModule {
     @Binds
     @ActivityScope
-    abstract AndroidViewModel viewModel(LoginViewModel viewModel);
+    abstract UserViewModel viewModel(LoginViewModel viewModel);
 
     @ActivityScope
     @Provides

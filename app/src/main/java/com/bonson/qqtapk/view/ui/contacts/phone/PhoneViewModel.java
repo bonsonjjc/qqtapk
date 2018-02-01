@@ -5,9 +5,8 @@ import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.text.TextUtils;
 
-import com.bonson.resource.activity.BaseView;
 import com.bonson.resource.fragment.OnSaveListener;
-import com.bonson.resource.viewmodel.AndroidViewModel;
+import com.bonson.qqtapk.viewmodel.UserViewModel;
 
 import javax.inject.Inject;
 
@@ -15,7 +14,7 @@ import javax.inject.Inject;
  * Created by jiangjiancheng on 18/1/6.
  */
 
-public class PhoneViewModel extends AndroidViewModel {
+public class PhoneViewModel extends UserViewModel {
     public final ObservableField<String> title = new ObservableField<>("");
     public final ObservableField<String> right = new ObservableField<>("");
 

@@ -1,25 +1,20 @@
 package com.bonson.qqtapk.view.ui.center;
 
 import android.app.Application;
-import android.databinding.Bindable;
 import android.databinding.ObservableArrayList;
 import android.databinding.ObservableList;
 
-import com.bonson.qqtapk.BR;
 import com.bonson.qqtapk.model.bean.Baby;
 import com.bonson.qqtapk.model.bean.Message;
 import com.bonson.qqtapk.model.data.center.MessageModel;
-import com.bonson.resource.activity.BaseView;
-import com.bonson.resource.viewmodel.AndroidViewModel;
-
-import java.util.List;
+import com.bonson.qqtapk.viewmodel.UserViewModel;
 
 import javax.inject.Inject;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 
-public class CenterViewModel extends AndroidViewModel {
+public class CenterViewModel extends UserViewModel {
     public final ObservableList<Message> centers = new ObservableArrayList<>();
 
     private MessageModel messageModel;
@@ -36,7 +31,7 @@ public class CenterViewModel extends AndroidViewModel {
             return;
         }
         view.load();
-        Disposable disposable = messageModel.message(Baby.baby.getFid())
+        Disposable disposable = messageModel.message(user().getBabyId())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(it -> {
                     view.dismiss();

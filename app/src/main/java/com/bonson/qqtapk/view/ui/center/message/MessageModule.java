@@ -1,7 +1,7 @@
 package com.bonson.qqtapk.view.ui.center.message;
 
 import com.bonson.qqtapk.di.ActivityScope;
-import com.bonson.resource.viewmodel.AndroidViewModel;
+import com.bonson.qqtapk.viewmodel.UserViewModel;
 
 import dagger.Binds;
 import dagger.Module;
@@ -10,5 +10,5 @@ import dagger.Module;
 public abstract class MessageModule {
     @Binds
     @ActivityScope
-    abstract AndroidViewModel viewModel(MessageViewModel viewModel);
+    abstract UserViewModel viewModel(MessageViewModel viewModel);
 }

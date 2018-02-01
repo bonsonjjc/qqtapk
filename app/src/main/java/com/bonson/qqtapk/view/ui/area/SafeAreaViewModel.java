@@ -8,16 +8,13 @@ import android.databinding.ObservableField;
 import android.databinding.ObservableInt;
 
 import com.baidu.mapapi.model.LatLng;
-import com.baidu.mapapi.search.geocode.GeoCoder;
 import com.bonson.qqtapk.di.ActivityScope;
 import com.bonson.qqtapk.model.baidu.GeoCoderHelper;
-import com.bonson.qqtapk.model.bean.Baby;
 import com.bonson.qqtapk.model.bean.SafeArea;
 import com.bonson.qqtapk.model.data.area.SafeAreaDataSource;
 import com.bonson.library.utils.NumberUtils;
 import com.bonson.qqtapk.view.ui.index.LocationViewModel;
-import com.bonson.resource.activity.BaseView;
-import com.bonson.resource.viewmodel.AndroidViewModel;
+import com.bonson.qqtapk.viewmodel.UserViewModel;
 
 import javax.inject.Inject;
 
@@ -28,7 +25,7 @@ import io.reactivex.disposables.Disposable;
  * Created by jiangjiancheng on 17/12/31.
  */
 @ActivityScope
-public class SafeAreaViewModel extends AndroidViewModel {
+public class SafeAreaViewModel extends UserViewModel {
     public ObservableInt radius = new ObservableInt();
     public ObservableBoolean state = new ObservableBoolean();
     public ObservableField<LatLng> position = new ObservableField<>();
@@ -122,8 +119,8 @@ public class SafeAreaViewModel extends AndroidViewModel {
     }
 
     @Override
-    protected void onCleared() {
-        super.onCleared();
+    protected void onDestroy() {
+        super.onDestroy();
         coderHelper.destroy();
     }
 }

@@ -6,9 +6,6 @@ import android.arch.lifecycle.LifecycleObserver;
 import android.arch.lifecycle.OnLifecycleEvent;
 import android.content.Context;
 import android.databinding.BaseObservable;
-import android.databinding.Bindable;
-import android.databinding.Observable;
-import android.databinding.PropertyChangeRegistry;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.annotation.NonNull;
@@ -65,7 +62,7 @@ public class AndroidViewModel extends BaseObservable implements LifecycleObserve
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
-    protected void onCleared() {
+    protected void onDestroy() {
         compositeDisposable.clear();
     }
 }

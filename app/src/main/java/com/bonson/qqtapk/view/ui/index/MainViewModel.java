@@ -8,7 +8,7 @@ import com.bonson.qqtapk.model.bean.Baby;
 import com.bonson.qqtapk.model.bean.Device;
 import com.bonson.qqtapk.model.bean.Location;
 import com.bonson.qqtapk.model.data.index.MainModel;
-import com.bonson.resource.viewmodel.AndroidViewModel;
+import com.bonson.qqtapk.viewmodel.UserViewModel;
 
 import javax.inject.Inject;
 
@@ -19,7 +19,7 @@ import io.reactivex.disposables.Disposable;
  * Created by zjw on 2018/1/2.
  */
 @ActivityScope
-public class MainViewModel extends AndroidViewModel {
+public class MainViewModel extends UserViewModel {
     private MainModel indexModel;
 
     public final ObservableField<String> type = new ObservableField<>("L08");
@@ -35,8 +35,6 @@ public class MainViewModel extends AndroidViewModel {
     public MainViewModel(Application application, MainModel indexModel) {
         super(application);
         this.indexModel = indexModel;
-        Baby baby = Baby.baby;
-        type.set(baby.getFtag());
     }
 
     public LocationViewModel getViewModel() {
@@ -44,12 +42,13 @@ public class MainViewModel extends AndroidViewModel {
     }
 
     public void device() {
+        type.set(baby().getFtag());
         if (!isNetWork()) {
             view.toast("网络不可用");
             return;
         }
         view.load();
-        Disposable disposable = indexModel.device(Baby.baby.getFid())
+        Disposable disposable = indexModel.device(user().getBabyId())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(it -> {
                     view.dismiss();
@@ -75,7 +74,7 @@ public class MainViewModel extends AndroidViewModel {
             return;
         }
         view.load();
-        Disposable disposable = indexModel.listener(Baby.baby.getFid(), Baby.baby.getFuser())
+        Disposable disposable = indexModel.listener(user().getBabyId(), user().getUserId())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(it -> {
                     view.dismiss();
@@ -97,7 +96,7 @@ public class MainViewModel extends AndroidViewModel {
             return;
         }
         view.load();
-        Disposable disposable = indexModel.lockMachine(Baby.baby.getFid(), Baby.baby.getFuser())
+        Disposable disposable = indexModel.lockMachine(user().getBabyId(), user().getUserId())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(it -> {
                     view.dismiss();

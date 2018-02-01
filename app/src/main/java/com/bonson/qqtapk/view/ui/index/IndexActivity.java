@@ -51,7 +51,7 @@ public class IndexActivity extends BaseDaggerActivity<ActivityIndexBinding> {
 
         binding.recMenus.setAdapter(menuAdapter);
         viewModel.initMenu();
-
+        babyAdapter.setBid(viewModel.user().getBabyId());
         babyAdapter.setOnItemClickListener((v) -> {
             toggle(Gravity.START);
             if (viewModel.babies.size() - 1 == v) {

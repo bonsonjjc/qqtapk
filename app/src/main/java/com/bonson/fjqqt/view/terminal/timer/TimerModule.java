@@ -5,7 +5,7 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.RecyclerView;
 
 import com.bonson.qqtapk.di.ActivityScope;
-import com.bonson.resource.viewmodel.AndroidViewModel;
+import com.bonson.qqtapk.viewmodel.UserViewModel;
 
 import dagger.Binds;
 import dagger.Module;
@@ -23,6 +23,6 @@ public abstract class TimerModule {
 
     @ActivityScope
     @Binds
-    abstract AndroidViewModel viewModel(TimerViewModel viewModel);
+    abstract UserViewModel viewModel(TimerViewModel viewModel);
 
 }

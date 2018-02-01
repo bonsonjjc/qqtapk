@@ -1,8 +1,6 @@
 package com.bonson.qqtapk.view.ui.center.message;
 
 import android.app.Application;
-import android.arch.lifecycle.Lifecycle;
-import android.arch.lifecycle.OnLifecycleEvent;
 import android.databinding.ObservableArrayList;
 import android.databinding.ObservableList;
 import android.support.annotation.NonNull;
@@ -11,7 +9,7 @@ import com.bonson.qqtapk.di.ActivityScope;
 import com.bonson.qqtapk.model.bean.Baby;
 import com.bonson.qqtapk.model.bean.Message;
 import com.bonson.qqtapk.model.data.center.MessageModel;
-import com.bonson.resource.viewmodel.AndroidViewModel;
+import com.bonson.qqtapk.viewmodel.UserViewModel;
 
 import javax.inject.Inject;
 
@@ -19,7 +17,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 
 @ActivityScope
-public class MessageViewModel extends AndroidViewModel {
+public class MessageViewModel extends UserViewModel {
     public final ObservableList<Message> messages = new ObservableArrayList<>();
     private MessageModel messageModel;
 
@@ -30,7 +28,7 @@ public class MessageViewModel extends AndroidViewModel {
     }
 
     public void list(String type) {
-        Disposable disposable = messageModel.messageOfType(type, Baby.baby.getFid(), messages.size(), 10)
+        Disposable disposable = messageModel.messageOfType(type, user().getBabyId(), messages.size(), 10)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(it -> {
                     if (it.getCode().equals("0")) {
@@ -73,7 +71,7 @@ public class MessageViewModel extends AndroidViewModel {
     public void friend(int v, String type) {
         Message message = messages.get(v);
         view.load();
-        Disposable disposable = messageModel.friend(message.getFid(), Baby.baby.getFid(), type)
+        Disposable disposable = messageModel.friend(message.getFid(),user().getBabyId(), type)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(it -> {
                     view.dismiss();

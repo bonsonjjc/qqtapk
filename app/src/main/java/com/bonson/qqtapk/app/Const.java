@@ -14,6 +14,7 @@ public class Const {
     public static final String ICON_PATH = "http://wap.bfsafe.com:7070/file/";
     public static final String API_PATH = PATH + "/api/";
     public static final String QQT_PATH = "http://qqt.bfsafe.com/";
+    public static final String VOICE_PATH = "http://amr.bfsafe.com/";
 
 
     public static final String IMEI_VALIDATE = "^\\d{15,18}$";

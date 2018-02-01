@@ -12,7 +12,7 @@ import com.bonson.qqtapk.model.data.contacts.ContactsHelper;
 import com.bonson.qqtapk.model.data.contacts.ContactsModel;
 import com.bonson.qqtapk.view.ui.contacts.phone.PhoneViewModel;
 import com.bonson.qqtapk.view.ui.info.select.SelectViewModel;
-import com.bonson.resource.viewmodel.AndroidViewModel;
+import com.bonson.qqtapk.viewmodel.UserViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +26,7 @@ import io.reactivex.disposables.Disposable;
  * Created by jiangjiancheng on 17/12/31.
  */
 @ActivityScope
-public class ContactsViewModel extends AndroidViewModel {
+public class ContactsViewModel extends UserViewModel {
     private ContactsModel contactsModel;
 
     public final ObservableList<Contact> contacts = new ObservableArrayList<>();
@@ -49,7 +49,7 @@ public class ContactsViewModel extends AndroidViewModel {
             return;
         }
         view.load();
-        Disposable disposable = contactsModel.contacts(Baby.baby.getFid(), 0, 10)
+        Disposable disposable = contactsModel.contacts(user().getBabyId(), 0, 30)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(it -> {
                     view.dismiss();
@@ -96,7 +96,7 @@ public class ContactsViewModel extends AndroidViewModel {
         viewModel.right.set("保存");
         viewModel.setOnPhoneListener(() -> {
             Contact contact = new Contact();
-            contact.setBid(Baby.baby.getFid());
+            contact.setBid(user().getBabyId());
             contact.setFmobile(viewModel.mobile.get());
             contact.setFname(viewModel.name.get());
             add(contact);
@@ -108,7 +108,7 @@ public class ContactsViewModel extends AndroidViewModel {
         viewModel.title.set("修改联系人");
         viewModel.right.set("保存");
         Contact contact = this.contacts.get(position);
-        contact.setBid(Baby.baby.getFid());
+        contact.setBid(user().getBabyId());
         viewModel.mobile.set(contact.getFmobile());
         viewModel.name.set(contact.getFname());
         viewModel.setOnPhoneListener(() -> {
@@ -158,7 +158,7 @@ public class ContactsViewModel extends AndroidViewModel {
         }
         view.load();
         Contact contact = contacts.get(position);
-        contact.setBid(Baby.baby.getFid());
+        contact.setBid(user().getBabyId());
         Disposable disposable = contactsModel.delete(contact)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(it -> {
@@ -206,7 +206,7 @@ public class ContactsViewModel extends AndroidViewModel {
             return;
         }
         view.load();
-        Disposable disposable = contactsModel.add(Baby.baby.getFid(), contacts)
+        Disposable disposable = contactsModel.add(user().getBabyId(), contacts)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(it -> {
                     view.dismiss();

@@ -16,10 +16,14 @@ import java.util.List;
 import javax.inject.Inject;
 
 public class BabyAdapter extends BaseAdapter<Baby, ItemBabyBinding> {
-
+    private String bid;
     @Inject
     public BabyAdapter(Context context) {
         super(context);
+    }
+
+    public void setBid(String bid) {
+        this.bid = bid;
     }
 
     @Override
@@ -33,7 +37,7 @@ public class BabyAdapter extends BaseAdapter<Baby, ItemBabyBinding> {
         Baby baby = beans.get(position);
         ItemBabyBinding binding = holder.getBinding();
         binding.setBaby(baby);
-        binding.setIsCurrent(baby.getFid().equals(Baby.baby.getFid()));
+        binding.setIsCurrent(baby.getFid().equals(bid));
         binding.executePendingBindings();
         binding.getRoot().setOnClickListener((View v) -> {
             if (onItemClickListener != null) {

@@ -7,15 +7,14 @@ import android.databinding.ObservableList;
 
 import com.bonson.resource.adapter.OnItemClickListener;
 import com.bonson.resource.fragment.OnSaveListener;
-import com.bonson.resource.viewmodel.AndroidViewModel;
+import com.bonson.qqtapk.viewmodel.UserViewModel;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
 
-public class SelectViewModel extends AndroidViewModel {
+public class SelectViewModel extends UserViewModel {
     public final ObservableField<String> title = new ObservableField<>("");
 
     public final ObservableList<Select> selects = new ObservableArrayList<>();

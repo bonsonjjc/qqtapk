@@ -17,6 +17,8 @@ public class User {
     private String userId;
     private String mobile;
     private String password;
+    private String babyId;
+    private String deviceId;
     @Ignore
     private String token;
     private Boolean auto = false;
@@ -64,6 +66,22 @@ public class User {
         this.auto = auto;
     }
 
+    public String getBabyId() {
+        return babyId;
+    }
+
+    public void setBabyId(String babyId) {
+        this.babyId = babyId;
+    }
+
+    public String getDeviceId() {
+        return deviceId;
+    }
+
+    public void setDeviceId(String deviceId) {
+        this.deviceId = deviceId;
+    }
+
     public List<Baby> getBabyList() {
         return babyList;
     }
@@ -71,6 +89,4 @@ public class User {
     public void setBabyList(List<Baby> babyList) {
         this.babyList = babyList;
     }
-
-    public static User user;
 }

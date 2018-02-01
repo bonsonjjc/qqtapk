@@ -248,6 +248,7 @@ public class UserBean extends Base {
         user.setUserId(fid);
         user.setMobile(fmobile);
         user.setPassword(fpasswd);
+        user.setBabyId(fbid);
         user.setAuto(true);
         user.setBabyList(babyList());
         return user;
@@ -283,10 +284,11 @@ public class UserBean extends Base {
         String bnamelist[] = fbnamelist.split(",");
         String bimglist[] = fbimglist.split(",");
         List<Baby> babies = new ArrayList<>();
+
         for (int i = 0; i < bidlist.length; i++) {
             Baby baby = new Baby();
-            if (bidlist[i].equals(Baby.baby.getFid())) {
-                baby = Baby.baby;
+            if (bidlist[i].equals(fbid)) {
+                baby = baby();
             } else {
                 baby.setFaccount(fmobile);
                 baby.setFpasswd(fpasswd);

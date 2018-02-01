@@ -6,8 +6,9 @@ import com.bonson.qqtapk.model.data.area.SafeAreaDataSource;
 import com.bonson.qqtapk.model.data.area.SafeAreaModel;
 import com.bonson.qqtapk.model.data.location.LocationModel;
 import com.bonson.qqtapk.model.data.location.LocationModelSource;
+import com.bonson.qqtapk.model.db.UserDao;
 import com.bonson.qqtapk.view.ui.index.LocationViewModel;
-import com.bonson.resource.viewmodel.AndroidViewModel;
+import com.bonson.qqtapk.viewmodel.UserViewModel;
 
 import dagger.Binds;
 import dagger.Module;
@@ -20,18 +21,18 @@ import dagger.Provides;
 public abstract class SafeAreaModule {
     @ActivityScope
     @Binds
-    abstract AndroidViewModel viewModel(SafeAreaViewModel viewModel);
+    abstract UserViewModel viewModel(SafeAreaViewModel viewModel);
 
 
     @ActivityScope
     @Binds
-    abstract AndroidViewModel locViewModel(LocationViewModel viewModel);
+    abstract UserViewModel locViewModel(LocationViewModel viewModel);
 
 
     @ActivityScope
     @Provides
-    static SafeAreaDataSource providesAreaDataSource(ApiServer apiServer) {
-        return new SafeAreaModel(apiServer);
+    static SafeAreaDataSource providesAreaDataSource(ApiServer apiServer, UserDao userDao) {
+        return new SafeAreaModel(apiServer,userDao);
     }
 
     @ActivityScope
