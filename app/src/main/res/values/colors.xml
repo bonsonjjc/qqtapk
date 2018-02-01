@@ -9,6 +9,9 @@
     <color name="area_boder_off">#939292</color>
     <color name="area_fill_off">#55939292</color>
 
+    <color name="theme">#4fc1e9</color>
+    <color name="theme_yd">#66cc33</color>
+    <color name="theme_yd_dark">#489124</color>
 
     <color name="theme_sm">#1f2267</color>
     <color name="theme_sm_dark">#1f2267</color>

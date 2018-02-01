@@ -22,9 +22,6 @@ public class SelectFragment extends BaseFragment<FragmentSelectBinding> {
     @Inject
     SelectAdapter adapter;
 
-    @Inject
-    RecyclerView.ItemDecoration itemDecoration;
-
     private SelectViewModel viewModel;
 
     @Inject
@@ -44,7 +41,6 @@ public class SelectFragment extends BaseFragment<FragmentSelectBinding> {
 
         binding.toolbar.getTvLeft().setOnClickListener(v -> back());
         binding.recSelect.setAdapter(adapter);
-        binding.recSelect.addItemDecoration(itemDecoration);
         adapter.setOnItemClickListener(v -> {
             viewModel.select(v);
             if (viewModel.getOnItemClickListener() != null) {

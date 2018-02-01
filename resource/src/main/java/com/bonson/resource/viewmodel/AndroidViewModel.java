@@ -25,6 +25,7 @@ public class AndroidViewModel extends BaseObservable implements LifecycleObserve
     protected CompositeDisposable compositeDisposable;
     protected BaseView view;
     protected final Application application;
+
     public AndroidViewModel(@NonNull Application application) {
         this.application = application;
         compositeDisposable = new CompositeDisposable();
@@ -34,15 +35,18 @@ public class AndroidViewModel extends BaseObservable implements LifecycleObserve
         return application;
     }
 
-
     public void setView(BaseView view) {
         this.view = view;
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
+    public void onCreate() {
+
     }
 
     protected boolean isNetWork() {
         // 获得网络状态管理器
         ConnectivityManager connectivityManager = (ConnectivityManager) application.getSystemService(Context.CONNECTIVITY_SERVICE);
-
         if (connectivityManager == null) {
             return false;
         } else {

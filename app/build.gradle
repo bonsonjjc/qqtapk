@@ -46,10 +46,12 @@ dependencies {
     implementation "com.android.support:design:$rootProject.ext.supportVersion"
     implementation "com.android.support:recyclerview-v7:$rootProject.ext.supportVersion"
     implementation "com.android.support:gridlayout-v7:$rootProject.ext.supportVersion"
+
     annotationProcessor 'android.arch.persistence.room:compiler:1.0.0'
     annotationProcessor "com.google.dagger:dagger-android-processor:2.11"
     annotationProcessor "com.google.dagger:dagger-compiler:2.11"
     compileOnly 'org.glassfish:javax.annotation:10.0-b28'
+
     implementation 'com.squareup.picasso:picasso:2.5.2'
     implementation project(':resource')
     implementation project(':zxing')

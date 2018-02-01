@@ -2,7 +2,7 @@ package com.bonson.qqtapk.di;
 
 import com.bonson.qqtapk.app.Const;
 import com.bonson.qqtapk.model.data.ApiServer;
-import com.bonson.resource.http.qqtconvert.QQTConverterFactory;
+import com.bonson.qqtapk.utils.http.qqtconvert.QQTConverterFactory;
 import com.google.gson.Gson;
 
 import dagger.Module;

@@ -21,61 +21,41 @@
         android:orientation="vertical">
 
         <LinearLayout
-            android:layout_width="match_parent"
             android:id="@+id/content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <android.support.constraint.ConstraintLayout
+            <FrameLayout
                 android:id="@+id/toolbar"
                 style="@style/Toolbar"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp">
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/img_icon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center_vertical"
                     android:onClick="icon"
-                    android:url="@{viewModel.icon}"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:url="@{viewModel.icon}" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_gravity="center"
                     android:text="@string/app_name"
                     android:textColor="@color/white"
-                    android:textSize="20sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:textSize="20sp" />
 
                 <ImageView
                     android:id="@+id/img_menu"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginRight="8dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_gravity="center_vertical|end"
                     android:onClick="menu"
-                    android:src="@drawable/ico_menu"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </android.support.constraint.ConstraintLayout>
+                    android:src="@drawable/ico_menu" />
+            </FrameLayout>
 
             <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"

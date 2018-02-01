@@ -169,6 +169,10 @@ public class CityPickerDialog extends DialogFragment {
     setNumberPickerDividerColor(numberPicker, 0xff4fc1e9);
   }
 
+  public void setOnCitySaveListener(OnCitySaveListener onCitySaveListener) {
+    this.onCitySaveListener = onCitySaveListener;
+  }
+
   public void setNumberPickerDividerColor(NumberPicker numberPicker, int color) {
     Field[] pickerFields = NumberPicker.class.getDeclaredFields();
     for (Field SelectionDividerField : pickerFields) {

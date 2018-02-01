@@ -23,13 +23,8 @@ import io.reactivex.disposables.Disposable;
 @ActivityScope
 public class IndexViewModel extends AndroidViewModel {
     public final ObservableList<Menu> menus = new ObservableArrayList<>();
-
     public final ObservableList<Baby> babies = new ObservableArrayList<>();
-
     public final ObservableField<String> icon = new ObservableField<>();
-
-    @Inject
-    UserDao userDao;
 
     @Inject
     MainViewModel viewModel;
@@ -49,7 +44,7 @@ public class IndexViewModel extends AndroidViewModel {
 
     public void babies() {
         icon.set(Baby.baby.getFimg());
-        Disposable disposable = userDao.babyList()
+        Disposable disposable = babyServer.getUserDao().babyList()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(it -> {
                     Baby baby = new Baby();
@@ -68,20 +63,20 @@ public class IndexViewModel extends AndroidViewModel {
             return;
         }
         view.load();
-        Disposable disposable = babyServer.getBaby(babies.get(index).getFid())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(it -> {
-                    view.toast(it.getMsg());
-                    if (it.getCode().equals("0")) {
-                        Baby.baby = it.getBody();
-                        icon.set(Baby.baby.getFimg());
-                        device();
-                    }
-                }, e -> {
-                    view.dismiss();
-                    e.printStackTrace();
-                });
-        compositeDisposable.add(disposable);
+//        Disposable disposable = babyServer.switchBaby(babies.get(index).getFid())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(it -> {
+//                    view.toast(it.getMsg());
+//                    if (it.getCode().equals("0")) {
+//                        Baby.baby = it.getBody();
+//                        icon.set(Baby.baby.getFimg());
+//                        device();
+//                    }
+//                }, e -> {
+//                    view.dismiss();
+//                    e.printStackTrace();
+//                });
+//        compositeDisposable.add(disposable);
     }
 
     public void device() {

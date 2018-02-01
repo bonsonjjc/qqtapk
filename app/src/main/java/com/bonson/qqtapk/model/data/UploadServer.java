@@ -12,6 +12,6 @@ public interface UploadServer {
     Observable<String> voice(@Query("timespace") String time, @Query("token") String token, @Body RequestBody body);
 
     @Headers({"Connection:Keep-Alive", "uploadType:pic", "User-Agent:1", "Charset:UTF-8"})
-    @POST("uploadImage.html")
-    Observable<String> picture(@Query("cycleType") String token, @Body RequestBody requestBody);
+    @POST("uploadImage.html?type=head")
+    Observable<String> icon(@Body RequestBody requestBody);
 }

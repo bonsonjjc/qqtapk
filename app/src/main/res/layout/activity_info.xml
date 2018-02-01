@@ -58,11 +58,11 @@
               android:text="头像"
               />
 
-          <ImageView
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
+          <de.hdodenhof.circleimageview.CircleImageView
+              android:layout_width="35dp"
+              android:layout_height="35dp"
               android:layout_gravity="center_vertical|end"
-              android:src="@{viewModel.baby.fimg}"
+              android:url="@{viewModel.baby.fimg}"
               />
         </FrameLayout>
 

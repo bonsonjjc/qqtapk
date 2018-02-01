@@ -2,7 +2,8 @@ package com.bonson.qqtapk.view.ui.voice;
 
 import com.bonson.qqtapk.di.ActivityScope;
 import com.bonson.qqtapk.model.data.UploadServer;
-import com.bonson.resource.http.qqtconvert.QQTConverterFactory;
+import com.bonson.qqtapk.utils.http.qqtconvert.QQTConverterFactory;
+import com.bonson.qqtapk.utils.http.string.StringConverterFactory;
 import com.bonson.resource.viewmodel.AndroidViewModel;
 import com.google.gson.Gson;
 
@@ -24,7 +25,7 @@ public abstract class VoiceModule {
     @Provides
     static UploadServer uploadServer(Retrofit.Builder builder, String url) {
         Retrofit build = builder.baseUrl(url)
-                .addConverterFactory(QQTConverterFactory.create(new Gson()))
+                .addConverterFactory(StringConverterFactory.create(new Gson(), false))
                 .build();
         return build.create(UploadServer.class);
     }

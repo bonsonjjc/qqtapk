@@ -7,7 +7,7 @@ import com.bonson.qqtapk.di.ActivityScope;
 import com.bonson.qqtapk.model.bean.Baby;
 import com.bonson.qqtapk.model.bean.Device;
 import com.bonson.qqtapk.model.bean.Location;
-import com.bonson.qqtapk.model.data.index.IndexModel;
+import com.bonson.qqtapk.model.data.index.MainModel;
 import com.bonson.resource.viewmodel.AndroidViewModel;
 
 import javax.inject.Inject;
@@ -20,7 +20,7 @@ import io.reactivex.disposables.Disposable;
  */
 @ActivityScope
 public class MainViewModel extends AndroidViewModel {
-    private IndexModel indexModel;
+    private MainModel indexModel;
 
     public final ObservableField<String> type = new ObservableField<>("L08");
     public final ObservableField<String> battery = new ObservableField<>("0");
@@ -32,7 +32,7 @@ public class MainViewModel extends AndroidViewModel {
     LocationViewModel viewModel;
 
     @Inject
-    public MainViewModel(Application application, IndexModel indexModel) {
+    public MainViewModel(Application application, MainModel indexModel) {
         super(application);
         this.indexModel = indexModel;
         Baby baby = Baby.baby;

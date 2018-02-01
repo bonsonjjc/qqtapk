@@ -2,55 +2,49 @@ package com.bonson.qqtapk.view.ui.info;
 
 import android.app.Application;
 import android.databinding.ObservableArrayList;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
 import com.bonson.qqtapk.app.Route;
+import com.bonson.qqtapk.di.ActivityScope;
 import com.bonson.qqtapk.model.bean.Baby;
+import com.bonson.qqtapk.model.data.UploadServer;
 import com.bonson.qqtapk.model.data.baby.BabyModel;
-import com.bonson.qqtapk.model.db.UserDao;
 import com.bonson.qqtapk.view.ui.info.input.InputViewModel;
 import com.bonson.qqtapk.view.ui.info.select.Select;
 import com.bonson.qqtapk.view.ui.info.select.SelectViewModel;
 import com.bonson.resource.activity.ActivityUtils;
 import com.bonson.resource.viewmodel.AndroidViewModel;
 
+import java.io.File;
+import java.util.List;
+
 import javax.inject.Inject;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 /**
  * Created by jiangjiancheng on 17/12/31.
  */
+@ActivityScope
 public class InfoViewModel extends AndroidViewModel {
-    private Baby baby;
-
     @Inject
     SelectViewModel viewModel;
-
     @Inject
     InputViewModel inputViewModel;
-
-    private BabyModel babyModel;
-    UserDao userDao;
-
+    @Inject
+    BabyModel babyModel;
+    @Inject
+    UploadServer uploadServer;
 
     @Inject
-    public InfoViewModel(Application application, BabyModel babyModel) {
+    public InfoViewModel(@NonNull Application application) {
         super(application);
-        this.babyModel = babyModel;
-    }
-
-    public Baby getBaby() {
-        return baby;
-    }
-
-    public void setBaby(Baby baby) {
-        this.baby = baby;
-    }
-
-    public void setViewModel(SelectViewModel viewModel) {
-        this.viewModel = viewModel;
+        baby = Baby.baby;
     }
 
     public InputViewModel inputFragment(int type, String title, String hint) {
@@ -59,22 +53,22 @@ public class InfoViewModel extends AndroidViewModel {
         switch (type) {
             case InfoActivity.Type.name:
                 inputViewModel.digits.set(null);
-                inputViewModel.value.set(baby.getFname());
+                inputViewModel.value.set(Baby.baby.getFname());
                 inputViewModel.length.set(4);
                 break;
             case InfoActivity.Type.mobile:
                 inputViewModel.digits.set("0123456789");
-                inputViewModel.value.set(baby.getFtmobile());
+                inputViewModel.value.set(Baby.baby.getFtmobile());
                 inputViewModel.length.set(11);
                 break;
             case InfoActivity.Type.height:
                 inputViewModel.digits.set("0123456789");
-                inputViewModel.value.set(baby.getFheight());
+                inputViewModel.value.set(Baby.baby.getFheight());
                 inputViewModel.length.set(3);
                 break;
             case InfoActivity.Type.weight:
                 inputViewModel.digits.set("0123456789");
-                inputViewModel.value.set(baby.getFweight());
+                inputViewModel.value.set(Baby.baby.getFweight());
                 inputViewModel.length.set(3);
                 break;
         }
@@ -85,16 +79,16 @@ public class InfoViewModel extends AndroidViewModel {
             }
             switch (type) {
                 case InfoActivity.Type.name:
-                    baby.setFname(inputViewModel.value.get());
+                    Baby.baby.setFname(inputViewModel.value.get());
                     break;
                 case InfoActivity.Type.mobile:
-                    baby.setFtmobile(inputViewModel.value.get());
+                    Baby.baby.setFtmobile(inputViewModel.value.get());
                     break;
                 case InfoActivity.Type.height:
-                    baby.setFheight(inputViewModel.value.get());
+                    Baby.baby.setFheight(inputViewModel.value.get());
                     break;
                 case InfoActivity.Type.weight:
-                    baby.setFweight(inputViewModel.value.get());
+                    Baby.baby.setFweight(inputViewModel.value.get());
                     break;
             }
             view.back();
@@ -104,25 +98,57 @@ public class InfoViewModel extends AndroidViewModel {
         return inputViewModel;
     }
 
+    private Baby baby;
+
+    public Baby getBaby() {
+        return baby;
+    }
+
     public SelectViewModel selectViewModel() {
         viewModel.title.set("我是宝贝的");
         viewModel.setSingle(true);
         String[] parents = {"爸爸", "妈妈", "爷爷", "奶奶", "外公", "外婆", "家长"};
         ObservableArrayList<Select> selects = new ObservableArrayList<>();
-        for (int i = 0; i < parents.length; i++) {
+        for (String parent1 : parents) {
             Select parent = new Select();
-            parent.setName(parents[i]);
-            parent.setChecked(parent.getName().equals(baby.getFrelative()));
+            parent.setName(parent1);
+            parent.setChecked(parent.getName().equals(Baby.baby.getFrelative()));
             selects.add(parent);
         }
         viewModel.setSelects(selects);
         viewModel.setOnItemClickListener((v) -> {
-            baby.setFrelative(viewModel.selects.get(v).getName());
+            Baby.baby.setFrelative(viewModel.selects.get(v).getName());
             notifyChange();
             update();
             view.back();
         });
         return viewModel;
+    }
+
+    public void upload(File bytes) {
+        if (!isNetWork()) {
+            view.toast("网络不可用");
+            return;
+        }
+        RequestBody requestBody = RequestBody.create(MultipartBody.FORM, bytes);
+        MultipartBody multipartBody = new MultipartBody.Builder()
+                .addFormDataPart("file2", Baby.baby.getFid() + ".jpg", requestBody)
+                .build();
+        Disposable disposable = uploadServer.icon(multipartBody)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(it -> {
+                    if (TextUtils.isEmpty(it)) {
+                        view.toast("头像上传失败");
+                        return;
+                    }
+                    Baby.baby.setFimg(it);
+                    notifyChange();
+                    update();
+                }, e -> {
+                    view.toast("头像上传失败");
+                });
+        compositeDisposable.add(disposable);
     }
 
     public void update() {
@@ -131,16 +157,15 @@ public class InfoViewModel extends AndroidViewModel {
             return;
         }
         view.load();
-        Disposable disposable =
-                babyModel.update(baby)
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(it -> {
-                            view.dismiss();
-                            view.toast(it.getMsg());
-                        }, e -> {
-                            view.dismiss();
-                            view.toast("出错了");
-                        });
+        Disposable disposable = babyModel.update(Baby.baby)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(it -> {
+                    view.dismiss();
+                    view.toast(it.getMsg());
+                }, e -> {
+                    view.dismiss();
+                    view.toast("出错了");
+                });
         compositeDisposable.add(disposable);
     }
 
@@ -156,22 +181,14 @@ public class InfoViewModel extends AndroidViewModel {
                     view.dismiss();
                     view.toast(it.getMsg());
                     if (it.getCode().equals("0")) {
-                        Disposable subscribe = userDao.babyList()
-                                .observeOn(AndroidSchedulers.mainThread())
-                                .subscribe(list -> {
-                                    if (list.isEmpty()) {
-                                        view.start(Route.login);
-                                        ActivityUtils.clear();
-                                    } else {
-                                        Baby.baby = list.get(0);
-                                        view.back();
-                                    }
-                                }, e -> {
-                                    view.toast("出错了");
-                                    view.start(Route.login);
-                                    ActivityUtils.clear();
-                                });
-                        compositeDisposable.add(subscribe);
+                        List<Baby> babies = it.getBody();
+                        if (babies == null || babies.isEmpty()) {
+                            view.start(Route.login);
+                            ActivityUtils.clear();
+                        } else {
+                            Baby.baby = babies.get(0);
+                            view.back();
+                        }
                     }
                 }, e -> {
                     view.dismiss();

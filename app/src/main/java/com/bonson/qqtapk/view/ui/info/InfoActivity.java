@@ -1,19 +1,20 @@
 package com.bonson.qqtapk.view.ui.info;
 
-import android.databinding.DataBindingUtil;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 
 import com.bonson.library.utils.DateUtils;
+import com.bonson.library.utils.LogUtils;
 import com.bonson.qqtapk.R;
 import com.bonson.qqtapk.app.Route;
 import com.bonson.qqtapk.databinding.ActivityInfoBinding;
-import com.bonson.qqtapk.model.bean.Baby;
+import com.bonson.qqtapk.model.bean.Area;
+import com.bonson.qqtapk.utils.PictureHelper;
 import com.bonson.qqtapk.view.ui.info.input.InputFragment;
 import com.bonson.qqtapk.view.ui.info.select.SelectFragment;
 import com.bonson.resource.activity.BaseDaggerActivity;
 import com.bonson.resource.dialog.ActionSheetDialog;
-import com.bonson.resource.dialog.AlertDialog;
 import com.bonson.resource.dialog.CityPickerDialog;
 import com.bonson.resource.dialog.DatePickerDialog;
 
@@ -26,12 +27,14 @@ import javax.inject.Inject;
 public class InfoActivity extends BaseDaggerActivity<ActivityInfoBinding> {
     @Inject
     InfoViewModel viewModel;
-
     @Inject
     SelectFragment selectFragment;
-
     @Inject
     InputFragment inputFragment;
+    @Inject
+    CityAdapter cityAdapter;
+    @Inject
+    PictureHelper pictureHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +55,8 @@ public class InfoActivity extends BaseDaggerActivity<ActivityInfoBinding> {
                     break;
                 case Type.name:
                     inputFragment.setViewModel(viewModel.inputFragment(type, "呢称", "输入呢称"));
-                    getSupportFragmentManager().beginTransaction()
+                    getSupportFragmentManager()
+                            .beginTransaction()
                             .add(android.R.id.content, inputFragment)
                             .addToBackStack("name")
                             .commit();
@@ -68,21 +72,24 @@ public class InfoActivity extends BaseDaggerActivity<ActivityInfoBinding> {
                     break;
                 case Type.mobile:
                     inputFragment.setViewModel(viewModel.inputFragment(type, "宝贝手机", "输入宝贝手机号码"));
-                    getSupportFragmentManager().beginTransaction()
+                    getSupportFragmentManager()
+                            .beginTransaction()
                             .add(android.R.id.content, inputFragment)
                             .addToBackStack("name")
                             .commit();
                     break;
                 case Type.height:
                     inputFragment.setViewModel(viewModel.inputFragment(type, "身高", "输入身高(cm)"));
-                    getSupportFragmentManager().beginTransaction()
+                    getSupportFragmentManager()
+                            .beginTransaction()
                             .add(android.R.id.content, inputFragment)
                             .addToBackStack("name")
                             .commit();
                     break;
                 case Type.weight:
                     inputFragment.setViewModel(viewModel.inputFragment(type, "体重", "输入体重(kg)"));
-                    getSupportFragmentManager().beginTransaction()
+                    getSupportFragmentManager()
+                            .beginTransaction()
                             .add(android.R.id.content, inputFragment)
                             .addToBackStack("name")
                             .commit();
@@ -99,7 +106,6 @@ public class InfoActivity extends BaseDaggerActivity<ActivityInfoBinding> {
                     break;
             }
         });
-        viewModel.setBaby(Baby.baby);
     }
 
     private void showIcon() {
@@ -107,7 +113,11 @@ public class InfoActivity extends BaseDaggerActivity<ActivityInfoBinding> {
         actionSheetDialog.setTitle("选择头像");
         actionSheetDialog.setActionSheet(new String[]{"拍照", "相册"}, Color.RED);
         actionSheetDialog.setOnItemClickListener(position -> {
-
+            if (position == 0) {
+                pictureHelper.takePicture(this);
+            } else {
+                pictureHelper.photo(this);
+            }
         });
         actionSheetDialog.show(getSupportFragmentManager(), "sex");
     }
@@ -159,48 +169,52 @@ public class InfoActivity extends BaseDaggerActivity<ActivityInfoBinding> {
     CityPickerDialog cityPicker;
 
     private void showArea() {
-        cityPicker = new CityPickerDialog();
-        cityPicker.setCityAdapter(new CityAdapter());
-        cityPicker.show(getSupportFragmentManager(), "area");
+        if (cityPicker == null) {
+            cityPicker = new CityPickerDialog();
+            cityPicker.setCityAdapter(cityAdapter);
+            cityPicker.setOnCitySaveListener((p, c, d) -> {
+                if (p == 0 || c == 0 || d == 0) {
+                    toast("请选择完整地区");
+                    return;
+                }
+                Area province = cityAdapter.getProvinces().get(p), city = cityAdapter.getCitys().get(c), district = cityAdapter.getDistricts().get(d);
+                viewModel.getBaby().setFprovince(province.getId());
+                viewModel.getBaby().setFcity(city.getId());
+                viewModel.getBaby().setFarea(district.getId());
+                viewModel.getBaby().setFareaname(province.getName() + city.getName() + district.getName());
+                viewModel.notifyChange();
+                viewModel.update();
+                cityPicker.dismiss();
+            });
+        }
+        if (!cityPicker.isVisible())
+            cityPicker.show(getSupportFragmentManager(), "area");
+
     }
 
-    static String[] province = {"北京市", "天津市", "重庆市", "福建省"};
-    static String[] city = {"福州市", "宁德市", "三明市", "泉州市", "莆田市", "漳州市", "龙岩市"};
-    static String[] district = {"晋安区", "苍山区", "鼓楼区", "台江区", "马尾区", "闽侯", "长乐市"};
-
-    public class CityAdapter implements CityPickerDialog.CityAdapter {
-        @Override
-        public int provinceSize() {
-            return province.length;
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case PictureHelper.TAKE_PICTURE:
+                    pictureHelper.cropPicture(this);
+                    break;
+                case PictureHelper.PHOTO:
+                    pictureHelper.path(this, data.getData());
+                    pictureHelper.cropPicture(this);
+                    break;
+                default:
+                    LogUtils.e(pictureHelper.getFile().getAbsolutePath());
+                    viewModel.upload(pictureHelper.getFile());
+            }
         }
+    }
 
-        @Override
-        public int citySize(int index) {
-            return city.length;
-        }
-
-        @Override
-        public int districtSize(int index) {
-            return district.length;
-        }
-
-        @Override
-        public String province(int index) {
-            if (index == 0) return "--";
-            return province[index - 1];
-        }
-
-        @Override
-        public String city(int index) {
-            if (index == 0) return "--";
-            return city[index - 1];
-        }
-
-        @Override
-        public String district(int index) {
-            if (index == 0) return "--";
-            return district[index - 1];
-        }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        pictureHelper.release();
     }
 
     public static class Type {

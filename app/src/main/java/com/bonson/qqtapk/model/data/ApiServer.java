@@ -19,6 +19,7 @@ import com.bonson.qqtapk.model.bean.UserBean;
 import com.bonson.qqtapk.model.bean.Voice;
 import com.bonson.qqtapk.model.data.index.Index;
 
+import com.bonson.qqtapk.view.ui.motion.bean.Target;
 import java.util.List;
 import java.util.Map;
 
@@ -85,4 +86,7 @@ public interface ApiServer {
 
     @POST("data.html")
     Observable<List<UserBean>> user(@Body Object body);
+
+    @POST("data.html")
+    Observable<List<Target>> target(@Body Object body);
 }

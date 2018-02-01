@@ -5,8 +5,9 @@ import android.content.Context;
 
 import com.bonson.qqtapk.app.Const;
 import com.bonson.qqtapk.model.db.AppDataBase;
+import com.bonson.qqtapk.model.db.CityDao;
 import com.bonson.qqtapk.model.db.UserDao;
-import com.bonson.resource.http.TokenInterceptor;
+import com.bonson.qqtapk.utils.http.TokenInterceptor;
 
 import java.util.concurrent.TimeUnit;
 
@@ -38,6 +39,12 @@ abstract class AppModule {
     @Provides
     static UserDao userDao(AppDataBase dataBase) {
         return dataBase.userDao();
+    }
+
+    @Singleton
+    @Provides
+    static CityDao cityDao(Context context) {
+        return new CityDao(context);
     }
 
     @Singleton

@@ -38,8 +38,7 @@ public class LoginViewModel extends AndroidViewModel {
         this.loginServer = loginServer;
     }
 
-    @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
-    void init() {
+    public void onCreate() {
         user = loginServer.getUser();
         if (user == null) {
             user = new User();

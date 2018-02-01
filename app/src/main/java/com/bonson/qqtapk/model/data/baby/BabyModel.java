@@ -1,12 +1,8 @@
 package com.bonson.qqtapk.model.data.baby;
 
-import android.text.TextUtils;
-
 import com.bonson.qqtapk.model.bean.Baby;
 import com.bonson.qqtapk.model.bean.Base;
 import com.bonson.qqtapk.model.bean.Result;
-import com.bonson.qqtapk.model.bean.User;
-import com.bonson.qqtapk.model.bean.UserBean;
 import com.bonson.qqtapk.model.data.ApiServer;
 import com.bonson.qqtapk.model.db.UserDao;
 import com.bonson.qqtapk.utils.QQtBuilder;
@@ -17,7 +13,6 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
-import io.reactivex.Flowable;
 import io.reactivex.Observable;
 import io.reactivex.schedulers.Schedulers;
 
@@ -27,12 +22,16 @@ import io.reactivex.schedulers.Schedulers;
 
 public class BabyModel {
     private ApiServer apiServer;
-    private UserDao babyDao;
+    private UserDao userDao;
 
     @Inject
-    public BabyModel(ApiServer apiServer, UserDao babyDao) {
+    public BabyModel(ApiServer apiServer, UserDao userDao) {
         this.apiServer = apiServer;
-        this.babyDao = babyDao;
+        this.userDao = userDao;
+    }
+
+    public UserDao getUserDao() {
+        return userDao;
     }
 
     public Observable<Result<Baby>> bind(String uid, String imei) {
@@ -48,7 +47,7 @@ public class BabyModel {
                     if ("0".equals(baby.getFresult())) {
                         result.setCode("0");
                         result.setMsg("绑定成功");
-                        babyDao.insertBaby(baby);
+                        userDao.insertBaby(baby);
                     } else {
                         result.setCode("-1");
                         result.setMsg(baby.getMsg());
@@ -57,7 +56,7 @@ public class BabyModel {
                 });
     }
 
-    public Observable<Result<Baby>> unbind(String uid, String bid) {
+    public Observable<Result<List<Baby>>> unbind(String uid, String bid) {
         Map<String, String> map = new LinkedHashMap<>();
         map.put("fid", bid);
         map.put("fuser", uid);
@@ -66,11 +65,12 @@ public class BabyModel {
                 .subscribeOn(Schedulers.io())
                 .map(userBeans -> {
                     Baby baby = userBeans.get(0);
-                    Result<Baby> result = new Result<>();
+                    Result<List<Baby>> result = new Result<>();
                     if ("0".equals(baby.getFresult())) {
                         result.setCode("0");
                         result.setMsg("解绑成功");
-                        babyDao.deleteBaby(baby);
+                        userDao.deleteBaby(baby);
+                        result.setBody(userDao.babies());
                     } else {
                         result.setCode("-1");
                         result.setMsg(baby.getMsg());
@@ -104,33 +104,9 @@ public class BabyModel {
                     if ("0".equals(baby.getFresult())) {
                         result.setCode("0");
                         result.setMsg("修改成功");
-                        babyDao.insertBaby(baby);
-                    } else {
-                        result.setCode("-1");
-                        result.setMsg(baby.getMsg());
-                    }
-                    return result;
-                });
-    }
-
-    public Observable<Result<Baby>> getBaby(String bid) {
-        Map<String, String> map = new LinkedHashMap<>();
-        map.put("fmobile", User.user.getMobile());
-        map.put("fpasswd", User.user.getPassword());
-        map.put("fbid", bid);
-        map.put("ftoken", TextUtils.isEmpty(User.user.getToken()) ? "" : User.user.getToken());
-        Object body = QQtBuilder.build("01", map);
-        return apiServer.user(body)
-                .subscribeOn(Schedulers.io())
-                .map(babies -> {
-                    UserBean baby = babies.get(0);
-                    Result<Baby> result = new Result<>();
-                    if ("0".equals(baby.getFresult())) {
-                        result.setCode("0");
-                        result.setMsg("切换成功");
-                        Baby r = baby.baby();
-                        babyDao.insertBaby(r);
-                        result.setBody(r);
+                        result.setBody(baby);
+                        Baby.baby = baby;
+                        userDao.insertBaby(baby);
                     } else {
                         result.setCode("-1");
                         result.setMsg(baby.getMsg());
@@ -153,7 +129,7 @@ public class BabyModel {
                     if ("0".equals(base.getFresult())) {
                         result.setCode("0");
                         result.setMsg("切换成功");
-                        babyDao.insertBaby(baby);
+                        userDao.insertBaby(baby);
                         result.setBody(baby);
                     } else {
                         result.setCode("-1");

@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import android.widget.ImageView;
 
 import com.bonson.qqtapk.R;
+import com.bonson.qqtapk.app.Const;
 import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -31,13 +32,11 @@ public abstract class CommBindingAdapter {
     public static void setUrl(ImageView imageView, String url) {
         if (TextUtils.isEmpty(url))
             return;
-        if (url.endsWith("girl.png")) {
-            imageView.setImageResource(R.drawable.ico_girl);
-        } else if (url.endsWith("boy.png")) {
-            imageView.setImageResource(R.drawable.ico_boy);
-        } else {
-            Picasso.with(imageView.getContext()).load(url).into(imageView);
-        }
+        Picasso.with(imageView.getContext())
+                .load(Const.PATH + url)
+                .error(R.drawable.ico_boy)
+                .placeholder(R.drawable.ico_boy)
+                .into(imageView);
     }
 
     @BindingAdapter("android:border_color")

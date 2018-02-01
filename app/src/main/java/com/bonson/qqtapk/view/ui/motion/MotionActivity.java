@@ -1,6 +1,5 @@
 package com.bonson.qqtapk.view.ui.motion;
 
-import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 
@@ -9,7 +8,6 @@ import com.bonson.qqtapk.databinding.ActivityMotionBinding;
 import com.bonson.qqtapk.model.bean.Motion;
 import com.bonson.qqtapk.model.bean.Sleep;
 import com.bonson.qqtapk.utils.binding.AdapterDataChangeFactory;
-import com.bonson.qqtapk.view.widget.TableView;
 import com.bonson.resource.activity.BaseDaggerActivity;
 
 import javax.inject.Inject;
@@ -29,7 +27,7 @@ public class MotionActivity extends BaseDaggerActivity<ActivityMotionBinding> {
         setBindingLayout(R.layout.activity_motion);
         binding.setViewModel(viewModel);
         setViewModel(viewModel);
-        binding.getRoot().setBackgroundColor(color(R.color.theme));
+        binding.getRoot().setBackgroundColor(color(R.color.theme_yd));
         binding.toolbar.setTitle("运动睡眠");
         binding.toolbar.getTvLeft().setOnClickListener(v -> finish());
         binding.recTables.setAdapter(tableAdapter);
@@ -39,7 +37,7 @@ public class MotionActivity extends BaseDaggerActivity<ActivityMotionBinding> {
             switch (checkedId) {
                 case R.id.rb_yd:
                     viewModel.motion();
-                    binding.getRoot().setBackgroundColor(color(R.color.theme));
+                    binding.getRoot().setBackgroundColor(color(R.color.theme_yd));
                     break;
                 case R.id.rb_sm:
                     viewModel.sleep();

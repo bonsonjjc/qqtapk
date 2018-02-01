@@ -42,4 +42,6 @@ public interface UserDao {
 
     @Query("select * from babys order by fid asc")
     Flowable<List<Baby>> babyList();
+    @Query("select * from babys order by fid asc")
+    List<Baby> babies();
 }

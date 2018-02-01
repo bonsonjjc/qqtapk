@@ -4,6 +4,7 @@ import android.app.Application;
 
 import com.bonson.fjqqt.di.UIModule;
 import com.bonson.qqtapk.app.App;
+import com.bonson.qqtapk.model.db.CityDao;
 import com.bonson.qqtapk.model.db.UserDao;
 
 import javax.inject.Singleton;
@@ -21,6 +22,8 @@ import okhttp3.OkHttpClient;
 @Component(modules = {AppModule.class, ActivityModule.class, UIModule.class, AndroidSupportInjectionModule.class})
 public interface AppComponent extends AndroidInjector<App> {
     UserDao userDao();
+
+    CityDao cityDao();
 
     OkHttpClient client();
 

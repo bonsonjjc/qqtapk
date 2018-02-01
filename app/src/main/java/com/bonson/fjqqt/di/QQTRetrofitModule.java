@@ -1,13 +1,9 @@
 package com.bonson.fjqqt.di;
 
-import android.content.Context;
-import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.RecyclerView;
-
 import com.bonson.fjqqt.model.FApiServer;
 import com.bonson.qqtapk.app.Const;
 import com.bonson.qqtapk.di.ActivityScope;
-import com.bonson.resource.http.qqtconvert.QQTConverterFactory;
+import com.bonson.qqtapk.utils.http.qqtconvert.QQTConverterFactory;
 import com.google.gson.Gson;
 
 import dagger.Module;
