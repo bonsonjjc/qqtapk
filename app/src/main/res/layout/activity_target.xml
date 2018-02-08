@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="com.bonson.qqtapk.utils.SpannableText" />
+
+        <variable
+            name="viewModel"
+            type="com.bonson.qqtapk.view.ui.motion.target.TargetViewModel" />
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.bonson.resource.view.MToolbar
+            android:id="@+id/toolbar"
+            style="@style/Toolbar"
+            android:background="@color/theme_yd"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@id/bar_left_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/back_selector"
+                android:gravity="center_vertical"
+                android:text="返回"
+                android:textColor="@color/back_text" />
+
+            <TextView
+                android:id="@id/bar_title_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:drawablePadding="10dp"
+                android:text='@{viewModel.type==1 ? "运动目标" : "睡眠目标"}'
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                tools:text="缤纷运动" />
+
+            <TextView
+                android:id="@id/bar_right_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end|center_vertical"
+                android:gravity="center_vertical"
+                android:textColor="@color/back_text"
+                android:text="保存"
+                tools:text="保存" />
+        </com.bonson.resource.view.MToolbar>
+
+        <TextView
+            android:id="@+id/tv_target_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="40dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:text='@{viewModel.type==1 ? "每日运动目标" : "每日睡眠目标"}'
+            android:textColor="#858787"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toTopOf="@+id/tv_step_number"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="每日运动目标" />
+
+        <TextView
+            android:id="@+id/tv_step_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="48dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:text="@{viewModel.type==1 ? SpannableText.setMotion(viewModel.progress):SpannableText.setSleep(viewModel.progress)}"
+            android:textColor="@color/theme_yd"
+            android:textSize="40sp"
+            app:layout_constraintBottom_toTopOf="@+id/tv_target_slogan"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="22000步" />
+
+        <TextView
+            android:id="@+id/tv_target_slogan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:text='@{viewModel.type!=1 ? "缓解身心压力,改善身体机能" : "可保精力旺盛,青春常驻" }'
+            android:textColor="#999999"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@+id/sb_target"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.502"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="缓解身心压力,改善身体机能" />
+
+        <SeekBar
+            android:id="@+id/sb_target"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="15dp"
+            android:layout_marginStart="15dp"
+            android:max='@{viewModel.type==1 ? 100000 : 60*24}'
+            android:progress="@={viewModel.progress}"
+            android:progressDrawable="@drawable/target_seekbar"
+            android:splitTrack="false"
+            android:thumb="@{viewModel.type==1 ?@drawable/ico_mb_yd : @drawable/ico_mb_sm}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar"
+            app:layout_constraintVertical_bias="0.576" />
+
+    </android.support.constraint.ConstraintLayout>
+</layout>
