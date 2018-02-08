@@ -1,6 +1,5 @@
 package com.bonson.resource.dialog;
 
-import android.databinding.ObservableArrayList;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -114,11 +113,7 @@ public class ActionSheetDialog extends DialogFragment {
     }
 
     public ActionSheetDialog setActionSheet(String[] content) {
-        actionSheets.clear();
-        for (String text : content) {
-            actionSheets.add(new ActionSheet(text));
-        }
-        return this;
+        return setActionSheet(content, Color.BLACK);
     }
 
     public ActionSheetDialog setActionSheet(String[] content, int color) {

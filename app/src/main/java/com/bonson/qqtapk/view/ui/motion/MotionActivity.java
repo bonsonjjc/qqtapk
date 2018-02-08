@@ -1,14 +1,18 @@
 package com.bonson.qqtapk.view.ui.motion;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
+import android.widget.SeekBar;
 
 import com.bonson.qqtapk.R;
+import com.bonson.qqtapk.app.Route;
 import com.bonson.qqtapk.databinding.ActivityMotionBinding;
 import com.bonson.qqtapk.model.bean.Motion;
 import com.bonson.qqtapk.model.bean.Sleep;
 import com.bonson.qqtapk.utils.binding.AdapterDataChangeFactory;
 import com.bonson.resource.activity.BaseDaggerActivity;
+import com.bonson.zxing.Intents;
 
 import javax.inject.Inject;
 
@@ -44,6 +48,12 @@ public class MotionActivity extends BaseDaggerActivity<ActivityMotionBinding> {
                     binding.getRoot().setBackgroundColor(color(R.color.theme_sm));
                     break;
             }
+        });
+        binding.imgTarget.setOnClickListener(v -> {
+            Intent intent = new Intent();
+            intent.putExtra("type", viewModel.type.get());
+            intent.setClassName(this, Route.target);
+            startActivity(intent);
         });
         binding.tbTimes.setAdapter(binding.recTables);
         binding.tbTimes.setOnPagerListener(position -> {

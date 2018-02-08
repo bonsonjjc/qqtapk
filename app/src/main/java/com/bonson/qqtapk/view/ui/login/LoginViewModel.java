@@ -36,8 +36,8 @@ public class LoginViewModel extends UserViewModel {
     }
 
     public void onCreate() {
-        user=user();
-        if (user== null) {
+        user = user();
+        if (user == null) {
             user = new User();
             user.setMobile("");
             user.setPassword("");
@@ -73,13 +73,12 @@ public class LoginViewModel extends UserViewModel {
         Disposable disposable = loginServer.login(user)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(result -> {
-                    view.dismiss();
+                    view.toast(result.getMsg());
                     if ("0".equals(result.getCode())) {
                         view.start(Route.index);
                         view.back();
-                    } else {
-                        view.toast(result.getMsg());
                     }
+                    view.dismiss();
                     enable.set(true);
                 }, e -> {
                     view.dismiss();

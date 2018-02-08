@@ -3,7 +3,7 @@ package com.bonson.fjqqt.view.area;
 import com.bonson.fjqqt.model.FApiServer;
 import com.bonson.fjqqt.model.data.LocationModel;
 import com.bonson.qqtapk.di.ActivityScope;
-import com.bonson.qqtapk.model.data.area.SafeAreaDataSource;
+import com.bonson.qqtapk.view.ui.area.SafeAreaDataSource;
 import com.bonson.qqtapk.model.data.location.LocationModelSource;
 import com.bonson.qqtapk.model.db.UserDao;
 import com.bonson.qqtapk.view.ui.area.SafeAreaViewModel;

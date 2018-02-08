@@ -15,8 +15,11 @@ import com.bonson.fjqqt.view.terminal.limit.LimitsActivity;
 import com.bonson.fjqqt.view.terminal.timer.TimerActivity;
 import com.bonson.fjqqt.view.terminal.timer.TimerModule;
 import com.bonson.qqtapk.di.ActivityScope;
+import com.bonson.qqtapk.di.RetrofitModule;
 import com.bonson.qqtapk.view.ui.login.LoginActivity;
 import com.bonson.qqtapk.view.ui.login.LoginModule;
+import com.bonson.qqtapk.view.ui.setting.about.AboutActivity;
+import com.bonson.qqtapk.view.ui.setting.about.AboutModule;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
@@ -54,4 +57,9 @@ public abstract class UIModule {
     @ActivityScope
     @ContributesAndroidInjector(modules = {SilenceModule.class, QQTRetrofitModule.class})
     abstract SilenceActivity lessonActivity();
+
+    @ActivityScope
+    @ContributesAndroidInjector(modules = {AboutModule.class, QQTRetrofitModule.class})
+    abstract AboutActivity aboutActivity();
+
 }

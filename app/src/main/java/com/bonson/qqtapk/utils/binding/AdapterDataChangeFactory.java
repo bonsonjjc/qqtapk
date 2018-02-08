@@ -37,7 +37,7 @@ public final class AdapterDataChangeFactory {
         this.adapter = adapter;
     }
 
-    public void attach(ObservableList list) {
+    public void attach(ObservableList<?> list) {
         if (list != null)
             list.addOnListChangedCallback(changedCallback);
     }

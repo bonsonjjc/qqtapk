@@ -5,10 +5,12 @@ import android.databinding.ObservableArrayList;
 import android.databinding.ObservableField;
 import android.databinding.ObservableList;
 
+import com.bonson.qqtapk.BR;
 import com.bonson.qqtapk.di.ActivityScope;
 import com.bonson.qqtapk.model.bean.Baby;
 import com.bonson.qqtapk.model.bean.Menu;
-import com.bonson.qqtapk.model.data.baby.BabyModel;
+import com.bonson.qqtapk.model.bean.User;
+import com.bonson.qqtapk.model.data.index.IndexModel;
 import com.bonson.qqtapk.viewmodel.UserViewModel;
 
 import javax.inject.Inject;
@@ -24,26 +26,34 @@ public class IndexViewModel extends UserViewModel {
     public final ObservableList<Menu> menus = new ObservableArrayList<>();
     public final ObservableList<Baby> babies = new ObservableArrayList<>();
     public final ObservableField<String> icon = new ObservableField<>();
+    public ObservableField<String> bid;
+    @Inject
+    IndexModel indexModel;
 
     @Inject
     MainViewModel viewModel;
-
-    @Inject
-    BabyModel babyServer;
 
     @Inject
     public IndexViewModel(Application application) {
         super(application);
     }
 
-    public void initMenu() {
-        menus.clear();
-        menus.addAll(MenuHelper.createMenu(baby().getFmenus(),baby().getFtag()));
+    @Override
+    public void onCreate() {
+        viewModel.device();
+        init();
+        babies();
     }
 
-    public void babies() {
+    private void init() {
+        bid.set(user().getBabyId());
         icon.set(baby().getFimg());
-        Disposable disposable = babyServer.getUserDao().babyList()
+        menus.clear();
+        menus.addAll(MenuHelper.createMenu(baby().getFmenus(), baby().getFtag()));
+    }
+
+    private void babies() {
+        Disposable disposable = getUserDao().babyList()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(it -> {
                     Baby baby = new Baby();
@@ -62,23 +72,29 @@ public class IndexViewModel extends UserViewModel {
             return;
         }
         view.load();
-//        Disposable disposable = babyServer.switchBaby(babies.get(index).getFid())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(it -> {
-//                    view.toast(it.getMsg());
-//                    if (it.getCode().equals("0")) {
-//                        Baby.baby = it.getBody();
-//                        icon.set(Baby.baby.getFimg());
-//                        device();
-//                    }
-//                }, e -> {
-//                    view.dismiss();
-//                    e.printStackTrace();
-//                });
-//        compositeDisposable.add(disposable);
+        Disposable disposable = indexModel.switchBaby(babies.get(index).getFid())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(it -> {
+                    if (it.getCode().equals("0")) {
+                        Baby baby = it.getBody();
+                        getUserDao().insertBaby(baby);
+                        setBaby(baby);
+                        User user = user();
+                        user.setBabyId(baby.getFid());
+                        getUserDao().update(user);
+                        init();
+                        notifyPropertyChanged(BR.baby);
+                        viewModel.device();
+                    }
+                }, e -> {
+                    view.dismiss();
+                    e.printStackTrace();
+                });
+        compositeDisposable.add(disposable);
     }
 
-    public void device() {
-        viewModel.device();
+    @Override
+    public void onResume() {
+        icon.set(baby().getFimg());
     }
 }

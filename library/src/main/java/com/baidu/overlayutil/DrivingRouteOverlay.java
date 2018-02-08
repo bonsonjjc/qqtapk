@@ -87,7 +87,7 @@ public class DrivingRouteOverlay extends OverlayManager {
       int stepNum = steps.size();
 
       List<LatLng> points = new ArrayList<LatLng>();
-      ArrayList<Integer> traffics = new ArrayList<Integer>();
+      ArrayList<Integer> traffics = new ArrayList<>();
       int totalTraffic = 0;
       for (int i = 0; i < stepNum; i++) {
         if (i == stepNum - 1) {
@@ -115,11 +115,7 @@ public class DrivingRouteOverlay extends OverlayManager {
       //                }
       //                indexList.putIntArray("indexs", raffic);
       //            }
-      boolean isDotLine = false;
-
-      if (traffics != null && traffics.size() > 0) {
-        isDotLine = true;
-      }
+      boolean isDotLine = traffics.isEmpty();
       PolylineOptions option = new PolylineOptions().points(points)
           .textureIndex(traffics)
           .width(7)

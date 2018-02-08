@@ -3,6 +3,7 @@ package com.bonson.qqtapk.view.widget;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.AppCompatTextView;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.widget.FrameLayout;
@@ -10,7 +11,7 @@ import android.widget.TextView;
 
 import com.bonson.library.utils.DensityUtils;
 
-public class VoiceView extends TextView {
+public class VoiceView extends AppCompatTextView {
     private VoiceView.OnListener onListener;
     private float downY;
     private int model = sendModel;
@@ -60,10 +61,6 @@ public class VoiceView extends TextView {
 
     public VoiceView(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-    }
-
-    public VoiceView(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
     }
 
     public final void send() {

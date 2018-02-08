@@ -7,6 +7,7 @@ import android.os.Bundle;
 import com.bonson.library.utils.DateUtils;
 import com.bonson.library.utils.LogUtils;
 import com.bonson.qqtapk.R;
+import com.bonson.qqtapk.app.Const;
 import com.bonson.qqtapk.app.Route;
 import com.bonson.qqtapk.databinding.ActivityInfoBinding;
 import com.bonson.qqtapk.model.bean.Area;
@@ -102,7 +103,10 @@ public class InfoActivity extends BaseDaggerActivity<ActivityInfoBinding> {
                     actionSheetDialog.show(getSupportFragmentManager(), "sex");
                     break;
                 case Type.change:
-                    start(Route.scan);
+                    Intent intent = new Intent();
+                    intent.setAction(Const.CHANGE_IMEI);
+                    intent.setClassName(this, Route.scan);
+                    startActivity(intent);
                     break;
             }
         });

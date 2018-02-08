@@ -64,6 +64,7 @@
         <activity android:name=".view.ui.center.message.MessageActivity" />
         <activity android:name=".view.ui.center.locmap.LocMapActivity" />
         <activity android:name=".view.ui.motion.MotionActivity" />
+        <activity android:name=".view.ui.motion.target.TargetActivity" />
 
 
         <activity android:name="com.bonson.fjqqt.view.route.RouteListActivity" />

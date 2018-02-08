@@ -5,6 +5,7 @@ import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
+import android.arch.persistence.room.Update;
 
 import com.bonson.qqtapk.model.bean.Baby;
 import com.bonson.qqtapk.model.bean.User;
@@ -25,6 +26,9 @@ public interface UserDao {
     @Query("select * from users")
     User user();
 
+    @Update
+    void update(User user);
+
     @Delete
     int deleteUser(User user);
 
@@ -42,6 +46,7 @@ public interface UserDao {
 
     @Query("select * from babys order by fid asc")
     Flowable<List<Baby>> babyList();
+
     @Query("select * from babys order by fid asc")
     List<Baby> babies();
 }

@@ -25,7 +25,7 @@ public class VoiceAdapter extends BaseAdapter<Voice, ViewDataBinding> {
     @Override
     public ViewHolder<ViewDataBinding> onCreateViewHolder(ViewGroup parent, int viewType) {
         ViewDataBinding binding = DataBindingUtil.inflate(inflater, viewType == 1 ? R.layout.item_voice_left : R.layout.item_voice_right, parent, false);
-        ViewHolder viewHolder = new ViewHolder(binding);
+        ViewHolder<ViewDataBinding> viewHolder = new ViewHolder<>(binding);
         return viewHolder;
     }
 

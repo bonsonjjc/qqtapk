@@ -29,11 +29,7 @@ public class TimePicker extends LinearLayout {
     }
 
     public TimePicker(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
-        this(context, attrs, defStyleAttr, 0);
-    }
-
-    public TimePicker(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
+        super(context, attrs, defStyleAttr);
         View view = View.inflate(context, R.layout.time_picker, this);
         npHour = view.findViewById(R.id.np_hour);
         npMinute = view.findViewById(R.id.np_minute);

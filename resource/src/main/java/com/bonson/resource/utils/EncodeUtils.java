@@ -1,5 +1,6 @@
 package com.bonson.resource.utils;
 
+import com.bonson.library.utils.LogUtils;
 import com.bonson.library.utils.security.Base64;
 import com.google.gson.Gson;
 
@@ -30,8 +31,8 @@ public class EncodeUtils {
         return decode;
     }
 
-    public static String encodeBase64ToString(String bytes) {
-        String encode = Base64.encode(bytes.getBytes());
+    public static String encodeBase64ToString(String str) {
+        String encode = Base64.encode(str.getBytes());
         return encode;
     }
 
@@ -40,8 +41,8 @@ public class EncodeUtils {
         return encode;
     }
 
-    public static String decodeBase64ToString(String bytes) {
-        byte[] decode = Base64.decode(bytes);
+    public static String decodeBase64ToString(String str) {
+        byte[] decode = Base64.decode(str);
         return new String(decode);
     }
 
@@ -49,19 +50,22 @@ public class EncodeUtils {
         return Base64.decodeString(new String(bytes));
     }
 
-    public static String encode(String bytes) {
-        return AesUtils.encodeBase64(bytes);
+    public static String encode(String str) {
+        LogUtils.e("加密前:" + str);
+        return AesUtils.encodeBase64(str);
     }
 
 
-    public static Gson gson=new Gson();
+    public static Gson gson = new Gson();
 
-    public static String encode(Object bytes) {
-        return AesUtils.encodeBase64(gson.toJson(bytes));
+    public static String encode(Object object) {
+        return encode(gson.toJson(object));
     }
 
-    public static String decode(String bytes) {
-        return AesUtils.decodeBase64(bytes);
+    public static String decode(String encode) {
+        String decode = AesUtils.decodeBase64(encode);
+        LogUtils.e("解码:" + decode);
+        return decode;
     }
 
 }

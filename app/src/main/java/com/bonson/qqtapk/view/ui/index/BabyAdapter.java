@@ -2,6 +2,8 @@ package com.bonson.qqtapk.view.ui.index;
 
 import android.content.Context;
 import android.databinding.DataBindingUtil;
+import android.databinding.Observable;
+import android.databinding.ObservableField;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -16,14 +18,17 @@ import java.util.List;
 import javax.inject.Inject;
 
 public class BabyAdapter extends BaseAdapter<Baby, ItemBabyBinding> {
-    private String bid;
+    public final ObservableField<String> bid = new ObservableField<>();
+
     @Inject
     public BabyAdapter(Context context) {
         super(context);
-    }
-
-    public void setBid(String bid) {
-        this.bid = bid;
+        bid.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
+            @Override
+            public void onPropertyChanged(Observable observable, int i) {
+                notifyDataSetChanged();
+            }
+        });
     }
 
     @Override
@@ -37,7 +42,7 @@ public class BabyAdapter extends BaseAdapter<Baby, ItemBabyBinding> {
         Baby baby = beans.get(position);
         ItemBabyBinding binding = holder.getBinding();
         binding.setBaby(baby);
-        binding.setIsCurrent(baby.getFid().equals(bid));
+        binding.setIsCurrent(baby.getFid().equals(bid.get()));
         binding.executePendingBindings();
         binding.getRoot().setOnClickListener((View v) -> {
             if (onItemClickListener != null) {

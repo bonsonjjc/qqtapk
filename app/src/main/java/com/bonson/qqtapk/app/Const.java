@@ -18,4 +18,5 @@ public class Const {
 
 
     public static final String IMEI_VALIDATE = "^\\d{15,18}$";
+    public static String CHANGE_IMEI = "com.bonson.action.change";
 }

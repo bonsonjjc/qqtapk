@@ -134,7 +134,7 @@ public class SwitchButton extends View {
 
                     if (e2.getX() > centerX) {
                         if (!knobState) {
-                            knobState = !knobState;
+                            knobState = true;
 
                             knobMoveAnimator.setFloatValues(knobMoveRate, 1.0F);
                             knobMoveAnimator.start();
@@ -144,7 +144,7 @@ public class SwitchButton extends View {
                         }
                     } else {
                         if (knobState) {
-                            knobState = !knobState;
+                            knobState = false;
 
                             knobMoveAnimator.setFloatValues(knobMoveRate, 0.0F);
                             knobMoveAnimator.start();
@@ -165,8 +165,6 @@ public class SwitchButton extends View {
 
     private int shadowSpace;
     private int outerStrokeWidth;
-
-    private Drawable shadowDrawable;
 
     private RectF knobBound;
     private float knobMaxExpandWidth;
@@ -240,7 +238,7 @@ public class SwitchButton extends View {
         gestureDetector = new GestureDetector(context, gestureListener);
         gestureDetector.setIsLongpressEnabled(false);
 
-        if (Build.VERSION.SDK_INT >= 11) {
+        if (Build.VERSION.SDK_INT >= 14) {
             setLayerType(View.LAYER_TYPE_SOFTWARE, null);
         }
 
@@ -259,7 +257,7 @@ public class SwitchButton extends View {
         knobMoveAnimator.setDuration(commonDuration);
         knobMoveAnimator.setInterpolator(new DecelerateInterpolator());
 
-        shadowDrawable = new ColorDrawable(Color.TRANSPARENT);
+        Drawable shadowDrawable = new ColorDrawable(Color.TRANSPARENT);
     }
 
     public void setOnCheckedChangeListener(OnCheckedChangeListener onCheckedChangeListener) {

@@ -34,7 +34,8 @@ public class PreferencesHelper {
     }
 
     public PreferencesHelper commit() {
-        editor.apply();
+        if (editor != null)
+            editor.apply();
         return this;
     }
 

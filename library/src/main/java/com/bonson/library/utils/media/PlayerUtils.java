@@ -48,13 +48,4 @@ public class PlayerUtils {
             }
         }
     }
-
-    private static PlayerUtils playerUtils;
-
-    public static PlayerUtils create(Context context) {
-        if (playerUtils == null) {
-            playerUtils = new PlayerUtils(context);
-        }
-        return playerUtils;
-    }
 }

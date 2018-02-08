@@ -3,6 +3,7 @@ package com.bonson.fjqqt.view.terminal.alarm;
 import com.bonson.library.utils.NumberUtils;
 
 import java.util.Calendar;
+import java.util.Locale;
 
 public class AlarmUtils {
     public static final String TODAY = "0";
@@ -28,7 +29,7 @@ public class AlarmUtils {
         Calendar calendar = Calendar.getInstance();
         int hour = calendar.get(Calendar.HOUR_OF_DAY);
         int minute = calendar.get(Calendar.MINUTE);
-        alarm.setFtimes(String.format("%02d:%02d", hour, minute));
+        alarm.setFtimes(String.format(Locale.CHINA,"%02d:%02d", hour, minute));
         return alarm;
     }
 

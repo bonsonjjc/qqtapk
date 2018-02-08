@@ -40,7 +40,6 @@ public class IndexActivity extends BaseDaggerActivity<ActivityIndexBinding> {
         binding.mapView.onCreate(this, savedInstanceState);
 
         binding.recBabyList.setAdapter(babyAdapter);
-        viewModel.babies();
         binding.drawerLayout.addDrawerListener(new DrawerLayout.SimpleDrawerListener() {
             @Override
             public void onDrawerSlide(View menu, float slideOffset) {
@@ -50,8 +49,6 @@ public class IndexActivity extends BaseDaggerActivity<ActivityIndexBinding> {
         });
 
         binding.recMenus.setAdapter(menuAdapter);
-        viewModel.initMenu();
-        babyAdapter.setBid(viewModel.user().getBabyId());
         babyAdapter.setOnItemClickListener((v) -> {
             toggle(Gravity.START);
             if (viewModel.babies.size() - 1 == v) {
@@ -60,13 +57,12 @@ public class IndexActivity extends BaseDaggerActivity<ActivityIndexBinding> {
             }
             viewModel.change(v);
         });
-
+        viewModel.bid = babyAdapter.bid;
         menuAdapter.setOnItemClickListener(v -> {
             toggle(Gravity.END);
             Menu menu = viewModel.menus.get(v);
             start(menu.getAction());
         });
-        viewModel.device();
     }
 
     public void icon(View view) {

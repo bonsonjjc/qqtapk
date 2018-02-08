@@ -17,7 +17,6 @@ public class AudioRecorderUtils {
     private String folderPath;
 
     private MediaRecorder mMediaRecorder;
-    private final String TAG = "fan";
     private static final int MAX_LENGTH = 1000 * 60 * 16;// 最大录音时长1000*60*10;
 
     private long startTime;
@@ -56,6 +55,7 @@ public class AudioRecorderUtils {
         /* ①Initial：实例化MediaRecorder对象 */
         if (mMediaRecorder == null)
             mMediaRecorder = new MediaRecorder();
+        String TAG = "fan";
         try {
             /* ②setAudioSource/setVedioSource */
             mMediaRecorder.setAudioSource(MediaRecorder.AudioSource.DEFAULT);// 设置麦克风

@@ -2,8 +2,6 @@ package com.bonson.qqtapk.view.ui.area;
 
 import com.bonson.qqtapk.di.ActivityScope;
 import com.bonson.qqtapk.model.data.ApiServer;
-import com.bonson.qqtapk.model.data.area.SafeAreaDataSource;
-import com.bonson.qqtapk.model.data.area.SafeAreaModel;
 import com.bonson.qqtapk.model.data.location.LocationModel;
 import com.bonson.qqtapk.model.data.location.LocationModelSource;
 import com.bonson.qqtapk.model.db.UserDao;

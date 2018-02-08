@@ -1,6 +1,5 @@
 package com.bonson.qqtapk.view.ui.setting.about;
 
-import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.view.View;
 
@@ -26,9 +25,7 @@ public class AboutActivity extends BaseDaggerActivity<ActivityAboutBinding> {
         setViewModel(viewModel);
 
         binding.toolbar.setTitle("关于我们");
-        binding.toolbar.getTvLeft().setOnClickListener(v -> {
-            finish();
-        });
+        binding.toolbar.getTvLeft().setOnClickListener(v -> finish());
     }
 
     public void itemClick(View view) {

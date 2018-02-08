@@ -167,6 +167,9 @@ public class InfoViewModel extends UserViewModel {
                 .subscribe(it -> {
                     view.dismiss();
                     view.toast(it.getMsg());
+                    if (it.getCode().equals("0")) {
+                        setBaby(baby);
+                    }
                 }, e -> {
                     view.dismiss();
                     view.toast("出错了");

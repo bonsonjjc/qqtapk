@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
   <data>
 
@@ -62,6 +63,9 @@
               android:layout_width="35dp"
               android:layout_height="35dp"
               android:layout_gravity="center_vertical|end"
+              android:border_color="@{@color/white}"
+              app:civ_border_overlay="false"
+              app:civ_border_width="2dp"
               android:url="@{viewModel.baby.fimg}"
               />
         </FrameLayout>

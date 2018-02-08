@@ -74,12 +74,19 @@ public class TimeDialog extends DialogFragment {
 
   private NumberPicker.Formatter hourFormatter = new NumberPicker.Formatter() {
     @Override public String format(int value) {
-      return String.format("%02d", value);
+      if (value >= 10) {
+        return value + "";
+      }
+      return "0" + value;
     }
   };
   private NumberPicker.Formatter minuteFormatter = new NumberPicker.Formatter() {
     @Override public String format(int value) {
-      return String.format("%02d", value * 5);
+      value=value*5;
+      if (value >= 10) {
+        return value + "";
+      }
+      return "0" + value;
     }
   };
 

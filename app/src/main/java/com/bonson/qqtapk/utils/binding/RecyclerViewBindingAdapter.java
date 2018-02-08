@@ -1,10 +1,6 @@
 package com.bonson.qqtapk.utils.binding;
 
 import android.databinding.BindingAdapter;
-import android.databinding.BindingConversion;
-import android.databinding.BindingMethod;
-import android.databinding.BindingMethods;
-import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 
@@ -36,6 +32,9 @@ import com.bonson.qqtapk.view.ui.member.MemberAdapter;
 import com.bonson.qqtapk.view.ui.index.MenuAdapter;
 import com.bonson.qqtapk.view.ui.motion.TableAdapter;
 import com.bonson.qqtapk.view.ui.motion.bean.Table;
+import com.bonson.qqtapk.view.ui.setting.map.CityAdapter;
+import com.bonson.qqtapk.view.ui.setting.map.DownloadAdapter;
+import com.bonson.qqtapk.view.ui.setting.map.OfflineMap;
 import com.bonson.qqtapk.view.ui.voice.VoiceAdapter;
 import com.bonson.qqtapk.view.ui.info.select.Select;
 import com.bonson.qqtapk.view.ui.info.select.SelectAdapter;
@@ -169,4 +168,26 @@ public class RecyclerViewBindingAdapter {
         recyclerView.setAdapter(adapter);
         adapter.setBeans(tables);
     }
+
+
+    @BindingAdapter("android:cities")
+    public static void setCities(RecyclerView recyclerView, List<OfflineMap> cities) {
+        CityAdapter adapter = (CityAdapter) recyclerView.getAdapter();
+        recyclerView.setAdapter(adapter);
+        adapter.setBeans(cities);
+    }
+
+    @BindingAdapter("android:downloads")
+    public static void setDownloads(RecyclerView recyclerView, List<OfflineMap> downloads) {
+        DownloadAdapter adapter = (DownloadAdapter) recyclerView.getAdapter();
+        recyclerView.setAdapter(adapter);
+        adapter.setBeans(downloads);
+    }
+//
+//    @BindingAdapter("android:downloads")
+//    public static void setDownloads(RecyclerView recyclerView, List<MKOLSearchRecord> downloads) {
+//        TableAdapter adapter = (TableAdapter) recyclerView.getAdapter();
+//        recyclerView.setAdapter(adapter);
+//        adapter.setBeans(downloads);
+//    }
 }

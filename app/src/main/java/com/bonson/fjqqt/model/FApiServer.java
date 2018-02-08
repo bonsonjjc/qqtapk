@@ -13,6 +13,7 @@ import com.bonson.qqtapk.model.bean.Limit;
 import com.bonson.qqtapk.model.bean.Location;
 import com.bonson.qqtapk.model.bean.SafeArea;
 import com.bonson.qqtapk.model.bean.UserBean;
+import com.bonson.qqtapk.view.ui.setting.about.About;
 
 import java.util.List;
 
@@ -73,4 +74,7 @@ public interface FApiServer {
     @FormUrlEncoded
     @POST("qqt3wap")
     Observable<List<Sms>> sms(@Field("data") String bean);
+    @FormUrlEncoded
+    @POST("qqt3wap")
+    Observable<List<About>> about(@Field("data") String bean);
 }

@@ -14,6 +14,8 @@ import com.bonson.qqtapk.model.bean.Baby;
 import com.bonson.qqtapk.view.ui.info.select.Select;
 import com.bonson.qqtapk.viewmodel.UserViewModel;
 
+import java.util.Locale;
+
 import javax.inject.Inject;
 
 @ActivityScope
@@ -84,7 +86,7 @@ public class AddAlarmViewModel extends UserViewModel {
         alarm.setFcycle(cycle);
         alarm.setFcontent(notifyType.get());
         alarm.setFtmobile(baby().getFtmobile());
-        alarm.setFtimes(String.format("%02d:%02d", hour.get(), minute.get()));
+        alarm.setFtimes(String.format(Locale.CHINA,"%02d:%02d", hour.get(), minute.get()));
         return alarm;
     }
 

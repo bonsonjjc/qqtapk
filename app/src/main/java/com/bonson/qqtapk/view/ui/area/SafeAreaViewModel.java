@@ -11,7 +11,6 @@ import com.baidu.mapapi.model.LatLng;
 import com.bonson.qqtapk.di.ActivityScope;
 import com.bonson.qqtapk.model.baidu.GeoCoderHelper;
 import com.bonson.qqtapk.model.bean.SafeArea;
-import com.bonson.qqtapk.model.data.area.SafeAreaDataSource;
 import com.bonson.library.utils.NumberUtils;
 import com.bonson.qqtapk.view.ui.index.LocationViewModel;
 import com.bonson.qqtapk.viewmodel.UserViewModel;

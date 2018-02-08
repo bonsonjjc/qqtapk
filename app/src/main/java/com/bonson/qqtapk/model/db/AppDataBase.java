@@ -5,6 +5,7 @@ import android.arch.persistence.room.Database;
 import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
+import android.os.Environment;
 import android.support.annotation.NonNull;
 
 import com.bonson.library.utils.FileUtils;
@@ -28,7 +29,7 @@ public abstract class AppDataBase extends RoomDatabase {
                 super.onCreate(db);
                 try {
                     InputStream inputStream = context.getAssets().open("db.db");
-                    String path = "/data/data/" + context.getPackageName() + "/databases/city.db";
+                    String path = Environment.getDataDirectory().getPath()+"/data/" + context.getPackageName() + "/databases/city.db";
                     FileUtils.copy(inputStream, path);
                 } catch (IOException e) {
                     e.printStackTrace();

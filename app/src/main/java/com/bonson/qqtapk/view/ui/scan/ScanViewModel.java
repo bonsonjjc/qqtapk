@@ -2,8 +2,6 @@ package com.bonson.qqtapk.view.ui.scan;
 
 import android.app.Application;
 
-import com.bonson.qqtapk.model.bean.Baby;
-import com.bonson.qqtapk.model.bean.User;
 import com.bonson.qqtapk.model.data.baby.BabyModel;
 import com.bonson.qqtapk.viewmodel.UserViewModel;
 
@@ -35,7 +33,7 @@ public class ScanViewModel extends UserViewModel {
                     if (it.getCode().equals("0")) {
                         getUserDao().insertBaby(it.getBody());
                         user().setBabyId(it.getBody().getFid());
-                        getUserDao().insertUer(user());
+                        getUserDao().update(user());
                     }
                 }, e -> {
                     view.dismiss();
@@ -59,6 +57,7 @@ public class ScanViewModel extends UserViewModel {
                     if (it.getCode().equals("0")) {
                         baby().setFimei(imei);
                         getUserDao().insertBaby(baby());
+                        view.back();
                     }
                 }, e -> {
                     view.dismiss();

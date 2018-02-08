@@ -42,6 +42,7 @@ public class ScanActivity extends BaseDaggerActivity<ActivityScanBinding> implem
     private boolean playBeep;
     private static final float BEEP_VOLUME = 0.10f;
     private boolean vibrate;
+    String action;
 
     /**
      * Called when the activity is first created.
@@ -63,6 +64,7 @@ public class ScanActivity extends BaseDaggerActivity<ActivityScanBinding> implem
         CameraManager.init(getApplication());
         hasSurface = false;
         inactivityTimer = new InactivityTimer(this);
+        action = getIntent().getAction();
     }
 
     public SurfaceView getSurfaceView() {
@@ -75,7 +77,11 @@ public class ScanActivity extends BaseDaggerActivity<ActivityScanBinding> implem
             toast("无法识别的二维码");
             return;
         }
-        viewModel.add(code);
+        if (Const.CHANGE_IMEI.equals(action)) {
+            viewModel.change(code);
+        } else {
+            viewModel.add(code);
+        }
     }
 
     @Override

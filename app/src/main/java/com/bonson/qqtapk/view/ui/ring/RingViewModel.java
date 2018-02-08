@@ -52,7 +52,7 @@ public class RingViewModel extends UserViewModel {
         callVolume.set(NumberUtils.parseInt(device.getFcvolume()));
         ring.set(Device.device.getFcaller());
         for (Select select : selects) {
-            if (ring.get().equals(select.getValue())) {
+            if (select.getValue().equals(ring.get())) {
                 ringTitle.set(select.getName());
                 select.setChecked(true);
                 notifyChange();

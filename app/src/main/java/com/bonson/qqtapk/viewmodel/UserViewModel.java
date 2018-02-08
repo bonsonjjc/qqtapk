@@ -21,8 +21,8 @@ import javax.inject.Inject;
 public class UserViewModel extends AndroidViewModel {
     @Inject
     UserDao userDao;
-    private User mUser;
-    private Baby mBaby;
+    private static User mUser;
+    private static Baby mBaby;
 
     public UserViewModel(@NonNull Application application) {
         super(application);
@@ -40,6 +40,10 @@ public class UserViewModel extends AndroidViewModel {
             mBaby = userDao.baby(user().getBabyId());
         }
         return mBaby;
+    }
+
+    public void setBaby(Baby baby) {
+        mBaby = baby;
     }
 
     public UserDao getUserDao() {

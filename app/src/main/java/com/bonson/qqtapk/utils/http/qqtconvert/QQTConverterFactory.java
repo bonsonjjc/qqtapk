@@ -21,14 +21,12 @@ public final class QQTConverterFactory extends Converter.Factory {
         this.gson = gson;
     }
 
-    @Nullable
     @Override
     public Converter<?, RequestBody> requestBodyConverter(Type type, Annotation[] parameterAnnotations, Annotation[] methodAnnotations, Retrofit retrofit) {
         TypeAdapter<?> adapter = gson.getAdapter(TypeToken.get(type));
         return new QQTRequestBodyConvert<>(gson, adapter);
     }
 
-    @Nullable
     @Override
     public Converter<ResponseBody, ?> responseBodyConverter(Type type, Annotation[] annotations, Retrofit retrofit) {
         return new QQTResponseBodyConvert<>(gson, TypeToken.get(type));

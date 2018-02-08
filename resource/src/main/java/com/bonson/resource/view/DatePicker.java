@@ -28,14 +28,21 @@ public class DatePicker extends LinearLayout {
     private NumberPicker.Formatter dayFormatter = new NumberPicker.Formatter() {
         @Override
         public String format(int value) {
-            return String.format("%02d", value);
+            if (value >= 10) {
+                return value + "";
+            }
+            return "0" + value;
         }
     };
 
     private NumberPicker.Formatter monthFormatter = new NumberPicker.Formatter() {
         @Override
         public String format(int value) {
-            return String.format("%02d", value + 1);
+            value++;
+            if (value >= 10) {
+                return value + "";
+            }
+            return "0" + value;
         }
     };
     private int minYear, maxYear;
@@ -49,11 +56,7 @@ public class DatePicker extends LinearLayout {
     }
 
     public DatePicker(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
-        this(context, attrs, defStyleAttr, 0);
-    }
-
-    public DatePicker(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
+        super(context, attrs, defStyleAttr);
         View view = View.inflate(context, R.layout.date_picker, this);
         npYear = view.findViewById(R.id.np_year);
         npMonth = view.findViewById(R.id.np_month);

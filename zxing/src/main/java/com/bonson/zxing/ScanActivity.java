@@ -68,12 +68,12 @@ public abstract class ScanActivity extends AppCompatActivity implements Callback
         decodeFormats = null;
         characterSet = null;
 
-        playBeep = true;
+        playBeep = false;
         Rect rect = new Rect();
         getViewfinderView().getDrawingRect(rect);
         AudioManager audioService = (AudioManager) getSystemService(AUDIO_SERVICE);
-        if (audioService.getRingerMode() != AudioManager.RINGER_MODE_NORMAL) {
-            playBeep = false;
+        if (audioService != null && audioService.getRingerMode() == AudioManager.RINGER_MODE_NORMAL) {
+            playBeep = true;
         }
         initBeepSound();
         vibrate = true;
@@ -170,7 +170,8 @@ public abstract class ScanActivity extends AppCompatActivity implements Callback
         }
         if (vibrate) {
             Vibrator vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
-            vibrator.vibrate(VIBRATE_DURATION);
+            if (null != vibrator)
+                vibrator.vibrate(VIBRATE_DURATION);
         }
     }
 
